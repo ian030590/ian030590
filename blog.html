@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>專業文章與專題 | 蔡泓恩 | 職能治療師</title>
+    <meta
+      name="description"
+      content="分享 AI 產品架構思維、視覺復健、職能治療與數位健康工具開發的深度臨床觀察與實務筆記。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:title" content="專業文章與專題｜蔡泓恩 職能治療師" />
+    <meta
+      property="og:description"
+      content="分享 AI 產品架構思維、視覺復健、職能治療與數位健康工具開發的深度臨床觀察與實務筆記。"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "name": "蔡泓恩",
+            "jobTitle": "職能治療師",
+            "email": "rainbowh9490@gmail.com",
+            "sameAs": ["https://github.com/ian030590"],
+            "knowsAbout": ["職能治療", "視覺復健", "數位健康", "AI產品架構"]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首頁",
+                "item": "/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "專業文章",
+                "item": "/blog"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="蔡泓恩的專業文章"
+      href="https://ian030590digital.blogspot.com/feeds/posts/default"
+    />
+    <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">蔡泓恩 | 職能治療師</a>
+        <nav class="nav-links" aria-label="主要導覽">
+          <a class="nav-link" href="/">首頁</a>
+          <a class="nav-link" href="/projects">開源專案</a>
+          <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
+          <a class="nav-link" href="/contact">聯絡我</a>
+          <a class="nav-link" href="/sponsor">贊助我</a>
+        </nav>
+        <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
+        <button
+          class="menu-button"
+          aria-label="開啟選單"
+          aria-expanded="false"
+        >
+          <span
+            class="animate-icon animate-icon--menu"
+            data-animate-icon="menu"
+            aria-hidden="true"
+          ></span>
+        </button>
+      </div>
+      <div class="mobile-panel">
+        <a href="/">首頁</a>
+        <a href="/projects">開源專案</a>
+        <a href="/blog" aria-current="page">專業文章</a>
+        <a href="/contact">聯絡我</a>
+        <a href="/sponsor">贊助我</a>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <div class="container">
+        <header class="blog-header">
+          <div class="section-kicker">Clinical & Tech Insights</div>
+          <h1 class="page-title">專業文章與技術洞察</h1>
+          <p class="page-intro">
+            結合職能治療臨床觀察、AI 產品架構思維與數位健康工具開發的深度實務筆記。
+          </p>
+        </header>
+
+        <div class="blog-layout">
+          <!-- Main Content: Articles Feed -->
+          <div class="blog-main-content">
+            <div id="filter-status-bar" class="filter-status-bar" style="display: none;">
+              <div class="filter-status-info">
+                <span class="filter-status-label">目前篩選：</span>
+                <span id="active-filter-name" class="filter-status-value">全部文章</span>
+                <span id="active-filter-count" class="filter-status-count">(13 篇)</span>
+              </div>
+              <button id="clear-filter-btn" class="clear-filter-btn" type="button" aria-label="清除篩選">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                清除篩選
+              </button>
+            </div>
+
+            <div id="article-content">
+              <div class="empty-state">
+                <span class="material-symbols-outlined spin-icon" aria-hidden="true">progress_activity</span>
+                <p>載入文章中，請稍候...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Sidebar: Search, Tags Filter & Subscriptions -->
+          <aside class="blog-sidebar" aria-label="文章分類與篩選">
+            <!-- Search Widget -->
+            <div class="sidebar-widget search-widget">
+              <label for="blog-search" class="widget-title">
+                <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                搜尋文章
+              </label>
+              <div class="search-input-wrap">
+                <input
+                  type="search"
+                  id="blog-search"
+                  placeholder="搜尋標題、內容或關鍵字..."
+                  aria-label="搜尋文章"
+                  autocomplete="off"
+                />
+                <button id="clear-search-btn" class="clear-search-btn" type="button" aria-label="清除搜尋" style="display: none;">
+                  <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Categories / Tags Filter Widget -->
+            <div class="sidebar-widget tags-widget">
+              <div class="widget-header">
+                <h2 class="widget-title">
+                  <span class="material-symbols-outlined" aria-hidden="true">label</span>
+                  主題標籤分類
+                </h2>
+                <span id="tags-count-badge" class="widget-badge">載入中</span>
+              </div>
+              <div id="tags-filter-list" class="tags-filter-list">
+                <!-- Tag buttons populated dynamically -->
+              </div>
+            </div>
+
+            <!-- About / RSS Widget -->
+            <div class="sidebar-widget info-widget">
+              <h2 class="widget-title">
+                <span class="material-symbols-outlined" aria-hidden="true">rss_feed</span>
+                專欄訂閱與來源
+              </h2>
+              <p class="widget-description">
+                文章同步刊登於 Blogger 數位學習日誌。歡迎透過 RSS / Atom 閱讀器訂閱最新文章。
+              </p>
+              <div class="widget-actions">
+                <a
+                  href="https://ian030590digital.blogspot.com/feeds/posts/default"
+                  target="_blank"
+                  rel="noopener"
+                  class="button-secondary widget-button"
+                >
+                  <span class="material-symbols-outlined" aria-hidden="true">rss_feed</span>
+                  RSS 訂閱來源
+                </a>
+                <a
+                  href="https://ian030590digital.blogspot.com"
+                  target="_blank"
+                  rel="noopener"
+                  class="button-secondary widget-button"
+                >
+                  <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+                  造訪 Blogger 原站
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">蔡泓恩 | 職能治療師</div>
+          <div class="footer-copy">
+            © <span data-year></span> Ian Tsai. 保留所有權利。
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="/">首頁</a><a href="/projects">專案</a
+          ><a href="/contact">聯絡</a><a href="/sponsor">贊助我</a>
+        </div>
+      </div>
+    </footer>
+    <script src="./js/animate-icons.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

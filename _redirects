@@ -1,0 +1,7 @@
+# Cloudflare Pages natively serves .html files at clean URLs (e.g. /projects -> projects.html).
+# Do NOT add rewrites for those here — it conflicts with the built-in 308 redirect and
+# causes ERR_TOO_MANY_REDIRECTS.
+#
+# Only define custom URL aliases that have no matching .html file:
+/resume /index.html 200
+/home   /index.html 200
