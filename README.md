@@ -31,7 +31,6 @@ Keywords: occupational therapy · clinical assessment · digital health · teler
 | 專案 | 做什麼 |
 |---|---|
 | [**RehabTrainerHub**](https://github.com/ian030590/RehabTrainerHub) | **居家訓練網 ([trainerhub.cc](https://trainerhub.cc))** — 整合動作（塔防/手勢/追蹤）、視覺（蓋伯斑塊/RSVP閱讀/哈特圖/眼動）、認知（UFOV/反應時間/高階推理）、口腔訓練的數位復能平台；具備 5 重安全隔離（獨立網域、嚴格 Iframe 沙盒、CSP 阻斷外連、MessageChannel 通訊、人工審核）與單一遊戲 PWA 安裝的 Steam 式 jsPsych 遊戲發布環境。 |
-| [**NTUHLowvision**](https://github.com/ian030590/NTUHLowvision) | **臺大醫院低視力收案與復能系統** — 整合初診、門診紀錄、視力驗光、視覺功能、功能視覺、輔具評估與復能追蹤等自動化表單與病歷檢索。 |
 
 ### 臨床工作流與研究助理 / Clinical Workflow & Research Utilities
 
