@@ -1,18 +1,204 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@600;700&family=Material+Symbols+Outlined:FILL@0..1&display=swap");
+/* ==========================================================================
+   Design System Tokens: Clinical Scale & Functional Mapping
+   Strict clinical discipline: only blue, white, slate, and black values.
+   ========================================================================== */
+
 :root {
-  --bg: #f7faff;
-  --surface: #fff;
-  --surface-soft: #edf4ff;
-  --ink: #0a1220;
-  --muted: #3d5068;
-  --line: #c7d9ee;
-  --primary: #064c86;
-  --primary-strong: #003864;
-  --accent: #0f6cbd;
-  --accent-soft: #deedff;
-  --dark: #071a33;
-  --shadow: 0 8px 24px rgba(0, 56, 100, 0.08);
+  /* --------------------------------------------------------------------------
+     1. Primitive HEX Scales
+     -------------------------------------------------------------------------- */
+  /* Clinical Slate Scale (Neutral / Structural Base) */
+  --slate-50: #f7faff;
+  --slate-100: #edf4fc;
+  --slate-200: #d5e4f5;
+  --slate-300: #c7d9ee;
+  --slate-400: #9bb3d1;
+  --slate-500: #7694b7;
+  --slate-600: #526e8e;
+  --slate-700: #3d5068;
+  --slate-800: #233348;
+  --slate-850: #142032;
+  --slate-900: #0e1726;
+  --slate-950: #0a1220;
+  --slate-990: #070d18;
+
+  /* Medical Blue Scale (Primary Action & Accent) */
+  --blue-50: #eff6ff;
+  --blue-100: #deedff;
+  --blue-200: #bedbfe;
+  --blue-300: #8ebff6;
+  --blue-400: #529deb;
+  --blue-500: #1d78d6;
+  --blue-600: #0f6cbd;
+  --blue-700: #064c86;
+  --blue-800: #003864;
+  --blue-900: #002646;
+  --blue-950: #00162b;
+
+  /* --------------------------------------------------------------------------
+     2. Functional / Semantic Tokens: Light Mode (Default)
+     Allocated following the 60:30:10 Rule
+     -------------------------------------------------------------------------- */
+  /* 60% Dominant Neutral (Canvas & Base Surfaces) */
+  --color-bg-canvas: var(--slate-50);
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-elevated: #ffffff;
+  --color-bg-surface-subtle: var(--slate-100);
+  --color-bg-header: rgba(255, 255, 255, 0.94);
+  --color-bg-placeholder: linear-gradient(135deg, #eaf2fb 0%, #d8e8f8 100%);
+  --color-bg-footer: var(--slate-950);
+  --color-text-footer: #e8f1ff;
+
+  /* 30% Secondary (Content Structure, Typography & Boundaries) */
+  --color-text-primary: var(--slate-950);
+  --color-text-secondary: var(--slate-700);
+  --color-text-muted: var(--slate-600);
+  --color-text-inverse: #ffffff;
+  --color-border-subtle: var(--slate-200);
+  --color-border-default: var(--slate-300);
+  --color-border-strong: var(--slate-500);
+
+  /* 10% Accent (Interactive Focus & Highlights) */
+  --color-action-primary-bg: var(--blue-700);
+  --color-action-primary-hover: var(--blue-800);
+  --color-action-primary-text: #ffffff;
+  --color-action-secondary-border: var(--blue-600);
+  --color-action-secondary-text: var(--blue-600);
+  --color-action-secondary-hover: var(--blue-100);
+  --color-link-default: var(--blue-600);
+  --color-link-hover: var(--blue-700);
+  --color-badge-bg: var(--blue-100);
+  --color-badge-text: var(--blue-800);
+  --color-focus-ring: var(--blue-600);
+  --color-focus-glow: rgba(15, 108, 189, 0.18);
+  --color-shadow: 0 8px 24px rgba(0, 56, 100, 0.08);
+  --color-shadow-hover: 0 16px 36px rgba(0, 56, 100, 0.12);
+
+  /* --------------------------------------------------------------------------
+     3. Backward-Compatible Component Aliases
+     -------------------------------------------------------------------------- */
+  --bg: var(--color-bg-canvas);
+  --surface: var(--color-bg-surface);
+  --surface-soft: var(--color-bg-surface-subtle);
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --line: var(--color-border-default);
+  --primary: var(--color-action-primary-bg);
+  --primary-strong: var(--color-action-primary-hover);
+  --accent: var(--color-link-default);
+  --accent-soft: var(--color-badge-bg);
+  --dark: var(--slate-950);
+  --shadow: var(--color-shadow);
   --radius: 14px;
+}
+
+/* ==========================================================================
+   Functional / Semantic Tokens: Dark Mode
+   60:30:10 Rule remapped for low-glare, calm clinical dark theme
+   ========================================================================== */
+:root[data-theme="dark"] {
+  /* 60% Dominant Neutral (Canvas & Base Surfaces) */
+  --color-bg-canvas: var(--slate-990);
+  --color-bg-surface: var(--slate-900);
+  --color-bg-surface-elevated: var(--slate-850);
+  --color-bg-surface-subtle: var(--slate-850);
+  --color-bg-header: rgba(14, 23, 38, 0.94);
+  --color-bg-placeholder: linear-gradient(135deg, var(--slate-850) 0%, var(--slate-800) 100%);
+  --color-bg-footer: var(--slate-990);
+  --color-text-footer: var(--slate-400);
+
+  /* 30% Secondary (Content Structure, Typography & Boundaries) */
+  --color-text-primary: var(--slate-50);
+  --color-text-secondary: var(--slate-400);
+  --color-text-muted: var(--slate-500);
+  --color-text-inverse: var(--slate-950);
+  --color-border-subtle: var(--slate-800);
+  --color-border-default: var(--slate-800);
+  --color-border-strong: var(--slate-600);
+
+  /* 10% Accent (Interactive Focus & Highlights) */
+  --color-action-primary-bg: var(--blue-600);
+  --color-action-primary-hover: var(--blue-500);
+  --color-action-primary-text: #ffffff;
+  --color-action-secondary-border: var(--blue-400);
+  --color-action-secondary-text: var(--blue-400);
+  --color-action-secondary-hover: var(--blue-900);
+  --color-link-default: var(--blue-400);
+  --color-link-hover: var(--blue-300);
+  --color-badge-bg: var(--blue-900);
+  --color-badge-text: var(--blue-300);
+  --color-focus-ring: var(--blue-400);
+  --color-focus-glow: rgba(82, 157, 235, 0.25);
+  --color-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --color-shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.6);
+
+  /* Legacy & Utility Aliases */
+  --bg: var(--color-bg-canvas);
+  --surface: var(--color-bg-surface);
+  --surface-soft: var(--color-bg-surface-subtle);
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --line: var(--color-border-default);
+  --primary: var(--color-action-primary-bg);
+  --primary-strong: var(--color-action-primary-hover);
+  --accent: var(--color-link-default);
+  --accent-soft: var(--color-badge-bg);
+  --dark: var(--slate-990);
+  --shadow: var(--color-shadow);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* 60% Dominant Neutral (Canvas & Base Surfaces) */
+    --color-bg-canvas: var(--slate-990);
+    --color-bg-surface: var(--slate-900);
+    --color-bg-surface-elevated: var(--slate-850);
+    --color-bg-surface-subtle: var(--slate-850);
+    --color-bg-header: rgba(14, 23, 38, 0.94);
+    --color-bg-placeholder: linear-gradient(135deg, var(--slate-850) 0%, var(--slate-800) 100%);
+    --color-bg-footer: var(--slate-990);
+    --color-text-footer: var(--slate-400);
+
+    /* 30% Secondary (Content Structure, Typography & Boundaries) */
+    --color-text-primary: var(--slate-50);
+    --color-text-secondary: var(--slate-400);
+    --color-text-muted: var(--slate-500);
+    --color-text-inverse: var(--slate-950);
+    --color-border-subtle: var(--slate-800);
+    --color-border-default: var(--slate-800);
+    --color-border-strong: var(--slate-600);
+
+    /* 10% Accent (Interactive Focus & Highlights) */
+    --color-action-primary-bg: var(--blue-600);
+    --color-action-primary-hover: var(--blue-500);
+    --color-action-primary-text: #ffffff;
+    --color-action-secondary-border: var(--blue-400);
+    --color-action-secondary-text: var(--blue-400);
+    --color-action-secondary-hover: var(--blue-900);
+    --color-link-default: var(--blue-400);
+    --color-link-hover: var(--blue-300);
+    --color-badge-bg: var(--blue-900);
+    --color-badge-text: var(--blue-300);
+    --color-focus-ring: var(--blue-400);
+    --color-focus-glow: rgba(82, 157, 235, 0.25);
+    --color-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    --color-shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.6);
+
+    /* Legacy & Utility Aliases */
+    --bg: var(--color-bg-canvas);
+    --surface: var(--color-bg-surface);
+    --surface-soft: var(--color-bg-surface-subtle);
+    --ink: var(--color-text-primary);
+    --muted: var(--color-text-secondary);
+    --line: var(--color-border-default);
+    --primary: var(--color-action-primary-bg);
+    --primary-strong: var(--color-action-primary-hover);
+    --accent: var(--color-link-default);
+    --accent-soft: var(--color-badge-bg);
+    --dark: var(--slate-990);
+    --shadow: var(--color-shadow);
+  }
 }
 * {
   box-sizing: border-box;
@@ -54,7 +240,7 @@ button {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(255, 255, 255, 0.94);
+  background: var(--color-bg-header);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
 }
@@ -97,7 +283,7 @@ button {
   gap: 8px;
   border: 0;
   background: var(--primary);
-  color: #fff;
+  color: var(--color-action-primary-text);
   padding: 11px 20px;
   border-radius: 9px;
   font-weight: 600;
@@ -131,6 +317,30 @@ button {
   background: none;
   color: var(--primary);
   padding: 8px;
+}
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  background: var(--accent-soft);
+  color: var(--primary);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.theme-toggle .material-symbols-outlined {
+  font-size: 20px;
 }
 .mobile-panel {
   display: none;
@@ -193,7 +403,8 @@ button {
   bottom: 18px;
   left: 18px;
   right: 18px;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--color-bg-surface-elevated);
+  box-shadow: var(--shadow);
   padding: 14px 16px;
   border-left: 3px solid var(--accent);
   font-size: 14px;
@@ -344,8 +555,8 @@ button {
   font-weight: 600;
 }
 .tag.blue {
-  background: #e5effb;
-  color: var(--primary);
+  background: var(--color-badge-bg);
+  color: var(--color-badge-text);
 }
 .project-footer {
   display: flex;
@@ -364,8 +575,8 @@ button {
 }
 
 .site-footer {
-  background: var(--dark);
-  color: #e8f1ff;
+  background: var(--color-bg-footer);
+  color: var(--color-text-footer);
   margin-top: auto;
   padding: 44px 0;
 }
@@ -382,11 +593,11 @@ button {
   display: flex;
   gap: 24px;
   flex-wrap: wrap;
-  color: #c7daef;
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 .footer-copy {
-  color: #a7c1dd;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 .panel {
@@ -418,7 +629,7 @@ button {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #f8fbff;
+  background: var(--color-bg-surface-subtle);
   padding: 11px 12px;
   color: var(--ink);
   outline: none;
@@ -431,7 +642,7 @@ button {
 .field textarea:focus,
 .field select:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(15, 108, 189, 0.14);
+  box-shadow: 0 0 0 3px var(--color-focus-glow);
 }
 .form-actions {
   display: flex;
@@ -473,6 +684,9 @@ button {
   .nav-links,
   .nav-cta {
     display: none;
+  }
+  .theme-toggle {
+    margin-left: auto;
   }
   .menu-button {
     display: block;
@@ -527,7 +741,7 @@ button {
   display: grid;
   place-items: center;
   background: var(--primary);
-  color: #fff;
+  color: var(--color-action-primary-text);
 }
 .github-mark .material-symbols-outlined {
   font-size: 40px;
@@ -536,6 +750,9 @@ button {
   .nav-links,
   .nav-cta {
     display: none;
+  }
+  .theme-toggle {
+    margin-left: auto;
   }
   .menu-button {
     display: block;
@@ -1143,8 +1360,8 @@ button {
 
 .project-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(0, 56, 100, 0.12);
-  border-color: #a3c4eb;
+  box-shadow: var(--color-shadow-hover);
+  border-color: var(--color-border-strong);
 }
 
 .card-link {
@@ -1166,8 +1383,6 @@ button {
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  margin-bottom: 0;
 }
 
 .project-visual img {
@@ -1183,7 +1398,7 @@ button {
 }
 
 .project-visual.no-image {
-  background: linear-gradient(135deg, #eaf2fb 0%, #d8e8f8 100%);
+  background: var(--color-bg-placeholder);
 }
 
 .project-visual-placeholder {
@@ -1205,7 +1420,7 @@ button {
   display: grid;
   place-items: center;
   background: var(--primary);
-  color: #fff;
+  color: var(--color-action-primary-text);
 }
 
 .project-visual-placeholder .github-mark .material-symbols-outlined {
@@ -1366,7 +1581,7 @@ button {
 }
 
 .clear-filter-btn:hover {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   color: var(--primary);
   border-color: var(--accent);
 }
@@ -1400,8 +1615,8 @@ button {
 
 .article-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(0, 56, 100, 0.12);
-  border-color: #a3c4eb;
+  box-shadow: var(--color-shadow-hover);
+  border-color: var(--color-border-strong);
 }
 
 .article-visual {
@@ -1429,7 +1644,7 @@ button {
 }
 
 .article-visual.no-image {
-  background: linear-gradient(135deg, #eaf2fb 0%, #d8e8f8 100%);
+  background: var(--color-bg-placeholder);
 }
 
 .article-visual-placeholder {
@@ -1452,9 +1667,9 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: rgba(6, 76, 134, 0.94);
+  background: var(--color-action-primary-bg);
   backdrop-filter: blur(4px);
-  color: #ffffff;
+  color: var(--color-action-primary-text);
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -1491,13 +1706,13 @@ button {
 }
 
 .card-tag-pill.blue {
-  background: #e5effb;
-  color: var(--primary);
+  background: var(--color-badge-bg);
+  color: var(--color-badge-text);
 }
 
 .card-tag-pill:hover {
   background: var(--primary);
-  color: #ffffff;
+  color: var(--color-action-primary-text);
   transform: translateY(-1px);
 }
 
@@ -1688,7 +1903,7 @@ button {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #f8fbff;
+  background: var(--color-bg-surface-subtle);
   padding: 10px 36px 10px 14px;
   font-size: 14px;
   color: var(--ink);
@@ -1698,8 +1913,8 @@ button {
 
 .search-input-wrap input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(15, 108, 189, 0.14);
-  background: #ffffff;
+  box-shadow: 0 0 0 3px var(--color-focus-glow);
+  background: var(--color-bg-surface);
 }
 
 .clear-search-btn {
@@ -1763,19 +1978,19 @@ button {
 .tag-filter-btn:hover {
   background: var(--accent-soft);
   color: var(--primary-strong);
-  border-color: #a5c6ee;
+  border-color: var(--color-border-strong);
 }
 
 .tag-filter-btn.active {
   background: var(--primary);
-  color: #ffffff;
+  color: var(--color-action-primary-text);
   border-color: var(--primary);
   font-weight: 600;
 }
 
 .tag-filter-btn.active .tag-count {
   background: rgba(255, 255, 255, 0.25);
-  color: #ffffff;
+  color: var(--color-action-primary-text);
 }
 
 .tag-count {
@@ -1784,8 +1999,8 @@ button {
   font-weight: 700;
   padding: 1px 6px;
   border-radius: 999px;
-  background: #d8e5f3;
-  color: var(--ink);
+  background: var(--color-border-subtle);
+  color: var(--color-text-secondary);
   font-variant-numeric: tabular-nums;
 }
 

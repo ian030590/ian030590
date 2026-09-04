@@ -58,6 +58,52 @@
       )
       .join("");
 
+  // Theme Management (Light / Dark Mode with System Preference Fallback)
+  const getInitialTheme = () => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || savedTheme === "light") {
+      return savedTheme;
+    }
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+
+  const applyTheme = (theme) => {
+    document.documentElement.setAttribute("data-theme", theme);
+    document.querySelectorAll(".theme-toggle").forEach((btn) => {
+      const darkIcon = btn.querySelector(".icon-dark");
+      const lightIcon = btn.querySelector(".icon-light");
+      if (darkIcon && lightIcon) {
+        darkIcon.style.display = theme === "dark" ? "none" : "inline-block";
+        lightIcon.style.display = theme === "dark" ? "inline-block" : "none";
+      }
+      btn.setAttribute("aria-label", theme === "dark" ? "切換至淺色模式" : "切換至深色模式");
+      btn.setAttribute("title", theme === "dark" ? "切換至淺色模式" : "切換至深色模式");
+    });
+  };
+
+  const initialTheme = getInitialTheme();
+  applyTheme(initialTheme);
+
+  document.querySelectorAll(".theme-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const currentTheme =
+        document.documentElement.getAttribute("data-theme") || getInitialTheme();
+      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+      localStorage.setItem("theme", nextTheme);
+      applyTheme(nextTheme);
+    });
+  });
+
+  if (window.matchMedia) {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+      if (!localStorage.getItem("theme")) {
+        applyTheme(e.matches ? "dark" : "light");
+      }
+    });
+  }
+
   document.querySelectorAll("[data-year]").forEach((node) => {
     node.textContent = new Date().getFullYear();
   });
