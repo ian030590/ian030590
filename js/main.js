@@ -2,7 +2,6 @@
   "use strict";
 
   const githubUser = "ian030590";
-  const bloggerJsonpCallback = "__handleBloggerFeed";
   const experience = [
     {
       period: "2025/1 至今",
@@ -446,7 +445,7 @@
                   </div>
                   <p class="article-excerpt">${escapeHtml(post.lead)}</p>
                   <div class="article-footer">
-                    <span class="source-kicker">Blogger</span>
+                    <span class="source-kicker">${escapeHtml(post.sourceName || "Blogger")}</span>
                     <span class="read-more-link">
                       閱讀全文
                       <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
@@ -559,115 +558,180 @@
       });
     }
 
-    let timeoutId = null;
-    const cleanup = () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-        timeoutId = null;
+    const blogSources = [
+      {
+        id: "4355302929541717814",
+        name: "職能治療日誌",
+        feedUrl: "https://www.blogger.com/feeds/4355302929541717814/posts/default",
+        siteUrl: "https://ian030590ot.blogspot.com",
+        defaultTags: ["職能治療", "臨床復健"],
+      },
+      {
+        id: "1728297252870027743",
+        name: "數位學習日誌",
+        feedUrl: "https://ian030590digital.blogspot.com/feeds/posts/default",
+        siteUrl: "https://ian030590digital.blogspot.com",
+        defaultTags: ["臨床筆記", "數位健康"],
+      },
+    ];
+
+    const parseEntry = (entry, source) => {
+      const html = entry.content?.$t || entry.summary?.$t || "";
+      const rawText = plainText(html);
+
+      // Title: direct title or fallback to <h1>/<h2>/<title> in HTML
+      const directTitle = (entry.title?.$t || "").trim();
+      let title = directTitle;
+      if (!title) {
+        const hMatch =
+          html.match(/<h[12][^>]*>([\s\S]*?)<\/h[12]>/i) ||
+          html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+        title = hMatch ? plainText(hMatch[1]) : "專業文章";
       }
-      delete window[bloggerJsonpCallback];
-      const script = document.getElementById("blogger-jsonp-script");
-      if (script) script.remove();
+
+      // Image
+      const mediaThumb = entry.media$thumbnail?.url;
+      const imageUrl = extractImage(html, mediaThumb);
+
+      // Excerpt / Lead
+      const lead = extractExcerpt(html);
+
+      // Tags: check Blogger categories, then HTML inline (視角/主題), then source defaults
+      let tags = (entry.category || [])
+        .map((c) => (c.term || "").trim())
+        .filter(Boolean);
+
+      if (!tags.length && html) {
+        const customTags = [];
+        const matches = html.matchAll(/(?:視角|主題)[：:]([^<]+)/g);
+        for (const m of matches) {
+          const t = plainText(m[1]).trim();
+          if (t && !customTags.includes(t)) {
+            customTags.push(t);
+          }
+        }
+        if (customTags.length) {
+          tags = customTags;
+        }
+      }
+
+      if (source.name === "職能治療日誌" && !tags.includes("職能治療")) {
+        tags.unshift("職能治療");
+      }
+
+      if (!tags.length) {
+        tags = source.defaultTags
+          ? [...source.defaultTags]
+          : ["臨床筆記", "專業文章"];
+      }
+
+      // Date
+      const dateObj = entry.published?.$t
+        ? new Date(entry.published.$t)
+        : null;
+      const dateString = dateObj
+        ? dateObj.toLocaleDateString("zh-TW", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+        : "";
+
+      // Read time
+      const readTime = extractReadingTime(html, rawText);
+
+      // Link
+      const link =
+        entry.link?.find((item) => item.rel === "alternate")?.href ||
+        source.siteUrl;
+
+      return {
+        id: entry.id?.$t || `${source.id}-${Math.random()}`,
+        title,
+        lead,
+        imageUrl,
+        tags,
+        dateObj,
+        dateString,
+        readTime,
+        link,
+        sourceName: source.name,
+      };
     };
 
-    window[bloggerJsonpCallback] = (feed) => {
-      cleanup();
-      const entries = feed?.feed?.entry || [];
-      if (!entries.length) {
-        articleContent.innerHTML =
-          '<div class="empty-state">目前尚無公開文章。</div>';
-        if (tagsFilterList) tagsFilterList.innerHTML = "";
-        return;
-      }
+    const fetchBloggerFeed = (source, timeoutMs = 10000) => {
+      return new Promise((resolve) => {
+        const cbName = `__handleBlogger_${source.id}_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        let timer = null;
 
-      const tagCounts = {};
+        const cleanup = () => {
+          if (timer) {
+            clearTimeout(timer);
+            timer = null;
+          }
+          try {
+            delete window[cbName];
+          } catch (_) {
+            window[cbName] = undefined;
+          }
+          const s = document.getElementById(`blogger-script-${source.id}`);
+          if (s) s.remove();
+        };
 
-      allPosts = entries.map((entry) => {
-        const html = entry.content?.$t || entry.summary?.$t || "";
-        const rawText = plainText(html);
+        timer = setTimeout(() => {
+          cleanup();
+          resolve([]);
+        }, timeoutMs);
 
-        // Title
-        const directTitle = (entry.title?.$t || "").trim();
-        let title = directTitle;
-        if (!title) {
-          const hMatch = html.match(/<h[12][^>]*>([\s\S]*?)<\/h[12]>/i);
-          title = hMatch ? plainText(hMatch[1]) : "專業文章";
+        window[cbName] = (feed) => {
+          cleanup();
+          const entries = feed?.feed?.entry || [];
+          const posts = entries.map((entry) => parseEntry(entry, source));
+          resolve(posts);
+        };
+
+        const script = document.createElement("script");
+        script.id = `blogger-script-${source.id}`;
+        script.src = `${source.feedUrl}?alt=json-in-script&callback=${cbName}&max-results=50`;
+        script.async = true;
+        script.onerror = () => {
+          cleanup();
+          resolve([]);
+        };
+
+        document.head.appendChild(script);
+      });
+    };
+
+    Promise.all(blogSources.map((source) => fetchBloggerFeed(source))).then(
+      (results) => {
+        allPosts = results.flat();
+        if (!allPosts.length) {
+          articleContent.innerHTML =
+            '<div class="empty-state">目前尚無公開文章或文章暫時無法載入，請稍候再試。</div>';
+          if (tagsFilterList) tagsFilterList.innerHTML = "";
+          return;
         }
 
-        // Image
-        const mediaThumb = entry.media$thumbnail?.url;
-        const imageUrl = extractImage(html, mediaThumb);
-
-        // Excerpt / Lead
-        const lead = extractExcerpt(html);
-
-        // Tags
-        let tags = (entry.category || [])
-          .map((c) => (c.term || "").trim())
-          .filter(Boolean);
-        if (!tags.length) {
-          tags = ["臨床筆記", "數位健康"];
-        }
-
-        tags.forEach((t) => {
-          tagCounts[t] = (tagCounts[t] || 0) + 1;
+        // Sort chronologically descending (newest first)
+        allPosts.sort((a, b) => {
+          const timeA = a.dateObj ? a.dateObj.getTime() : 0;
+          const timeB = b.dateObj ? b.dateObj.getTime() : 0;
+          return timeB - timeA;
         });
 
-        // Date
-        const dateObj = entry.published?.$t
-          ? new Date(entry.published.$t)
-          : null;
-        const dateString = dateObj
-          ? dateObj.toLocaleDateString("zh-TW", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            })
-          : "";
+        // Tally tag counts
+        const tagCounts = {};
+        allPosts.forEach((post) => {
+          post.tags.forEach((t) => {
+            tagCounts[t] = (tagCounts[t] || 0) + 1;
+          });
+        });
 
-        // Read time
-        const readTime = extractReadingTime(html, rawText);
-
-        // Link
-        const link =
-          entry.link?.find((item) => item.rel === "alternate")?.href ||
-          "https://ian030590digital.blogspot.com";
-
-        return {
-          id: entry.id?.$t,
-          title,
-          lead,
-          imageUrl,
-          tags,
-          dateObj,
-          dateString,
-          readTime,
-          link,
-        };
-      });
-
-      renderSidebarTags(tagCounts);
-      renderArticles();
-    };
-
-    const bloggerFeedUrl = `https://ian030590digital.blogspot.com/feeds/posts/default?alt=json-in-script&callback=${bloggerJsonpCallback}&max-results=50`;
-    const script = document.createElement("script");
-    script.id = "blogger-jsonp-script";
-    script.src = bloggerFeedUrl;
-    script.async = true;
-    script.onerror = () => {
-      cleanup();
-      articleContent.innerHTML =
-        '<div class="empty-state">文章暫時無法載入，請稍候再試。</div>';
-    };
-
-    timeoutId = setTimeout(() => {
-      cleanup();
-      articleContent.innerHTML =
-        '<div class="empty-state">載入超時，請重新整理頁面。</div>';
-    }, 10000);
-
-    document.head.appendChild(script);
+        renderSidebarTags(tagCounts);
+        renderArticles();
+      },
+    );
   }
 
   const contactForm = document.getElementById("contact-form");
