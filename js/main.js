@@ -639,13 +639,27 @@
 
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
+    document.querySelectorAll("[data-message-chip]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const messageBody = document.getElementById("message-body");
+        if (!messageBody) return;
+        const snippet = button.dataset.messageChip || "";
+        messageBody.value = messageBody.value
+          ? `${messageBody.value}\n${snippet}`
+          : snippet;
+        messageBody.focus();
+      });
+    });
+
     contactForm.addEventListener("submit", (event) => {
       event.preventDefault();
       const data = new FormData(contactForm);
       const subject = data.get("subject");
       const name = data.get("name");
+      const role = data.get("role");
+      const email = data.get("email");
       const body = data.get("body");
-      window.location.href = `mailto:rainbowh9490@gmail.com?subject=${encodeURIComponent(`[Website Contact] ${subject} - ${name}`)}&body=${encodeURIComponent(`From: ${name}\n\n${body}`)}`;
+      window.location.href = `mailto:rainbowh9490@gmail.com?subject=${encodeURIComponent(`[Website Contact] ${subject} - ${name}`)}&body=${encodeURIComponent(`From: ${name}\nRole: ${role}\nEmail: ${email}\n\n${body}`)}`;
     });
   }
 })();
