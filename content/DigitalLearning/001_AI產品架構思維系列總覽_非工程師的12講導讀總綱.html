@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講 | 蔡泓恩 職能治療師</title>
+    <meta name="description" content="寫代碼的門檻正在崩塌，但系統架構與資安邊界的認知門檻卻前所未有地提高。專為產品經理、創業者、商務決策者打造的科技新聞級系統架構指南。" />
+    <meta name="keywords" content="數位學習, dark_mode, light_mode, 非工程師的「AI 產品架構思維」12 講專題" />
+    <meta name="author" content="蔡泓恩 職能治療師" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://ian030590.github.io/content/DigitalLearning/001_AI%E7%94%A2%E5%93%81%E6%9E%B6%E6%A7%8B%E6%80%9D%E7%B6%AD%E7%B3%BB%E5%88%97%E7%B8%BD%E8%A6%BD_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%8412%E8%AC%9B%E5%B0%8E%E8%AE%80%E7%B8%BD%E7%B6%B1.html" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:site_name" content="蔡泓恩 | 職能治療師" />
+    <meta property="og:title" content="【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講 ｜ 蔡泓恩 職能治療師" />
+    <meta property="og:description" content="寫代碼的門檻正在崩塌，但系統架構與資安邊界的認知門檻卻前所未有地提高。專為產品經理、創業者、商務決策者打造的科技新聞級系統架構指南。" />
+    <meta property="og:url" content="https://ian030590.github.io/content/DigitalLearning/001_AI%E7%94%A2%E5%93%81%E6%9E%B6%E6%A7%8B%E6%80%9D%E7%B6%AD%E7%B3%BB%E5%88%97%E7%B8%BD%E8%A6%BD_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%8412%E8%AC%9B%E5%B0%8E%E8%AE%80%E7%B8%BD%E7%B6%B1.html" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="article:published_time" content="2026-04-10T08:00:00+08:00" />
+    <meta property="article:modified_time" content="2026-09-11T09:30:00+08:00" />
+    <meta property="article:author" content="https://ian030590.github.io/" />
+    <meta property="article:section" content="數位學習" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講 ｜ 蔡泓恩 職能治療師" />
+    <meta name="twitter:description" content="寫代碼的門檻正在崩塌，但系統架構與資安邊界的認知門檻卻前所未有地提高。專為產品經理、創業者、商務決策者打造的科技新聞級系統架構指南。" />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" />
+
+    <!-- Favicon & Stylesheet -->
+    <link rel="icon" type="image/svg+xml" href="../../icons/icon.svg" />
+    <link rel="stylesheet" href="../../css/style.css" />
+
+    <!-- Schema.org Article JSON-LD (E-E-A-T) -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "TechArticle",
+        "Article"
+      ],
+      "@id": "https://ian030590.github.io/content/DigitalLearning/001_AI%E7%94%A2%E5%93%81%E6%9E%B6%E6%A7%8B%E6%80%9D%E7%B6%AD%E7%B3%BB%E5%88%97%E7%B8%BD%E8%A6%BD_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%8412%E8%AC%9B%E5%B0%8E%E8%AE%80%E7%B8%BD%E7%B6%B1.html#article",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://ian030590.github.io/content/DigitalLearning/001_AI%E7%94%A2%E5%93%81%E6%9E%B6%E6%A7%8B%E6%80%9D%E7%B6%AD%E7%B3%BB%E5%88%97%E7%B8%BD%E8%A6%BD_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%8412%E8%AC%9B%E5%B0%8E%E8%AE%80%E7%B8%BD%E7%B6%B1.html"
+      },
+      "headline": "【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講",
+      "description": "寫代碼的門檻正在崩塌，但系統架構與資安邊界的認知門檻卻前所未有地提高。專為產品經理、創業者、商務決策者打造的科技新聞級系統架構指南。",
+      "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+      "datePublished": "2026-04-10T08:00:00+08:00",
+      "dateModified": "2026-09-11T09:30:00+08:00",
+      "inLanguage": "zh-TW",
+      "mainEntityOfPage": "https://ian030590.github.io/content/DigitalLearning/001_AI%E7%94%A2%E5%93%81%E6%9E%B6%E6%A7%8B%E6%80%9D%E7%B6%AD%E7%B3%BB%E5%88%97%E7%B8%BD%E8%A6%BD_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%8412%E8%AC%9B%E5%B0%8E%E8%AE%80%E7%B8%BD%E7%B6%B1.html",
+      "author": {
+        "@type": "Person",
+        "name": "蔡泓恩",
+        "alternateName": "Hung-En (Ian) Tsai",
+        "jobTitle": "職能治療師",
+        "url": "https://ian030590.github.io/",
+        "sameAs": [
+          "https://github.com/ian030590",
+          "https://trainerhub.cc"
+        ],
+        "knowsAbout": [
+          "職能治療",
+          "神經復健",
+          "視覺復健",
+          "低視力評估",
+          "數位醫療",
+          "AI系統架構"
+        ],
+        "alumniOf": "國立臺灣大學"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "蔡泓恩",
+        "url": "https://ian030590.github.io/"
+      },
+      "articleSection": "數位學習",
+      "keywords": [
+        "數位學習",
+        "dark_mode",
+        "light_mode",
+        "非工程師的「AI 產品架構思維」12 講專題"
+      ],
+      "citation": [
+        "Bommasani, R., Hudson, D. A., Adeli, E., et al. (2021). On the Opportunities and Risks of Foundation Models. Stanford Center for Research on Foundation Models.",
+        "Sculley, D., Holt, G., Golovin, D., et al. (2015). Hidden Technical Debt in Machine Learning Systems. Advances in Neural Information Processing Systems (NeurIPS)."
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首頁",
+          "item": "https://ian030590.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "專業文章",
+          "item": "https://ian030590.github.io/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "數位學習",
+          "item": "https://ian030590.github.io/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講",
+          "item": "https://ian030590.github.io/content/DigitalLearning/001_AI%E7%94%A2%E5%93%81%E6%9E%B6%E6%A7%8B%E6%80%9D%E7%B6%AD%E7%B3%BB%E5%88%97%E7%B8%BD%E8%A6%BD_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%8412%E8%AC%9B%E5%B0%8E%E8%AE%80%E7%B8%BD%E7%B6%B1.html"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">蔡泓恩 | 職能治療師</a>
+        <nav class="nav-links" aria-label="主要導覽">
+          <a class="nav-link" href="/">首頁</a>
+          <a class="nav-link" href="/projects">開源專案</a>
+          <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
+          <a class="nav-link" href="/contact">聯絡我</a>
+          <a class="nav-link" href="/sponsor">贊助我</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          aria-label="切換深色模式"
+          title="切換深色模式"
+        >
+          <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
+          <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
+        </button>
+        <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
+        <button
+          class="menu-button"
+          aria-label="開啟選單"
+          aria-expanded="false"
+        >
+          <span
+            class="animate-icon animate-icon--menu"
+            data-animate-icon="menu"
+            aria-hidden="true"
+          ></span>
+        </button>
+      </div>
+      <div class="mobile-panel">
+        <a href="/">首頁</a>
+        <a href="/projects">開源專案</a>
+        <a href="/blog" aria-current="page">專業文章</a>
+        <a href="/contact">聯絡我</a>
+        <a href="/sponsor">贊助我</a>
+      </div>
+    </header>
+
+    <main class="page-main article-page-layout">
+      <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb-trail" aria-label="文章路徑導覽">
+          <a href="/">首頁</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <a href="/blog">專業文章</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <a href="/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <span class="breadcrumb-current" aria-current="page">【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講</span>
+        </nav>
+
+        <article class="article-container">
+          <!-- Article Header -->
+          <header class="article-detail-header">
+            <div class="article-tag-badges">
+              <span class="article-badge">數位學習</span>
+              <span class="article-badge cluster-badge">非工程師的「AI 產品架構思維」12 講專題</span>
+            </div>
+            <h1 class="article-title">【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講</h1>
+            <div class="article-meta-row">
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">person</span>
+                蔡泓恩 職能治療師
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>
+                2026-04-10
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                約 5 分鐘閱讀
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+                AI 系統架構與工程實踐
+              </span>
+            </div>
+          </header>
+
+          <!-- Featured Banner Image -->
+          
+        <figure class="article-featured-figure">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" alt="【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講" class="article-featured-img" loading="lazy" />
+          <figcaption class="article-figcaption">現代軟體產品的競爭優勢在於系統規格與模組邊界的嚴謹設計（圖片來源：Unsplash 免費授權圖庫）</figcaption>
+        </figure>
+        
+
+          <!-- Executive Summary Callout Box -->
+          <div class="article-lead-box">
+            <div class="article-lead-box-title">
+              <span class="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+              專題重點摘要與核心洞察
+            </div>
+            <p>寫代碼的門檻正在崩塌，但系統架構與資安邊界的認知門檻卻前所未有地提高。專為產品經理、創業者、商務決策者打造的科技新聞級系統架構指南。</p>
+          </div>
+
+          <!-- Main Body Content -->
+          <div class="article-body-content">
+            <div class="news-article" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif; line-height: 1.85; color: #1e293b; font-size: 19px; max-width: 860px; margin: 0 auto; padding: 26px 22px; letter-spacing: 0.02em;">
+<div class="callout-box">
+<div style="font-size: 18px; font-weight: 700; color: #1e40af; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">[導讀重點精華]</div>
+<ul>
+<li>為什麼「會打字聊天」不等於「能做出商業級 AI 產品」？</li>
+<li>大語言模型（LLM）是統計機率引擎，而非無所不知的全能大腦。</li>
+<li>掌握前端、後端、RAG、Agent、資安與維運的系統架構，才是避開天價帳單與公關災難的關鍵。</li>
+</ul>
+</div>
+<p>在生成式 AI 狂飆的時代，各大媒體充斥著誘人的標語：「自然語言就是最新程式語言」、「不會寫代碼也能三天打造百萬估值 App」。</p>
+<p>無數熱血創業者與非技術經理人，滿懷希望地打開 ChatGPT、Cursor 或無程式碼平台，試圖組裝出自己的 AI 產品。然而，絕大多數人在上線後不到一週便面臨幻滅：模型時不時自信胡言、提示詞微調一次便全盤崩潰、駭客用一句話套光後台合約、月末更收到令人咋舌的 API 帳單。</p>
+<p>這些挫折並非因為你不懂 Python 語法，而是因為<strong>商業級軟體的成功，取決於「架構邊界」與「工程防護」的確定性，而非對模型能力的盲目想像</strong>。</p>
+<h2>一、為什麼這套專題能幫你省下大筆試錯學費？</h2>
+<p>傳統軟體開發如鋼筋水泥，模組之間界線分明且具高度確定性；但以大語言模型為核心的系統，底層卻建立在不可完全消除的機率取樣之上。正如史丹佛大學跨學科團隊在經典報告《On the Opportunities and Risks of Foundation Models》<sup><a href="https://doi.org/10.48550/arXiv.2108.07258" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[1]</a></sup> 中所指明的基礎模型脆弱性風險；以及 Google 傑出工程師 Sculley 等人（2015）在《Hidden Technical Debt in Machine Learning Systems》<sup><a href="https://proceedings.neurips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[2]</a></sup> 中所揭示的：大模型應用中 95% 的挑戰在於圍繞核心周邊的系統架構與防護管線。</p>
+<p>這套專題跳脫傳統教科書瑣碎的語法教學，直接採用<strong>頂尖科技新聞與系統工程思維</strong>，將複雜機制轉化為生動的生活化譬喻。每一講均嚴格奠基於頂級科學文獻（具 DOI 標識）與大師級技術演講，協助非工程師建立精準、穩健、足以抵抗黑天鵝事件的產品心智模型。</p>
+<h2>二、全系列 12 講專題架構導覽</h2>
+<div style="display: grid; grid-gap: 16px; margin: 24px 0;">
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 01 講 ｜ 心智模型</div>
+<div class="code-terminal-block">破除全能迷思！用「聘請頂尖實習生」的心態理解大型語言模型</div>
+<p>解析 Transformer 文字接龍本質與高維機率計算，建立非工程師的機率防護心態。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 02 講 ｜ 軟體骨架</div>
+<div class="code-terminal-block">非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？</div>
+<p>用米其林餐廳解構軟體四件套，嚴禁前端明文暴露 API Key 的破產防禦。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 03 講 ｜ 提示工程</div>
+<div class="code-terminal-block">別再盲目摸索提示詞！寫出工業級 Prompt 的標準作業程序（SOP）</div>
+<p>揭密思維鏈草稿紙效應，制定麥當勞四步合約與自動化提示詞編譯。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 04 講 ｜ 知識外掛</div>
+<div class="code-terminal-block">終結 AI 瞎掰！RAG 檢索增強生成如何打造專屬外掛大腦</div>
+<p>開卷考試哲學、向量資料庫原理，與防範注意力 U 型遺忘曲線的實戰指南。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 05 講 ｜ 智慧體行動</div>
+<div class="code-terminal-block">會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？</div>
+<p>ReAct 循環機制拆解，預防死迴圈爆炸與人類在環（HITL）紅線把關。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 06 講 ｜ 協同協定</div>
+<div class="code-terminal-block">一個好漢三個幫！多智慧體協作與 MCP 通用協定革命</div>
+<p>虛擬研發團隊 SOP、防範客套死鎖，以及 Anthropic MCP 大一統協定。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 07 講 ｜ 防翻車指南</div>
+<div class="code-terminal-block">「隨興編程」是效率革命還是維運災難？不懂代碼如何用 AI 開發工具不翻車？</div>
+<p>微軟代碼驗證隱性代價報告、規格書驅動開發（SPEC.md）與 Git 時光機。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 08 講 ｜ 資訊安全</div>
+<div class="code-terminal-block">一句話駭入資料庫！大模型時代的「提示詞注入」與資安防線</div>
+<p>指令與數據混淆缺陷、間接提示詞注入暗殺與 XML 標籤沙盒隔離防線。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 09 講 ｜ 安全護欄</div>
+<div class="code-terminal-block">給 AI 戴上安全韁繩！如何打造不說髒話、不洩漏個資的「防護欄」</div>
+<p>輸入輸出雙安檢門架構、PII 去識別化脫敏與 NVIDIA Colang 對話鐵軌。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 10 講 ｜ 量化評測</div>
+<div class="code-terminal-block">AI 是自賣自誇還是真的懂？量化評估與 LLM-as-a-Judge 的秘密</div>
+<p>拒絕隨機試錯，建立百題黃金測試集與校準三大模型裁判認知偏見。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 11 講 ｜ 成本與延遲</div>
+<div class="code-terminal-block">越多人用賠越慘？破解 AI 產品的「負毛利陷阱」與延遲控制</div>
+<p>史丹佛 FrugalGPT 模型階梯路由、Prompt Caching 高額折扣與串流消解焦慮。</p>
+</div>
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+<div style="color: #2563eb; font-size: 15px; font-weight: 700; margin-bottom: 6px;">第 12 講 ｜ 生命週期運維</div>
+<div class="code-terminal-block">發布不是結束！AI 產品上線後如何不生病、不擺爛的「長照指南」</div>
+<p>應對模型漂移鎖死固定版本號，搭建全鏈路可觀測性與使用者反饋資料飛輪。</p>
+</div>
+</div>
+<div class="callout-box">
+<div class="code-terminal-block">[閱讀建議與落地策略]</div>
+<p>
+      非技術人員可依目前所處之產品開發階段，選擇性切入閱讀：
+    </p>
+<ul>
+<li><strong>原型探索期</strong>：建議依序精讀第 01、02、07 講，建立穩固的架構認知並善用規格書防禦。</li>
+<li><strong>精準落地期</strong>：深入第 03、04、05、06 講，打通 Prompt 工程、RAG 檢索與 Agent 協同之實務閉環。</li>
+<li><strong>商業上線與規模化</strong>：務必落實第 08、09 講之資安護欄，並透過第 10、11、12 講掌控評測、成本與長期維運。</li>
+</ul>
+</div>
+</div>
+          </div>
+
+          <!-- Scientific References Section -->
+          
+        <section class="article-references" aria-label="參考文獻與實證指引">
+          <h2>參考文獻與實證指引 (References)</h2>
+          <ol>
+            <li><a href="https://doi.org/10.48550/arXiv.2108.07258" target="_blank" rel="noopener noreferrer">Bommasani, R., Hudson, D. A., Adeli, E., et al. (2021). On the Opportunities and Risks of Foundation Models. Stanford Center for Research on Foundation Models.</a></li>
+<li><a href="https://proceedings.neurips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html" target="_blank" rel="noopener noreferrer">Sculley, D., Holt, G., Golovin, D., et al. (2015). Hidden Technical Debt in Machine Learning Systems. Advances in Neural Information Processing Systems (NeurIPS).</a></li>
+          </ol>
+        </section>
+        
+
+
+          <!-- Topic Cluster Series Navigation -->
+          <nav class="topic-cluster-nav" aria-label="同系列主題專題叢集">
+            <div class="topic-cluster-header">
+              <div class="topic-cluster-title">
+                <span class="material-symbols-outlined" aria-hidden="true">auto_stories</span>
+                【主題叢集】非工程師的「AI 產品架構思維」12 講專題
+              </div>
+              <div class="topic-cluster-progress">
+                第 001 篇 / 全 13 篇
+              </div>
+            </div>
+            <ul class="topic-cluster-list">
+              
+        <li>
+          <a href="./001_AI產品架構思維系列總覽_非工程師的12講導讀總綱.html" class="topic-cluster-item active">
+            <span class="topic-cluster-item-num">001</span>
+            <span class="topic-cluster-item-title">【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講</span>
+            <span class="topic-cluster-item-current">目前閱讀中</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="./002_心智模型_破除全能迷思用聘請頂尖實習生的心態理解大型語言模型.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">002</span>
+            <span class="topic-cluster-item-title">破除全能迷思！用「聘請頂尖實習生」的心態理解大型語言模型</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./003_軟體骨架_非工程師的軟體樂高課前端後端API與資料庫到底在幹嘛.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">003</span>
+            <span class="topic-cluster-item-title">非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./004_提示工程_別再盲目摸索提示詞寫出工業級Prompt的標準作業程序.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">004</span>
+            <span class="topic-cluster-item-title">別再盲目摸索提示詞！從「隨機試錯」到「標準作業程序」</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./005_知識外掛_終結AI瞎掰RAG檢索增強生成如何打造專屬外掛大腦.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">005</span>
+            <span class="topic-cluster-item-title">給 AI 一個外掛大腦！為什麼 RAG 是企業防胡說八道的必修課？</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./006_智慧體行動_會思考還會動手自主AI智慧體是得力助手還是碎鈔機.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">006</span>
+            <span class="topic-cluster-item-title">會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./007_協同協定_一人開一間虛擬公司多智慧體協同與AI界TypeC接口MCP.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">007</span>
+            <span class="topic-cluster-item-title">一人開一間虛擬公司？多智慧體協同與 AI 界的「Type-C」接口（MCP）</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./008_防翻車指南_隨興編程是效率革命還是維運災難不懂代碼如何用AI開發工具不翻車.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">008</span>
+            <span class="topic-cluster-item-title">「隨興編程」是效率革命還是維運災難？不懂代碼如何用 AI 開發工具不翻車？</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./009_資訊安全_AI時代的駭客江湖一句話就能套出公司機密的提示詞注入攻擊.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">009</span>
+            <span class="topic-cluster-item-title">AI 時代的駭客江湖！一句話就能套出你公司機密的「提示詞注入攻擊」</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./010_安全護欄_給AI戴上安全韁繩如何打造不說髒話不洩漏個資的防護欄.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">010</span>
+            <span class="topic-cluster-item-title">給 AI 戴上安全韁繩！如何打造不說髒話、不洩漏個資的「防護欄」</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./011_量化評測_你的AI到底有多聰明別再看感覺讓AI當裁判的科學評測法.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">011</span>
+            <span class="topic-cluster-item-title">你的 AI 到底有多聰明？別再「看感覺」了，讓 AI 當裁判的科學評測法</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./012_成本與延遲_每聊一句都在燒錢破解AI產品的負毛利陷阱與延遲控制.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">012</span>
+            <span class="topic-cluster-item-title">每聊一句都在燒錢？AI 產品經理必看的省錢與提速秘密</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./013_生命週期運維_發布不是結束AI產品上線後如何不生病不擺爛的長照指南.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">013</span>
+            <span class="topic-cluster-item-title">發布不是結束！AI 產品上線後如何不生病、不擺爛的「長照指南」</span>
+            
+          </a>
+        </li>
+            </ul>
+          </nav>
+
+          <!-- Prev & Next Article Navigation -->
+          <div class="prev-next-nav">
+            <div class="prev-next-card" style="opacity: 0.5; cursor: default;">
+          <span class="prev-next-label">已是專題首篇</span>
+          <span class="prev-next-title">沒有上一篇了</span>
+        </div>
+            
+        <a href="./002_心智模型_破除全能迷思用聘請頂尖實習生的心態理解大型語言模型.html" class="prev-next-card" style="text-align: right; align-items: flex-end;">
+          <span class="prev-next-label">
+            下一篇（第 002 講）
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+          </span>
+          <span class="prev-next-title">破除全能迷思！用「聘請頂尖實習生」的心態理解大型語言模型</span>
+        </a>
+          </div>
+
+          <!-- Back to Blog Navigation -->
+          <div class="article-bottom-actions">
+            <a href="/blog" class="button-secondary">
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+              返回所有專業專題列表
+            </a>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">蔡泓恩 | 職能治療師</div>
+          <div class="footer-copy">
+            © <span data-year></span> Ian Tsai. 保留所有權利。
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="/">首頁</a>
+          <a href="/projects">專案</a>
+          <a href="/blog">專業文章</a>
+          <a href="/contact">聯絡</a>
+          <a href="/sponsor">贊助我</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../js/animate-icons.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

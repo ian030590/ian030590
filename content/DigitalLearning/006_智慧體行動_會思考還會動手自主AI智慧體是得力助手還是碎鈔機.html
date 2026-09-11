@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？ | 蔡泓恩 職能治療師</title>
+    <meta name="description" content="當模型從純文本對話跨入工具調用（Tool Use），如何透過 ReAct 思考循環駕馭任務？非工程師必設的步數熔斷與人類簽核防線。" />
+    <meta name="keywords" content="數位學習, dark_mode, light_mode, 非工程師的「AI 產品架構思維」12 講專題" />
+    <meta name="author" content="蔡泓恩 職能治療師" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://ian030590.github.io/content/DigitalLearning/006_%E6%99%BA%E6%85%A7%E9%AB%94%E8%A1%8C%E5%8B%95_%E6%9C%83%E6%80%9D%E8%80%83%E9%82%84%E6%9C%83%E5%8B%95%E6%89%8B%E8%87%AA%E4%B8%BBAI%E6%99%BA%E6%85%A7%E9%AB%94%E6%98%AF%E5%BE%97%E5%8A%9B%E5%8A%A9%E6%89%8B%E9%82%84%E6%98%AF%E7%A2%8E%E9%88%94%E6%A9%9F.html" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:site_name" content="蔡泓恩 | 職能治療師" />
+    <meta property="og:title" content="會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？ ｜ 蔡泓恩 職能治療師" />
+    <meta property="og:description" content="當模型從純文本對話跨入工具調用（Tool Use），如何透過 ReAct 思考循環駕馭任務？非工程師必設的步數熔斷與人類簽核防線。" />
+    <meta property="og:url" content="https://ian030590.github.io/content/DigitalLearning/006_%E6%99%BA%E6%85%A7%E9%AB%94%E8%A1%8C%E5%8B%95_%E6%9C%83%E6%80%9D%E8%80%83%E9%82%84%E6%9C%83%E5%8B%95%E6%89%8B%E8%87%AA%E4%B8%BBAI%E6%99%BA%E6%85%A7%E9%AB%94%E6%98%AF%E5%BE%97%E5%8A%9B%E5%8A%A9%E6%89%8B%E9%82%84%E6%98%AF%E7%A2%8E%E9%88%94%E6%A9%9F.html" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="article:published_time" content="2026-04-20T08:00:00+08:00" />
+    <meta property="article:modified_time" content="2026-09-11T09:30:00+08:00" />
+    <meta property="article:author" content="https://ian030590.github.io/" />
+    <meta property="article:section" content="數位學習" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？ ｜ 蔡泓恩 職能治療師" />
+    <meta name="twitter:description" content="當模型從純文本對話跨入工具調用（Tool Use），如何透過 ReAct 思考循環駕馭任務？非工程師必設的步數熔斷與人類簽核防線。" />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80" />
+
+    <!-- Favicon & Stylesheet -->
+    <link rel="icon" type="image/svg+xml" href="../../icons/icon.svg" />
+    <link rel="stylesheet" href="../../css/style.css" />
+
+    <!-- Schema.org Article JSON-LD (E-E-A-T) -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "TechArticle",
+        "Article"
+      ],
+      "@id": "https://ian030590.github.io/content/DigitalLearning/006_%E6%99%BA%E6%85%A7%E9%AB%94%E8%A1%8C%E5%8B%95_%E6%9C%83%E6%80%9D%E8%80%83%E9%82%84%E6%9C%83%E5%8B%95%E6%89%8B%E8%87%AA%E4%B8%BBAI%E6%99%BA%E6%85%A7%E9%AB%94%E6%98%AF%E5%BE%97%E5%8A%9B%E5%8A%A9%E6%89%8B%E9%82%84%E6%98%AF%E7%A2%8E%E9%88%94%E6%A9%9F.html#article",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://ian030590.github.io/content/DigitalLearning/006_%E6%99%BA%E6%85%A7%E9%AB%94%E8%A1%8C%E5%8B%95_%E6%9C%83%E6%80%9D%E8%80%83%E9%82%84%E6%9C%83%E5%8B%95%E6%89%8B%E8%87%AA%E4%B8%BBAI%E6%99%BA%E6%85%A7%E9%AB%94%E6%98%AF%E5%BE%97%E5%8A%9B%E5%8A%A9%E6%89%8B%E9%82%84%E6%98%AF%E7%A2%8E%E9%88%94%E6%A9%9F.html"
+      },
+      "headline": "會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？",
+      "description": "當模型從純文本對話跨入工具調用（Tool Use），如何透過 ReAct 思考循環駕馭任務？非工程師必設的步數熔斷與人類簽核防線。",
+      "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80",
+      "datePublished": "2026-04-20T08:00:00+08:00",
+      "dateModified": "2026-09-11T09:30:00+08:00",
+      "inLanguage": "zh-TW",
+      "mainEntityOfPage": "https://ian030590.github.io/content/DigitalLearning/006_%E6%99%BA%E6%85%A7%E9%AB%94%E8%A1%8C%E5%8B%95_%E6%9C%83%E6%80%9D%E8%80%83%E9%82%84%E6%9C%83%E5%8B%95%E6%89%8B%E8%87%AA%E4%B8%BBAI%E6%99%BA%E6%85%A7%E9%AB%94%E6%98%AF%E5%BE%97%E5%8A%9B%E5%8A%A9%E6%89%8B%E9%82%84%E6%98%AF%E7%A2%8E%E9%88%94%E6%A9%9F.html",
+      "author": {
+        "@type": "Person",
+        "name": "蔡泓恩",
+        "alternateName": "Hung-En (Ian) Tsai",
+        "jobTitle": "職能治療師",
+        "url": "https://ian030590.github.io/",
+        "sameAs": [
+          "https://github.com/ian030590",
+          "https://trainerhub.cc"
+        ],
+        "knowsAbout": [
+          "職能治療",
+          "神經復健",
+          "視覺復健",
+          "低視力評估",
+          "數位醫療",
+          "AI系統架構"
+        ],
+        "alumniOf": "國立臺灣大學"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "蔡泓恩",
+        "url": "https://ian030590.github.io/"
+      },
+      "articleSection": "數位學習",
+      "keywords": [
+        "數位學習",
+        "dark_mode",
+        "light_mode",
+        "非工程師的「AI 產品架構思維」12 講專題"
+      ],
+      "citation": [
+        "Yao, S., Zhao, J., Yu, D., et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. International Conference on Learning Representations (ICLR).",
+        "Shinn, N., Cassano, F., Gopinath, A., et al. (2023). Reflexion: Language Agents with Verbal Reinforcement Learning. Advances in Neural Information Processing Systems (NeurIPS).",
+        "Schick, T., Dwivedi-Yu, J., Dessì, R., et al. (2023). Toolformer: Language Models Can Teach Themselves to Use Tools. Advances in Neural Information Processing Systems (NeurIPS).",
+        "Xi, Z., Chen, W., Guo, X., et al. (2023). The Rise and Potential of Large Language Model Based Agents: A Survey. arXiv preprint.",
+        "Andrew Ng (2024). What's next for AI agentic workflows. Sequoia Capital."
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首頁",
+          "item": "https://ian030590.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "專業文章",
+          "item": "https://ian030590.github.io/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "數位學習",
+          "item": "https://ian030590.github.io/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？",
+          "item": "https://ian030590.github.io/content/DigitalLearning/006_%E6%99%BA%E6%85%A7%E9%AB%94%E8%A1%8C%E5%8B%95_%E6%9C%83%E6%80%9D%E8%80%83%E9%82%84%E6%9C%83%E5%8B%95%E6%89%8B%E8%87%AA%E4%B8%BBAI%E6%99%BA%E6%85%A7%E9%AB%94%E6%98%AF%E5%BE%97%E5%8A%9B%E5%8A%A9%E6%89%8B%E9%82%84%E6%98%AF%E7%A2%8E%E9%88%94%E6%A9%9F.html"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">蔡泓恩 | 職能治療師</a>
+        <nav class="nav-links" aria-label="主要導覽">
+          <a class="nav-link" href="/">首頁</a>
+          <a class="nav-link" href="/projects">開源專案</a>
+          <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
+          <a class="nav-link" href="/contact">聯絡我</a>
+          <a class="nav-link" href="/sponsor">贊助我</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          aria-label="切換深色模式"
+          title="切換深色模式"
+        >
+          <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
+          <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
+        </button>
+        <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
+        <button
+          class="menu-button"
+          aria-label="開啟選單"
+          aria-expanded="false"
+        >
+          <span
+            class="animate-icon animate-icon--menu"
+            data-animate-icon="menu"
+            aria-hidden="true"
+          ></span>
+        </button>
+      </div>
+      <div class="mobile-panel">
+        <a href="/">首頁</a>
+        <a href="/projects">開源專案</a>
+        <a href="/blog" aria-current="page">專業文章</a>
+        <a href="/contact">聯絡我</a>
+        <a href="/sponsor">贊助我</a>
+      </div>
+    </header>
+
+    <main class="page-main article-page-layout">
+      <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb-trail" aria-label="文章路徑導覽">
+          <a href="/">首頁</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <a href="/blog">專業文章</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <a href="/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <span class="breadcrumb-current" aria-current="page">會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？</span>
+        </nav>
+
+        <article class="article-container">
+          <!-- Article Header -->
+          <header class="article-detail-header">
+            <div class="article-tag-badges">
+              <span class="article-badge">數位學習</span>
+              <span class="article-badge cluster-badge">非工程師的「AI 產品架構思維」12 講專題</span>
+            </div>
+            <h1 class="article-title">會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？</h1>
+            <div class="article-meta-row">
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">person</span>
+                蔡泓恩 職能治療師
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>
+                2026-04-20
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                約 5 分鐘閱讀
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+                AI 系統架構與工程實踐
+              </span>
+            </div>
+          </header>
+
+          <!-- Featured Banner Image -->
+          
+        <figure class="article-featured-figure">
+          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80" alt="會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？" class="article-featured-img" loading="lazy" />
+          <figcaption class="article-figcaption">AI 智慧體具備主動感知環境、調用外部工具與執行多步目標的能力（圖片來源：Unsplash 免費授權圖庫）</figcaption>
+        </figure>
+        
+
+          <!-- Executive Summary Callout Box -->
+          <div class="article-lead-box">
+            <div class="article-lead-box-title">
+              <span class="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+              專題重點摘要與核心洞察
+            </div>
+            <p>當模型從純文本對話跨入工具調用（Tool Use），如何透過 ReAct 思考循環駕馭任務？非工程師必設的步數熔斷與人類簽核防線。</p>
+          </div>
+
+          <!-- Main Body Content -->
+          <div class="article-body-content">
+            <div class="news-article" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif; line-height: 1.85; color: #1e293b; font-size: 19px; max-width: 860px; margin: 0 auto; padding: 26px 22px; letter-spacing: 0.02em;">
+<div class="callout-box">
+<div style="font-size: 18px; font-weight: 700; color: #1e40af; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">[導讀重點精華]</div>
+<ul>
+<li>什麼是 ReAct 模式？AI 如何透過「思考-行動-觀察」的三步循環完成複雜任務。</li>
+<li>災難防範：若無設計終止條件，工具報錯將導致模型陷入無限死迴圈、瞬間刷爆帳單。</li>
+<li>兩大安全保險：硬性步數預算（Max Steps）與高風險操作的「人類在環（HITL）」簽核。</li>
+</ul>
+</div>
+<p>在過去，大語言模型多半扮演「動口不動手」的純諮詢顧問；而近年席捲科技界的 <strong>AI 智慧體（AI Agent）</strong>，則是為這位顧問配備了雙手雙腳，使其能主動點擊計算機、查詢資料庫、寄送電子郵件甚至操作軟體。復旦大學 Xi 等人（2023）在權威綜述《The Rise and Potential of Large Language Model Based Agents: A Survey》<sup><a href="https://doi.org/10.48550/arXiv.2309.07864" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[4]</a></sup> 中系統化梳理了智慧體的架構：由核心語言大腦統籌規劃（Planning）、短期與長期記憶（Memory）、以及外部工具執行模組（Action）。</p>
+<p>知名人工智慧學者吳恩達（Andrew Ng）在紅杉資本的經典演講《What's next for AI agentic workflows》<sup><a href="https://www.youtube.com/watch?v=sal78ACtGTc" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[5]</a></sup> 中公開指出：透過具備迭代反思與工具調用能力的「智慧體工作流（Agentic Workflows）」，現有模型的實際任務達成率甚至能超越未經迭代的下一代旗艦模型。然而，賦予模型外部執行權力的同時，也帶來了嚴重的資源失控風險。</p>
+<h2>一、ReAct 架構與自主工具調用</h2>
+<p>普林斯頓大學 Yao 等人於 2023 年在 ICLR 發表了奠基研究《ReAct: Synergizing Reasoning and Acting in Language Models》<sup><a href="https://doi.org/10.48550/arXiv.2210.03629" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[1]</a></sup>，將人類解決問題的思維機制形式化為「思考-行動-觀察（Thought-Action-Observation）」閉環。同時，Meta FAIR 實驗室 Schick 等人（2023）在 NeurIPS 發表的代表性成果《Toolformer: Language Models Can Teach Themselves to Use Tools》<sup><a href="https://doi.org/10.48550/arXiv.2302.04761" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[3]</a></sup> 證實：模型能夠自我學習在何時插入 API 呼叫，自主利用外部計算機與即時資料庫補足自身知識盲點。</p>
+<div class="callout-box">
+    用戶目標: "若庫存低於 10 箱，自動通知供貨商補貨 50 箱"<br/><br/>
+    [第 1 輪思考行動]<br/>
+    ├─ 思考 (Thought): 我需要先檢查當前庫存量。<br/>
+    ├─ 行動 (Action): 調用工具 get_stock(sku="SKU-882")<br/>
+    └─ 觀察 (Observation): 外部資料庫返回 "庫存剩餘 4 箱"<br/><br/>
+    [第 2 輪思考行動]<br/>
+    ├─ 思考 (Thought): 4 箱低於閥值 10 箱，我必須草擬補貨郵件並發送。<br/>
+    ├─ 行動 (Action): 調用工具 send_email(to="supplier@corp", qty=50)<br/>
+    └─ 觀察 (Observation): 外部郵件服務返回 "傳送成功，郵件ID #904"<br/><br/>
+    [目標達成] ──&gt; 生成最終總結回覆給用戶。
+  </div>
+<h2>二、踩雷現場：恐怖的「無限死迴圈」碎鈔機</h2>
+<p>智慧體看似強大，但若缺乏工程約束，現實中的反模式往往極具破壞力：</p>
+<p>假設某自動化帳務 Agent 嘗試呼叫銀行 API 查帳，適逢銀行系統凌晨維護，回傳了 <code>HTTP 500: Server Busy</code> 錯誤碼。在缺乏重試上限約束的系統中，Agent 的思考鏈條可能持續自我強化：「查詢失敗，我應當再次嘗試」——進而在數小時內連續發起數萬次呼叫。每一次重試均夾帶龐大的上下文 Token，隔日醒來信用卡帳單早已被刷爆數千美元。</p>
+<p>為打破這種死循環，東北大學與 MIT 團隊 Shinn 等人（2023）在 NeurIPS 提出了著名的《Reflexion: Language Agents with Verbal Reinforcement Learning》<sup><a href="https://doi.org/10.48550/arXiv.2303.11366" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[2]</a></sup> 架構：賦予 Agent 在遭遇挫敗時撰寫「自我語意反思評估」的能力，主動識別當前策略無效並切換替代工具，而非機械式無限重試。</p>
+<h2>三、非工程師必備的兩道安全保險鎖</h2>
+<div style="font-size: 20px; font-weight: 700; color: #1e40af; margin: 30px 0 12px 0; line-height: 1.45;">① 步數預算與熔斷機制（Step Budget &amp; Circuit Breaker）</div>
+<p>任何單一使用者任務，其 ReAct 循環必須被硬性限制在固定步數內（如最多 5 步）。一旦達到上限而任務尚未達成，系統必須強制熔斷並主動發送警報，杜絕死迴圈帶來的財務風險。</p>
+<div style="font-size: 20px; font-weight: 700; color: #1e40af; margin: 30px 0 12px 0; line-height: 1.45;">② 工具危險等級劃分與人類在環（HITL）</div>
+<p>將 Agent 擁有的工具劃分為兩大權限等級：</p>
+<ul>
+<li><strong>唯讀工具（綠燈免簽）</strong>：搜尋引擎、查閱內部規章、計算匯率等無破壞性行為，允許模型自主調用。</li>
+<li><strong>破壞性工具（紅燈簽核）</strong>：轉帳扣款、刪除資料、寄發正式商務合約等不可逆操作，<strong>系統必須暫停並在前端彈出確認視窗</strong>。唯有經過人類管理員點擊「核准」，動作方可真正執行。</li>
+</ul>
+<div class="callout-box">
+<div class="code-terminal-block">[專家觀點：非工程師避坑清單]</div>
+<ol>
+<li><strong>精簡外掛工具數量</strong>：單一 Agent 配備 3 到 5 個高頻核心工具即可，過多工具會大幅增加工具選擇幻覺。</li>
+<li><strong>強制設定步數上限</strong>：絕不允許無上限的自主探索，設定最大步數（Max Steps）守護財務底線。</li>
+<li><strong>高風險動作強制人類審批</strong>：金流、刪除與對外發信等高危行為，必須保留人類在環的最終否決權。</li>
+</ol>
+</div>
+</div>
+          </div>
+
+          <!-- Scientific References Section -->
+          
+        <section class="article-references" aria-label="參考文獻與實證指引">
+          <h2>參考文獻與實證指引 (References)</h2>
+          <ol>
+            <li><a href="https://doi.org/10.48550/arXiv.2210.03629" target="_blank" rel="noopener noreferrer">Yao, S., Zhao, J., Yu, D., et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. International Conference on Learning Representations (ICLR).</a></li>
+<li><a href="https://doi.org/10.48550/arXiv.2303.11366" target="_blank" rel="noopener noreferrer">Shinn, N., Cassano, F., Gopinath, A., et al. (2023). Reflexion: Language Agents with Verbal Reinforcement Learning. Advances in Neural Information Processing Systems (NeurIPS).</a></li>
+<li><a href="https://doi.org/10.48550/arXiv.2302.04761" target="_blank" rel="noopener noreferrer">Schick, T., Dwivedi-Yu, J., Dessì, R., et al. (2023). Toolformer: Language Models Can Teach Themselves to Use Tools. Advances in Neural Information Processing Systems (NeurIPS).</a></li>
+<li><a href="https://doi.org/10.48550/arXiv.2309.07864" target="_blank" rel="noopener noreferrer">Xi, Z., Chen, W., Guo, X., et al. (2023). The Rise and Potential of Large Language Model Based Agents: A Survey. arXiv preprint.</a></li>
+<li><a href="https://www.youtube.com/watch?v=sal78ACtGTc" target="_blank" rel="noopener noreferrer">Andrew Ng (2024). What's next for AI agentic workflows. Sequoia Capital.</a></li>
+          </ol>
+        </section>
+        
+
+
+          <!-- Topic Cluster Series Navigation -->
+          <nav class="topic-cluster-nav" aria-label="同系列主題專題叢集">
+            <div class="topic-cluster-header">
+              <div class="topic-cluster-title">
+                <span class="material-symbols-outlined" aria-hidden="true">auto_stories</span>
+                【主題叢集】非工程師的「AI 產品架構思維」12 講專題
+              </div>
+              <div class="topic-cluster-progress">
+                第 006 篇 / 全 13 篇
+              </div>
+            </div>
+            <ul class="topic-cluster-list">
+              
+        <li>
+          <a href="./001_AI產品架構思維系列總覽_非工程師的12講導讀總綱.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">001</span>
+            <span class="topic-cluster-item-title">【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./002_心智模型_破除全能迷思用聘請頂尖實習生的心態理解大型語言模型.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">002</span>
+            <span class="topic-cluster-item-title">破除全能迷思！用「聘請頂尖實習生」的心態理解大型語言模型</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./003_軟體骨架_非工程師的軟體樂高課前端後端API與資料庫到底在幹嘛.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">003</span>
+            <span class="topic-cluster-item-title">非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./004_提示工程_別再盲目摸索提示詞寫出工業級Prompt的標準作業程序.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">004</span>
+            <span class="topic-cluster-item-title">別再盲目摸索提示詞！從「隨機試錯」到「標準作業程序」</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./005_知識外掛_終結AI瞎掰RAG檢索增強生成如何打造專屬外掛大腦.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">005</span>
+            <span class="topic-cluster-item-title">給 AI 一個外掛大腦！為什麼 RAG 是企業防胡說八道的必修課？</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./006_智慧體行動_會思考還會動手自主AI智慧體是得力助手還是碎鈔機.html" class="topic-cluster-item active">
+            <span class="topic-cluster-item-num">006</span>
+            <span class="topic-cluster-item-title">會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？</span>
+            <span class="topic-cluster-item-current">目前閱讀中</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="./007_協同協定_一人開一間虛擬公司多智慧體協同與AI界TypeC接口MCP.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">007</span>
+            <span class="topic-cluster-item-title">一人開一間虛擬公司？多智慧體協同與 AI 界的「Type-C」接口（MCP）</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./008_防翻車指南_隨興編程是效率革命還是維運災難不懂代碼如何用AI開發工具不翻車.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">008</span>
+            <span class="topic-cluster-item-title">「隨興編程」是效率革命還是維運災難？不懂代碼如何用 AI 開發工具不翻車？</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./009_資訊安全_AI時代的駭客江湖一句話就能套出公司機密的提示詞注入攻擊.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">009</span>
+            <span class="topic-cluster-item-title">AI 時代的駭客江湖！一句話就能套出你公司機密的「提示詞注入攻擊」</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./010_安全護欄_給AI戴上安全韁繩如何打造不說髒話不洩漏個資的防護欄.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">010</span>
+            <span class="topic-cluster-item-title">給 AI 戴上安全韁繩！如何打造不說髒話、不洩漏個資的「防護欄」</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./011_量化評測_你的AI到底有多聰明別再看感覺讓AI當裁判的科學評測法.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">011</span>
+            <span class="topic-cluster-item-title">你的 AI 到底有多聰明？別再「看感覺」了，讓 AI 當裁判的科學評測法</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./012_成本與延遲_每聊一句都在燒錢破解AI產品的負毛利陷阱與延遲控制.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">012</span>
+            <span class="topic-cluster-item-title">每聊一句都在燒錢？AI 產品經理必看的省錢與提速秘密</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./013_生命週期運維_發布不是結束AI產品上線後如何不生病不擺爛的長照指南.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">013</span>
+            <span class="topic-cluster-item-title">發布不是結束！AI 產品上線後如何不生病、不擺爛的「長照指南」</span>
+            
+          </a>
+        </li>
+            </ul>
+          </nav>
+
+          <!-- Prev & Next Article Navigation -->
+          <div class="prev-next-nav">
+            
+        <a href="./005_知識外掛_終結AI瞎掰RAG檢索增強生成如何打造專屬外掛大腦.html" class="prev-next-card">
+          <span class="prev-next-label">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            上一篇（第 005 講）
+          </span>
+          <span class="prev-next-title">給 AI 一個外掛大腦！為什麼 RAG 是企業防胡說八道的必修課？</span>
+        </a>
+            
+        <a href="./007_協同協定_一人開一間虛擬公司多智慧體協同與AI界TypeC接口MCP.html" class="prev-next-card" style="text-align: right; align-items: flex-end;">
+          <span class="prev-next-label">
+            下一篇（第 007 講）
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+          </span>
+          <span class="prev-next-title">一人開一間虛擬公司？多智慧體協同與 AI 界的「Type-C」接口（MCP）</span>
+        </a>
+          </div>
+
+          <!-- Back to Blog Navigation -->
+          <div class="article-bottom-actions">
+            <a href="/blog" class="button-secondary">
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+              返回所有專業專題列表
+            </a>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">蔡泓恩 | 職能治療師</div>
+          <div class="footer-copy">
+            © <span data-year></span> Ian Tsai. 保留所有權利。
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="/">首頁</a>
+          <a href="/projects">專案</a>
+          <a href="/blog">專業文章</a>
+          <a href="/contact">聯絡</a>
+          <a href="/sponsor">贊助我</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../js/animate-icons.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

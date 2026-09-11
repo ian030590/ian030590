@@ -428,7 +428,7 @@
 
           return `
             <article class="article-card ${isFeatured ? "article-card--featured" : ""}">
-              <a class="card-link" href="${escapeHtml(post.link)}" target="_blank" rel="noopener">
+              <a class="card-link" href="${escapeHtml(post.link)}">
                 ${imageMarkup}
                 <div class="article-content">
                   <div class="card-tags-row">${tagsMarkup}</div>
@@ -558,180 +558,79 @@
       });
     }
 
-    const blogSources = [
-      {
-        id: "4355302929541717814",
-        name: "職能治療日誌",
-        feedUrl: "https://www.blogger.com/feeds/4355302929541717814/posts/default",
-        siteUrl: "https://ian030590ot.blogspot.com",
-        defaultTags: ["職能治療", "臨床復健"],
-      },
-      {
-        id: "1728297252870027743",
-        name: "數位學習日誌",
-        feedUrl: "https://ian030590digital.blogspot.com/feeds/posts/default",
-        siteUrl: "https://ian030590digital.blogspot.com",
-        defaultTags: ["臨床筆記", "數位健康"],
-      },
-    ];
+    const initArticles = (articles) => {
+      allPosts = articles.map((item) => ({
+        id: item.id,
+        title: item.title,
+        lead: item.lead,
+        imageUrl: item.imageUrl,
+        tags: item.tags || [],
+        dateObj: item.dateString ? new Date(item.dateString) : null,
+        dateString: item.dateString || "",
+        readTime: item.readTime || "約 5 分鐘閱讀",
+        link: item.link,
+        sourceName: item.sourceName || item.category || "專業專題",
+        category: item.category,
+        cluster: item.cluster,
+      }));
 
-    const parseEntry = (entry, source) => {
-      const html = entry.content?.$t || entry.summary?.$t || "";
-      const rawText = plainText(html);
-
-      // Title: direct title or fallback to <h1>/<h2>/<title> in HTML
-      const directTitle = (entry.title?.$t || "").trim();
-      let title = directTitle;
-      if (!title) {
-        const hMatch =
-          html.match(/<h[12][^>]*>([\s\S]*?)<\/h[12]>/i) ||
-          html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-        title = hMatch ? plainText(hMatch[1]) : "專業文章";
+      if (!allPosts.length) {
+        articleContent.innerHTML =
+          '<div class="empty-state">目前尚無公開文章或文章暫時無法載入，請稍候再試。</div>';
+        if (tagsFilterList) tagsFilterList.innerHTML = "";
+        return;
       }
 
-      // Image
-      const mediaThumb = entry.media$thumbnail?.url;
-      const imageUrl = extractImage(html, mediaThumb);
-
-      // Excerpt / Lead
-      const lead = extractExcerpt(html);
-
-      // Tags: check Blogger categories, then HTML inline (視角/主題), then source defaults
-      let tags = (entry.category || [])
-        .map((c) => (c.term || "").trim())
-        .filter(Boolean);
-
-      if (!tags.length && html) {
-        const customTags = [];
-        const matches = html.matchAll(/(?:視角|主題)[：:]([^<]+)/g);
-        for (const m of matches) {
-          const t = plainText(m[1]).trim();
-          if (t && !customTags.includes(t)) {
-            customTags.push(t);
-          }
-        }
-        if (customTags.length) {
-          tags = customTags;
-        }
-      }
-
-      if (source.name === "職能治療日誌" && !tags.includes("職能治療")) {
-        tags.unshift("職能治療");
-      }
-
-      if (!tags.length) {
-        tags = source.defaultTags
-          ? [...source.defaultTags]
-          : ["臨床筆記", "專業文章"];
-      }
-
-      // Date
-      const dateObj = entry.published?.$t
-        ? new Date(entry.published.$t)
-        : null;
-      const dateString = dateObj
-        ? dateObj.toLocaleDateString("zh-TW", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          })
-        : "";
-
-      // Read time
-      const readTime = extractReadingTime(html, rawText);
-
-      // Link
-      const link =
-        entry.link?.find((item) => item.rel === "alternate")?.href ||
-        source.siteUrl;
-
-      return {
-        id: entry.id?.$t || `${source.id}-${Math.random()}`,
-        title,
-        lead,
-        imageUrl,
-        tags,
-        dateObj,
-        dateString,
-        readTime,
-        link,
-        sourceName: source.name,
-      };
-    };
-
-    const fetchBloggerFeed = (source, timeoutMs = 10000) => {
-      return new Promise((resolve) => {
-        const cbName = `__handleBlogger_${source.id}_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-        let timer = null;
-
-        const cleanup = () => {
-          if (timer) {
-            clearTimeout(timer);
-            timer = null;
-          }
-          try {
-            delete window[cbName];
-          } catch (_) {
-            window[cbName] = undefined;
-          }
-          const s = document.getElementById(`blogger-script-${source.id}`);
-          if (s) s.remove();
-        };
-
-        timer = setTimeout(() => {
-          cleanup();
-          resolve([]);
-        }, timeoutMs);
-
-        window[cbName] = (feed) => {
-          cleanup();
-          const entries = feed?.feed?.entry || [];
-          const posts = entries.map((entry) => parseEntry(entry, source));
-          resolve(posts);
-        };
-
-        const script = document.createElement("script");
-        script.id = `blogger-script-${source.id}`;
-        script.src = `${source.feedUrl}?alt=json-in-script&callback=${cbName}&max-results=50`;
-        script.async = true;
-        script.onerror = () => {
-          cleanup();
-          resolve([]);
-        };
-
-        document.head.appendChild(script);
+      // Sort chronologically descending
+      allPosts.sort((a, b) => {
+        const timeA = a.dateObj ? a.dateObj.getTime() : 0;
+        const timeB = b.dateObj ? b.dateObj.getTime() : 0;
+        return timeB - timeA;
       });
+
+      // Tally tag counts
+      const tagCounts = {};
+      allPosts.forEach((post) => {
+        post.tags.forEach((t) => {
+          tagCounts[t] = (tagCounts[t] || 0) + 1;
+        });
+      });
+
+      renderSidebarTags(tagCounts);
+      renderArticles();
     };
 
-    Promise.all(blogSources.map((source) => fetchBloggerFeed(source))).then(
-      (results) => {
-        allPosts = results.flat();
-        if (!allPosts.length) {
-          articleContent.innerHTML =
-            '<div class="empty-state">目前尚無公開文章或文章暫時無法載入，請稍候再試。</div>';
-          if (tagsFilterList) tagsFilterList.innerHTML = "";
-          return;
+    if (window.__STATIC_ARTICLES__ && window.__STATIC_ARTICLES__.length) {
+      initArticles(window.__STATIC_ARTICLES__);
+    } else {
+      // Fallback in case script tag is delayed
+      const checkTimer = setInterval(() => {
+        if (window.__STATIC_ARTICLES__ && window.__STATIC_ARTICLES__.length) {
+          clearInterval(checkTimer);
+          initArticles(window.__STATIC_ARTICLES__);
         }
+      }, 50);
+      setTimeout(() => clearInterval(checkTimer), 3000);
+    }
 
-        // Sort chronologically descending (newest first)
-        allPosts.sort((a, b) => {
-          const timeA = a.dateObj ? a.dateObj.getTime() : 0;
-          const timeB = b.dateObj ? b.dateObj.getTime() : 0;
-          return timeB - timeA;
-        });
-
-        // Tally tag counts
-        const tagCounts = {};
-        allPosts.forEach((post) => {
-          post.tags.forEach((t) => {
-            tagCounts[t] = (tagCounts[t] || 0) + 1;
-          });
-        });
-
-        renderSidebarTags(tagCounts);
-        renderArticles();
-      },
-    );
+    // Attach click listeners to quick category buttons in sidebar
+    document.querySelectorAll(".tag-filter-quick-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tag = btn.getAttribute("data-quick-tag");
+        if (tag) {
+          currentTag = tag;
+          updateURL();
+          renderArticles();
+          if (window.innerWidth <= 960) {
+            const top =
+              articleContent.getBoundingClientRect().top +
+              window.scrollY -
+              90;
+            window.scrollTo({ top, behavior: "smooth" });
+          }
+        }
+      });
+    });
   }
 
   const contactForm = document.getElementById("contact-form");

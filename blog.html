@@ -48,18 +48,7 @@
         ]
       }
     </script>
-    <link
-      rel="alternate"
-      type="application/atom+xml"
-      title="蔡泓恩的專業文章 (數位學習日誌)"
-      href="https://ian030590digital.blogspot.com/feeds/posts/default"
-    />
-    <link
-      rel="alternate"
-      type="application/atom+xml"
-      title="蔡泓恩的專業文章 (職能治療日誌)"
-      href="https://www.blogger.com/feeds/4355302929541717814/posts/default"
-    />
+
     <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
@@ -173,34 +162,40 @@
               </div>
             </div>
 
-            <!-- About / RSS Widget -->
+            <!-- Core Categories & Series Widget -->
             <div class="sidebar-widget info-widget">
               <h2 class="widget-title">
-                <span class="material-symbols-outlined" aria-hidden="true">rss_feed</span>
-                專欄來源與訂閱
+                <span class="material-symbols-outlined" aria-hidden="true">category</span>
+                核心專題專欄
               </h2>
               <p class="widget-description">
-                文章同步收錄於 Blogger「職能治療日誌」與「數位學習日誌」。歡迎造訪專欄原站或訂閱最新文章。
+                全站文章已整理為三大核心領域專題，點擊即可快速篩選瀏覽對應的主題叢集：
               </p>
               <div class="widget-actions">
-                <a
-                  href="https://ian030590ot.blogspot.com"
-                  target="_blank"
-                  rel="noopener"
-                  class="button-secondary widget-button"
+                <button
+                  type="button"
+                  class="button-secondary widget-button tag-filter-quick-btn"
+                  data-quick-tag="職能治療"
                 >
-                  <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
-                  造訪 職能治療日誌
-                </a>
-                <a
-                  href="https://ian030590digital.blogspot.com"
-                  target="_blank"
-                  rel="noopener"
-                  class="button-secondary widget-button"
+                  <span class="material-symbols-outlined" aria-hidden="true">health_and_safety</span>
+                  職能治療（20 篇）
+                </button>
+                <button
+                  type="button"
+                  class="button-secondary widget-button tag-filter-quick-btn"
+                  data-quick-tag="視覺復健"
                 >
-                  <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
-                  造訪 數位學習日誌
-                </a>
+                  <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+                  視覺復健（20 篇）
+                </button>
+                <button
+                  type="button"
+                  class="button-secondary widget-button tag-filter-quick-btn"
+                  data-quick-tag="數位學習"
+                >
+                  <span class="material-symbols-outlined" aria-hidden="true">psychology</span>
+                  數位學習（13 篇）
+                </button>
               </div>
             </div>
           </aside>
@@ -222,6 +217,7 @@
         </div>
       </div>
     </footer>
+    <script src="./js/articles-data.js"></script>
     <script src="./js/animate-icons.js"></script>
     <script src="./js/main.js"></script>
   </body>

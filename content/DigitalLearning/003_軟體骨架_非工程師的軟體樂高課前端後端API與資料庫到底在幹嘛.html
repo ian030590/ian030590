@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？ | 蔡泓恩 職能治療師</title>
+    <meta name="description" content="別以為呼叫 API 就能直接上線！從米其林餐廳的協同運作看懂現代軟體四件套，避開導致信用卡被秒刷破產的致命架構漏洞。" />
+    <meta name="keywords" content="數位學習, dark_mode, light_mode, 非工程師的「AI 產品架構思維」12 講專題" />
+    <meta name="author" content="蔡泓恩 職能治療師" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://ian030590.github.io/content/DigitalLearning/003_%E8%BB%9F%E9%AB%94%E9%AA%A8%E6%9E%B6_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%84%E8%BB%9F%E9%AB%94%E6%A8%82%E9%AB%98%E8%AA%B2%E5%89%8D%E7%AB%AF%E5%BE%8C%E7%AB%AFAPI%E8%88%87%E8%B3%87%E6%96%99%E5%BA%AB%E5%88%B0%E5%BA%95%E5%9C%A8%E5%B9%B9%E5%98%9B.html" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:site_name" content="蔡泓恩 | 職能治療師" />
+    <meta property="og:title" content="非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？ ｜ 蔡泓恩 職能治療師" />
+    <meta property="og:description" content="別以為呼叫 API 就能直接上線！從米其林餐廳的協同運作看懂現代軟體四件套，避開導致信用卡被秒刷破產的致命架構漏洞。" />
+    <meta property="og:url" content="https://ian030590.github.io/content/DigitalLearning/003_%E8%BB%9F%E9%AB%94%E9%AA%A8%E6%9E%B6_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%84%E8%BB%9F%E9%AB%94%E6%A8%82%E9%AB%98%E8%AA%B2%E5%89%8D%E7%AB%AF%E5%BE%8C%E7%AB%AFAPI%E8%88%87%E8%B3%87%E6%96%99%E5%BA%AB%E5%88%B0%E5%BA%95%E5%9C%A8%E5%B9%B9%E5%98%9B.html" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="article:published_time" content="2026-04-14T08:00:00+08:00" />
+    <meta property="article:modified_time" content="2026-09-11T09:30:00+08:00" />
+    <meta property="article:author" content="https://ian030590.github.io/" />
+    <meta property="article:section" content="數位學習" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？ ｜ 蔡泓恩 職能治療師" />
+    <meta name="twitter:description" content="別以為呼叫 API 就能直接上線！從米其林餐廳的協同運作看懂現代軟體四件套，避開導致信用卡被秒刷破產的致命架構漏洞。" />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" />
+
+    <!-- Favicon & Stylesheet -->
+    <link rel="icon" type="image/svg+xml" href="../../icons/icon.svg" />
+    <link rel="stylesheet" href="../../css/style.css" />
+
+    <!-- Schema.org Article JSON-LD (E-E-A-T) -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "TechArticle",
+        "Article"
+      ],
+      "@id": "https://ian030590.github.io/content/DigitalLearning/003_%E8%BB%9F%E9%AB%94%E9%AA%A8%E6%9E%B6_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%84%E8%BB%9F%E9%AB%94%E6%A8%82%E9%AB%98%E8%AA%B2%E5%89%8D%E7%AB%AF%E5%BE%8C%E7%AB%AFAPI%E8%88%87%E8%B3%87%E6%96%99%E5%BA%AB%E5%88%B0%E5%BA%95%E5%9C%A8%E5%B9%B9%E5%98%9B.html#article",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://ian030590.github.io/content/DigitalLearning/003_%E8%BB%9F%E9%AB%94%E9%AA%A8%E6%9E%B6_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%84%E8%BB%9F%E9%AB%94%E6%A8%82%E9%AB%98%E8%AA%B2%E5%89%8D%E7%AB%AF%E5%BE%8C%E7%AB%AFAPI%E8%88%87%E8%B3%87%E6%96%99%E5%BA%AB%E5%88%B0%E5%BA%95%E5%9C%A8%E5%B9%B9%E5%98%9B.html"
+      },
+      "headline": "非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？",
+      "description": "別以為呼叫 API 就能直接上線！從米其林餐廳的協同運作看懂現代軟體四件套，避開導致信用卡被秒刷破產的致命架構漏洞。",
+      "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
+      "datePublished": "2026-04-14T08:00:00+08:00",
+      "dateModified": "2026-09-11T09:30:00+08:00",
+      "inLanguage": "zh-TW",
+      "mainEntityOfPage": "https://ian030590.github.io/content/DigitalLearning/003_%E8%BB%9F%E9%AB%94%E9%AA%A8%E6%9E%B6_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%84%E8%BB%9F%E9%AB%94%E6%A8%82%E9%AB%98%E8%AA%B2%E5%89%8D%E7%AB%AF%E5%BE%8C%E7%AB%AFAPI%E8%88%87%E8%B3%87%E6%96%99%E5%BA%AB%E5%88%B0%E5%BA%95%E5%9C%A8%E5%B9%B9%E5%98%9B.html",
+      "author": {
+        "@type": "Person",
+        "name": "蔡泓恩",
+        "alternateName": "Hung-En (Ian) Tsai",
+        "jobTitle": "職能治療師",
+        "url": "https://ian030590.github.io/",
+        "sameAs": [
+          "https://github.com/ian030590",
+          "https://trainerhub.cc"
+        ],
+        "knowsAbout": [
+          "職能治療",
+          "神經復健",
+          "視覺復健",
+          "低視力評估",
+          "數位醫療",
+          "AI系統架構"
+        ],
+        "alumniOf": "國立臺灣大學"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "蔡泓恩",
+        "url": "https://ian030590.github.io/"
+      },
+      "articleSection": "數位學習",
+      "keywords": [
+        "數位學習",
+        "dark_mode",
+        "light_mode",
+        "非工程師的「AI 產品架構思維」12 講專題"
+      ],
+      "citation": [
+        "Dragoni, N., Giallorenzo, S., Lafuente, A. L., et al. (2017). Microservices: Yesterday, Today, and Tomorrow. Present and Ulterior Software Engineering, Springer.",
+        "Baldini, I., Castro, P., Chang, K., et al. (2017). Serverless Computing: Current Trends and Open Problems. Research Advances in Cloud Computing, Springer.",
+        "Fielding, R. T. (2000). Architectural Styles and the Design of Network-based Software Architectures (REST). Doctoral dissertation, University of California, Irvine.",
+        "IBM Technology (2020). What is a REST API?.",
+        "IBM Technology (2021). What are Microservices?."
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首頁",
+          "item": "https://ian030590.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "專業文章",
+          "item": "https://ian030590.github.io/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "數位學習",
+          "item": "https://ian030590.github.io/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？",
+          "item": "https://ian030590.github.io/content/DigitalLearning/003_%E8%BB%9F%E9%AB%94%E9%AA%A8%E6%9E%B6_%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%84%E8%BB%9F%E9%AB%94%E6%A8%82%E9%AB%98%E8%AA%B2%E5%89%8D%E7%AB%AF%E5%BE%8C%E7%AB%AFAPI%E8%88%87%E8%B3%87%E6%96%99%E5%BA%AB%E5%88%B0%E5%BA%95%E5%9C%A8%E5%B9%B9%E5%98%9B.html"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">蔡泓恩 | 職能治療師</a>
+        <nav class="nav-links" aria-label="主要導覽">
+          <a class="nav-link" href="/">首頁</a>
+          <a class="nav-link" href="/projects">開源專案</a>
+          <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
+          <a class="nav-link" href="/contact">聯絡我</a>
+          <a class="nav-link" href="/sponsor">贊助我</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          aria-label="切換深色模式"
+          title="切換深色模式"
+        >
+          <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
+          <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
+        </button>
+        <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
+        <button
+          class="menu-button"
+          aria-label="開啟選單"
+          aria-expanded="false"
+        >
+          <span
+            class="animate-icon animate-icon--menu"
+            data-animate-icon="menu"
+            aria-hidden="true"
+          ></span>
+        </button>
+      </div>
+      <div class="mobile-panel">
+        <a href="/">首頁</a>
+        <a href="/projects">開源專案</a>
+        <a href="/blog" aria-current="page">專業文章</a>
+        <a href="/contact">聯絡我</a>
+        <a href="/sponsor">贊助我</a>
+      </div>
+    </header>
+
+    <main class="page-main article-page-layout">
+      <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb-trail" aria-label="文章路徑導覽">
+          <a href="/">首頁</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <a href="/blog">專業文章</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <a href="/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <span class="breadcrumb-current" aria-current="page">非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？</span>
+        </nav>
+
+        <article class="article-container">
+          <!-- Article Header -->
+          <header class="article-detail-header">
+            <div class="article-tag-badges">
+              <span class="article-badge">數位學習</span>
+              <span class="article-badge cluster-badge">非工程師的「AI 產品架構思維」12 講專題</span>
+            </div>
+            <h1 class="article-title">非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？</h1>
+            <div class="article-meta-row">
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">person</span>
+                蔡泓恩 職能治療師
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>
+                2026-04-14
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                約 5 分鐘閱讀
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+                AI 系統架構與工程實踐
+              </span>
+            </div>
+          </header>
+
+          <!-- Featured Banner Image -->
+          
+        <figure class="article-featured-figure">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？" class="article-featured-img" loading="lazy" />
+          <figcaption class="article-figcaption">現代軟體系統由分散的硬體、服務與資料管線組成（圖片來源：Unsplash 免費授權圖庫）</figcaption>
+        </figure>
+        
+
+          <!-- Executive Summary Callout Box -->
+          <div class="article-lead-box">
+            <div class="article-lead-box-title">
+              <span class="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+              專題重點摘要與核心洞察
+            </div>
+            <p>別以為呼叫 API 就能直接上線！從米其林餐廳的協同運作看懂現代軟體四件套，避開導致信用卡被秒刷破產的致命架構漏洞。</p>
+          </div>
+
+          <!-- Main Body Content -->
+          <div class="article-body-content">
+            <div class="news-article" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif; line-height: 1.85; color: #1e293b; font-size: 19px; max-width: 860px; margin: 0 auto; padding: 26px 22px; letter-spacing: 0.02em;">
+<div class="callout-box">
+<div style="font-size: 18px; font-weight: 700; color: #1e40af; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">[導讀重點精華]</div>
+<ul>
+<li>軟體系統就像一家現代餐廳：前端負責外場體驗，後端掌控私密運算與安全保險箱。</li>
+<li>重大資安禁忌：嚴禁在瀏覽器前端直接呼叫 OpenAI API，否則私密金鑰形同公開張貼。</li>
+<li>Serverless（無伺服器）技術如何幫助初創產品實現「無人用時零成本、百萬訪問自動擴展」的計程車效益。</li>
+</ul>
+</div>
+<p>在許多初涉 AI 應用的創業者看來，開發軟體似乎前所未有地容易：只要向 ChatGPT 索取一段網頁代碼，把輸入框與按鈕擺好，填入金鑰，一個 AI 產品便誕生了。</p>
+<p>然而，這種「玩具級原型」一旦公開發布，往往活不過 24 小時。原因不在於前端不夠美觀，而在於嚴重缺乏軟體工程的防禦性架構。AI 是客廳裡的智慧管家，若沒有穩固的牆壁、門禁與地基，整座房子隨時會轟然倒塌。</p>
+<h2>一、米其林餐廳的運作法則：拆解軟體架構四件套</h2>
+<p>在分散式系統架構中，學者 Dragoni 等人（2017）在經典著作《Microservices: Yesterday, Today, and Tomorrow》<sup><a href="https://doi.org/10.1007/978-3-319-67425-4_12" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[1]</a></sup> 中深刻指出：現代軟體的穩健性來自模組的「解耦（Decoupling）」——將龐大脆弱的系統拆解為職責分明的獨立單元。IBM Technology 的權威架構影片<sup><a href="https://www.youtube.com/watch?v=CdBtQk85xaA" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[5]</a></sup> 也具體闡明了這種將風險物理隔離的設計哲學。</p>
+<p>無論系統背後調用了多麼先進的 AI 模型，現代軟體架構的本質始終由四個關鍵角色緊密協作組成：</p>
+<div style="overflow-x: auto; margin: 24px 0;">
+<div class="table-wrapper"><table class="article-table">
+<thead>
+<tr>
+<th>餐廳角色</th>
+<th>軟體術語</th>
+<th>核心任務與職責</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 外場用餐區</td>
+<td>前端 (Frontend)</td>
+<td>負責版面美化、接收用戶操作，絕不存放核心機密</td>
+</tr>
+<tr>
+<td>2. 跑腿服務生</td>
+<td>API (通訊協定)</td>
+<td>標準化格式傳遞點單，橋接外場與後廚之間的通訊</td>
+</tr>
+<tr>
+<td>3. 封閉內廚房</td>
+<td>後端 (Backend)</td>
+<td>執行身分認證、保管金鑰保險箱、調用 AI 進行烹飪推理</td>
+</tr>
+<tr>
+<td>4. 冷凍庫與帳本</td>
+<td>資料庫 (Database)</td>
+<td>持久化存儲歷史對話、用戶帳戶資料與專有知識向量庫</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>服務生跑腿傳遞點單所遵循的標準化溝通協定，正是 Roy Fielding 博士（2000）在其劃時代博士論文《Architectural Styles and the Design of Network-based Software Architectures》<sup><a href="https://ics.uci.edu/~fielding/pubs/dissertation/top.htm" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[3]</a></sup> 中定義的 <strong>REST 架構風格</strong>。IBM Technology 在百萬播放的權威教學<sup><a href="https://www.youtube.com/watch?v=lsMQRaeKNDk" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[4]</a></sup> 中亦生動剖析：REST API 透過無狀態（Stateless）的請求與回應，讓瀏覽器得以安全向伺服器調用資源，而無須窺視伺服器內部實現。</p>
+<p>正如專業餐廳絕不會把點鈔機與私房食譜直接擺在外場餐桌上一樣，在軟體設計中，<strong>所有敏感邏輯與金鑰必須嚴格收束在後端伺服器內部</strong>，前端僅作為純粹的互動介面。</p>
+<h2>二、踩雷警報！非工程師最容易引爆的「金鑰外洩」慘劇</h2>
+<div style="background-color: #fef2f2; border-left: 4px solid #ef4444; border-radius: 4px; padding: 20px 22px; margin: 30px 0;">
+<strong style="color: #b91c1c; display: block; margin-bottom: 6px;">[重大警示：致命的客戶端直連反模式]</strong>
+<p>
+      許多新手誤以為可以直接在 HTML/JavaScript 代碼中嵌入私密 API Key（如 <code>sk-...</code>）並向 OpenAI 發送請求。此舉將使金鑰直接暴露給全世界的瀏覽器「檢查原始碼」工具，惡意爬蟲會在數分鐘內劫持額度，造成數千美元的信用卡盜刷！
+    </p>
+</div>
+<div class="callout-box">
+    [玩命架構 (Client Direct Call)]:<br/>
+    [用戶瀏覽器 (包含明文 API Key)] ───────&gt; 直接呼叫 [OpenAI API]<br/>
+    (全世界都看得到你的金鑰！秒被盜刷！)<br/><br/>
+    [專業安全架構 (Backend Proxy)]:<br/>
+    [用戶瀏覽器] ──(安全無金鑰請求)──&gt; [你的後端伺服器 (金鑰鎖在環境變數)] ──&gt; [OpenAI API]
+  </div>
+<p><strong>標準防禦策略</strong>：採用後端代理模式（Backend Proxy）。前端僅向你自己的後端發送請求；後端完成頻率限制（Rate Limiting）與身分校驗後，再以保險箱內的金鑰安全調用大模型。</p>
+<h2>三、Serverless 架構：初創專案的降本良方</h2>
+<p>傳統後端維運往往需要長期租賃實體主機，哪怕深夜無人造訪，伺服器租金依然照算不誤。近年來普及的 <strong>Serverless（無伺服器架構，如 Vercel、Cloudflare Workers）</strong> 為非技術人員帶來了巨大紅利。</p>
+<p>如同學者 Baldini 等人在權威綜述《Serverless Computing: Current Trends and Open Problems》<sup><a href="https://doi.org/10.1007/978-981-10-5026-8_1" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 700;" target="_blank">[2]</a></sup> 中所指出，無伺服器運算將「伺服器維護負擔」徹底抽象化：</p>
+<ul>
+<li><strong>計程車模式計費</strong>：無用戶訪問時開銷為零，僅在觸發運算的幾百毫秒內產生極微量費用。</li>
+<li><strong>自動水平伸縮</strong>：當產品突然遭遇病毒式傳播、湧入數萬訪客時，雲端基礎設施會在數毫秒內自動擴展運算單元，避免伺服器因超載而當機。</li>
+</ul>
+<div class="callout-box">
+<div class="code-terminal-block">[專家觀點：非工程師避坑清單]</div>
+<ol>
+<li><strong>落實前後端權責分離</strong>：前端管呈現，後端管邏輯與金鑰，嚴防金鑰流出外場。</li>
+<li><strong>禁止在代碼庫硬編碼金鑰</strong>：善用雲端平台的環境變數（Environment Variables）保護機密。</li>
+<li><strong>擁抱現代無伺服器平台</strong>：善用 Vercel 與 Supabase 等現代雲原生工具，免除傳統 Linux 維運夢魘。</li>
+</ol>
+</div>
+</div>
+          </div>
+
+          <!-- Scientific References Section -->
+          
+        <section class="article-references" aria-label="參考文獻與實證指引">
+          <h2>參考文獻與實證指引 (References)</h2>
+          <ol>
+            <li><a href="https://doi.org/10.1007/978-3-319-67425-4_12" target="_blank" rel="noopener noreferrer">Dragoni, N., Giallorenzo, S., Lafuente, A. L., et al. (2017). Microservices: Yesterday, Today, and Tomorrow. Present and Ulterior Software Engineering, Springer.</a></li>
+<li><a href="https://doi.org/10.1007/978-981-10-5026-8_1" target="_blank" rel="noopener noreferrer">Baldini, I., Castro, P., Chang, K., et al. (2017). Serverless Computing: Current Trends and Open Problems. Research Advances in Cloud Computing, Springer.</a></li>
+<li><a href="https://ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank" rel="noopener noreferrer">Fielding, R. T. (2000). Architectural Styles and the Design of Network-based Software Architectures (REST). Doctoral dissertation, University of California, Irvine.</a></li>
+<li><a href="https://www.youtube.com/watch?v=lsMQRaeKNDk" target="_blank" rel="noopener noreferrer">IBM Technology (2020). What is a REST API?.</a></li>
+<li><a href="https://www.youtube.com/watch?v=CdBtQk85xaA" target="_blank" rel="noopener noreferrer">IBM Technology (2021). What are Microservices?.</a></li>
+          </ol>
+        </section>
+        
+
+
+          <!-- Topic Cluster Series Navigation -->
+          <nav class="topic-cluster-nav" aria-label="同系列主題專題叢集">
+            <div class="topic-cluster-header">
+              <div class="topic-cluster-title">
+                <span class="material-symbols-outlined" aria-hidden="true">auto_stories</span>
+                【主題叢集】非工程師的「AI 產品架構思維」12 講專題
+              </div>
+              <div class="topic-cluster-progress">
+                第 003 篇 / 全 13 篇
+              </div>
+            </div>
+            <ul class="topic-cluster-list">
+              
+        <li>
+          <a href="./001_AI產品架構思維系列總覽_非工程師的12講導讀總綱.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">001</span>
+            <span class="topic-cluster-item-title">【系列總覽】不懂寫程式，也能做 AI 產品？非工程師的「AI 產品架構思維」12 講</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./002_心智模型_破除全能迷思用聘請頂尖實習生的心態理解大型語言模型.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">002</span>
+            <span class="topic-cluster-item-title">破除全能迷思！用「聘請頂尖實習生」的心態理解大型語言模型</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./003_軟體骨架_非工程師的軟體樂高課前端後端API與資料庫到底在幹嘛.html" class="topic-cluster-item active">
+            <span class="topic-cluster-item-num">003</span>
+            <span class="topic-cluster-item-title">非工程師的軟體樂高課——前端、後端、API 與資料庫到底在幹嘛？</span>
+            <span class="topic-cluster-item-current">目前閱讀中</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="./004_提示工程_別再盲目摸索提示詞寫出工業級Prompt的標準作業程序.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">004</span>
+            <span class="topic-cluster-item-title">別再盲目摸索提示詞！從「隨機試錯」到「標準作業程序」</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./005_知識外掛_終結AI瞎掰RAG檢索增強生成如何打造專屬外掛大腦.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">005</span>
+            <span class="topic-cluster-item-title">給 AI 一個外掛大腦！為什麼 RAG 是企業防胡說八道的必修課？</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./006_智慧體行動_會思考還會動手自主AI智慧體是得力助手還是碎鈔機.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">006</span>
+            <span class="topic-cluster-item-title">會思考還會動手！自主 AI 智慧體是得力助手還是碎鈔機？</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./007_協同協定_一人開一間虛擬公司多智慧體協同與AI界TypeC接口MCP.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">007</span>
+            <span class="topic-cluster-item-title">一人開一間虛擬公司？多智慧體協同與 AI 界的「Type-C」接口（MCP）</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./008_防翻車指南_隨興編程是效率革命還是維運災難不懂代碼如何用AI開發工具不翻車.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">008</span>
+            <span class="topic-cluster-item-title">「隨興編程」是效率革命還是維運災難？不懂代碼如何用 AI 開發工具不翻車？</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./009_資訊安全_AI時代的駭客江湖一句話就能套出公司機密的提示詞注入攻擊.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">009</span>
+            <span class="topic-cluster-item-title">AI 時代的駭客江湖！一句話就能套出你公司機密的「提示詞注入攻擊」</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./010_安全護欄_給AI戴上安全韁繩如何打造不說髒話不洩漏個資的防護欄.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">010</span>
+            <span class="topic-cluster-item-title">給 AI 戴上安全韁繩！如何打造不說髒話、不洩漏個資的「防護欄」</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./011_量化評測_你的AI到底有多聰明別再看感覺讓AI當裁判的科學評測法.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">011</span>
+            <span class="topic-cluster-item-title">你的 AI 到底有多聰明？別再「看感覺」了，讓 AI 當裁判的科學評測法</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./012_成本與延遲_每聊一句都在燒錢破解AI產品的負毛利陷阱與延遲控制.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">012</span>
+            <span class="topic-cluster-item-title">每聊一句都在燒錢？AI 產品經理必看的省錢與提速秘密</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./013_生命週期運維_發布不是結束AI產品上線後如何不生病不擺爛的長照指南.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">013</span>
+            <span class="topic-cluster-item-title">發布不是結束！AI 產品上線後如何不生病、不擺爛的「長照指南」</span>
+            
+          </a>
+        </li>
+            </ul>
+          </nav>
+
+          <!-- Prev & Next Article Navigation -->
+          <div class="prev-next-nav">
+            
+        <a href="./002_心智模型_破除全能迷思用聘請頂尖實習生的心態理解大型語言模型.html" class="prev-next-card">
+          <span class="prev-next-label">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            上一篇（第 002 講）
+          </span>
+          <span class="prev-next-title">破除全能迷思！用「聘請頂尖實習生」的心態理解大型語言模型</span>
+        </a>
+            
+        <a href="./004_提示工程_別再盲目摸索提示詞寫出工業級Prompt的標準作業程序.html" class="prev-next-card" style="text-align: right; align-items: flex-end;">
+          <span class="prev-next-label">
+            下一篇（第 004 講）
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+          </span>
+          <span class="prev-next-title">別再盲目摸索提示詞！從「隨機試錯」到「標準作業程序」</span>
+        </a>
+          </div>
+
+          <!-- Back to Blog Navigation -->
+          <div class="article-bottom-actions">
+            <a href="/blog" class="button-secondary">
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+              返回所有專業專題列表
+            </a>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">蔡泓恩 | 職能治療師</div>
+          <div class="footer-copy">
+            © <span data-year></span> Ian Tsai. 保留所有權利。
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="/">首頁</a>
+          <a href="/projects">專案</a>
+          <a href="/blog">專業文章</a>
+          <a href="/contact">聯絡</a>
+          <a href="/sponsor">贊助我</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../js/animate-icons.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
