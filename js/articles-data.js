@@ -630,7 +630,7 @@ window.__STATIC_ARTICLES__ = [
   {
     "id": "OccupationalTherapy_019",
     "title": "偏盲性閱讀障礙（Hemianopic Alexia）：眼球快速跳躍訓練、文字版面調適與輔助科技實戰",
-    "lead": "中風後「每個字都認得，但一行字就是讀不完、讀不懂」？高達 80% 的同向偏盲患者伴隨極具破壞性的「偏盲性閱讀障礙（Hemianopic Alexia）」。右側偏盲摧毀了預覽前瞻視窗，左側偏盲則讓換行回跳陷入迷宮。2026 最新 AHA/ASA 指引明確將閱讀專用代償訓練列為 COR 2a 實證推薦！本文解析眼動儀跳視機...",
+    "lead": "中風後「每個字都認得，但一行字就是讀不完、讀不懂」？高達 80% 的同向偏盲患者伴隨極具破壞性的「偏盲性閱讀障礙（Hemianopic Alexia）」。右側偏盲摧毀了中央凹旁預視視窗，左側偏盲則讓換行回跳陷入迷宮。2026 最新 AHA/ASA 指引明確將閱讀專用代償訓練列為 COR 2a 實證推薦！本文解析眼動儀跳...",
     "imageUrl": "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "中風復健",

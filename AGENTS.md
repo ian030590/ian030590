@@ -29,4 +29,5 @@
      - `電子助視器` (❌) -> `電子擴視機` (⭕)
      - `智慧頭顯` (❌) -> `頭戴式顯示器` (⭕)
      - `低視力` (❌) -> `低視能` (⭕)
+     - `黃斑旁預覽視窗` (❌) -> `中央凹旁預視視窗` (⭕)
    - Adhere strictly to Taiwanese medical and assistive technology clinical standards.
