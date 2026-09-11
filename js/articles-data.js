@@ -549,7 +549,7 @@ window.__STATIC_ARTICLES__ = [
     "id": "OccupationalTherapy_015",
     "title": "代償性視覺掃描訓練（VST）：提升視野缺損生活品質的黃金處方與「無法逆轉視野」的科學真相",
     "lead": "中風視野缺損患者最渴望聽到的承諾是「我的視野能不能長回來？」然而實證醫學必須給予誠實而強大的回答：2026 AHA/ASA 指引明確指出，代償性視覺掃描訓練（VST）能顯著提高視覺相關生活品質（COR 2a），但 Cochrane 大型回顧證實其「完全無法縮小客觀視野缺損」！復健的核心在於建立高效率的快速跳視（Sacc...",
-    "imageUrl": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80",
+    "imageUrl": "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "中風復健",
       "視覺復健",
@@ -611,7 +611,7 @@ window.__STATIC_ARTICLES__ = [
     "id": "OccupationalTherapy_018",
     "title": "行為視光學除魅：指引為何嚴格禁止無效眼球轉動操、彩色濾光鏡與偽科學鏡片（COR 3 禁令）",
     "lead": "轉轉眼球、畫米字操就能治好中風看不見？戴上昂貴的彩色濾光鏡片就能打通大腦知覺神經？在 2026 年最新 AHA/ASA 中風復健指引中，專家委員會發布了重磅實證禁令：正式將機械式眼球操、特殊鏡片與彩色濾光鏡列為「無效益等級明確不推薦（COR 3: No Benefit）」！本文揭露商業偽科學的話術陷阱，捍衛中風病患的黃...",
-    "imageUrl": "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80",
+    "imageUrl": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "中風復健",
       "視覺復健"
@@ -732,7 +732,7 @@ window.__STATIC_ARTICLES__ = [
     "id": "VisualTherapy_004",
     "title": "凝視重生的導航技術：中心暗點微視野檢查與優選視網膜位點（PRL）臨床定位",
     "lead": "黃斑部病變（如濕性 AMD 地圖狀萎縮、斯特格氏病）摧毀中央凹中心凹視覺後，患者視野中央會形成破壞性的絕對或相對暗點（Scotoma）。2023 AAO 指引指出：傳統 Amsler 方格表無法客觀定量暗點，更無法評估注視穩定度。現代視覺復健全面引進「微視野檢查儀（Microperimetry）」，能在紅外線活體眼底圖...",
-    "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80",
+    "imageUrl": "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健"
     ],
@@ -967,7 +967,7 @@ window.__STATIC_ARTICLES__ = [
     "id": "VisualTherapy_016",
     "title": "大腦幻影之去病理化：夏爾·博內症候群（Charles Bonnet Syndrome）神經脫抑制機制、患者衛教與安撫對策",
     "lead": "眼前突然看見身穿十九世紀華麗宮廷服飾的小人走動、客廳地板開滿豔麗玫瑰、或是牆壁佈滿不斷旋轉的精緻幾何萬花筒——許多低視能長者飽受生動逼真的「視幻覺」折磨，卻因極度恐懼被家人認定為「發瘋、中邪或失智症」而默默隱忍，陷入巨大心理崩潰。2023 AAO 視覺復健指引明確指出：夏爾·博內症候群（Charles Bonnet S...",
-    "imageUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
+    "imageUrl": "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健",
       "認知復健"
