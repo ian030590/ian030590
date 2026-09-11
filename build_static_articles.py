@@ -403,12 +403,6 @@ a.article-badge:hover {
   transform: translateY(-1px);
 }
 
-.article-badge.cluster-badge {
-  background: var(--color-bg-surface-subtle);
-  color: var(--muted);
-  border: 1px solid var(--line);
-}
-
 .article-title {
   font-size: 32px;
   line-height: 1.35;
@@ -1503,6 +1497,9 @@ def build_article_html(art, all_articles):
 
     <!-- Favicon & Stylesheet -->
     <link rel="icon" type="image/svg+xml" href="../../icons/icon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png" />
     <link rel="stylesheet" href="../../css/style.css" />
 
     <!-- Schema.org Article JSON-LD (E-E-A-T) -->
@@ -1513,7 +1510,10 @@ def build_article_html(art, all_articles):
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="/">蔡泓恩 | 職能治療師</a>
+        <a class="brand" href="/">
+          <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo" width="36" height="36" />
+          <span>蔡泓恩 | 職能治療師</span>
+        </a>
         <nav class="nav-links" aria-label="主要導覽">
           <a class="nav-link" href="/">首頁</a>
           <a class="nav-link" href="/projects">開源專案</a>
@@ -1569,7 +1569,6 @@ def build_article_html(art, all_articles):
           <header class="article-detail-header">
             <div class="article-tag-badges">
 {tag_badges_html}
-              <span class="article-badge cluster-badge">{cluster_name}</span>
             </div>
             <h1 class="article-title">{title}</h1>
             <div class="article-meta-row">
@@ -1649,7 +1648,10 @@ def build_article_html(art, all_articles):
     <footer class="site-footer">
       <div class="container footer-grid">
         <div>
-          <div class="footer-brand">蔡泓恩 | 職能治療師</div>
+          <div class="footer-brand">
+            <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo footer-logo" width="26" height="26" />
+            <span>蔡泓恩 | 職能治療師</span>
+          </div>
           <div class="footer-copy">
             © <span data-year></span> Ian Tsai. 保留所有權利。
           </div>

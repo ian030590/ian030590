@@ -127,14 +127,13 @@ ARTICLE_TAG_MAP = {
 ```
 
 ### 2. 文章標頭 (Article Detail Header)
-包含可點擊之標籤按鈕、主題叢集標章、主標題與專業元數據：
+包含可點擊之核心標籤、主標題與專業元數據：
 ```html
 <header class="article-detail-header">
   <div class="article-tag-badges">
     <!-- 各核心標籤以超連結呈現，點擊可直接篩選該標籤所有文章 -->
     <a href="/blog?tag=中風復健" class="article-badge" title="查看「中風復健」相關文章">中風復健</a>
     <a href="/blog?tag=動作復健" class="article-badge" title="查看「動作復健」相關文章">動作復健</a>
-    <span class="article-badge cluster-badge">{主題叢集系列名稱}</span>
   </div>
   <h1 class="article-title">{文章完整標題}</h1>
   <div class="article-meta-row">
