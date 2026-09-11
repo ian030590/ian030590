@@ -28,3 +28,9 @@
      python build_static_articles.py
      ```
    - 確保文章自動整合進入 [js/articles-data.js](file:///P:/3_WebSite/ian030590/js/articles-data.js) 與 [sitemap.xml](file:///P:/3_WebSite/ian030590/sitemap.xml)。
+7. **專有名詞使用規範（Terminology Standards）**：
+   - 嚴格遵守 [content/README.md](file:///P:/3_WebSite/ian030590/content/README.md) 第三節之專有名詞對照表，未來持續更新：
+     - `電子助視器` (❌) ➔ `電子擴視機` (⭕)
+     - `智慧頭顯` (❌) ➔ `頭戴式顯示器` (⭕)
+     - `低視力` (❌) ➔ `低視能` (⭕)
+   - 遵循台灣臨床醫學、視覺復健與特教輔具標準在地化用語，杜絕非標準直譯或大陸流行縮寫。

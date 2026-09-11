@@ -24,3 +24,9 @@
    - Include complete Open Graph, Twitter Cards, and Schema.org JSON-LD E-E-A-T metadata.
 6. **Build Process**:
    - Run `python build_static_articles.py` to regenerate static article pages, `js/articles-data.js`, and `sitemap.xml`.
+7. **Terminology & Glossary**:
+   - Strictly follow the terminology mapping table in [content/README.md](file:///P:/3_WebSite/ian030590/content/README.md):
+     - `電子助視器` (❌) -> `電子擴視機` (⭕)
+     - `智慧頭顯` (❌) -> `頭戴式顯示器` (⭕)
+     - `低視力` (❌) -> `低視能` (⭕)
+   - Adhere strictly to Taiwanese medical and assistive technology clinical standards.

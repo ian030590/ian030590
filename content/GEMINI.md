@@ -9,3 +9,4 @@
 > 4. **文獻規範**：所有參考文獻之 DOI 必須為真實有效、可解析跳轉之官方永久連結。
 > 5. **網址與 SEO**：全站 Base URL 為 `https://ian030590.trainerhub.cc`，配置完整 E-E-A-T Schema.org JSON-LD。
 > 6. **建置流程**：更新 `build_static_articles.py` 之 `ARTICLE_TAG_MAP` 並執行 `python build_static_articles.py`。
+> 7. **專有名詞規範**：嚴格遵守對照表：`電子助視器`❌➔`電子擴視機`⭕、`智慧頭顯`❌➔`頭戴式顯示器`⭕、`低視力`❌➔`低視能`⭕。

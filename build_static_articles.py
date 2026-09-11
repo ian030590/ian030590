@@ -155,7 +155,7 @@ VT_IMAGES = {
     16: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
     17: 'https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80',
     18: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80',
-    19: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
+    19: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=1200&q=80',
     20: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=1200&q=80',
 }
 
@@ -916,6 +916,19 @@ def update_css():
     else:
         print('Article CSS already exists in style.css.')
 
+def normalize_terminology(text):
+    """Normalize clinical and assistive technology terminology according to content/README.md."""
+    if not text:
+        return text
+    # 1. 電子助視器 -> 電子擴視機
+    text = text.replace('電子助視器', '電子擴視機')
+    # 2. 智慧頭顯 / 頭顯 -> 頭戴式顯示器
+    text = text.replace('智慧頭顯', '頭戴式顯示器')
+    text = text.replace('頭顯', '頭戴式顯示器')
+    # 3. 低視力 -> 低視能
+    text = text.replace('低視力', '低視能')
+    return text
+
 def clean_inner_body(soup_body):
     """Clean up inline styles from body elements to make them adapt to light/dark themes."""
     # Convert tables
@@ -1043,7 +1056,7 @@ def collect_article_metadata():
     folders = [
         ('DigitalLearning', '數位學習', '科技深度專題', 'digital'),
         ('OccupationalTherapy', '中風復健', '神經復健實證專題', 'ot'),
-        ('VisualTherapy', '視覺復健', '低視力復健實證專題', 'vt'),
+        ('VisualTherapy', '視覺復健', '低視能復健實證專題', 'vt'),
     ]
     
     all_articles = []
@@ -1089,7 +1102,7 @@ def collect_article_metadata():
                 else: # VisualTherapy
                     date_published = f'2026-02-{15 + (order - 1) * 2:02d}T08:00:00+08:00' if order <= 8 else f'2026-03-{1 + (order - 9) * 2:02d}T08:00:00+08:00'
                     if order <= 9:
-                        cluster = '低視力臨床評估與光學處方科學'
+                        cluster = '低視能臨床評估與光學處方科學'
                         sub_cluster = '功能評估與輔具處方'
                     elif order <= 14:
                         cluster = '環境人因工程、安全自理與防跌防護'
@@ -1098,11 +1111,18 @@ def collect_article_metadata():
                         cluster = '特殊病徵、心理調適與跨專業協同'
                         sub_cluster = '跨專業全人照護'
 
+            # Normalize terminology across filename, topic, cluster
+            new_filename = normalize_terminology(new_filename)
+            short_topic = normalize_terminology(short_topic)
+            cluster = normalize_terminology(cluster)
+            sub_cluster = normalize_terminology(sub_cluster)
+
             # 1. Title
             h1 = soup.find('h1')
             title = h1.get_text().strip() if h1 else ''
             if not title and soup.title:
                 title = soup.title.get_text().strip()
+            title = normalize_terminology(title)
                 
             # 2. Precise Tags (Strictly the 6 official tags, multi-tag supported)
             header = soup.find('header')
@@ -1125,6 +1145,7 @@ def collect_article_metadata():
             caption = fig.find('figcaption').get_text().strip() if fig and fig.find('figcaption') else ''
             if not caption and img and img.get('alt'):
                 caption = img.get('alt')
+            caption = normalize_terminology(caption)
                 
             if folder == 'OccupationalTherapy' and order in OT_IMAGES:
                 img_src = OT_IMAGES[order]
@@ -1157,6 +1178,7 @@ def collect_article_metadata():
             if not summary:
                 first_p = soup.find('p')
                 summary = first_p.get_text().strip() if first_p else title
+            summary = normalize_terminology(summary)
                 
             # 6. References
             ref_sec = soup.find(['section', 'footer'], class_=lambda c: c and 'reference' in c) or soup.find('footer') or soup.find('section', {'aria-label': lambda x: x and '參考' in x})
@@ -1180,7 +1202,7 @@ def collect_article_metadata():
                         if val:
                             cit_url = val if val.startswith('http') else f'https://doi.org/{val}'
                             
-                    citations.append({'text': cit_text, 'url': cit_url})
+                    citations.append({'text': normalize_terminology(cit_text), 'url': cit_url})
                     
             # 7. Raw body content
             if folder == 'DigitalLearning':
@@ -1222,6 +1244,7 @@ def collect_article_metadata():
                 if old_doi in body_html:
                     body_html = body_html.replace(old_doi, new_doi)
             body_html = body_html.replace('https://doi.org/https://doi.org/', 'https://doi.org/')
+            body_html = normalize_terminology(body_html)
                     
             all_articles.append({
                 'folder': folder,
@@ -1304,7 +1327,7 @@ def build_article_html(art, all_articles):
                         "https://github.com/ian030590",
                         "https://trainerhub.cc"
                     ],
-                    "knowsAbout": ["職能治療", "神經復健", "視覺復健", "低視力評估", "數位醫療", "AI系統架構"],
+                    "knowsAbout": ["職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"],
                     "alumniOf": "國立臺灣大學"
                 },
                 "publisher": {

@@ -683,7 +683,7 @@ window.__STATIC_ARTICLES__ = [
     "link": "/content/VisualTherapy/001_眼科照護全光譜轉移_從疾病終點治療到2023AAO視覺復健指引核心架構與三級照護模型.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
-    "cluster": "低視力臨床評估與光學處方科學",
+    "cluster": "低視能臨床評估與光學處方科學",
     "subCluster": "功能評估與輔具處方",
     "order": 1,
     "folder": "VisualTherapy",
@@ -691,22 +691,22 @@ window.__STATIC_ARTICLES__ = [
   },
   {
     "id": "VisualTherapy_002",
-    "title": "突破斯內倫視力表迷思：低視力精準屈光、ETDRS 與 Bailey-Lovie 遠近視力標準化評估",
-    "lead": "傳統 Snellen 視力表在低視力臨床中存在致命缺陷：視標字數不均、間距比例不一致、缺少更低視力梯次，且無法進行精準統計運算。2023 AAO 視覺復健指引明確要求：低視力評估應常態化採用 Bailey-Lovie 或 ETDRS 等 logMAR 對數幾何級數視力表；評估嚴重視損時應主動縮短檢驗距離；屈光檢查必須採...",
+    "title": "突破斯內倫視力表迷思：低視能精準屈光、ETDRS 與 Bailey-Lovie 遠近視力標準化評估",
+    "lead": "傳統 Snellen 視力表在低視能臨床中存在致命缺陷：視標字數不均、間距比例不一致、缺少更低視能梯次，且無法進行精準統計運算。2023 AAO 視覺復健指引明確要求：低視能評估應常態化採用 Bailey-Lovie 或 ETDRS 等 logMAR 對數幾何級數視力表；評估嚴重視損時應主動縮短檢驗距離；屈光檢查必須採...",
     "imageUrl": "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健"
     ],
     "dateString": "2026-02-17",
     "readTime": "約 5 分鐘閱讀",
-    "link": "/content/VisualTherapy/002_突破斯內倫視力表迷思_低視力精準屈光、ETDRS與BaileyLovie遠近視力標準化評估.html",
+    "link": "/content/VisualTherapy/002_突破斯內倫視力表迷思_低視能精準屈光、ETDRS與BaileyLovie遠近視力標準化評估.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
-    "cluster": "低視力臨床評估與光學處方科學",
+    "cluster": "低視能臨床評估與光學處方科學",
     "subCluster": "功能評估與輔具處方",
     "order": 2,
     "folder": "VisualTherapy",
-    "filename": "002_突破斯內倫視力表迷思_低視力精準屈光、ETDRS與BaileyLovie遠近視力標準化評估.html"
+    "filename": "002_突破斯內倫視力表迷思_低視能精準屈光、ETDRS與BaileyLovie遠近視力標準化評估.html"
   },
   {
     "id": "VisualTherapy_003",
@@ -722,7 +722,7 @@ window.__STATIC_ARTICLES__ = [
     "link": "/content/VisualTherapy/003_真實世界的視覺之錨_對比敏感度在日常生活功能與跌倒風險評估之關鍵角色.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
-    "cluster": "低視力臨床評估與光學處方科學",
+    "cluster": "低視能臨床評估與光學處方科學",
     "subCluster": "功能評估與輔具處方",
     "order": 3,
     "folder": "VisualTherapy",
@@ -741,7 +741,7 @@ window.__STATIC_ARTICLES__ = [
     "link": "/content/VisualTherapy/004_凝視重生的導航技術_中心暗點微視野檢查與優選視網膜位點PRL臨床定位.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
-    "cluster": "低視力臨床評估與光學處方科學",
+    "cluster": "低視能臨床評估與光學處方科學",
     "subCluster": "功能評估與輔具處方",
     "order": 4,
     "folder": "VisualTherapy",
@@ -761,7 +761,7 @@ window.__STATIC_ARTICLES__ = [
     "link": "/content/VisualTherapy/005_偏心注視與定眼閱讀法_黃斑部病變之視網膜功能重組訓練與生物回饋實證真相.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
-    "cluster": "低視力臨床評估與光學處方科學",
+    "cluster": "低視能臨床評估與光學處方科學",
     "subCluster": "功能評估與輔具處方",
     "order": 5,
     "folder": "VisualTherapy",
@@ -780,7 +780,7 @@ window.__STATIC_ARTICLES__ = [
     "link": "/content/VisualTherapy/006_近用光學輔具之處方科學_高屈光度正透鏡、立式放大鏡與手持放大鏡幾何光學與任務適配.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
-    "cluster": "低視力臨床評估與光學處方科學",
+    "cluster": "低視能臨床評估與光學處方科學",
     "subCluster": "功能評估與輔具處方",
     "order": 6,
     "folder": "VisualTherapy",
@@ -788,27 +788,27 @@ window.__STATIC_ARTICLES__ = [
   },
   {
     "id": "VisualTherapy_007",
-    "title": "電子與數位放大科技革命：桌上型擴視機（CCTV）、可攜式電子助視器與高對比色彩模式實證優勢",
-    "lead": "當視力下降至 20/200 甚至更差時，傳統光學放大鏡因視差扭曲與極短工作距離往往瀕臨失效。2023 AAO 視覺復健指引高度肯定電子助視器（Electronic Video Magnifiers / CCTV）的劃時代臨床價值。透過高畫質相機與數位影像處理，電子助視器能實現獨立於焦距的 2 至 60 倍無級縮放、大景...",
+    "title": "電子與數位放大科技革命：桌上型擴視機（CCTV）、可攜式電子擴視機與高對比色彩模式實證優勢",
+    "lead": "當視力下降至 20/200 甚至更差時，傳統光學放大鏡因視差扭曲與極短工作距離往往瀕臨失效。2023 AAO 視覺復健指引高度肯定電子擴視機（Electronic Video Magnifiers / CCTV）的劃時代臨床價值。透過高畫質相機與數位影像處理，電子擴視機能實現獨立於焦距的 2 至 60 倍無級縮放、大景...",
     "imageUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健"
     ],
     "dateString": "2026-02-27",
     "readTime": "約 5 分鐘閱讀",
-    "link": "/content/VisualTherapy/007_電子與數位放大科技革命_桌上型擴視機CCTV、可攜式電子助視器與高對比色彩模式實證優勢.html",
+    "link": "/content/VisualTherapy/007_電子與數位放大科技革命_桌上型擴視機CCTV、可攜式電子擴視機與高對比色彩模式實證優勢.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
-    "cluster": "低視力臨床評估與光學處方科學",
+    "cluster": "低視能臨床評估與光學處方科學",
     "subCluster": "功能評估與輔具處方",
     "order": 7,
     "folder": "VisualTherapy",
-    "filename": "007_電子與數位放大科技革命_桌上型擴視機CCTV、可攜式電子助視器與高對比色彩模式實證優勢.html"
+    "filename": "007_電子與數位放大科技革命_桌上型擴視機CCTV、可攜式電子擴視機與高對比色彩模式實證優勢.html"
   },
   {
     "id": "VisualTherapy_008",
-    "title": "行動智慧時代無障礙轉型：智慧型手機、平板電腦與 AI 視覺辨識在低視力日常代償之整合應用",
-    "lead": "傳統專用低視力輔具價格昂貴、體積笨重且常帶有顯眼的「殘疾標籤（Stigma）」。2023 AAO 視覺復健指引迎來了劃時代的科技觀點：智慧型手機（iOS / Android）與平板電腦已普及成為視障族群最核心、最實用的輔助生活平台。從作業系統原生內建的動態字級、放大鏡、對比濾鏡、螢幕朗讀（VoiceOver/TalkB...",
+    "title": "行動智慧時代無障礙轉型：智慧型手機、平板電腦與 AI 視覺辨識在低視能日常代償之整合應用",
+    "lead": "傳統專用低視能輔具價格昂貴、體積笨重且常帶有顯眼的「殘疾標籤（Stigma）」。2023 AAO 視覺復健指引迎來了劃時代的科技觀點：智慧型手機（iOS / Android）與平板電腦已普及成為視障族群最核心、最實用的輔助生活平台。從作業系統原生內建的動態字級、放大鏡、對比濾鏡、螢幕朗讀（VoiceOver/TalkB...",
     "imageUrl": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健",
@@ -816,14 +816,14 @@ window.__STATIC_ARTICLES__ = [
     ],
     "dateString": "2026-02-29",
     "readTime": "約 5 分鐘閱讀",
-    "link": "/content/VisualTherapy/008_行動智慧時代無障礙轉型_智慧型手機、平板電腦與AI視覺辨識在低視力日常代償之整合應用.html",
+    "link": "/content/VisualTherapy/008_行動智慧時代無障礙轉型_智慧型手機、平板電腦與AI視覺辨識在低視能日常代償之整合應用.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
-    "cluster": "低視力臨床評估與光學處方科學",
+    "cluster": "低視能臨床評估與光學處方科學",
     "subCluster": "功能評估與輔具處方",
     "order": 8,
     "folder": "VisualTherapy",
-    "filename": "008_行動智慧時代無障礙轉型_智慧型手機、平板電腦與AI視覺辨識在低視力日常代償之整合應用.html"
+    "filename": "008_行動智慧時代無障礙轉型_智慧型手機、平板電腦與AI視覺辨識在低視能日常代償之整合應用.html"
   },
   {
     "id": "VisualTherapy_009",
@@ -839,7 +839,7 @@ window.__STATIC_ARTICLES__ = [
     "link": "/content/VisualTherapy/009_文字解碼能力之客觀度量_MnREAD閱讀功能評估尺度臨床應用與閱讀處方精準化.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
-    "cluster": "低視力臨床評估與光學處方科學",
+    "cluster": "低視能臨床評估與光學處方科學",
     "subCluster": "功能評估與輔具處方",
     "order": 9,
     "folder": "VisualTherapy",
@@ -847,22 +847,22 @@ window.__STATIC_ARTICLES__ = [
   },
   {
     "id": "VisualTherapy_010",
-    "title": "照亮暗處的處方藝術：低視力照明工程學（Lux、色溫、防眩光）與物理環境光學優化實務",
-    "lead": "老化眼球角膜內皮細胞衰退、晶狀體發黃硬化以及視網膜感光細胞數量銳減，使得低視力長者抵達視網膜的光通量僅剩年輕時的三分之一甚至十分之一。2023 AAO 視覺復健指引將「照明評估與環境優化」列為最具成本效益的首要非光學處方。指引強調：單純調亮天花板大燈是危險的錯誤，低視力照明必須講究「照度（Lux）精準計量」、「色溫（K...",
+    "title": "照亮暗處的處方藝術：低視能照明工程學（Lux、色溫、防眩光）與物理環境光學優化實務",
+    "lead": "老化眼球角膜內皮細胞衰退、晶狀體發黃硬化以及視網膜感光細胞數量銳減，使得低視能長者抵達視網膜的光通量僅剩年輕時的三分之一甚至十分之一。2023 AAO 視覺復健指引將「照明評估與環境優化」列為最具成本效益的首要非光學處方。指引強調：單純調亮天花板大燈是危險的錯誤，低視能照明必須講究「照度（Lux）精準計量」、「色溫（K...",
     "imageUrl": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健"
     ],
     "dateString": "2026-03-03",
     "readTime": "約 5 分鐘閱讀",
-    "link": "/content/VisualTherapy/010_照亮暗處的處方藝術_低視力照明工程學Lux、色溫、防眩光與物理環境光學優化實務.html",
+    "link": "/content/VisualTherapy/010_照亮暗處的處方藝術_低視能照明工程學Lux、色溫、防眩光與物理環境光學優化實務.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
     "cluster": "環境人因工程、安全自理與防跌防護",
     "subCluster": "環境改造與居家自理",
     "order": 10,
     "folder": "VisualTherapy",
-    "filename": "010_照亮暗處的處方藝術_低視力照明工程學Lux、色溫、防眩光與物理環境光學優化實務.html"
+    "filename": "010_照亮暗處的處方藝術_低視能照明工程學Lux、色溫、防眩光與物理環境光學優化實務.html"
   },
   {
     "id": "VisualTherapy_011",
@@ -905,7 +905,7 @@ window.__STATIC_ARTICLES__ = [
   },
   {
     "id": "VisualTherapy_013",
-    "title": "低視力長者的防跌防護網：白手杖定向行動（O&M）訓練、居家動線排查與跨專業防跌介入",
+    "title": "低視能長者的防跌防護網：白手杖定向行動（O&M）訓練、居家動線排查與跨專業防跌介入",
     "lead": "跌倒是摧毀視障長者生命尊嚴與加速死亡的頭號殺手。2023 AAO 視覺復健指引引用震撼流行病學數據指出：視力下降長者的跌倒風險增加近 2 倍，造成嚴重髖部骨折的風險更飆升 4 倍以上！傳統觀念常誤以為白手杖是「全盲專用」，使得長者因面子問題抗拒使用。指引大力倡導認證定向行動專家（COMS）與職能/物理治療師的協同介入：...",
     "imageUrl": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80",
     "tags": [
@@ -914,19 +914,19 @@ window.__STATIC_ARTICLES__ = [
     ],
     "dateString": "2026-03-09",
     "readTime": "約 5 分鐘閱讀",
-    "link": "/content/VisualTherapy/013_低視力長者防跌防護網_白手杖定向行動訓練、居家動線排查與跨專業防跌介入.html",
+    "link": "/content/VisualTherapy/013_低視能長者防跌防護網_白手杖定向行動訓練、居家動線排查與跨專業防跌介入.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
     "cluster": "環境人因工程、安全自理與防跌防護",
     "subCluster": "環境改造與居家自理",
     "order": 13,
     "folder": "VisualTherapy",
-    "filename": "013_低視力長者防跌防護網_白手杖定向行動訓練、居家動線排查與跨專業防跌介入.html"
+    "filename": "013_低視能長者防跌防護網_白手杖定向行動訓練、居家動線排查與跨專業防跌介入.html"
   },
   {
     "id": "VisualTherapy_014",
     "title": "隱形用藥風暴之防線：視力障礙患者安全給藥管理、智慧藥盒與語音標籤防錯機制",
-    "lead": "低視力長者往往罹患多重慢性疾病（心臟病、高血壓、糖尿病、青光眼），平均每日需服用 5 至 9 種不同藥物。然而，常規藥袋上字體極小（常僅 6-8pt）、透明膠囊外觀相似、眼藥水瓶身無從區分，導致用藥錯誤率、重複服藥與漏服率高達 30% 以上！2023 AAO 視覺復健指引將「藥物安全管理」列為復健關鍵介入領域。本文深入...",
+    "lead": "低視能長者往往罹患多重慢性疾病（心臟病、高血壓、糖尿病、青光眼），平均每日需服用 5 至 9 種不同藥物。然而，常規藥袋上字體極小（常僅 6-8pt）、透明膠囊外觀相似、眼藥水瓶身無從區分，導致用藥錯誤率、重複服藥與漏服率高達 30% 以上！2023 AAO 視覺復健指引將「藥物安全管理」列為復健關鍵介入領域。本文深入...",
     "imageUrl": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健",
@@ -946,7 +946,7 @@ window.__STATIC_ARTICLES__ = [
   {
     "id": "VisualTherapy_015",
     "title": "視野缺損與合法駕駛邊界：雙焦點遠用望遠鏡（Bioptic Telescopes）、視野法規與安全駕駛評估準則",
-    "lead": "被告知「您不能再開車了」對長者造成的心理衝擊，往往不亞於罹患重症。駕駛執照不僅是代步工具，更是自我價值、獨立與社交參與的基石。2023 AAO 視覺復健指引深度探討了低視力駕駛的法規邊界、醫學評估標準與爭議技術：雙焦點遠用望遠鏡（Bioptic Telescopes, BTS）。指引強調：靜態視力表無法全盤預測駕駛安全...",
+    "lead": "被告知「您不能再開車了」對長者造成的心理衝擊，往往不亞於罹患重症。駕駛執照不僅是代步工具，更是自我價值、獨立與社交參與的基石。2023 AAO 視覺復健指引深度探討了低視能駕駛的法規邊界、醫學評估標準與爭議技術：雙焦點遠用望遠鏡（Bioptic Telescopes, BTS）。指引強調：靜態視力表無法全盤預測駕駛安全...",
     "imageUrl": "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健",
@@ -966,7 +966,7 @@ window.__STATIC_ARTICLES__ = [
   {
     "id": "VisualTherapy_016",
     "title": "大腦幻影之去病理化：夏爾·博內症候群（Charles Bonnet Syndrome）神經脫抑制機制、患者衛教與安撫對策",
-    "lead": "眼前突然看見身穿十九世紀華麗宮廷服飾的小人走動、客廳地板開滿豔麗玫瑰、或是牆壁佈滿不斷旋轉的精緻幾何萬花筒——許多低視力長者飽受生動逼真的「視幻覺」折磨，卻因極度恐懼被家人認定為「發瘋、中邪或失智症」而默默隱忍，陷入巨大心理崩潰。2023 AAO 視覺復健指引明確指出：夏爾·博內症候群（Charles Bonnet S...",
+    "lead": "眼前突然看見身穿十九世紀華麗宮廷服飾的小人走動、客廳地板開滿豔麗玫瑰、或是牆壁佈滿不斷旋轉的精緻幾何萬花筒——許多低視能長者飽受生動逼真的「視幻覺」折磨，卻因極度恐懼被家人認定為「發瘋、中邪或失智症」而默默隱忍，陷入巨大心理崩潰。2023 AAO 視覺復健指引明確指出：夏爾·博內症候群（Charles Bonnet S...",
     "imageUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健",
@@ -985,8 +985,8 @@ window.__STATIC_ARTICLES__ = [
   },
   {
     "id": "VisualTherapy_017",
-    "title": "撫平失明焦慮與憂鬱幽谷：低視力患者心理健康縱向篩檢、支持團體與賦能諮商介入",
-    "lead": "失去了清晰的雙眼，世界彷彿瞬間安靜並關上了大門。醫學文獻證實，視力喪失引發的心理創傷，在強度上等同於失去至親或身患惡性腫瘤。低視力族群中重度憂鬱症與焦慮症的盛行率超過 30% 至 35%，然而常規眼科門診常只專注於眼底 OCT 圖像，使得心理崩潰淪為「隱形死角」。2023 AAO 視覺復健指引將心理健康縱向篩檢（PHQ...",
+    "title": "撫平失明焦慮與憂鬱幽谷：低視能患者心理健康縱向篩檢、支持團體與賦能諮商介入",
+    "lead": "失去了清晰的雙眼，世界彷彿瞬間安靜並關上了大門。醫學文獻證實，視力喪失引發的心理創傷，在強度上等同於失去至親或身患惡性腫瘤。低視能族群中重度憂鬱症與焦慮症的盛行率超過 30% 至 35%，然而常規眼科門診常只專注於眼底 OCT 圖像，使得心理崩潰淪為「隱形死角」。2023 AAO 視覺復健指引將心理健康縱向篩檢（PHQ...",
     "imageUrl": "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健",
@@ -994,14 +994,14 @@ window.__STATIC_ARTICLES__ = [
     ],
     "dateString": "2026-03-17",
     "readTime": "約 5 分鐘閱讀",
-    "link": "/content/VisualTherapy/017_撫平失明焦慮與憂鬱幽谷_低視力患者心理健康縱向篩檢、支持團體與賦能諮商介入.html",
+    "link": "/content/VisualTherapy/017_撫平失明焦慮與憂鬱幽谷_低視能患者心理健康縱向篩檢、支持團體與賦能諮商介入.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
     "cluster": "特殊病徵、心理調適與跨專業協同",
     "subCluster": "跨專業全人照護",
     "order": 17,
     "folder": "VisualTherapy",
-    "filename": "017_撫平失明焦慮與憂鬱幽谷_低視力患者心理健康縱向篩檢、支持團體與賦能諮商介入.html"
+    "filename": "017_撫平失明焦慮與憂鬱幽谷_低視能患者心理健康縱向篩檢、支持團體與賦能諮商介入.html"
   },
   {
     "id": "VisualTherapy_018",
@@ -1025,8 +1025,8 @@ window.__STATIC_ARTICLES__ = [
   {
     "id": "VisualTherapy_019",
     "title": "跨專業團隊協同作戰：眼科醫師、驗光師、職能治療師（OT）與定向行動師（COMS）角色分工與轉銜體系",
-    "lead": "任何試圖由眼科醫師或單一專業獨自包攬所有低視力照護的嘗試，注定將以醫療倦怠與患者失能收場。2023 AAO 視覺復健指引（特別在 Appendix 6 中）以宏大的跨學科視野，明確界定了跨專業團隊（Interprofessional Team）的四大核心支柱：眼科專科醫師、低視力驗光師、職能治療師（OT）與定向行動專家...",
-    "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+    "lead": "任何試圖由眼科醫師或單一專業獨自包攬所有低視能照護的嘗試，注定將以醫療倦怠與患者失能收場。2023 AAO 視覺復健指引（特別在 Appendix 6 中）以宏大的跨學科視野，明確界定了跨專業團隊（Interprofessional Team）的四大核心支柱：眼科專科醫師、低視能驗光師、職能治療師（OT）與定向行動專家...",
+    "imageUrl": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健",
       "中風復健"
