@@ -2203,6 +2203,18 @@ button {
   padding: 4px 12px;
   border-radius: 20px;
   letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a.article-badge {
+  cursor: pointer;
+}
+
+a.article-badge:hover {
+  background: var(--accent);
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .article-badge.cluster-badge {

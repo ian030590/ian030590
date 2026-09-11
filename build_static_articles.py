@@ -16,7 +16,7 @@ ARTICLES_DATA_FILE = BASE_DIR / 'js' / 'articles-data.js'
 BLOG_HTML_FILE = BASE_DIR / 'blog.html'
 MAIN_JS_FILE = BASE_DIR / 'js' / 'main.js'
 
-SITE_BASE_URL = 'https://ian030590.github.io'
+SITE_BASE_URL = 'https://ian030590.trainerhub.cc'
 
 # 1. DigitalLearning File Mapping: (old_filename, new_filename, short_topic, cluster, order)
 DL_MAPPING = {
@@ -113,6 +113,192 @@ DL_MAPPING = {
     ),
 }
 
+OT_IMAGES = {
+    1: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
+    2: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1200&q=80',
+    3: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80',
+    4: 'https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80',
+    5: 'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=1200&q=80',
+    6: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=1200&q=80',
+    7: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80',
+    8: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=80',
+    9: 'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&w=1200&q=80',
+    10: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&w=1200&q=80',
+    11: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80',
+    12: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80',
+    13: 'https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=1200&q=80',
+    14: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1200&q=80',
+    15: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80',
+    16: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=1200&q=80',
+    17: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80',
+    18: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80',
+    19: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80',
+    20: 'https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?auto=format&fit=crop&w=1200&q=80',
+}
+
+VT_IMAGES = {
+    1: 'https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=1200&q=80',
+    2: 'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&w=1200&q=80',
+    3: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=1200&q=80',
+    4: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80',
+    5: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80',
+    6: 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=1200&q=80',
+    7: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
+    8: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80',
+    9: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80',
+    10: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&fit=crop&w=1200&q=80',
+    11: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1200&q=80',
+    12: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80',
+    13: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80',
+    14: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80',
+    15: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1200&q=80',
+    16: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
+    17: 'https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80',
+    18: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80',
+    19: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
+    20: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=1200&q=80',
+}
+
+BROKEN_DOI_FIXES = {
+    '10.1609/hcomp.v11i1.27541': (
+        'https://doi.org/10.48550/arXiv.2208.03274',
+        'Markov, T., Zhang, C., Agarwal, S., et al. (2023). A Holistic Approach to Undesired Content Detection in the Real World. arXiv preprint arXiv:2208.03274.'
+    ),
+    '10.1016/S0140-6736(17)31447-3': (
+        'https://doi.org/10.1016/S0140-6736(17)31447-2',
+        'Lindley, R. I., et al. (2017). Family-led rehabilitation after stroke in India (ATTEND): a randomised, blind-endpoint trial. The Lancet, 390(10094), 588-599. https://doi.org/10.1016/S0140-6736(17)31447-2'
+    ),
+    '10.1016/S0140-6736(05)70992-3': (
+        'https://doi.org/10.1016/S0140-6736(05)17983-5',
+        'Dennis, M., et al. (2005). Effect of timing and method of enteral tube feeding for dysphagic stroke patients (FOOD): a multicentre randomised controlled trial. The Lancet, 365(9461), 764-772. https://doi.org/10.1016/S0140-6736(05)17983-5'
+    ),
+    '10.1136/bmjopen-2018-024170': (
+        'https://doi.org/10.1371/journal.pone.0213035',
+        'Rowe, F. J., et al. (2019). High incidence and prevalence of visual problems after acute stroke: An epidemiology study with implications for service delivery. PLOS ONE, 14(3), e0213035. https://doi.org/10.1371/journal.pone.0213035'
+    ),
+    '10.1002/14651858.CD008388.pub4': (
+        'https://doi.org/10.1002/14651858.CD008388.pub3',
+        'Pollock, A., et al. (2019). Interventions for visual field defects in people with stroke. Cochrane Database of Systematic Reviews, 5(5), CD008388. https://doi.org/10.1002/14651858.CD008388.pub3'
+    ),
+    '10.1016/S0140-6736(12)61852-7': (
+        'https://doi.org/10.1136/bmj.328.7448.1099',
+        'Kalra, L., et al. (2004). Training carers of stroke patients: randomised controlled trial. BMJ, 328(7448), 1099. https://doi.org/10.1136/bmj.328.7448.1099'
+    ),
+    '10.1016/S1474-4422(12)70163-6': (
+        'https://doi.org/10.1016/j.neuropsychologia.2012.01.024',
+        'Kerkhoff, G., & Schenk, T. (2012). Rehabilitation of neglect: An update. Neuropsychologia, 50(6), 1072–1079. https://doi.org/10.1016/j.neuropsychologia.2012.01.024'
+    ),
+    '10.1044/2019_AJSLP-18-0242': (
+        'https://doi.org/10.1044/1058-0360(2009/09-0006)',
+        'McCauley, R. J., Strand, E., Lof, G. L., Schooling, T., & Frymark, T. (2009). Evidence-based systematic review: Effects of nonspeech oral motor exercises on speech. American Journal of Speech-Language Pathology, 18(4), 343–360. https://doi.org/10.1044/1058-0360(2009/09-0006)'
+    ),
+    '10.1186/s13063-017-2066-x': (
+        'https://doi.org/10.1186/1745-6215-13-218',
+        'Rowe, F. J., et al. (2012). A randomised controlled trial of treatment for post-stroke homonymous hemianopia: screening and recruitment. Trials, 13, 218. https://doi.org/10.1186/1745-6215-13-218'
+    ),
+    '10.1177/15459683211011234': (
+        'https://doi.org/10.1177/1545968310372774',
+        'Keller, I., & Lefin-Rank, G. (2010). Improvement of visual search after audiovisual exploration training in hemianopic patients. Neurorehabilitation and Neural Repair, 24(7), 666–673. https://doi.org/10.1177/1545968310372774'
+    ),
+    '10.1001/jamaophthalmol.2014.2292': (
+        'https://doi.org/10.1001/jamaophthalmol.2013.5636',
+        'Bowers, A. R., Keeney, K., & Peli, E. (2014). Randomized Crossover Clinical Trial of Real and Sham Peripheral Prism Glasses for Hemianopia. JAMA Ophthalmology, 132(9), 1144–1152. https://doi.org/10.1001/jamaophthalmol.2013.5636'
+    ),
+    '10.1016/B978-0-444-53855-0.00013-X': (
+        'https://doi.org/10.1016/B978-0-444-53355-5.00013-0',
+        'Sabel, B. A., Henrich-Noack, P., Fedorov, A., & Gall, C. (2011). Vision restoration after brain and retina damage: The "residual vision activation theory". Progress in Brain Research, 192, 199–262. https://doi.org/10.1016/B978-0-444-53355-5.00013-0'
+    ),
+    '10.3389/fneur.2022.843100': (
+        'https://doi.org/10.1177/1545968311425927',
+        'Mödden, C., et al. (2012). A randomized controlled trial comparing 2 interventions for visual field loss with standard occupational therapy during inpatient stroke rehabilitation. Neurorehabilitation and Neural Repair, 26(5), 463–469. https://doi.org/10.1177/1545968311425927'
+    ),
+    '10.3233/RNN-201111': (
+        'https://doi.org/10.3233/RNN-211198',
+        'Räty, S., Borrmann, C., et al. (2021). Non-invasive electrical brain stimulation for vision restoration after stroke: An exploratory randomized trial (REVIS). Restorative Neurology and Neuroscience, 39(3), 221–235. https://doi.org/10.3233/RNN-211198'
+    ),
+    '10.5014/ajot.2021.755001': (
+        'https://doi.org/10.5014/ajot.2023.077501',
+        'Hildebrand, M. W., Geller, D., & Proffitt, R. (2023). Occupational Therapy Practice Guidelines for Adults With Stroke. American Journal of Occupational Therapy, 77(5), 7705397010. https://doi.org/10.5014/ajot.2023.077501'
+    ),
+}
+
+VT_DOI_CACHE = {
+  "Jackson ML, Virgili G, Shepherd JD, et al. Vision Rehabilitation Preferred Practice Pattern®. Ophthalmology. 2023;130(3):P271-P342.": "10.1016/j.ophtha.2022.10.024",
+  "World Health Organization. World report on vision. Geneva: World Health Organization; 2019.": "https://www.who.int/publications/i/item/9789241516570",
+  "Stelmack JA, Tang XC, Reda DJ, et al. Outcomes of the Veterans Affairs Low Vision Intervention Trial (LOVIT). Arch Ophthalmol. 2008;126(5):608-617.": "10.1001/archopht.126.5.608",
+  "van Nispen RMA, Virgili G, Hoeben M, et al. Low vision rehabilitation for better quality of life in visually impaired adults. Cochrane Database Syst Rev. 2020;1(1):CD006543.": "10.1002/14651858.cd006543.pub2",
+  "Ivers RQ, Norton R, Cumming RG, et al. Visual impairment and risk of hip fracture. Am J Epidemiol. 2000;152(7):633-639.": "10.1016/s0002-9394(01)00990-4",
+  "Bailey IL, Lovie JE. New design principles for visual acuity letter charts. Am J Optom Physiol Opt. 1976;53(11):740-745.": "10.1097/00006324-197611000-00006",
+  "Ferris FL 3rd, Kassoff A, Bresnick GH, Bailey I. New visual acuity charts for clinical research. Am J Ophthalmol. 1982;94(1):91-96.": "10.1016/0002-9394(82)90197-0",
+  "Rosser DA, Cousens SN, Murdoch IE, et al. How sensitive to clinical change are common visual acuity charts? Invest Ophthalmol Vis Sci. 2003;44(7):3277-3281.": "10.1167/iovs.02-1100",
+  "Sunness JS, El Annan J. Improvement of visual acuity in patients with dry age-related macular degeneration using a trial frame refraction. Retina. 2010;30(9):1472-1478.": "10.1097/00006982-200002000-00009",
+  "Pelli DG, Robson JG, Wilkins AJ. The design of a new letter chart for measuring contrast sensitivity. Clin Vis Sci. 1988;2(3):187-199.": "10.32388/mcwwss",
+  "Arditi A. Improving the design of the letter contrast sensitivity test. Invest Ophthalmol Vis Sci. 2005;46(6):2225-2229.": "10.1167/iovs.04-1198",
+  "Rubin GS, Bandeen-Roche K, Prasada-Rao P, Fried LP. Visual impairment and disability in older adults: the SEE Project. Invest Ophthalmol Vis Sci. 1997;38(1):92-101.": "10.1002/j.1538-9235.1994.tb03438.x",
+  "West SK, Rubin GS, Broman AT, et al. How does visual impairment affect performance on tasks of everyday life? The SEE Project. Arch Ophthalmol. 2002;120(6):774-780.": "10.1001/archopht.120.6.774",
+  "Fletcher DC, Schuchard RA. Preferred retinal loci relationship to macular scotomas in a low-vision population. Ophthalmology. 1997;104(4):632-638.": "10.1016/s0161-6420(97)30260-7",
+  "Crossland MD, Engel SA, Legge GE. The Preferred Retinal Locus in macular disease: characteristics and clinical implications. Ophthalmic Physiol Opt. 2011;31(3):210-214.": "10.1097/iae.0b013e31820d3fba",
+  "Timberlake GT, Mainster MA, Peli E, et al. Reading with a macular scotoma. I. Retinal location of scotoma and fixation area. Invest Ophthalmol Vis Sci. 1986;27(7):1137-1147.": "10.1167/iovs.12-9908",
+  "Midena E, Vujosevic S. Microperimetry in age-related macular degeneration. Eye (Lond). 2017;31(8):1108-1113.": "10.1038/eye.2017.34",
+  "Nilsson UL, Frennesson C, Nilsson SE. Patients with AMD and a large foveal scotoma can learn to use an eccentric trained retinal locus (TRL): associated changes in reading speed and visual acuity. Optom Vis Sci. 2003;80(8):608-618.": "10.1016/s0042-6989(03)00219-0",
+  "Deruaz A, Whatham AR, Mermoud C, Safran AB. Reading with an eccentric fixation point: is it possible to train eye movement patterns? Vision Res. 2002;42(22):2519-2532.": "10.1016/s0042-6989(02)00354-1",
+  "Coco-Martin MB, Cuadrado-Asensio R, Lopez-Miguel A, et al. Design and evaluation of a customized visual training program in patients with age-related macular degeneration. Transl Vis Sci Technol. 2020;9(4):18.": "10.1016/j.ophtha.2012.07.035",
+  "Virgili G, Acosta R, Bentley SA, et al. Reading aids for adults with low vision. Cochrane Database Syst Rev. 2018;4(4):CD003303.": "10.1002/14651858.cd003303.pub4",
+  "Faye EE. Clinical Low Vision. 2nd ed. Boston: Little, Brown; 1984.": "10.1177/026461968500300310",
+  "Bailey IL. Magnification for the low vision patient. Optom Monthly. 1981;72:14-17.": "10.1007/978-1-4612-4780-7_21",
+  "Lovie-Kitchin J, Bowers A. High-addition and bifocal spectacles for low vision: predicting success. Optom Vis Sci. 2002;79(8):525-534.": "10.1111/j.1444-0938.2002.tb03042.x",
+  "Peterson CB, Giles HC, Hall EC, et al. Reading performance in patients using closed circuit television vs. optical magnifiers. Optom Vis Sci. 2003;80(3):209-216.": "10.1167/iovs.11-8407",
+  "Lovie-Kitchin J, Whittaker SG. Prescribing reading aids: developing a systematic procedure. Clin Exp Optom. 1999;82(3-4):115-124.": "10.1111/j.1444-0938.1999.tb06651.x",
+  "Markowitz SN, Reyes SV, Flanagan JG. The role of smart phones in low vision rehabilitation. Can J Ophthalmol. 2013;48(5):e111-e113.": "10.1007/978-3-642-40300-2_19",
+  "Crossland MD, Silva RZ, Macedo AF. Smartphone, tablet computer and e-reader use by people with vision impairment. Ophthalmic Physiol Opt. 2014;34(5):552-557.": "10.1111/opo.12136",
+  "Joshi R, Huisingh C, McGwin G Jr, et al. Comparing smartphone and handheld optical magnification in persons with macular degeneration. Optom Vis Sci. 2017;94(8):831-837.": "10.1167/iovs.15-18962",
+  "Budenz DL, Sunness JS, Di Nome MA, et al. Accessibility and mobile health applications in low vision: an American Academy of Ophthalmology clinical perspective. Ophthalmology. 2022;129(8):e75-e84.": "10.1016/j.ophtha.2022.04.015",
+  "Mansfield JS, Ahn SJ, Legge GE, Luebker A. A new reading-acuity chart for normal and low vision: the MNREAD Acuity Chart. Invest Ophthalmol Vis Sci. 1993;34:1418.": "10.1364/navs.1993.nsud.3",
+  "Legge GE. Psychophysics of Reading in Normal and Low Vision. Mahwah, NJ: Lawrence Erlbaum Associates; 2007.": "10.1201/9781482269482",
+  "Calabrèse A, Cheong AM, Cheung SH, et al. Baseline MNREAD measures for normally sighted subjects from childhood to old age. Invest Ophthalmol Vis Sci. 2016;57(8):3866-3875.": "10.1167/iovs.16-19580",
+  "Subramanian A, Dickinson C. What is the difference between reading acuity and critical print size in low vision patients? Optom Vis Sci. 2006;83(6):369-376.": "10.1093/9780198946960.003.0003",
+  "Bowers AR, Meek C, Barker NH. Illumination characteristics of task lights preferred by people with low vision. Ophthalmic Physiol Opt. 2001;21(4):287-295.": "10.1007/s44402-026-00143-y",
+  "Eperjesi F, Fowler CW, Evans BJ. Do tinted lenses or filters improve visual performance in low vision? A review of the literature. Ophthalmic Physiol Opt. 2002;22(1):68-77.": "10.1046/j.1475-1313.2002.00004.x",
+  "Cullinane B, Evans BJ, Hughes D. The effect of lighting on reading speed and performance in patients with age-related macular degeneration. Br J Ophthalmol. 2004;88(6):830-834.": "10.1007/s10384-020-00769-6",
+  "Brunnström G, Sörensen S, Alsterstad K, Sjöstrand J. Quality of light and quality of life in home care: elderly people with visual impairment. J Occup Sci. 2004;11(1):27-35.": "10.1111/j.1475-1313.2004.00192.x",
+  "Leat SJ, North RV, Bryson H. Do long wavelength pass filters improve low vision performance? Ophthalmic Physiol Opt. 1990;10(3):219-224.": "10.1111/j.1475-1313.1990.tb00855.x",
+  "Faye EE. Absorptive lenses in low vision: an overview. Optom Clin. 1993;3(4):75-84.": "10.54352/dozv.jvwy6099",
+  "Mainster MA, Turner PL. Glare's causes, consequences, and clinical challenges after a century of cyclopean dissatisfaction. Prog Retin Eye Res. 2012;31(2):123-142.": "10.1016/j.ajo.2012.01.008",
+  "American Occupational Therapy Association. Occupational therapy practice framework: Domain and process (4th ed.). Am J Occup Ther. 2020;74(Suppl. 2):7412410010.": "10.5014/ajot.2020.74s2001",
+  "Berger S, Kaldenberg J. Occupational therapy interventions for older adults with low vision: a systematic review. Am J Occup Ther. 2013;67(3):e75-e84.": "10.5014/ajot.2019.038380",
+  "Smallfield S, Clem K, Myers A. Occupational therapy interventions to improve reading performance of older adults with low vision: a systematic review. Am J Occup Ther. 2013;67(3):e61-e74.": "10.5014/ajot.2019.038380",
+  "Warren M. Evaluation and Intervention for Low Vision. In: Pendleton HM, Schultz-Krohn W, eds. Pedretti's Occupational Therapy: Practice Skills for Physical Dysfunction. 8th ed. St. Louis: Elsevier; 2018:615-645.": "10.5014/ajot.45.6.573c",
+  "Lord SR, Dayhew J. Visual risk factors for falls in older people. J Am Geriatr Soc. 2001;49(5):508-515.": "10.1046/j.1532-5415.2001.49107.x",
+  "Wiener WR, Welsh RL, Blasch BB. Foundations of Orientation and Mobility. 3rd ed. New York: AFB Press; 2010.": "10.5070/t412011819",
+  "Gillespie LD, Robertson MC, Gillespie WJ, et al. Interventions for preventing falls in older people living in the community. Cochrane Database Syst Rev. 2012;9:CD007146.": "10.1002/14651858.cd007146.pub2",
+  "Sloan FA, Wang F. Disparities among older adults in medication adherence: the role of cognitive and visual impairments. Cogn Behav Neurol. 2005;18(4):217-226.": "10.1093/geroni/igab046.1852",
+  "Brown CM, Jackson ML. Medication management in low vision: an occupational therapy and low vision clinician collaborative approach. J Vis Impair Blind. 2017;111(5):455-468.": "10.1177/0308022619858940",
+  "American Society of Health-System Pharmacists. ASHP statement on the pharmacist's role in the care of patients with disabilities. Am J Health Syst Pharm. 2002;59(12):1201-1205.": "10.1093/ajhp/59.3.282",
+  "Sleath B, Blalock SJ, Covert D, et al. The relationship between glaucoma medication adherence, eye drop technique, and visual field defect severity. Ophthalmology. 2011;118(12):2398-2402.": "10.1016/j.ophtha.2011.05.013",
+  "American Medical Association. Physician's Guide to Assessing and Counseling Older Drivers. 4th ed. Washington, DC: National Highway Traffic Safety Administration; 2019.": "https://www.nhtsa.gov/sites/nhtsa.gov/files/documents/14358a_olderdriversguidelines_082019_v1a_tag.pdf",
+  "Bowers AR, Peli E, Elgin J, et al. On-road driving with bioptic telescopes: does the telescope help? Optom Vis Sci. 2005;82(8):743-753.": "10.1167/iovs.04-0271",
+  "Owsley C, McGwin G Jr. Vision and driving. Vision Res. 2010;50(23):2348-2361.": "10.1016/j.visres.2010.05.021",
+  "Freeman EE, Muñoz B, Turano KA, West SK. Measures of visual function and time to driving cessation in older adults: the Salisbury Eye Evaluation. Invest Ophthalmol Vis Sci. 2005;46(8):2756-2763.": "10.1167/iovs.05-0934",
+  "Teunisse RJ, Cruysberg JR, Hoefnagels WH, et al. Visual hallucinations in psychologically normal people: Charles Bonnet's syndrome. Lancet. 1996;347(9004):794-797.": "10.1016/s0140-6736(96)90869-7",
+  "Menon GJ, Rahman I, Menon SJ, Dutton GN. Complex visual hallucinations in the visually impaired: the Charles Bonnet Syndrome. Surv Ophthalmol. 2003;48(1):58-72.": "10.1016/s0039-6257(02)00414-9",
+  "ffytche DH. Visual hallucinations and the Charles Bonnet syndrome. Curr Psychiatry Rep. 2005;7(3):168-179.": "10.1007/s11920-005-0050-3",
+  "daSilva Morgan K, Webster KE, Shepherd JD, et al. Inhibitory transcranial direct current stimulation (tDCS) for the treatment of Charles Bonnet Syndrome: a randomized controlled trial. Ophthalmic Physiol Opt. 2021;41(4):780-791.": "10.26226/morressier.59a3e8b7d462b8028d89591d",
+  "Rovner BW, Casten RJ, Hegel MT, et al. Preventing depression in age-related macular degeneration: a randomized controlled trial. Arch Gen Psychiatry. 2007;64(8):886-892.": "10.1001/archpsyc.64.8.886",
+  "Rovner BW, Casten RJ, Hegel MT, et al. Low vision rehabilitation and depression in age-related macular degeneration: a randomized clinical trial. Ophthalmology. 2014;121(11):2204-2211.": "10.1016/j.ophtha.2014.05.002",
+  "Brody BL, Roch-Levecq AC, Gamst AC, et al. Self-management of age-related macular degeneration and quality of life: a randomized controlled trial. Arch Ophthalmol. 2002;120(11):1477-1483.": "10.1001/archopht.120.11.1477",
+  "van der Aa HP, van Rens GH, Comijs HC, et al. Stepped care for depression and anxiety in visually impaired older adults: a randomized controlled trial. BMJ Open. 2013;3(11):e003723.": "10.1136/bmj.h6127",
+  "Baile WF, Buckman R, Lenzi R, et al. SPIKES—A six-step protocol for delivering bad news: application to the patient with cancer. Oncologist. 2000;5(4):302-311.": "10.1634/theoncologist.5-4-302",
+  "Liénard A, Merckaert I, Libert Y, et al. Is it possible to improve residents breaking bad news skills? A randomised study assessing the efficacy of a 38-h communication skills training program. Br J Cancer. 2010;103(2):171-177.": "10.1038/sj.bjc.6605749",
+  "Fletcher DC. Low vision rehabilitation: the art of compassionate communication and functional restoration. Ophthalmol Clin North Am. 2003;16(2):147-157.": "10.1001/archopht.1994.01090240026018",
+  "Mogk LG. Vision rehabilitation: the critical next step in patient care. JAMA Ophthalmol. 2013;131(11):1481-1482.": "10.1001/jamaophthalmol.2013.4686",
+  "Warren M. Occupational therapy's role in low vision rehabilitation: a historical perspective and future trends. Am J Occup Ther. 1995;49(9):857-865.": "10.5014/ajot.49.9.857",
+  "Center for Medicare and Medicaid Services (CMS). Medicare Benefit Policy Manual: Chapter 15 - Covered Medical and Other Health Services (Section 220 - Physical Therapy, Occupational Therapy, and Speech-Language Pathology Services).": "https://www.cms.gov/regulations-and-guidance/guidance/manuals/downloads/bp102c15.pdf",
+  "Markowitz SN. Principles of modern low vision rehabilitation. Can J Ophthalmol. 2006;41(3):289-312.": "10.1139/i06-027",
+  "Stelmack JA, Tang XC, Wei Y, et al. Outcomes of the Veterans Affairs Low Vision Intervention Trial II (LOVIT II): a randomized clinical trial. JAMA Ophthalmol. 2017;135(2):96-104.": "10.1001/jamaophthalmol.2016.4742"
+}
+
+
+
 # 2. Add Article CSS to style.css if not present
 ARTICLE_CSS = """
 /* ==========================================================================
@@ -203,6 +389,18 @@ ARTICLE_CSS = """
   padding: 4px 12px;
   border-radius: 20px;
   letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a.article-badge {
+  cursor: pointer;
+}
+
+a.article-badge:hover {
+  background: var(--accent);
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .article-badge.cluster-badge {
@@ -780,10 +978,71 @@ def clean_inner_body(soup_body):
             
     return str(soup_body)
 
+ARTICLE_TAG_MAP = {
+    # DigitalLearning (13 articles)
+    "DigitalLearning_001": ["數位學習", "AI應用"],
+    "DigitalLearning_002": ["數位學習", "AI應用"],
+    "DigitalLearning_003": ["數位學習", "AI應用"],
+    "DigitalLearning_004": ["數位學習", "AI應用"],
+    "DigitalLearning_005": ["數位學習", "AI應用"],
+    "DigitalLearning_006": ["數位學習", "AI應用"],
+    "DigitalLearning_007": ["數位學習", "AI應用"],
+    "DigitalLearning_008": ["數位學習", "AI應用"],
+    "DigitalLearning_009": ["數位學習", "AI應用"],
+    "DigitalLearning_010": ["數位學習", "AI應用"],
+    "DigitalLearning_011": ["數位學習", "AI應用"],
+    "DigitalLearning_012": ["數位學習", "AI應用"],
+    "DigitalLearning_013": ["數位學習", "AI應用"],
+
+    # OccupationalTherapy (20 articles)
+    "OccupationalTherapy_001": ["中風復健", "動作復健"],
+    "OccupationalTherapy_002": ["中風復健", "動作復健"],
+    "OccupationalTherapy_003": ["中風復健", "動作復健"],
+    "OccupationalTherapy_004": ["中風復健", "動作復健"],
+    "OccupationalTherapy_005": ["中風復健", "動作復健"],
+    "OccupationalTherapy_006": ["中風復健", "認知復健", "視覺復健"],
+    "OccupationalTherapy_007": ["中風復健", "認知復健", "動作復健"],
+    "OccupationalTherapy_008": ["中風復健", "動作復健"],
+    "OccupationalTherapy_009": ["中風復健", "認知復健"],
+    "OccupationalTherapy_010": ["中風復健", "動作復健", "認知復健"],
+    "OccupationalTherapy_011": ["中風復健", "視覺復健"],
+    "OccupationalTherapy_012": ["中風復健", "視覺復健", "動作復健"],
+    "OccupationalTherapy_013": ["中風復健", "視覺復健", "認知復健"],
+    "OccupationalTherapy_014": ["中風復健", "視覺復健"],
+    "OccupationalTherapy_015": ["中風復健", "視覺復健", "認知復健"],
+    "OccupationalTherapy_016": ["中風復健", "視覺復健"],
+    "OccupationalTherapy_017": ["中風復健", "視覺復健", "認知復健"],
+    "OccupationalTherapy_018": ["中風復健", "視覺復健"],
+    "OccupationalTherapy_019": ["中風復健", "視覺復健", "認知復健"],
+    "OccupationalTherapy_020": ["中風復健", "動作復健", "視覺復健", "認知復健"],
+
+    # VisualTherapy (20 articles)
+    "VisualTherapy_001": ["視覺復健"],
+    "VisualTherapy_002": ["視覺復健"],
+    "VisualTherapy_003": ["視覺復健", "動作復健"],
+    "VisualTherapy_004": ["視覺復健"],
+    "VisualTherapy_005": ["視覺復健", "認知復健"],
+    "VisualTherapy_006": ["視覺復健"],
+    "VisualTherapy_007": ["視覺復健"],
+    "VisualTherapy_008": ["視覺復健", "AI應用"],
+    "VisualTherapy_009": ["視覺復健", "認知復健"],
+    "VisualTherapy_010": ["視覺復健"],
+    "VisualTherapy_011": ["視覺復健"],
+    "VisualTherapy_012": ["視覺復健", "動作復健"],
+    "VisualTherapy_013": ["視覺復健", "動作復健"],
+    "VisualTherapy_014": ["視覺復健", "認知復健"],
+    "VisualTherapy_015": ["視覺復健", "認知復健"],
+    "VisualTherapy_016": ["視覺復健", "認知復健"],
+    "VisualTherapy_017": ["視覺復健", "認知復健"],
+    "VisualTherapy_018": ["視覺復健"],
+    "VisualTherapy_019": ["視覺復健", "中風復健"],
+    "VisualTherapy_020": ["視覺復健"]
+}
+
 def collect_article_metadata():
     folders = [
         ('DigitalLearning', '數位學習', '科技深度專題', 'digital'),
-        ('OccupationalTherapy', '職能治療', '神經復健實證專題', 'ot'),
+        ('OccupationalTherapy', '中風復健', '神經復健實證專題', 'ot'),
         ('VisualTherapy', '視覺復健', '低視力復健實證專題', 'vt'),
     ]
     
@@ -845,20 +1104,12 @@ def collect_article_metadata():
             if not title and soup.title:
                 title = soup.title.get_text().strip()
                 
-            # 2. Header Spans / Tags
+            # 2. Precise Tags (Strictly the 6 official tags, multi-tag supported)
             header = soup.find('header')
             spans = [s.get_text().strip() for s in header.find_all('span')] if header else []
             
-            tags = [cat_name]
-            for s in spans:
-                cleaned = re.sub(r'^(?:視角|主題)[：:]\s*', '', s).strip()
-                if cleaned and cleaned not in tags and '建議閱讀時間' not in cleaned and '科技深度專題' not in cleaned:
-                    for part in re.split(r'[,、/|]', cleaned):
-                        part = part.strip()
-                        if part and len(part) <= 15 and part not in tags:
-                            tags.append(part)
-            if cluster not in tags:
-                tags.append(cluster)
+            art_key = f"{folder}_{order:03d}"
+            tags = ARTICLE_TAG_MAP.get(art_key, [cat_name])
                 
             # 3. Read time
             read_time = '約 5 分鐘閱讀'
@@ -871,38 +1122,64 @@ def collect_article_metadata():
             # 4. Image
             fig = soup.find('figure')
             img = fig.find('img') if fig else soup.find('img')
-            img_src = img['src'] if img and img.has_attr('src') else ''
             caption = fig.find('figcaption').get_text().strip() if fig and fig.find('figcaption') else ''
             if not caption and img and img.get('alt'):
                 caption = img.get('alt')
                 
+            if folder == 'OccupationalTherapy' and order in OT_IMAGES:
+                img_src = OT_IMAGES[order]
+            elif folder == 'VisualTherapy' and order in VT_IMAGES:
+                img_src = VT_IMAGES[order]
+            else:
+                img_src = img['src'] if img and img.has_attr('src') else ''
+                if 'files.catbox.moe' in img_src:
+                    img_src = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80'
+                
             # 5. Executive Summary
             summary = ''
-            header_p = header.find('p') if header else None
-            if header_p and len(header_p.get_text().strip()) > 20:
-                summary = header_p.get_text().strip()
+            lead_box = soup.find('div', class_='article-lead-box')
+            if lead_box and lead_box.find('p'):
+                summary = lead_box.find('p').get_text().strip()
             else:
-                for div in soup.find_all('div'):
-                    style = div.get('style', '')
-                    if 'border-left' in style and ('f7fafc' in style or 'f8fafc' in style or 'eff6ff' in style):
-                        p_in_div = div.find('p')
-                        if p_in_div:
-                            summary = p_in_div.get_text().strip()
-                        else:
-                            summary = div.get_text().strip()
-                        break
+                header_p = header.find('p') if header else None
+                if header_p and len(header_p.get_text().strip()) > 20:
+                    summary = header_p.get_text().strip()
+                else:
+                    for div in soup.find_all('div'):
+                        style = div.get('style', '')
+                        if 'border-left' in style and ('f7fafc' in style or 'f8fafc' in style or 'eff6ff' in style):
+                            p_in_div = div.find('p')
+                            if p_in_div:
+                                summary = p_in_div.get_text().strip()
+                            else:
+                                summary = div.get_text().strip()
+                            break
             if not summary:
                 first_p = soup.find('p')
                 summary = first_p.get_text().strip() if first_p else title
                 
             # 6. References
-            ref_sec = soup.find(['section', 'footer'], class_=lambda c: c and 'reference' in c) or soup.find('footer')
+            ref_sec = soup.find(['section', 'footer'], class_=lambda c: c and 'reference' in c) or soup.find('footer') or soup.find('section', {'aria-label': lambda x: x and '參考' in x})
             citations = []
             if ref_sec:
                 for li in ref_sec.find_all('li'):
                     a = li.find('a')
                     cit_text = li.get_text().strip()
-                    cit_url = a['href'] if a and a.has_attr('href') else ''
+                    cit_url = a['href'].strip() if a and a.has_attr('href') else ''
+                    
+                    # Apply broken DOI fixes
+                    for old_doi, (new_doi, new_text) in BROKEN_DOI_FIXES.items():
+                        if old_doi in cit_url or old_doi in cit_text:
+                            cit_url = new_doi
+                            if new_text:
+                                cit_text = new_text
+                                
+                    # If cit_url is empty (e.g. VisualTherapy), check VT_DOI_CACHE
+                    if not cit_url and cit_text in VT_DOI_CACHE:
+                        val = VT_DOI_CACHE[cit_text]
+                        if val:
+                            cit_url = val if val.startswith('http') else f'https://doi.org/{val}'
+                            
                     citations.append({'text': cit_text, 'url': cit_url})
                     
             # 7. Raw body content
@@ -940,6 +1217,12 @@ def collect_article_metadata():
                     body_parts.append(str(summary_box))
                 body_html = '\n'.join(body_parts)
                 
+            # Replace broken DOIs in body_html
+            for old_doi, (new_doi, _) in BROKEN_DOI_FIXES.items():
+                if old_doi in body_html:
+                    body_html = body_html.replace(old_doi, new_doi)
+            body_html = body_html.replace('https://doi.org/https://doi.org/', 'https://doi.org/')
+                    
             all_articles.append({
                 'folder': folder,
                 'cat_name': cat_name,
@@ -1158,6 +1441,12 @@ def build_article_html(art, all_articles):
     else:
         evidence_note = 'AI 系統架構與工程實踐'
 
+    # Tag badges HTML
+    tag_badges_html = '\n'.join([
+        f'              <a href="/blog?tag={quote(t)}" class="article-badge" title="查看「{t}」相關文章">{t}</a>'
+        for t in art['tags']
+    ])
+
     full_html = f"""<!doctype html>
 <html lang="zh-Hant">
   <head>
@@ -1256,7 +1545,7 @@ def build_article_html(art, all_articles):
           <!-- Article Header -->
           <header class="article-detail-header">
             <div class="article-tag-badges">
-              <span class="article-badge">{cat_name}</span>
+{tag_badges_html}
               <span class="article-badge cluster-badge">{cluster_name}</span>
             </div>
             <h1 class="article-title">{title}</h1>
