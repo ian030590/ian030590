@@ -9,7 +9,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-10",
+    "dateString": "2026-01-14",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/001_AI產品架構思維系列總覽_非工程師的12講導讀總綱.html",
     "sourceName": "數位學習",
@@ -29,7 +29,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-12",
+    "dateString": "2026-01-29",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/002_心智模型_破除全能迷思用聘請頂尖實習生的心態理解大型語言模型.html",
     "sourceName": "數位學習",
@@ -49,7 +49,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-14",
+    "dateString": "2026-02-07",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/003_軟體骨架_非工程師的軟體樂高課前端後端API與資料庫到底在幹嘛.html",
     "sourceName": "數位學習",
@@ -69,7 +69,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-16",
+    "dateString": "2026-02-22",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/004_提示工程_別再盲目摸索提示詞寫出工業級Prompt的標準作業程序.html",
     "sourceName": "數位學習",
@@ -89,7 +89,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-18",
+    "dateString": "2026-03-03",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/005_知識外掛_終結AI瞎掰RAG檢索增強生成如何打造專屬外掛大腦.html",
     "sourceName": "數位學習",
@@ -109,7 +109,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-20",
+    "dateString": "2026-03-18",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/006_智慧體行動_會思考還會動手自主AI智慧體是得力助手還是碎鈔機.html",
     "sourceName": "數位學習",
@@ -129,7 +129,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-22",
+    "dateString": "2026-03-27",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/007_協同協定_一人開一間虛擬公司多智慧體協同與AI界TypeC接口MCP.html",
     "sourceName": "數位學習",
@@ -149,7 +149,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-24",
+    "dateString": "2026-04-11",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/008_防翻車指南_隨興編程是效率革命還是維運災難不懂代碼如何用AI開發工具不翻車.html",
     "sourceName": "數位學習",
@@ -169,7 +169,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-26",
+    "dateString": "2026-04-20",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/009_資訊安全_AI時代的駭客江湖一句話就能套出公司機密的提示詞注入攻擊.html",
     "sourceName": "數位學習",
@@ -189,7 +189,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-28",
+    "dateString": "2026-05-05",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/010_安全護欄_給AI戴上安全韁繩如何打造不說髒話不洩漏個資的防護欄.html",
     "sourceName": "數位學習",
@@ -209,7 +209,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-30",
+    "dateString": "2026-05-14",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/011_量化評測_你的AI到底有多聰明別再看感覺讓AI當裁判的科學評測法.html",
     "sourceName": "數位學習",
@@ -229,7 +229,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-32",
+    "dateString": "2026-05-29",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/012_成本與延遲_每聊一句都在燒錢破解AI產品的負毛利陷阱與延遲控制.html",
     "sourceName": "數位學習",
@@ -249,7 +249,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習",
       "AI應用"
     ],
-    "dateString": "2026-04-34",
+    "dateString": "2026-06-07",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitalLearning/013_生命週期運維_發布不是結束AI產品上線後如何不生病不擺爛的長照指南.html",
     "sourceName": "數位學習",
@@ -269,7 +269,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "動作復健"
     ],
-    "dateString": "2026-01-10",
+    "dateString": "2026-01-05",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/001_二十年中風復健典範轉移_從經驗主義到高強度神經重塑與急性期下床黃金律.html",
     "sourceName": "中風復健",
@@ -289,7 +289,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "動作復健"
     ],
-    "dateString": "2026-01-12",
+    "dateString": "2026-01-11",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/002_上肢動作與精細手功能復健_任務導向訓練、局限誘發療法_CIMT_與_Bobath_技術的實證除魅.html",
     "sourceName": "中風復健",
@@ -309,7 +309,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "動作復健"
     ],
-    "dateString": "2026-01-14",
+    "dateString": "2026-01-20",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/003_下肢步態與移動能力重建_地面任務行走、高強度間歇步態與機器人外骨骼的實證界線.html",
     "sourceName": "中風復健",
@@ -329,7 +329,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "動作復健"
     ],
-    "dateString": "2026-01-16",
+    "dateString": "2026-01-26",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/004_肌張力異常與痙攣的階層化管理_肉毒桿菌毒素注射、神經溶解與拉筋副木的科學定位.html",
     "sourceName": "中風復健",
@@ -349,7 +349,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "動作復健"
     ],
-    "dateString": "2026-01-18",
+    "dateString": "2026-02-04",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/005_偏癱肩部疼痛與關節半脫位防護_肩袖力學保護、神經調控止痛與滑輪拉力的傷害警示.html",
     "sourceName": "中風復健",
@@ -370,7 +370,7 @@ window.__STATIC_ARTICLES__ = [
       "認知復健",
       "視覺復健"
     ],
-    "dateString": "2026-01-20",
+    "dateString": "2026-02-13",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/006_大腦認知執行功能與空間忽略復健_代償策略訓練、稜鏡適應與眼球操迷思之終結.html",
     "sourceName": "中風復健",
@@ -391,7 +391,7 @@ window.__STATIC_ARTICLES__ = [
       "認知復健",
       "動作復健"
     ],
-    "dateString": "2026-01-22",
+    "dateString": "2026-02-19",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/007_語言重構與運動性言語障礙_集約式失語症治療、旋律語調療法與非言語口部運動的迷思.html",
     "sourceName": "中風復健",
@@ -411,7 +411,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "動作復健"
     ],
-    "dateString": "2026-01-24",
+    "dateString": "2026-02-28",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/008_吞嚥障礙全流程管理與營養支持_進食前強制標準化篩檢、客觀儀器評估與管灌造瘻決策.html",
     "sourceName": "中風復健",
@@ -431,7 +431,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "認知復健"
     ],
-    "dateString": "2026-01-26",
+    "dateString": "2026-03-09",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/009_隱形復健殺手_中風後憂鬱與焦慮的縱向篩檢、藥物合併心理治療及睡眠疲憊管理.html",
     "sourceName": "中風復健",
@@ -452,7 +452,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健",
       "認知復健"
     ],
-    "dateString": "2026-01-28",
+    "dateString": "2026-03-15",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/010_全人生活重構與社會回歸_社區轉銜、照護者賦能、駕駛工作評估與遠距復健未來.html",
     "sourceName": "中風復健",
@@ -472,7 +472,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "視覺復健"
     ],
-    "dateString": "2026-02-01",
+    "dateString": "2026-03-24",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/011_中風後視覺障礙全景透視_從急性期強制篩檢到三大介入流派的實證藍圖.html",
     "sourceName": "中風復健",
@@ -493,7 +493,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "動作復健"
     ],
-    "dateString": "2026-02-03",
+    "dateString": "2026-04-02",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/012_眼球動作控制與內聚力不足復健_從PencilPushUps到日常生活任務導向訓練的實證指引.html",
     "sourceName": "中風復健",
@@ -514,7 +514,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-02-05",
+    "dateString": "2026-04-08",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/013_同向偏盲與單側空間忽略的臨床鑑別_感覺輸入缺損與注意力網絡崩解之診斷與處方分野.html",
     "sourceName": "中風復健",
@@ -534,7 +534,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "視覺復健"
     ],
-    "dateString": "2026-02-07",
+    "dateString": "2026-04-17",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/014_視野缺損的光學替代療法_Fresnel稜鏡與Peli稜鏡在同向偏盲中的光學校正與實證效果.html",
     "sourceName": "中風復健",
@@ -555,7 +555,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-02-09",
+    "dateString": "2026-04-26",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/015_代償性視覺掃描訓練_提升視野缺損生活品質的黃金處方與無法逆轉視野的科學真相.html",
     "sourceName": "中風復健",
@@ -575,7 +575,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "視覺復健"
     ],
-    "dateString": "2026-02-11",
+    "dateString": "2026-05-02",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/016_電腦化視覺復原訓練_神經可塑性邊界探索爭議對比與非侵入性腦刺激的前沿交鋒.html",
     "sourceName": "中風復健",
@@ -596,7 +596,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-02-13",
+    "dateString": "2026-05-11",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/017_超越純視覺_視聽雙模態多感官空間探索訓練的跨腦區神經協同機制.html",
     "sourceName": "中風復健",
@@ -616,7 +616,7 @@ window.__STATIC_ARTICLES__ = [
       "中風復健",
       "視覺復健"
     ],
-    "dateString": "2026-02-15",
+    "dateString": "2026-05-20",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/018_行為視光學除魅_指引為何嚴格禁止無效眼球轉動操彩色濾光鏡與偽科學鏡片.html",
     "sourceName": "中風復健",
@@ -637,7 +637,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-02-17",
+    "dateString": "2026-05-26",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/019_偏盲性閱讀障礙_眼球快速跳躍訓練文字版面調適與輔助科技實戰.html",
     "sourceName": "中風復健",
@@ -659,7 +659,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-02-19",
+    "dateString": "2026-06-04",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/OccupationalTherapy/020_沉浸式虛擬實境VR復健_居家防跌環境重構與重返駕駛的嚴格多維度評估.html",
     "sourceName": "中風復健",
@@ -678,7 +678,7 @@ window.__STATIC_ARTICLES__ = [
     "tags": [
       "視覺復健"
     ],
-    "dateString": "2026-02-15",
+    "dateString": "2026-01-08",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/001_眼科照護全光譜轉移_從疾病終點治療到2023AAO視覺復健指引核心架構與三級照護模型.html",
     "sourceName": "視覺復健",
@@ -697,7 +697,7 @@ window.__STATIC_ARTICLES__ = [
     "tags": [
       "視覺復健"
     ],
-    "dateString": "2026-02-17",
+    "dateString": "2026-01-17",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/002_突破斯內倫視力表迷思_低視能精準屈光、ETDRS與BaileyLovie遠近視力標準化評估.html",
     "sourceName": "視覺復健",
@@ -717,7 +717,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "動作復健"
     ],
-    "dateString": "2026-02-19",
+    "dateString": "2026-01-23",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/003_真實世界的視覺之錨_對比敏感度在日常生活功能與跌倒風險評估之關鍵角色.html",
     "sourceName": "視覺復健",
@@ -736,7 +736,7 @@ window.__STATIC_ARTICLES__ = [
     "tags": [
       "視覺復健"
     ],
-    "dateString": "2026-02-21",
+    "dateString": "2026-02-01",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/004_凝視重生的導航技術_中心暗點微視野檢查與優選視網膜位點PRL臨床定位.html",
     "sourceName": "視覺復健",
@@ -756,7 +756,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-02-23",
+    "dateString": "2026-02-10",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/005_偏心注視與定眼閱讀法_黃斑部病變之視網膜功能重組訓練與生物回饋實證真相.html",
     "sourceName": "視覺復健",
@@ -775,7 +775,7 @@ window.__STATIC_ARTICLES__ = [
     "tags": [
       "視覺復健"
     ],
-    "dateString": "2026-02-25",
+    "dateString": "2026-02-16",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/006_近用光學輔具之處方科學_高屈光度正透鏡、立式放大鏡與手持放大鏡幾何光學與任務適配.html",
     "sourceName": "視覺復健",
@@ -794,7 +794,7 @@ window.__STATIC_ARTICLES__ = [
     "tags": [
       "視覺復健"
     ],
-    "dateString": "2026-02-27",
+    "dateString": "2026-02-25",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/007_電子與數位放大科技革命_桌上型擴視機CCTV、可攜式電子擴視機與高對比色彩模式實證優勢.html",
     "sourceName": "視覺復健",
@@ -814,7 +814,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "AI應用"
     ],
-    "dateString": "2026-02-29",
+    "dateString": "2026-03-06",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/008_行動智慧時代無障礙轉型_智慧型手機、平板電腦與AI視覺辨識在低視能日常代償之整合應用.html",
     "sourceName": "視覺復健",
@@ -834,7 +834,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-03-01",
+    "dateString": "2026-03-12",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/009_文字解碼能力之客觀度量_MnREAD閱讀功能評估尺度臨床應用與閱讀處方精準化.html",
     "sourceName": "視覺復健",
@@ -853,7 +853,7 @@ window.__STATIC_ARTICLES__ = [
     "tags": [
       "視覺復健"
     ],
-    "dateString": "2026-03-03",
+    "dateString": "2026-03-21",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/010_照亮暗處的處方藝術_低視能照明工程學Lux、色溫、防眩光與物理環境光學優化實務.html",
     "sourceName": "視覺復健",
@@ -872,7 +872,7 @@ window.__STATIC_ARTICLES__ = [
     "tags": [
       "視覺復健"
     ],
-    "dateString": "2026-03-05",
+    "dateString": "2026-03-30",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/011_濾光鏡片與眩光管理_吸收型濾光鏡、偏光鏡片在畏光控制與對比增強中臨床選擇.html",
     "sourceName": "視覺復健",
@@ -892,7 +892,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "動作復健"
     ],
-    "dateString": "2026-03-07",
+    "dateString": "2026-04-05",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/012_居家生活自理重構_高對比改造、觸覺標記與多感官代償之環境人因工學.html",
     "sourceName": "視覺復健",
@@ -912,7 +912,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "動作復健"
     ],
-    "dateString": "2026-03-09",
+    "dateString": "2026-04-14",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/013_低視能長者防跌防護網_白手杖定向行動訓練、居家動線排查與跨專業防跌介入.html",
     "sourceName": "視覺復健",
@@ -932,7 +932,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-03-11",
+    "dateString": "2026-04-23",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/014_隱形用藥風暴之防線_視力障礙患者安全給藥管理、智慧藥盒與語音標籤防錯機制.html",
     "sourceName": "視覺復健",
@@ -952,7 +952,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-03-13",
+    "dateString": "2026-04-29",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/015_視野缺損與合法駕駛邊界_雙焦點遠用望遠鏡、視野法規與安全駕駛評估準則.html",
     "sourceName": "視覺復健",
@@ -972,7 +972,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-03-15",
+    "dateString": "2026-05-08",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/016_大腦幻影之去病理化_夏爾博內症候群神經脫抑制機制、患者衛教與安撫對策.html",
     "sourceName": "視覺復健",
@@ -992,7 +992,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "認知復健"
     ],
-    "dateString": "2026-03-17",
+    "dateString": "2026-05-17",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/017_撫平失明焦慮與憂鬱幽谷_低視能患者心理健康縱向篩檢、支持團體與賦能諮商介入.html",
     "sourceName": "視覺復健",
@@ -1011,7 +1011,7 @@ window.__STATIC_ARTICLES__ = [
     "tags": [
       "視覺復健"
     ],
-    "dateString": "2026-03-19",
+    "dateString": "2026-05-23",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/018_破除無能為力的醫病溝通_壞消息傳達策略SPIKES、共感引導與功能賦能臨床對話.html",
     "sourceName": "視覺復健",
@@ -1031,7 +1031,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健",
       "中風復健"
     ],
-    "dateString": "2026-03-21",
+    "dateString": "2026-06-01",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/019_跨專業團隊協同作戰_眼科醫師、驗光師、職能治療師OT與定向行動師COMS角色分工與轉銜體系.html",
     "sourceName": "視覺復健",
@@ -1050,7 +1050,7 @@ window.__STATIC_ARTICLES__ = [
     "tags": [
       "視覺復健"
     ],
-    "dateString": "2026-03-23",
+    "dateString": "2026-06-10",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualTherapy/020_實證醫學的高峰檢驗_LOVIT臨床試驗、Cochrane系統性文獻回顧與未來前沿科技展望.html",
     "sourceName": "視覺復健",

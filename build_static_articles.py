@@ -3,6 +3,7 @@ import sys
 import re
 import json
 from pathlib import Path
+from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from urllib.parse import quote
 
@@ -17,6 +18,58 @@ BLOG_HTML_FILE = BASE_DIR / 'blog.html'
 MAIN_JS_FILE = BASE_DIR / 'js' / 'main.js'
 
 SITE_BASE_URL = 'https://ian030590.trainerhub.cc'
+
+def generate_publish_schedule():
+    """
+    產生全站 53 篇文章的穿插發布排程：
+    1. 同主題文章時間絕不相鄰，相鄰文章必定來自不同主題（中間至少穿插一篇其他主題）
+    2. 最新文章必須是視覺復健的最後一篇 (VisualTherapy 020)
+    3. 同主題文章之間的時間順序嚴格遞增 (第二篇絕不早於第一篇)
+    """
+    # 總篇數：OT 20 篇, VT 20 篇, DL 13 篇，合計 53 篇
+    # 建立 20 個 blocks，每個 block 由 OT 開始、VT 結束：
+    # 13 個 X 型 block: [OT, DL, VT]
+    # 7 個 Y 型 block: [OT, VT]
+    # 使用 Bresenham 演算法均勻分配 X 與 Y
+    blocks = []
+    acc = 0
+    for i in range(20):
+        acc += 13
+        if acc >= 20:
+            blocks.append('X')
+            acc -= 20
+        else:
+            blocks.append('Y')
+
+    seq = []
+    ot_idx = 1
+    vt_idx = 1
+    dl_idx = 1
+
+    for b in blocks:
+        if b == 'X':
+            seq.append(('OccupationalTherapy', ot_idx))
+            ot_idx += 1
+            seq.append(('DigitalLearning', dl_idx))
+            dl_idx += 1
+            seq.append(('VisualTherapy', vt_idx))
+            vt_idx += 1
+        else:
+            seq.append(('OccupationalTherapy', ot_idx))
+            ot_idx += 1
+            seq.append(('VisualTherapy', vt_idx))
+            vt_idx += 1
+
+    # 發布時程：起始於 2026-01-05 08:00:00+08:00，每 3 天一篇，最後一篇為 2026-06-10 08:00:00+08:00 (VisualTherapy 020)
+    start_date = datetime(2026, 1, 5, 8, 0, 0)
+    schedule = {}
+    for i, (folder, order) in enumerate(seq):
+        pub_date = start_date + timedelta(days=i * 3)
+        schedule[f"{folder}_{order:03d}"] = pub_date.strftime('%Y-%m-%dT%H:%M:%S+08:00')
+
+    return schedule
+
+ARTICLE_PUBLISH_SCHEDULE = generate_publish_schedule()
 
 # 1. DigitalLearning File Mapping: (old_filename, new_filename, short_topic, cluster, order)
 DL_MAPPING = {
@@ -1074,7 +1127,6 @@ def collect_article_metadata():
                     sub_cluster = '導讀總綱' if order == 1 else ('基礎認知與軟體架構' if order <= 3 else ('提示工程與知識檢索' if order <= 5 else ('自主智慧體與多Agent協同' if order <= 7 else ('工程防護與資訊安全' if order <= 10 else '評測成本與長期維運'))))
                 else:
                     continue
-                date_published = f'2026-04-{10 + (order - 1) * 2:02d}T08:00:00+08:00'
             else:
                 if f.name[:3].isdigit():
                     order = int(f.name[:3])
@@ -1086,7 +1138,6 @@ def collect_article_metadata():
                     short_topic = f.name[3:].replace('.html', '').split('_')[0]
                     
                 if folder == 'OccupationalTherapy':
-                    date_published = f'2026-01-{10 + (order - 1) * 2:02d}T08:00:00+08:00' if order <= 10 else f'2026-02-{1 + (order - 11) * 2:02d}T08:00:00+08:00'
                     if order <= 10:
                         cluster = '中風神經復健與全人照護'
                         sub_cluster = '急性期與動作功能重建'
@@ -1094,7 +1145,6 @@ def collect_article_metadata():
                         cluster = '中風後神經視覺復健'
                         sub_cluster = '神經視覺功能重建與代償'
                 else: # VisualTherapy
-                    date_published = f'2026-02-{15 + (order - 1) * 2:02d}T08:00:00+08:00' if order <= 8 else f'2026-03-{1 + (order - 9) * 2:02d}T08:00:00+08:00'
                     if order <= 9:
                         cluster = '低視能臨床評估與光學處方科學'
                         sub_cluster = '功能評估與輔具處方'
@@ -1118,12 +1168,13 @@ def collect_article_metadata():
                 title = soup.title.get_text().strip()
             title = normalize_terminology(title)
                 
-            # 2. Precise Tags (Strictly the 6 official tags, multi-tag supported)
+            # 2. Precise Tags & Publish Date (Interleaved, monotonic, latest is VT_020)
             header = soup.find('header')
             spans = [s.get_text().strip() for s in header.find_all('span')] if header else []
             
             art_key = f"{folder}_{order:03d}"
             tags = ARTICLE_TAG_MAP.get(art_key, [cat_name])
+            date_published = ARTICLE_PUBLISH_SCHEDULE.get(art_key, '2026-01-01T08:00:00+08:00')
                 
             # 3. Read time
             read_time = '約 5 分鐘閱讀'

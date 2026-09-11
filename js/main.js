@@ -373,6 +373,10 @@
           btn.classList.toggle("active", btnTag === currentTag);
         });
       }
+      document.querySelectorAll(".tag-filter-quick-btn").forEach((btn) => {
+        const btnTag = btn.getAttribute("data-quick-tag");
+        btn.classList.toggle("active", btnTag === currentTag);
+      });
 
       if (!filtered.length) {
         articleContent.innerHTML = `

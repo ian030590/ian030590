@@ -1884,7 +1884,23 @@ button {
   top: 96px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
+  max-height: calc(100vh - 116px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px 4px 6px 2px;
+  margin: -2px -4px -6px -2px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.blog-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.blog-sidebar::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 10px;
 }
 
 .sidebar-widget {
@@ -2055,8 +2071,8 @@ button {
 }
 
 .widget-actions {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
@@ -2065,7 +2081,19 @@ button {
   justify-content: center;
   font-size: 13.5px;
   min-height: 40px;
-  padding: 8px 14px;
+  padding: 8px clamp(8px, 2.5vw, 14px);
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.widget-button .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.widget-button.active {
+  background: var(--primary);
+  color: var(--color-action-primary-text);
+  border-color: var(--primary);
 }
 
 .spin-icon {
@@ -2094,6 +2122,10 @@ button {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    max-height: none;
+    overflow-y: visible;
+    padding: 0;
+    margin: 0;
   }
 
   .tags-widget {
@@ -2133,6 +2165,12 @@ button {
   .article-content,
   .project-card .project-content {
     padding: 20px 18px;
+  }
+}
+
+@media (max-width: 340px) {
+  .widget-actions {
+    grid-template-columns: 1fr;
   }
 }
 
