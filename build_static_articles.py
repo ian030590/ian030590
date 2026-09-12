@@ -2,6 +2,7 @@ import os
 import sys
 import re
 import json
+from html import escape
 from pathlib import Path
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
@@ -18,6 +19,29 @@ BLOG_HTML_FILE = BASE_DIR / 'blog.html'
 MAIN_JS_FILE = BASE_DIR / 'js' / 'main.js'
 
 SITE_BASE_URL = 'https://ian030590.trainerhub.cc'
+
+ADDITIONAL_CONTENT_FOLDERS = {
+    'CognitRehab': ('認知復健', '中風認知、溝通與社會參與', 'cognitive'),
+    'DigitLearn': ('數位學習', '臨床數位能力與 AI 應用', 'digital'),
+    'MotorRehab': ('動作復健', '中風動作功能與併發症管理', 'motor'),
+    'VisualRehab': ('視覺復健', '視覺復健評估與介入', 'visual'),
+}
+
+DL_IMAGES = [
+    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80',
+]
 
 def generate_publish_schedule():
     """
@@ -955,11 +979,67 @@ a.article-badge:hover {
 }
 """
 
+EVIDENCE_ARTICLE_CSS = """
+/* Evidence Article Extensions */
+.evidence-figure {
+  margin: 32px 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.evidence-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.evidence-figure svg > path,
+.evidence-figure svg g path {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 3;
+}
+
+.evidence-figure svg g rect {
+  fill: var(--surface-2, var(--surface));
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.evidence-figure svg text {
+  fill: var(--ink);
+  font-size: 14px;
+  text-anchor: middle;
+}
+
+.evidence-figure figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.clinical-safety-note {
+  margin-top: 32px !important;
+  padding: 16px 18px;
+  border-left: 4px solid var(--warning, #b7791f);
+  background: var(--surface-2, var(--surface));
+}
+"""
+
 def update_css():
     css_content = CSS_FILE.read_text(encoding='utf-8')
+    additions = []
     if 'Article Detail & Reading Experience System' not in css_content:
         print('Appending article CSS to style.css...')
-        CSS_FILE.write_text(css_content + '\n' + ARTICLE_CSS, encoding='utf-8')
+        additions.append(ARTICLE_CSS)
+    if 'Evidence Article Extensions' not in css_content:
+        print('Appending evidence article CSS to style.css...')
+        additions.append(EVIDENCE_ARTICLE_CSS)
+    if additions:
+        CSS_FILE.write_text(css_content + '\n' + '\n'.join(additions), encoding='utf-8')
     else:
         print('Article CSS already exists in style.css.')
 
@@ -974,7 +1054,26 @@ def normalize_terminology(text):
     text = text.replace('頭顯', '頭戴式顯示器')
     # 3. 低視力 -> 低視能
     text = text.replace('低視力', '低視能')
+    # 4. 黃斑旁預覽視窗 -> 中央凹旁預視視窗
+    text = text.replace('黃斑旁預覽視窗', '中央凹旁預視視窗')
     return text
+
+def extract_article_schema(soup):
+    """Return the Article node from either a flat or @graph JSON-LD block."""
+    for script in soup.find_all('script', type='application/ld+json'):
+        try:
+            data = json.loads(script.string or script.get_text())
+        except (TypeError, json.JSONDecodeError):
+            continue
+        nodes = data.get('@graph', []) if isinstance(data, dict) else []
+        nodes = nodes or [data]
+        for node in nodes:
+            types = node.get('@type', []) if isinstance(node, dict) else []
+            if isinstance(types, str):
+                types = [types]
+            if 'Article' in types:
+                return node
+    return {}
 
 def clean_inner_body(soup_body):
     """Clean up inline styles from body elements to make them adapt to light/dark themes."""
@@ -1099,12 +1198,34 @@ ARTICLE_TAG_MAP = {
     "VisualTherapy_020": ["視覺復健"]
 }
 
+# Additional evidence-note collections. Keep every generated article inside the six approved tags.
+ARTICLE_TAG_MAP.update({f"CognitRehab_{i:03d}": ["中風復健", "認知復健"] for i in range(1, 11)})
+ARTICLE_TAG_MAP["CognitRehab_002"].append("AI應用")
+ARTICLE_TAG_MAP["CognitRehab_006"].append("視覺復健")
+
+ARTICLE_TAG_MAP.update({f"DigitLearn_{i:03d}": ["數位學習"] for i in range(1, 29)})
+for i in range(16, 29):
+    ARTICLE_TAG_MAP[f"DigitLearn_{i:03d}"].append("AI應用")
+
+ARTICLE_TAG_MAP.update({f"MotorRehab_{i:03d}": ["中風復健", "動作復健"] for i in range(1, 17)})
+
+ARTICLE_TAG_MAP.update({f"VisualRehab_{i:03d}": ["視覺復健"] for i in range(1, 25)})
+for i in range(20, 25):
+    ARTICLE_TAG_MAP[f"VisualRehab_{i:03d}"].insert(0, "中風復健")
+ARTICLE_TAG_MAP["VisualRehab_013"].append("動作復健")
+ARTICLE_TAG_MAP["VisualRehab_021"].append("動作復健")
+ARTICLE_TAG_MAP["VisualRehab_023"].append("認知復健")
+
 def collect_article_metadata():
     folders = [
         ('DigitalLearning', '數位學習', '科技深度專題', 'digital'),
         ('OccupationalTherapy', '中風復健', '神經復健實證專題', 'ot'),
         ('VisualTherapy', '視覺復健', '低視能復健實證專題', 'vt'),
     ]
+    folders.extend(
+        (folder, values[0], values[1], values[2])
+        for folder, values in ADDITIONAL_CONTENT_FOLDERS.items()
+    )
     
     all_articles = []
     
@@ -1114,6 +1235,7 @@ def collect_article_metadata():
         for f in files:
             content = f.read_text(encoding='utf-8')
             soup = BeautifulSoup(content, 'html.parser')
+            source_schema = extract_article_schema(soup)
             
             # Identify mapping
             if folder == 'DigitalLearning':
@@ -1127,6 +1249,28 @@ def collect_article_metadata():
                     sub_cluster = '導讀總綱' if order == 1 else ('基礎認知與軟體架構' if order <= 3 else ('提示工程與知識檢索' if order <= 5 else ('自主智慧體與多Agent協同' if order <= 7 else ('工程防護與資訊安全' if order <= 10 else '評測成本與長期維運'))))
                 else:
                     continue
+            elif folder in ADDITIONAL_CONTENT_FOLDERS:
+                if not f.name[:3].isdigit():
+                    continue
+                order = int(f.name[:3])
+                new_filename = f.name
+                short_topic = f.name[4:].removesuffix('.html').split('_')[0]
+
+                if folder == 'DigitLearn':
+                    if order <= 7:
+                        cluster, sub_cluster = '臨床人員的資工學習路徑', '資訊科學基礎'
+                    elif order <= 15:
+                        cluster, sub_cluster = 'Excel 與 Python 資料自動化', '資料處理與辦公自動化'
+                    else:
+                        cluster, sub_cluster = 'AI 產品開發與治理', 'AI 系統實務'
+                else:
+                    cluster = ADDITIONAL_CONTENT_FOLDERS[folder][1]
+                    if folder == 'CognitRehab':
+                        sub_cluster = '認知與溝通' if order <= 6 else '心理、轉銜與社會參與'
+                    elif folder == 'VisualRehab':
+                        sub_cluster = '低視能評估與介入' if order <= 19 else '腦傷與中風後視覺復健'
+                    else:
+                        sub_cluster = '動作、移動與日常活動'
             else:
                 if f.name[:3].isdigit():
                     order = int(f.name[:3])
@@ -1174,7 +1318,15 @@ def collect_article_metadata():
             
             art_key = f"{folder}_{order:03d}"
             tags = ARTICLE_TAG_MAP.get(art_key, [cat_name])
-            date_published = ARTICLE_PUBLISH_SCHEDULE.get(art_key, '2026-01-01T08:00:00+08:00')
+            if folder in ADDITIONAL_CONTENT_FOLDERS:
+                date_published = source_schema.get('datePublished') or source_schema.get('dateModified') or '2026-09-12'
+            else:
+                date_published = ARTICLE_PUBLISH_SCHEDULE.get(art_key, '2026-01-01T08:00:00+08:00')
+            date_modified = source_schema.get('dateModified') or date_published
+            if len(date_published) == 10:
+                date_published += 'T08:00:00+08:00'
+            if len(date_modified) == 10:
+                date_modified += 'T08:00:00+08:00'
                 
             # 3. Read time
             read_time = '約 5 分鐘閱讀'
@@ -1200,6 +1352,13 @@ def collect_article_metadata():
                 img_src = img['src'] if img and img.has_attr('src') else ''
                 if 'files.catbox.moe' in img_src:
                     img_src = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80'
+            if folder in ADDITIONAL_CONTENT_FOLDERS and not img_src.startswith('https://images.unsplash.com/'):
+                if folder == 'DigitLearn':
+                    img_src = DL_IMAGES[(order - 1) % len(DL_IMAGES)]
+                elif folder == 'VisualRehab':
+                    img_src = VT_IMAGES[(order - 1) % len(VT_IMAGES) + 1]
+                else:
+                    img_src = OT_IMAGES[(order - 1) % len(OT_IMAGES) + 1]
                 
             # 5. Executive Summary
             summary = ''
@@ -1224,6 +1383,7 @@ def collect_article_metadata():
                 first_p = soup.find('p')
                 summary = first_p.get_text().strip() if first_p else title
             summary = normalize_terminology(summary)
+            summary = re.sub(r'\s*\[\d+\]', '', summary)
                 
             # 6. References
             ref_sec = soup.find(['section', 'footer'], class_=lambda c: c and 'reference' in c) or soup.find('footer') or soup.find('section', {'aria-label': lambda x: x and '參考' in x})
@@ -1233,6 +1393,12 @@ def collect_article_metadata():
                     a = li.find('a')
                     cit_text = li.get_text().strip()
                     cit_url = a['href'].strip() if a and a.has_attr('href') else ''
+
+                    if cit_url.startswith('../OriginalSources/DigitalLearning/'):
+                        cit_url = cit_url.replace('../OriginalSources/DigitalLearning/', '../DigitalLearning/', 1)
+                    elif cit_url.startswith('../OriginalSources/'):
+                        cit_url = ''
+                        cit_text = cit_text.removeprefix('本資料夾收錄之 ')
                     
                     # Apply broken DOI fixes
                     for old_doi, (new_doi, new_text) in BROKEN_DOI_FIXES.items():
@@ -1247,7 +1413,9 @@ def collect_article_metadata():
                         if val:
                             cit_url = val if val.startswith('http') else f'https://doi.org/{val}'
                             
-                    citations.append({'text': normalize_terminology(cit_text), 'url': cit_url})
+                    citation = {'text': normalize_terminology(cit_text), 'url': cit_url}
+                    if citation not in citations:
+                        citations.append(citation)
                     
             # 7. Raw body content
             if folder == 'DigitalLearning':
@@ -1274,6 +1442,15 @@ def collect_article_metadata():
                     if body_soup.find('style'):
                         body_soup.find('style').decompose()
                     body_html = str(body_soup)
+            elif folder in ADDITIONAL_CONTENT_FOLDERS:
+                body_div = soup.find('div', class_='article-body-content')
+                if body_div:
+                    body_copy = BeautifulSoup(str(body_div), 'html.parser')
+                    for references in body_copy.find_all(class_='article-references'):
+                        references.decompose()
+                    body_html = body_copy.find('div', class_='article-body-content').decode_contents()
+                else:
+                    body_html = ''
             else: # OccupationalTherapy / VisualTherapy
                 post_content_div = soup.find('div', class_='post-content')
                 summary_box = soup.find('div', style=lambda s: s and 'ebf8ff' in s)
@@ -1310,6 +1487,7 @@ def collect_article_metadata():
                 'summary': summary,
                 'citations': citations,
                 'date_published': date_published,
+                'date_modified': date_modified,
                 'raw_body': body_html
             })
             
@@ -1342,7 +1520,7 @@ def build_article_html(art, all_articles):
     next_article = cluster_articles[curr_idx + 1] if curr_idx < len(cluster_articles) - 1 else None
     
     # Schema.org JSON-LD
-    schema_type = "TechArticle" if folder == "DigitalLearning" else "MedicalScholarlyArticle"
+    schema_type = "TechArticle" if folder in ("DigitalLearning", "DigitLearn") else "MedicalScholarlyArticle"
     citations_json = [c['text'] for c in art['citations'] if c['text']]
     
     json_ld = {
@@ -1359,7 +1537,7 @@ def build_article_html(art, all_articles):
                 "description": clean_desc,
                 "image": art['img_src'] if art['img_src'] else f"{SITE_BASE_URL}/icons/icon.svg",
                 "datePublished": art['date_published'],
-                "dateModified": "2026-09-11T09:30:00+08:00",
+                "dateModified": art['date_modified'],
                 "inLanguage": "zh-TW",
                 "mainEntityOfPage": canonical_url,
                 "author": {
@@ -1500,14 +1678,17 @@ def build_article_html(art, all_articles):
 
     # Published date formatted
     date_str = art['date_published'][:10]
+    date_html = f'<time datetime="{art["date_published"]}">{date_str}</time>' if folder in ADDITIONAL_CONTENT_FOLDERS else date_str
     
     # Evidence badge
     if folder == 'OccupationalTherapy':
         evidence_note = '2026 AHA/ASA 臨床指引實證'
-    elif folder == 'VisualTherapy':
+    elif folder == 'VisualTherapy' or (folder == 'VisualRehab' and art['order'] <= 19):
         evidence_note = '2023 AAO PPP 臨床指引實證'
-    else:
+    elif folder in ('DigitalLearning', 'DigitLearn'):
         evidence_note = 'AI 系統架構與工程實踐'
+    else:
+        evidence_note = '2026 AHA/ASA 臨床指引實證'
 
     # Tag badges HTML
     tag_badges_html = '\n'.join([
@@ -1536,7 +1717,7 @@ def build_article_html(art, all_articles):
     <meta property="og:url" content="{canonical_url}" />
     <meta property="og:image" content="{art['img_src'] or f'{SITE_BASE_URL}/icons/icon.svg'}" />
     <meta property="article:published_time" content="{art['date_published']}" />
-    <meta property="article:modified_time" content="2026-09-11T09:30:00+08:00" />
+    <meta property="article:modified_time" content="{art['date_modified']}" />
     <meta property="article:author" content="{SITE_BASE_URL}/" />
     <meta property="article:section" content="{cat_name}" />
 
@@ -1629,7 +1810,7 @@ def build_article_html(art, all_articles):
               </span>
               <span class="article-meta-item">
                 <span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>
-                {date_str}
+                {date_html}
               </span>
               <span class="article-meta-item">
                 <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
@@ -1738,7 +1919,7 @@ def generate_sitemap(all_articles):
         folder = art['folder']
         filename = art['new_filename']
         encoded_url = f"{SITE_BASE_URL}/content/{folder}/{quote(filename)}"
-        lastmod = "2026-09-11"
+        lastmod = art['date_modified'][:10]
         lines.append(f'  <url><loc>{encoded_url}</loc><lastmod>{lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>')
         
     lines.append('</urlset>\n')
@@ -1773,13 +1954,91 @@ window.__STATIC_ARTICLES__ = {json.dumps(catalog, ensure_ascii=False, indent=2)}
     ARTICLES_DATA_FILE.write_text(js_code, encoding='utf-8')
     print(f'Articles data written to {ARTICLES_DATA_FILE} ({len(catalog)} articles)')
 
+def generate_blog_static_links(all_articles):
+    """Put real article links in blog.html; main.js enhances this list with filtering."""
+    sorted_articles = sorted(all_articles, key=lambda art: art['date_published'], reverse=True)
+    cards = []
+    for index, art in enumerate(sorted_articles):
+        featured = index == 0
+        tags = ''.join(
+            f'<span class="card-tag-pill{ " blue" if tag_index % 2 else "" }">{escape(tag)}</span>'
+            for tag_index, tag in enumerate(art['tags'])
+        )
+        image = ''
+        if art['img_src']:
+            badge = '                  <span class="featured-badge">最新專題</span>\n' if featured else ''
+            image = f'''                <div class="article-visual">
+                  <img src="{escape(art['img_src'])}" alt="{escape(art['title'])}" loading="lazy" />
+{badge}                </div>
+'''
+        cards.append(f'''              <article class="article-card{' article-card--featured' if featured else ''}">
+                <a class="card-link" href="/content/{escape(art['folder'])}/{escape(art['new_filename'])}">
+{image}                  <div class="article-content">
+                    <div class="card-tags-row">{tags}</div>
+                    <h2 class="article-title">{escape(art['title'])}</h2>
+                    <div class="article-meta"><time datetime="{escape(art['date_published'])}">{escape(art['date_published'][:10])}</time></div>
+                    <p class="article-excerpt">{escape(art['summary'][:160])}</p>
+                    <div class="article-footer"><span class="source-kicker">{escape(art['cat_name'])}</span><span class="read-more-link">閱讀全文</span></div>
+                  </div>
+                </a>
+              </article>''')
+
+    html = BLOG_HTML_FILE.read_text(encoding='utf-8')
+    start = '<!-- STATIC_ARTICLE_LIST_START -->'
+    end = '<!-- STATIC_ARTICLE_LIST_END -->'
+    replacement = f'''{start}
+              <div class="articles-grid">
+{chr(10).join(cards)}
+              </div>
+              {end}'''
+    html, replacements = re.subn(f'{re.escape(start)}.*?{re.escape(end)}', replacement, html, flags=re.DOTALL)
+    if replacements != 1:
+        raise RuntimeError('blog.html static article markers are missing or duplicated')
+    BLOG_HTML_FILE.write_text(html, encoding='utf-8')
+    print(f'Blog fallback written to {BLOG_HTML_FILE} ({len(cards)} direct article links)')
+
+def validate_generated_site(all_articles):
+    """Fail the build when generated navigation, metadata, or approved tags drift."""
+    approved_tags = {'中風復健', '視覺復健', '動作復健', '認知復健', '數位學習', 'AI應用'}
+    additional_articles = [art for art in all_articles if art['folder'] in ADDITIONAL_CONTENT_FOLDERS]
+    if len(additional_articles) != 78:
+        raise RuntimeError(f'Expected 78 additional articles, found {len(additional_articles)}')
+
+    for art in all_articles:
+        article_key = f"{art['folder']}_{art['order']:03d}"
+        if article_key not in ARTICLE_TAG_MAP or not set(art['tags']).issubset(approved_tags):
+            raise RuntimeError(f'Unregistered or invalid tags: {article_key}')
+        if art['folder'] not in ADDITIONAL_CONTENT_FOLDERS:
+            continue
+
+        article_file = CONTENT_DIR / art['folder'] / art['new_filename']
+        soup = BeautifulSoup(article_file.read_text(encoding='utf-8'), 'html.parser')
+        stylesheet = soup.find('link', rel=lambda value: value and 'stylesheet' in value)
+        schema = extract_article_schema(soup)
+        if not stylesheet or stylesheet.get('href') != '../../css/style.css':
+            raise RuntimeError(f'Wrong stylesheet path: {article_file}')
+        if not schema.get('datePublished') or not schema.get('author'):
+            raise RuntimeError(f'Incomplete Article JSON-LD: {article_file}')
+        if '"@type": "BreadcrumbList"' not in article_file.read_text(encoding='utf-8'):
+            raise RuntimeError(f'Missing BreadcrumbList JSON-LD: {article_file}')
+        if len(soup.select('.topic-cluster-nav a[href]')) < 2:
+            raise RuntimeError(f'Missing topic-cluster internal links: {article_file}')
+        if soup.find('a', href=lambda href: href and '../OriginalSources/' in href):
+            raise RuntimeError(f'Dead OriginalSources link remains: {article_file}')
+
+    blog_html = BLOG_HTML_FILE.read_text(encoding='utf-8')
+    for art in additional_articles:
+        if f"/content/{art['folder']}/{art['new_filename']}" not in blog_html:
+            raise RuntimeError(f"blog.html does not link to {art['folder']}/{art['new_filename']}")
+    print('Validation passed: 78 additional articles have CSS, JSON-LD, and internal links.')
+
 def main():
     print('1. Updating CSS tokens and article classes in style.css...')
     update_css()
     
     print('2. Collecting metadata and content for all articles...')
     all_articles = collect_article_metadata()
-    print(f'Collected {len(all_articles)} articles across 3 categories.')
+    print(f'Collected {len(all_articles)} articles across 7 categories.')
     
     print('3. Generating new static HTML pages...')
     for art in all_articles:
@@ -1801,6 +2060,12 @@ def main():
     
     print('6. Generating sitemap.xml...')
     generate_sitemap(all_articles)
+
+    print('7. Writing static article links into blog.html...')
+    generate_blog_static_links(all_articles)
+
+    print('8. Validating generated metadata and navigation...')
+    validate_generated_site(all_articles)
     
     print('Build completed successfully!')
 

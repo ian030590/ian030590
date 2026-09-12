@@ -3416,3 +3416,52 @@ a.contact-channel:hover {
     line-height: 1.5;
   }
 }
+
+
+/* Evidence Article Extensions */
+.evidence-figure {
+  margin: 32px 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.evidence-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.evidence-figure svg > path,
+.evidence-figure svg g path {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 3;
+}
+
+.evidence-figure svg g rect {
+  fill: var(--surface-2, var(--surface));
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.evidence-figure svg text {
+  fill: var(--ink);
+  font-size: 14px;
+  text-anchor: middle;
+}
+
+.evidence-figure figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.clinical-safety-note {
+  margin-top: 32px !important;
+  padding: 16px 18px;
+  border-left: 4px solid var(--warning, #b7791f);
+  background: var(--surface-2, var(--surface));
+}
