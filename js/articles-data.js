@@ -10,7 +10,7 @@ window.__STATIC_ARTICLES__ = [
       "認知復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/CognitRehab/001_認知復健_認知知覺評估.html",
     "sourceName": "認知復健",
     "category": "認知復健",
@@ -30,7 +30,7 @@ window.__STATIC_ARTICLES__ = [
       "認知復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/CognitRehab/002_認知復健_科技支持認知訓練.html",
     "sourceName": "認知復健",
     "category": "認知復健",
@@ -50,7 +50,7 @@ window.__STATIC_ARTICLES__ = [
       "認知復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/CognitRehab/004_認知復健_失語症與支持性溝通.html",
     "sourceName": "認知復健",
     "category": "認知復健",
@@ -71,7 +71,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/CognitRehab/006_認知復健_單側空間忽略.html",
     "sourceName": "認知復健",
     "category": "認知復健",
@@ -91,7 +91,7 @@ window.__STATIC_ARTICLES__ = [
       "認知復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/CognitRehab/007_認知復健_中風後心理健康.html",
     "sourceName": "認知復健",
     "category": "認知復健",
@@ -111,7 +111,7 @@ window.__STATIC_ARTICLES__ = [
       "認知復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/CognitRehab/009_認知復健_照護者與遠距轉銜.html",
     "sourceName": "認知復健",
     "category": "認知復健",
@@ -130,7 +130,7 @@ window.__STATIC_ARTICLES__ = [
       "數位學習"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitLearn/001_數位學習_OSSU定位與限制.html",
     "sourceName": "數位學習",
     "category": "數位學習",
@@ -150,7 +150,7 @@ window.__STATIC_ARTICLES__ = [
       "AI應用"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitLearn/003_數位學習_系統化程式設計.html",
     "sourceName": "數位學習",
     "category": "數位學習",
@@ -170,7 +170,7 @@ window.__STATIC_ARTICLES__ = [
       "AI應用"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitLearn/005_數位學習_資料庫與機器學習基礎.html",
     "sourceName": "數位學習",
     "category": "數位學習",
@@ -190,7 +190,7 @@ window.__STATIC_ARTICLES__ = [
       "AI應用"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitLearn/008_AI應用_大型語言模型心智模型.html",
     "sourceName": "數位學習",
     "category": "數位學習",
@@ -210,7 +210,7 @@ window.__STATIC_ARTICLES__ = [
       "AI應用"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitLearn/009_AI應用_AI產品軟體架構.html",
     "sourceName": "數位學習",
     "category": "數位學習",
@@ -230,7 +230,7 @@ window.__STATIC_ARTICLES__ = [
       "AI應用"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/DigitLearn/017_AI應用_AI系統評測.html",
     "sourceName": "數位學習",
     "category": "數位學習",
@@ -250,7 +250,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/MotorRehab/001_動作復健_中風復健照護層級.html",
     "sourceName": "動作復健",
     "category": "動作復健",
@@ -270,7 +270,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/MotorRehab/002_動作復健_急性期動員.html",
     "sourceName": "動作復健",
     "category": "動作復健",
@@ -290,7 +290,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/MotorRehab/003_動作復健_皮膚與攣縮預防.html",
     "sourceName": "動作復健",
     "category": "動作復健",
@@ -310,7 +310,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/MotorRehab/005_動作復健_膀胱與腸道功能.html",
     "sourceName": "動作復健",
     "category": "動作復健",
@@ -330,7 +330,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/MotorRehab/006_動作復健_偏癱肩痛與半脫位.html",
     "sourceName": "動作復健",
     "category": "動作復健",
@@ -350,7 +350,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/MotorRehab/008_動作復健_中風跌倒與骨骼健康.html",
     "sourceName": "動作復健",
     "category": "動作復健",
@@ -370,7 +370,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/MotorRehab/009_動作復健_身體活動與次級預防.html",
     "sourceName": "動作復健",
     "category": "動作復健",
@@ -390,7 +390,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/MotorRehab/013_動作復健_上肢與日常活動.html",
     "sourceName": "動作復健",
     "category": "動作復健",
@@ -410,7 +410,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/MotorRehab/014_動作復健_輔具矯具與輪椅.html",
     "sourceName": "動作復健",
     "category": "動作復健",
@@ -430,7 +430,7 @@ window.__STATIC_ARTICLES__ = [
       "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/MotorRehab/015_動作復健_吞嚥與營養.html",
     "sourceName": "動作復健",
     "category": "動作復健",
@@ -468,7 +468,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualRehab/003_視覺復健_低視能評估與目標.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
@@ -487,7 +487,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualRehab/007_視覺復健_微視野與偏心注視.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
@@ -506,7 +506,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualRehab/011_視覺復健_照明眩光與濾光.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
@@ -522,10 +522,11 @@ window.__STATIC_ARTICLES__ = [
     "lead": "防跌的成功不應以「待在家所以沒有跌倒」定義。評估要同時追蹤跌倒風險、實際活動與參與，並把定向行動和交通替代納入計畫。",
     "imageUrl": "https://images.unsplash.com/photo-1576210117723-cd06449a467d?auto=format&fit=crop&w=1200&q=80",
     "tags": [
-      "視覺復健"
+      "視覺復健",
+      "動作復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualRehab/013_視覺復健_跌倒與定向行動.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
@@ -544,7 +545,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualRehab/016_視覺復健_心理調適與夏爾博內.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
@@ -564,7 +565,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualRehab/020_視覺復健_腦傷後視覺復健.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",
@@ -584,7 +585,7 @@ window.__STATIC_ARTICLES__ = [
       "視覺復健"
     ],
     "dateString": "2026-09-12",
-    "readTime": "約 4 分鐘閱讀",
+    "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualRehab/022_視覺復健_中風後視野缺損.html",
     "sourceName": "視覺復健",
     "category": "視覺復健",

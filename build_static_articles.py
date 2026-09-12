@@ -547,7 +547,7 @@ a.article-badge:hover {
 
 .article-lead-box-title {
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--primary-strong);
   margin-bottom: 10px;
   display: flex;
@@ -562,7 +562,7 @@ a.article-badge:hover {
   font-size: 17px;
   line-height: 1.85;
   color: var(--ink);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .article-lead-box ul {
@@ -577,11 +577,13 @@ a.article-badge:hover {
   font-size: 18px;
   line-height: 1.85;
   color: var(--ink);
+  font-weight: 500;
 }
 
 .article-body-content p {
   margin: 0 0 22px 0;
   line-height: 1.85;
+  font-weight: 500;
 }
 
 .article-body-content h2 {
@@ -613,10 +615,13 @@ a.article-badge:hover {
 
 .article-body-content li {
   margin-bottom: 10px;
+  font-weight: 500;
 }
 
-.article-body-content strong {
+.article-body-content strong,
+.article-body-content b {
   color: var(--ink);
+  font-weight: 800;
 }
 
 /* Callout blocks inside body */
@@ -1049,7 +1054,81 @@ def update_css():
         print('Article CSS already exists in style.css.')
 
 
-def update_article_head_and_styles(target_file: Path):
+ARTICLE_SITE_HEADER_HTML = """<header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">
+          <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo" width="36" height="36" />
+          <span>蔡泓恩 | 職能治療師</span>
+        </a>
+        <nav class="nav-links" aria-label="主要導覽">
+          <a class="nav-link" href="/">首頁</a>
+          <a class="nav-link" href="/projects">開源專案</a>
+          <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
+          <a class="nav-link" href="/contact">聯絡我</a>
+          <a class="nav-link" href="/sponsor">贊助我</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          aria-label="切換深色模式"
+          title="切換深色模式"
+        >
+          <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
+          <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
+        </button>
+        <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
+        <button
+          class="menu-button"
+          aria-label="開啟選單"
+          aria-expanded="false"
+        >
+          <span
+            class="animate-icon animate-icon--menu"
+            data-animate-icon="menu"
+            aria-hidden="true"
+          ></span>
+        </button>
+      </div>
+      <div class="mobile-panel">
+        <a href="/">首頁</a>
+        <a href="/projects">開源專案</a>
+        <a href="/blog" aria-current="page">專業文章</a>
+        <a href="/contact">聯絡我</a>
+        <a href="/sponsor">贊助我</a>
+      </div>
+    </header>"""
+
+ARTICLE_SITE_FOOTER_HTML = """<footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo footer-logo" width="26" height="26" />
+            <span>蔡泓恩 | 職能治療師</span>
+          </div>
+          <div class="footer-copy">
+            © <span data-year></span> Ian Tsai. 保留所有權利。
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="/">首頁</a>
+          <a href="/projects">專案</a>
+          <a href="/blog">專業文章</a>
+          <a href="/contact">聯絡</a>
+          <a href="/sponsor">贊助我</a>
+        </div>
+      </div>
+    </footer>
+    <script src="../../js/animate-icons.js"></script>
+    <script src="../../js/main.js"></script>"""
+
+ARTICLE_BOTTOM_ACTIONS_HTML = """<div class="article-bottom-actions">
+          <a href="/blog" class="button-secondary">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            返回所有專業專題列表
+          </a>
+        </div>"""
+
+
+def update_article_head_and_styles(target_file: Path, art: dict = None):
     content = target_file.read_text(encoding='utf-8')
     orig_content = content
     
@@ -1064,6 +1143,15 @@ def update_article_head_and_styles(target_file: Path):
         r'<link rel="stylesheet" href="../../css/style.css">',
         content
     )
+
+    # Favicons in <head>
+    if 'rel="icon"' not in content:
+        favicons = """<link rel="icon" type="image/svg+xml" href="../../icons/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+"""
+        content = content.replace('<link rel="stylesheet"', favicons + '<link rel="stylesheet"', 1)
     
     # 2. Reference links in <style> - remove underline
     old_css_rule = """.ot-blog-article .article-references a {
@@ -1095,7 +1183,73 @@ def update_article_head_and_styles(target_file: Path):
     if old_cite in content and new_cite not in content:
         content = content.replace(old_cite, new_cite)
 
-    # 3. JSON-LD E-E-A-T signals
+    # 3. Font and typography enhancements in <style>
+    # Replace Lexend with "Noto Sans TC"
+    content = content.replace('Lexend, "Noto Sans TC", sans-serif;', '"Noto Sans TC", sans-serif;')
+    content = content.replace('Lexend, sans-serif;', '"Noto Sans TC", sans-serif;')
+    content = content.replace('Lexend;', '"Noto Sans TC", sans-serif;')
+    content = re.sub(r'\bLexend\b', '"Noto Sans TC"', content)
+
+    # Enhance font-weight of article body to 500
+    content = re.sub(
+        r'(\.ot-blog-article\s+\.article-body-content\s*\{[^}]*?color:\s*var\(--ink\);)(?!\s*font-weight)',
+        r'\1\n  font-weight: 500;',
+        content
+    )
+    content = re.sub(
+        r'(\.ot-blog-article\s+\.article-body-content\s+p\s*\{[^}]*?line-height:\s*1\.85;)(?!\s*font-weight)',
+        r'\1\n  font-weight: 500;',
+        content
+    )
+    content = re.sub(
+        r'(\.ot-blog-article\s+\.article-body-content\s+li\s*\{[^}]*?margin-bottom:\s*10px;)(?!\s*font-weight)',
+        r'\1\n  font-weight: 500;',
+        content
+    )
+    content = re.sub(
+        r'(\.ot-blog-article\s+\.article-body-content\s+ul,\s*\.ot-blog-article\s+\.article-body-content\s+ol\s*\{[^}]*?line-height:\s*1\.8;)(?!\s*font-weight)',
+        r'\1\n  font-weight: 500;',
+        content
+    )
+    # Enhance strong/b to 800
+    content = re.sub(
+        r'\.ot-blog-article\s+\.article-body-content\s+strong\s*\{\s*color:\s*var\(--ink\);\s*\}',
+        '.ot-blog-article .article-body-content strong,\n.ot-blog-article .article-body-content b {\n  color: var(--ink);\n  font-weight: 800;\n}',
+        content
+    )
+    # Lead box p to font-weight: 600
+    content = re.sub(
+        r'(\.ot-blog-article\s+\.article-lead-box\s+p\s*\{[^}]*?color:\s*var\(--ink\);)\s*font-weight:\s*500;',
+        r'\1\n  font-weight: 600;',
+        content
+    )
+    # Lead box title to font-weight: 800
+    content = re.sub(
+        r'(\.ot-blog-article\s+\.article-lead-box-title\s*\{[^}]*?)font-weight:\s*700;',
+        r'\1font-weight: 800;',
+        content
+    )
+    # Table th/td font-weight
+    content = re.sub(
+        r'(\.ot-blog-article\s+\.article-table\s+td\s*\{[^}]*?color:\s*var\(--ink\);)(?!\s*font-weight)',
+        r'\1\n  font-weight: 500;',
+        content
+    )
+    # References ol/li font-weight
+    content = re.sub(
+        r'(\.ot-blog-article\s+\.article-references\s+ol\s*\{[^}]*?color:\s*var\(--muted\);)(?!\s*font-weight)',
+        r'\1\n  font-weight: 500;',
+        content
+    )
+
+    # 3. Unhide breadcrumbs and prev-next navigation in <style>
+    content = re.sub(
+        r'\.ot-blog-article\s+\.breadcrumb-trail,\s*\.ot-blog-article\s+\.prev-next-nav\s*\{\s*display:\s*none;\s*\}',
+        '.ot-blog-article .breadcrumb-trail, .ot-blog-article .prev-next-nav { display: flex; }',
+        content
+    )
+
+    # 4. JSON-LD E-E-A-T signals
     soup = BeautifulSoup(content, 'html.parser')
     s = soup.find('script', type='application/ld+json')
     if s and s.string:
@@ -1135,6 +1289,80 @@ def update_article_head_and_styles(target_file: Path):
             f'<script type="application/ld+json">{formatted_json}</script>',
             content,
             flags=re.DOTALL
+        )
+
+    # 5. Navbar (<header class="site-header">) and main layout wrapper
+    if '<header class="site-header">' not in content:
+        content = re.sub(
+            r'<body([^>]*)>',
+            r'<body\1>\n    ' + ARTICLE_SITE_HEADER_HTML + '\n    <main class="page-main article-page-layout">\n      <div class="container">',
+            content
+        )
+
+    # 6. Top Bar: Back button ("返回上一頁") + Breadcrumb navigation
+    title = ''
+    cat_name = '專業文章'
+    if art:
+        title = art.get('title', '')
+        cat_name = art.get('cat_name', '專業文章')
+    if not title:
+        h1 = soup.find('h1', class_='article-title') or soup.find('h1')
+        title = h1.get_text().strip() if h1 else ''
+
+    encoded_cat = quote(cat_name)
+    top_nav = f"""<div class="article-top-nav">
+          <a href="/blog" class="article-back-link" onclick="if(history.length>1){{history.back();return false;}}" aria-label="返回上一頁">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span>返回上一頁</span>
+          </a>
+          <nav class="breadcrumb-trail" aria-label="文章路徑導覽">
+            <a href="/">首頁</a>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <a href="/blog">專業文章</a>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <a href="/blog?tag={encoded_cat}">{cat_name}</a>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span class="breadcrumb-current" aria-current="page">{title}</span>
+          </nav>
+        </div>"""
+
+    if '<div class="article-top-nav">' in content:
+        content = re.sub(
+            r'<div class="article-top-nav">.*?</div>\s*(?=<header)',
+            top_nav + '\n        ',
+            content,
+            flags=re.DOTALL
+        )
+    else:
+        content = re.sub(
+            r'<nav class="breadcrumb-trail"[^>]*>.*?</nav>',
+            top_nav,
+            content,
+            flags=re.DOTALL
+        )
+
+    # 7. Bottom actions: Back to all articles button
+    if '<div class="article-bottom-actions">' in content:
+        # If it was placed inside </nav>, move it outside
+        content = re.sub(
+            r'<div class="article-bottom-actions">.*?</div>\s*(</nav>)',
+            r'\1\n        ' + ARTICLE_BOTTOM_ACTIONS_HTML,
+            content,
+            flags=re.DOTALL
+        )
+    else:
+        content = re.sub(
+            r'(</nav>)(\s*</div>\s*</article>)',
+            r'\1\n        ' + ARTICLE_BOTTOM_ACTIONS_HTML + r'\2',
+            content
+        )
+
+    # 8. Close main layout and insert footer + scripts
+    if '<footer class="site-footer">' not in content:
+        content = re.sub(
+            r'(</article>\s*)(?=</body>)',
+            r'\1      </div>\n    </main>\n    ' + ARTICLE_SITE_FOOTER_HTML + '\n',
+            content
         )
 
     if content != orig_content:
@@ -2117,6 +2345,14 @@ def validate_generated_site(all_articles):
             raise RuntimeError(f'Incomplete Article JSON-LD: {article_file}')
         if '"@type": "BreadcrumbList"' not in article_file.read_text(encoding='utf-8'):
             raise RuntimeError(f'Missing BreadcrumbList JSON-LD: {article_file}')
+        if not soup.find('header', class_='site-header'):
+            raise RuntimeError(f'Missing site-header navbar: {article_file}')
+        if not soup.find('a', class_='article-back-link'):
+            raise RuntimeError(f'Missing article-back-link: {article_file}')
+        if not soup.find('footer', class_='site-footer'):
+            raise RuntimeError(f'Missing site-footer: {article_file}')
+        if '.breadcrumb-trail, .ot-blog-article .prev-next-nav { display: none;' in article_file.read_text(encoding='utf-8'):
+            raise RuntimeError(f'Hidden breadcrumb-trail or prev-next-nav in style: {article_file}')
         if len(soup.select('.prev-next-nav a[href]')) < 1 and len(soup.select('.topic-cluster-nav a[href]')) < 1:
             raise RuntimeError(f'Missing topic-cluster internal links: {article_file}')
         if soup.find('a', href=lambda href: href and '../OriginalSources/' in href):
@@ -2126,7 +2362,7 @@ def validate_generated_site(all_articles):
     for art in additional_articles:
         if f"/content/{art['folder']}/{art['new_filename']}" not in blog_html:
             raise RuntimeError(f"blog.html does not link to {art['folder']}/{art['new_filename']}")
-    print('Validation passed: 30 articles have CSS, JSON-LD, and internal links.')
+    print('Validation passed: 30 articles have CSS, JSON-LD, navbar, back-link, and internal links.')
 
 def main():
     print('1. Updating CSS tokens and article classes in style.css...')
@@ -2140,7 +2376,7 @@ def main():
     for art in all_articles:
         folder = art['folder']
         target_file = CONTENT_DIR / folder / art['new_filename']
-        update_article_head_and_styles(target_file)
+        update_article_head_and_styles(target_file, art)
         
     print('4. Removing old unrenamed files...')
     for art in all_articles:
