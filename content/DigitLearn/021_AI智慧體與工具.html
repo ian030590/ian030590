@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AI 智慧體的最小安全架構：模型、工具、狀態與停止條件 | 蔡泓恩 職能治療師</title>
+    <meta name="description" content="智慧體把模型連接到搜尋、檔案、資料庫或其他可執行工具，能完成多步驟工作，也增加誤操作、循環、成本與資料外傳風險。" />
+    <meta name="keywords" content="數位學習, AI應用" />
+    <meta name="author" content="蔡泓恩 職能治療師" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://ian030590.trainerhub.cc/content/DigitLearn/021_AI%E6%99%BA%E6%85%A7%E9%AB%94%E8%88%87%E5%B7%A5%E5%85%B7.html" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:site_name" content="蔡泓恩 | 職能治療師" />
+    <meta property="og:title" content="AI 智慧體的最小安全架構：模型、工具、狀態與停止條件 ｜ 蔡泓恩 職能治療師" />
+    <meta property="og:description" content="智慧體把模型連接到搜尋、檔案、資料庫或其他可執行工具，能完成多步驟工作，也增加誤操作、循環、成本與資料外傳風險。" />
+    <meta property="og:url" content="https://ian030590.trainerhub.cc/content/DigitLearn/021_AI%E6%99%BA%E6%85%A7%E9%AB%94%E8%88%87%E5%B7%A5%E5%85%B7.html" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="article:published_time" content="2026-09-12T08:00:00+08:00" />
+    <meta property="article:modified_time" content="2026-09-12T08:00:00+08:00" />
+    <meta property="article:author" content="https://ian030590.trainerhub.cc/" />
+    <meta property="article:section" content="數位學習" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AI 智慧體的最小安全架構：模型、工具、狀態與停止條件 ｜ 蔡泓恩 職能治療師" />
+    <meta name="twitter:description" content="智慧體把模型連接到搜尋、檔案、資料庫或其他可執行工具，能完成多步驟工作，也增加誤操作、循環、成本與資料外傳風險。" />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" />
+
+    <!-- Favicon & Stylesheet -->
+    <link rel="icon" type="image/svg+xml" href="../../icons/icon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="../../css/style.css" />
+
+    <!-- Schema.org Article JSON-LD (E-E-A-T) -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "TechArticle",
+        "Article"
+      ],
+      "@id": "https://ian030590.trainerhub.cc/content/DigitLearn/021_AI%E6%99%BA%E6%85%A7%E9%AB%94%E8%88%87%E5%B7%A5%E5%85%B7.html#article",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://ian030590.trainerhub.cc/content/DigitLearn/021_AI%E6%99%BA%E6%85%A7%E9%AB%94%E8%88%87%E5%B7%A5%E5%85%B7.html"
+      },
+      "headline": "AI 智慧體的最小安全架構：模型、工具、狀態與停止條件",
+      "description": "智慧體把模型連接到搜尋、檔案、資料庫或其他可執行工具，能完成多步驟工作，也增加誤操作、循環、成本與資料外傳風險。",
+      "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
+      "datePublished": "2026-09-12T08:00:00+08:00",
+      "dateModified": "2026-09-12T08:00:00+08:00",
+      "inLanguage": "zh-TW",
+      "mainEntityOfPage": "https://ian030590.trainerhub.cc/content/DigitLearn/021_AI%E6%99%BA%E6%85%A7%E9%AB%94%E8%88%87%E5%B7%A5%E5%85%B7.html",
+      "author": {
+        "@type": "Person",
+        "name": "蔡泓恩",
+        "alternateName": "Hung-En (Ian) Tsai",
+        "jobTitle": "職能治療師",
+        "url": "https://ian030590.trainerhub.cc/",
+        "sameAs": [
+          "https://github.com/ian030590",
+          "https://trainerhub.cc"
+        ],
+        "knowsAbout": [
+          "職能治療",
+          "神經復健",
+          "視覺復健",
+          "低視能評估",
+          "數位醫療",
+          "AI系統架構"
+        ],
+        "alumniOf": "國立臺灣大學"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "蔡泓恩",
+        "url": "https://ian030590.trainerhub.cc/"
+      },
+      "articleSection": "數位學習",
+      "keywords": [
+        "數位學習",
+        "AI應用"
+      ],
+      "citation": [
+        "OpenAI Agents SDK：人工核准",
+        "學生原稿：006_智慧體行動_會思考還會動手自主AI智慧體是得力助手還是碎鈔機"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首頁",
+          "item": "https://ian030590.trainerhub.cc/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "專業文章",
+          "item": "https://ian030590.trainerhub.cc/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "數位學習",
+          "item": "https://ian030590.trainerhub.cc/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "AI 智慧體的最小安全架構：模型、工具、狀態與停止條件",
+          "item": "https://ian030590.trainerhub.cc/content/DigitLearn/021_AI%E6%99%BA%E6%85%A7%E9%AB%94%E8%88%87%E5%B7%A5%E5%85%B7.html"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">
+          <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo" width="36" height="36" />
+          <span>蔡泓恩 | 職能治療師</span>
+        </a>
+        <nav class="nav-links" aria-label="主要導覽">
+          <a class="nav-link" href="/">首頁</a>
+          <a class="nav-link" href="/projects">開源專案</a>
+          <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
+          <a class="nav-link" href="/contact">聯絡我</a>
+          <a class="nav-link" href="/sponsor">贊助我</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          aria-label="切換深色模式"
+          title="切換深色模式"
+        >
+          <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
+          <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
+        </button>
+        <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
+        <button
+          class="menu-button"
+          aria-label="開啟選單"
+          aria-expanded="false"
+        >
+          <span
+            class="animate-icon animate-icon--menu"
+            data-animate-icon="menu"
+            aria-hidden="true"
+          ></span>
+        </button>
+      </div>
+      <div class="mobile-panel">
+        <a href="/">首頁</a>
+        <a href="/projects">開源專案</a>
+        <a href="/blog" aria-current="page">專業文章</a>
+        <a href="/contact">聯絡我</a>
+        <a href="/sponsor">贊助我</a>
+      </div>
+    </header>
+
+    <main class="page-main article-page-layout">
+      <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb-trail" aria-label="文章路徑導覽">
+          <a href="/">首頁</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <a href="/blog">專業文章</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <a href="/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a>
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          <span class="breadcrumb-current" aria-current="page">AI 智慧體的最小安全架構：模型、工具、狀態與停止條件</span>
+        </nav>
+
+        <article class="article-container">
+          <!-- Article Header -->
+          <header class="article-detail-header">
+            <div class="article-tag-badges">
+              <a href="/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92" class="article-badge" title="查看「數位學習」相關文章">數位學習</a>
+              <a href="/blog?tag=AI%E6%87%89%E7%94%A8" class="article-badge" title="查看「AI應用」相關文章">AI應用</a>
+            </div>
+            <h1 class="article-title">AI 智慧體的最小安全架構：模型、工具、狀態與停止條件</h1>
+            <div class="article-meta-row">
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">person</span>
+                蔡泓恩 職能治療師
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>
+                <time datetime="2026-09-12T08:00:00+08:00">2026-09-12</time>
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                約 5 分鐘閱讀
+              </span>
+              <span class="article-meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+                AI 系統架構與工程實踐
+              </span>
+            </div>
+          </header>
+
+          <!-- Featured Banner Image -->
+          
+        <figure class="article-featured-figure">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="AI 智慧體的最小安全架構：模型、工具、狀態與停止條件" class="article-featured-img" loading="lazy" />
+          <figcaption class="article-figcaption">圖 1．本篇重點圖：AI 智慧體的最小安全架構；文章焦點為「模型、工具、狀態與停止條件」。</figcaption>
+        </figure>
+        
+
+          <!-- Executive Summary Callout Box -->
+          <div class="article-lead-box">
+            <div class="article-lead-box-title">
+              <span class="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+              專題重點摘要與核心洞察
+            </div>
+            <p>智慧體把模型連接到搜尋、檔案、資料庫或其他可執行工具，能完成多步驟工作，也增加誤操作、循環、成本與資料外傳風險。</p>
+          </div>
+
+          <!-- Main Body Content -->
+          <div class="article-body-content">
+            
+<h2>來源如何支持這項結論</h2>
+<p><strong>來源重點是：</strong>智慧體把模型連接到搜尋、檔案、資料庫或其他可執行工具，能完成多步驟工作，也增加誤操作、循環、成本與資料外傳風險。</p>
+<p><strong>臨床解讀是：</strong>臨床場景應從單一、低權限工具開始，明確定義完成條件、重試上限、時間與費用上限。</p>
+<figure class="evidence-figure"><svg aria-labelledby="diagram-title diagram-desc" role="img" viewbox="0 0 780 210"><title id="diagram-title">AI 智慧體的最小安全架構：模型、工具、狀態與停止條件的臨床應用順序</title><desc id="diagram-desc">由三個步驟構成的臨床應用流程圖</desc><path d="M250 106H290M480 106H520"></path><g><rect height="96" rx="16" width="180" x="70" y="58"></rect><text x="160" y="90">01</text><text class="svg-label" x="160" y="125">工具只暴露完成任務所需操</text></g><g><rect height="96" rx="16" width="180" x="300" y="58"></rect><text x="390" y="90">02</text><text class="svg-label" x="390" y="125">讀取與寫入權限分開</text></g><g><rect height="96" rx="16" width="180" x="530" y="58"></rect><text x="620" y="90">03</text><text class="svg-label" x="620" y="125">寄送刪除或臨床行動前要求</text></g></svg><figcaption>圖 2．依來源整理的三步驟應用順序；實際處方仍需個別評估。</figcaption></figure>
+<h2>可直接採用的工作步驟</h2>
+<ol><li>工具只暴露完成任務所需操作</li><li>讀取與寫入權限分開</li><li>寄送、刪除或臨床行動前要求人工批准</li></ol>
+<div class="callout-box amber"><p><strong>證據邊界：</strong>模型自行宣稱完成不等於外部狀態正確；必須用工具結果或獨立查核確認。</p></div>
+<p class="clinical-safety-note"><strong>臨床安全聲明：</strong>本文為來源導讀，不取代個別診斷、專業處方、機構政策或台灣現行法規。若病況不穩、症狀新發或介入可能造成傷害，應先由適任醫療人員評估。</p>
+
+          </div>
+
+          <!-- Scientific References Section -->
+          
+        <section class="article-references" aria-label="參考文獻與實證指引">
+          <h2>參考文獻與實證指引 (References)</h2>
+          <ol>
+            <li><a href="https://openai.github.io/openai-agents-python/human_in_the_loop/" target="_blank" rel="noopener noreferrer">OpenAI Agents SDK：人工核准</a></li>
+<li><a href="../DigitalLearning/006_%E6%99%BA%E6%85%A7%E9%AB%94%E8%A1%8C%E5%8B%95_%E6%9C%83%E6%80%9D%E8%80%83%E9%82%84%E6%9C%83%E5%8B%95%E6%89%8B%E8%87%AA%E4%B8%BBAI%E6%99%BA%E6%85%A7%E9%AB%94%E6%98%AF%E5%BE%97%E5%8A%9B%E5%8A%A9%E6%89%8B%E9%82%84%E6%98%AF%E7%A2%8E%E9%88%94%E6%A9%9F.html" target="_blank" rel="noopener noreferrer">學生原稿：006_智慧體行動_會思考還會動手自主AI智慧體是得力助手還是碎鈔機</a></li>
+          </ol>
+        </section>
+        
+
+
+          <!-- Topic Cluster Series Navigation -->
+          <nav class="topic-cluster-nav" aria-label="同系列主題專題叢集">
+            <div class="topic-cluster-header">
+              <div class="topic-cluster-title">
+                <span class="material-symbols-outlined" aria-hidden="true">auto_stories</span>
+                【主題叢集】AI 產品開發與治理
+              </div>
+              <div class="topic-cluster-progress">
+                第 021 篇 / 全 13 篇
+              </div>
+            </div>
+            <ul class="topic-cluster-list">
+              
+        <li>
+          <a href="./016_AI協作程式規格.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">016</span>
+            <span class="topic-cluster-item-title">讓 AI 協助 Excel 與 Python：提示詞要包含規格、範例與驗證</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./017_大型語言模型心智模型.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">017</span>
+            <span class="topic-cluster-item-title">大型語言模型的實務心智模型：可生成，但需要外部驗證</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./018_AI產品軟體架構.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">018</span>
+            <span class="topic-cluster-item-title">AI 產品的基本骨架：介面、服務、API 與資料庫</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./019_提示工程與結構輸出.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">019</span>
+            <span class="topic-cluster-item-title">提示工程的核心：明確結果、成功條件與結構化輸出</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./020_RAG檢索增強生成.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">020</span>
+            <span class="topic-cluster-item-title">RAG 檢索增強生成：讓答案可追溯，不代表消除幻覺</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./021_AI智慧體與工具.html" class="topic-cluster-item active">
+            <span class="topic-cluster-item-num">021</span>
+            <span class="topic-cluster-item-title">AI 智慧體的最小安全架構：模型、工具、狀態與停止條件</span>
+            <span class="topic-cluster-item-current">目前閱讀中</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="./022_MCP與多智慧體.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">022</span>
+            <span class="topic-cluster-item-title">MCP 與多智慧體不是同一件事：協定負責連接，編排負責分工</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./023_AI輔助開發治理.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">023</span>
+            <span class="topic-cluster-item-title">AI 輔助開發的治理：規格、版本、測試與可回復發布</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./024_提示詞注入.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">024</span>
+            <span class="topic-cluster-item-title">提示詞注入：把外部內容視為不可信資料</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./025_AI護欄與個資.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">025</span>
+            <span class="topic-cluster-item-title">AI 護欄與個資保護：在模型之外執行確定性控制</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./026_AI系統評測.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">026</span>
+            <span class="topic-cluster-item-title">AI 系統評測：以任務、風險與人工基準建立測試集</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./027_AI成本與延遲.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">027</span>
+            <span class="topic-cluster-item-title">AI 成本與延遲：用量測決定模型、上下文與快取策略</span>
+            
+          </a>
+        </li>
+
+        <li>
+          <a href="./028_LLMOps生命週期.html" class="topic-cluster-item">
+            <span class="topic-cluster-item-num">028</span>
+            <span class="topic-cluster-item-title">LLMOps：上線後持續監測資料、模型、工具與失敗案例</span>
+            
+          </a>
+        </li>
+            </ul>
+          </nav>
+
+          <!-- Prev & Next Article Navigation -->
+          <div class="prev-next-nav">
+            
+        <a href="./020_RAG檢索增強生成.html" class="prev-next-card">
+          <span class="prev-next-label">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            上一篇（第 020 講）
+          </span>
+          <span class="prev-next-title">RAG 檢索增強生成：讓答案可追溯，不代表消除幻覺</span>
+        </a>
+            
+        <a href="./022_MCP與多智慧體.html" class="prev-next-card" style="text-align: right; align-items: flex-end;">
+          <span class="prev-next-label">
+            下一篇（第 022 講）
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+          </span>
+          <span class="prev-next-title">MCP 與多智慧體不是同一件事：協定負責連接，編排負責分工</span>
+        </a>
+          </div>
+
+          <!-- Back to Blog Navigation -->
+          <div class="article-bottom-actions">
+            <a href="/blog" class="button-secondary">
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+              返回所有專業專題列表
+            </a>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo footer-logo" width="26" height="26" />
+            <span>蔡泓恩 | 職能治療師</span>
+          </div>
+          <div class="footer-copy">
+            © <span data-year></span> Ian Tsai. 保留所有權利。
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="/">首頁</a>
+          <a href="/projects">專案</a>
+          <a href="/blog">專業文章</a>
+          <a href="/contact">聯絡</a>
+          <a href="/sponsor">贊助我</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../js/animate-icons.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
