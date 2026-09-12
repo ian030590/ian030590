@@ -1,63 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-TW"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本｜蔡泓恩 職能治療師</title>
-<meta name="description" content="能開啟的網頁只是原型。臨床使用前要確認計算與操作符合需求、錯誤會被攔下，以及修改失敗時能回到已知版本。"><meta name="keywords" content="數位學習,AI應用">
-<link rel="canonical" href="https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html"><link rel="icon" type="image/svg+xml" href="../../icons/icon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
-<link rel="stylesheet" href="../../css/style.css">
-<meta property="og:type" content="article"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="蔡泓恩 | 職能治療師">
-<meta property="og:title" content="AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本"><meta property="og:description" content="能開啟的網頁只是原型。臨床使用前要確認計算與操作符合需求、錯誤會被攔下，以及修改失敗時能回到已知版本。"><meta property="og:url" content="https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html"><meta property="og:image" content="https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
-<meta property="article:published_time" content="2026-09-12T08:00:00+08:00"><meta property="article:modified_time" content="2026-09-12T08:00:00+08:00"><meta property="article:author" content="https://ian030590.trainerhub.cc/"><meta property="article:section" content="數位學習">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本"><meta name="twitter:description" content="能開啟的網頁只是原型。臨床使用前要確認計算與操作符合需求、錯誤會被攔下，以及修改失敗時能回到已知版本。"><meta name="twitter:image" content="https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "Article"], "@id": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html#article", "url": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html", "mainEntityOfPage": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html", "headline": "AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本", "description": "能開啟的網頁只是原型。臨床使用前要確認計算與操作符合需求、錯誤會被攔下，以及修改失敗時能回到已知版本。", "image": ["https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&fit=crop&w=1200&q=80"], "datePublished": "2026-09-12T08:00:00+08:00", "dateModified": "2026-09-12T08:00:00+08:00", "inLanguage": "zh-TW", "articleSection": "數位學習", "keywords": ["數位學習", "AI應用"], "author": {"@type": "Person", "name": "蔡泓恩", "alternateName": "Hung-En (Ian) Tsai", "url": "https://ian030590.trainerhub.cc/", "jobTitle": "職能治療師", "alumniOf": {"@type": "CollegeOrUniversity", "name": "國立臺灣大學"}, "knowsAbout": ["職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"], "sameAs": ["https://github.com/ian030590", "https://trainerhub.cc"]}, "citation": [{"@type": "CreativeWork", "name": "Souppaya M, Scarfone K, Dodson D. Secure Software Development Framework (SSDF) Version 1.1. NIST SP 800-218. 2022. 技術框架，非臨床指引。", "url": "https://doi.org/10.6028/NIST.SP.800-218"}, {"@type": "CreativeWork", "name": "Open Source Society University. Computer Science curriculum. 官方課程 repository；查閱 2026-09-12。", "url": "https://github.com/ossu/computer-science"}, {"@type": "CreativeWork", "name": "Perry N, Srivastava M, Kumar D, Boneh D. Do Users Write More Insecure Code with AI Assistants? Proceedings of CCS 2023:2785–2799.", "url": "https://doi.org/10.1145/3576915.3623157"}], "publisher": {"@type": "Person", "name": "蔡泓恩", "url": "https://ian030590.trainerhub.cc/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://ian030590.trainerhub.cc/"}, {"@type": "ListItem", "position": 2, "name": "專業文章", "item": "https://ian030590.trainerhub.cc/blog"}, {"@type": "ListItem", "position": 3, "name": "AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本", "item": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html"}]}]}</script>
-</head><body>
-    <header class="site-header">
-      <div class="container nav">
-        <a class="brand" href="/">
-          <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo" width="36" height="36" />
-          <span>蔡泓恩 | 職能治療師</span>
-        </a>
-        <nav class="nav-links" aria-label="主要導覽">
-          <a class="nav-link" href="/">首頁</a>
-          <a class="nav-link" href="/projects">開源專案</a>
-          <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
-          <a class="nav-link" href="/contact">聯絡我</a>
-          <a class="nav-link" href="/sponsor">贊助我</a>
-        </nav>
-        <button
-          class="theme-toggle"
-          aria-label="切換深色模式"
-          title="切換深色模式"
-        >
-          <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
-          <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
-        </button>
-        <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
-        <button
-          class="menu-button"
-          aria-label="開啟選單"
-          aria-expanded="false"
-        >
-          <span
-            class="animate-icon animate-icon--menu"
-            data-animate-icon="menu"
-            aria-hidden="true"
-          ></span>
-        </button>
-      </div>
-      <div class="mobile-panel">
-        <a href="/">首頁</a>
-        <a href="/projects">開源專案</a>
-        <a href="/blog" aria-current="page">專業文章</a>
-        <a href="/contact">聯絡我</a>
-        <a href="/sponsor">贊助我</a>
-      </div>
-    </header>
-    <main class="page-main article-page-layout">
-      <div class="container">
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AI 做出的復健小工具，什麼時候才算能試用？｜蔡泓恩 職能治療師</title>
+<meta content="能開啟的網頁只是原型。臨床試用前，要確認需求、計分、錯誤處理與測量誤差，也要讓重要修改可以追蹤和回復。" name="description"/><meta content="數位學習,AI應用" name="keywords"/>
+<link href="https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html" rel="canonical"/><link href="../../icons/icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../../icons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="../../icons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="../../icons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="../../css/style.css" rel="stylesheet"/>
+<meta content="article" property="og:type"/><meta content="zh_TW" property="og:locale"/><meta content="蔡泓恩 | 職能治療師" property="og:site_name"/>
+<meta content="AI 做出的復健小工具，什麼時候才算能試用？" property="og:title"/><meta content="能開啟的網頁只是原型。臨床試用前，要確認需求、計分、錯誤處理與測量誤差，也要讓重要修改可以追蹤和回復。" property="og:description"/><meta content="https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html" property="og:url"/><meta content="https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" property="og:image"/>
+<meta content="2026-09-12T08:00:00+08:00" property="article:published_time"/><meta content="2026-09-12T08:00:00+08:00" property="article:modified_time"/><meta content="https://ian030590.trainerhub.cc/" property="article:author"/><meta content="數位學習" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/><meta content="AI 做出的復健小工具，什麼時候才算能試用？" name="twitter:title"/><meta content="能開啟的網頁只是原型。臨床試用前，要確認需求、計分、錯誤處理與測量誤差，也要讓重要修改可以追蹤和回復。" name="twitter:description"/><meta content="https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" name="twitter:image"/>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "Article"], "@id": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html#article", "url": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html", "mainEntityOfPage": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html", "headline": "AI 做出的復健小工具，什麼時候才算能試用？", "description": "能開啟的網頁只是原型。臨床試用前，要確認需求、計分、錯誤處理與測量誤差，也要讓重要修改可以追蹤和回復。", "image": ["https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&fit=crop&w=1200&q=80"], "datePublished": "2026-09-12T08:00:00+08:00", "dateModified": "2026-09-12T08:00:00+08:00", "inLanguage": "zh-TW", "articleSection": "數位學習", "keywords": ["數位學習", "AI應用"], "author": {"@type": "Person", "name": "蔡泓恩", "alternateName": "Hung-En (Ian) Tsai", "url": "https://ian030590.trainerhub.cc/", "jobTitle": "職能治療師", "alumniOf": {"@type": "CollegeOrUniversity", "name": "國立臺灣大學"}, "knowsAbout": ["職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"], "sameAs": ["https://github.com/ian030590", "https://trainerhub.cc"]}, "citation": [{"@type": "CreativeWork", "name": "Souppaya M, Scarfone K, Dodson D. Secure Software Development Framework (SSDF) Version 1.1. NIST SP 800-218. 2022. 技術框架，非臨床指引。", "url": "https://doi.org/10.6028/NIST.SP.800-218"}, {"@type": "CreativeWork", "name": "Open Source Society University. Computer Science curriculum. 官方課程 repository；查閱 2026-09-12。", "url": "https://github.com/ossu/computer-science"}, {"@type": "CreativeWork", "name": "Perry N, Srivastava M, Kumar D, Boneh D. Do Users Write More Insecure Code with AI Assistants? Proceedings of CCS 2023:2785–2799.", "url": "https://doi.org/10.1145/3576915.3623157"}], "publisher": {"@type": "Person", "name": "蔡泓恩", "url": "https://ian030590.trainerhub.cc/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://ian030590.trainerhub.cc/"}, {"@type": "ListItem", "position": 2, "name": "專業文章", "item": "https://ian030590.trainerhub.cc/blog"}, {"@type": "ListItem", "position": 3, "name": "AI 做出的復健小工具，什麼時候才算能試用？", "item": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html"}]}]}</script>
+<meta content="數位學習" property="og:section"/></head><body>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="/">
+<img alt="蔡泓恩 職能治療師 Logo" class="brand-logo" height="36" src="../../icons/logo.png" width="36"/>
+<span>蔡泓恩 | 職能治療師</span>
+</a>
+<nav aria-label="主要導覽" class="nav-links">
+<a class="nav-link" href="/">首頁</a>
+<a class="nav-link" href="/projects">開源專案</a>
+<a aria-current="page" class="nav-link active" href="/blog">專業文章</a>
+<a class="nav-link" href="/contact">聯絡我</a>
+<a class="nav-link" href="/sponsor">贊助我</a>
+</nav>
+<button aria-label="切換深色模式" class="theme-toggle" title="切換深色模式">
+<span aria-hidden="true" class="material-symbols-outlined icon-dark">dark_mode</span>
+<span aria-hidden="true" class="material-symbols-outlined icon-light" style="display: none;">light_mode</span>
+</button>
+<a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
+<button aria-expanded="false" aria-label="開啟選單" class="menu-button">
+<span aria-hidden="true" class="animate-icon animate-icon--menu" data-animate-icon="menu"></span>
+</button>
+</div>
+<div class="mobile-panel">
+<a href="/">首頁</a>
+<a href="/projects">開源專案</a>
+<a aria-current="page" href="/blog">專業文章</a>
+<a href="/contact">聯絡我</a>
+<a href="/sponsor">贊助我</a>
+</div>
+</header>
+<main class="page-main article-page-layout">
+<div class="container">
 <!-- Blogger：在 HTML 編輯模式貼入下方 style 與 article；文章不需要本機講義。 -->
 <style>.ot-blog-article {
   
@@ -461,62 +450,62 @@ font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:
             <span class="breadcrumb-separator" aria-hidden="true">/</span>
             <a href="/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a>
             <span class="breadcrumb-separator" aria-hidden="true">/</span>
-            <span class="breadcrumb-current" aria-current="page">AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本</span>
+            <span class="breadcrumb-current" aria-current="page">AI 做出的復健小工具，什麼時候才算能試用？</span>
           </nav>
         </div>
         <header class="article-detail-header"><div class="article-tag-badges"><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=AI%E6%87%89%E7%94%A8">AI應用</a></div>
-<h1 class="article-title">AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本</h1><div class="article-meta-row"><span class="article-meta-item">蔡泓恩 職能治療師</span><time datetime="2026-09-12T08:00:00+08:00">更新：2026-09-12</time><span class="article-meta-item">約 4 分鐘閱讀</span></div></header>
-<figure class="article-featured-figure"><img src="https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="使用平板裝置的情境照片" class="article-featured-img" width="1200" height="800" loading="lazy" decoding="async"><figcaption class="article-figcaption">使用平板裝置的情境照片；非本文研究受試者或研究結果。圖片：<a href="https://unsplash.com/photos/0mFqLqD9DYI" target="_blank" rel="noopener noreferrer">Unsplash 原始照片</a>。</figcaption></figure>
-<div class="article-lead-box"><div class="article-lead-box-title">本篇要回答的決策</div><p>能開啟的網頁只是原型。臨床使用前要確認計算與操作符合需求、錯誤會被攔下，以及修改失敗時能回到已知版本。</p></div>
+<h1 class="article-title">AI 做出的復健小工具，什麼時候才算能試用？</h1><div class="article-meta-row"><span class="article-meta-item">蔡泓恩 職能治療師</span><time datetime="2026-09-12T08:00:00+08:00">更新：2026-09-12</time><span class="article-meta-item">約 4 分鐘閱讀</span></div></header>
+<figure class="article-featured-figure"><img alt="使用平板裝置的情境照片" class="article-featured-img" decoding="async" height="800" loading="lazy" src="https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" width="1200"/><figcaption class="article-figcaption">使用平板裝置的情境照片；非本文研究受試者或研究結果。圖片：<a href="https://unsplash.com/photos/0mFqLqD9DYI" rel="noopener noreferrer" target="_blank">Unsplash 原始照片</a>。</figcaption></figure>
+<div class="article-lead-box"><div class="article-lead-box-title">本篇要回答的決策</div><p>能開啟的網頁只是原型。臨床試用前，要確認需求、計分、錯誤處理與測量誤差，也要讓重要修改可以追蹤和回復。</p></div>
 <div class="article-body-content">
-<section aria-labelledby="clinical-question"><h2 id="clinical-question">一、臨床問題</h2><p>原型成功的條件通常比臨床使用單純。假設治療師請 AI 做一個反應時間遊戲，試玩幾次正常便想用來比較個案進步；但重複點擊、裝置延遲、提示呈現及取消試次如何處理，都可能改變結果。真正問題是：這個工具的數字能否支持預定用途，而不只是畫面能動？</p>
-<p>需求錯誤不會因程式完全照做就消失。若最初把「沒有反應」當成零毫秒，程式可能準確執行這條規則，卻產生相反的臨床解釋。治療師的關鍵角色是與工程者一起定義活動、資料與判讀邊界，而不是只要求介面更漂亮。</p></section>
-<section aria-labelledby="guidance"><h2 id="guidance">二、有無臨床指引？正式規範如何建議</h2><p>本題沒有「AI 生成即可臨床使用」的指引。NIST SSDF 是安全開發的技術框架，支持把需求、程式檢查、測試與漏洞處理納入生命週期；它不提供某個復健工具的測量效度，也不取代機構對實際用途的審查。<sup class="source-citation">[<a href="#ref-1">1</a>]</sup></p>
-<p>系統化程式設計先定義可檢查的行為。OSSU 的相關課程涵蓋需求、測試與設計；轉為臨床合作語言，就是「給什麼輸入、預期什麼輸出、哪些情況必須拒絕」。以反應時間為例，至少需區分有效試次、未作答、誤觸與中途退出，而不是只提供平均值。<sup class="source-citation">[<a href="#ref-2">2</a>；範例為作者應用]</sup></p>
-<p>版本控制保存改動脈絡，不會自動證明改動正確。Git 可協助比較及回復程式版本；命令列則是操作工具的文字介面，具有刪改檔案等實際能力。沒有理解的指令不應直接在臨床資料目錄執行，回復程式也不等於恢復已被改寫的病歷資料。<sup class="source-citation">[<a href="#ref-2">2</a>；安全操作為作者應用]</sup></p></section>
-<section aria-labelledby="evidence"><h2 id="evidence">三、研究如何支持或限制這項建議</h2><p>Perry 等人的研究顯示，主觀把握與程式安全可能不一致。研究比較有無 AI 助手的多種安全編程任務，助手組整體的安全表現較差，信心卻較高；這是特定模型與研究任務的結果，並不是今天所有生成工具的固定錯誤率。<sup class="source-citation">[<a href="#ref-3">3</a>]</sup></p>
-<p>研究沒有直接測試復健遊戲的臨床效度。它支持把生成程式視為需要審查的產物，而不能回答反應時間是否精準、測量誤差是否小於病人變化，或不同設備是否可比較。這些問題還需要針對工具用途的技術測試與測量研究。</p>
-<p>功能測試與測量驗證應分開。按鈕能送出資料屬功能正確性；是否忠實測到目標能力屬效度；相同條件下變異多大屬信度與誤差。沒有後兩者證據時，可以把工具定位為活動練習或探索性紀錄，不能宣稱能診斷或量化療效。</p>
-<h3>把證據轉成現場判斷</h3><figure class="decision-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 310" role="img" aria-labelledby="DigitLearn3-title DigitLearn3-desc"><title id="DigitLearn3-title">本篇決策流程</title><desc id="DigitLearn3-desc">寫清規則與例外，再獨立測試及審查，再限定用途與版本。作者依本文整理，不是研究量化結果。</desc><rect x="20" y="20" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="62" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">1. 寫清規則與例外</text><path d="M260 92 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="118" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="160" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">2. 獨立測試及審查</text><path d="M260 190 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="216" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="258" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">3. 限定用途與版本</text></svg><figcaption class="article-figcaption">圖 1．寫清規則與例外 → 獨立測試及審查 → 限定用途與版本。作者依本文證據與應用整理；不是已驗證的標準演算法。</figcaption></figure>
-<div class="table-wrapper" role="region" aria-label="情境與決策比較表，可左右捲動" tabindex="0"><table class="article-table"><caption>表 1．決策情境對照：作者依本文整理，不是統一處方。</caption><thead><tr><th scope="col">遇到的情境</th><th scope="col">評估或處理方向</th><th scope="col">決策與追蹤重點</th></tr></thead><tbody><tr><th scope="row">畫面與操作可執行</th><td>檢查正常、空白、重複與取消輸入</td><td>確認錯誤不被當成有效分數</td></tr><tr><th scope="row">準備用數值判斷個案改變</th><td>檢查效度、重測與裝置影響</td><td>沒有證據就限制判讀用途</td></tr><tr><th scope="row">AI 修改後出現新問題</th><td>比較版本並重跑原有案例</td><td>必要時回復，另確認資料完整性</td></tr></tbody></table></div>
-<h3>如何應用與追蹤</h3><p>交給 AI 或工程者的需求應包含失敗情境。可寫成：「未作答須另記，不得納入平均反應時間；重複點擊只接受規則指定的一次；離開頁面後該試次如何處理需明示。」這些是範例，不是所有測驗共用的計分規則，實際設定仍需來源依據。</p>
-<p>上線前應讓未參與開發的人試用並核對結果。先用虛構資料與人工可算的案例，檢查匯出、中文、時間與錯誤訊息；再確認誰維護、何時停用與如何回復。若改變程式會影響計分，舊新版本數據不可未經檢查就接成同一條進步曲線。</p></section>
-<section aria-labelledby="conclusions"><h2 id="conclusions">四、結語：4 個重點</h2><ul><li>能執行不等於符合臨床需求，更不等於測量有效。</li><li>需求要寫清正常與失敗情境，尤其缺值與計分規則。</li><li>Git 幫助追蹤與回復，但不是測試或資料備份的替代品。</li><li>每次重要修改都需重測，臨床用途不得超過已驗證範圍。</li></ul></section>
+<section aria-labelledby="prototype-gap"><h2 id="prototype-gap">畫面會動，還不代表數字可信</h2>
+<p>假設 AI 做了一個反應時間遊戲，按鈕看起來正常，治療師就想用它比較個案進步。但重複點擊、裝置延遲、提示出現時間、未作答和中途離開，都可能改變結果。</p>
+<p>最先要定義的不是顏色和動畫，而是這個工具要支持什麼決定。若「沒有反應」被錯誤當成零毫秒，程式可以完全照著規則運作，最後卻產生相反的解釋。</p></section>
+<section aria-labelledby="prototype-process"><h2 id="prototype-process">把需求寫成能被測試的行為</h2>
+<p>NIST SSDF 支持把需求、程式檢查、測試和漏洞處理放進開發生命週期，但它不提供某個復健工具的測量效度，也不取代機構審查。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-1">1，NIST SSDF</a>]</sup></span></p>
+<p>OSSU 的相關課程能幫助理解需求、測試與設計。轉成臨床合作語言，就是寫清楚「輸入是什麼、預期輸出是什麼、哪些情況必須拒絕」。反應時間工具至少要區分有效試次、未作答、誤觸和退出，不能只吐出一個平均值。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-2">2，OSSU 課程</a>]</sup></span></p>
+<p>Git 可以比較和回復程式版本，卻不會自動證明最新改動正確，也不是病歷資料的備份。沒有理解的指令，不應直接在臨床資料目錄執行。</p></section>
+<section aria-labelledby="prototype-evidence"><h2 id="prototype-evidence">功能正確和測量有效，是兩個檢查</h2>
+<p>Perry 等人的研究比較有無 AI 助手的安全編程任務，助手組的安全表現和主觀信心出現落差。研究沒有測試復健遊戲的臨床效度，能支持的結論是：生成的程式要被當成需要審查的產物。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-3">3，Perry 等人</a>]</sup></span></p>
+<p>按鈕能送出資料，是功能測試；是否測到目標能力，是效度；相同條件下變動多大，是信度與測量誤差。沒有後兩類證據時，可以把工具定位為活動練習或探索性紀錄，不能宣稱能診斷或精確量化療效。</p></section>
+<section aria-labelledby="prototype-release"><h2 id="prototype-release">上線前，讓別人用虛構資料找錯</h2>
+<ul><li>先用人工可算的案例，核對計分、匯出、日期、文字和錯誤訊息。</li><li>把缺值、重複點擊、取消和離開頁面列成明確測試情境。</li><li>記錄版本、維護者、停用條件和回復方式，再決定是否受控試用。</li></ul>
+<p>如果計分規則變了，舊版和新版資料不能未經檢查就接成同一條進步曲線。每次重要修改，都要重新確認用途仍在已驗證的範圍內。</p></section>
 </div>
-<section class="article-references" aria-labelledby="references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.6028/NIST.SP.800-218" target="_blank" rel="noopener noreferrer">Souppaya M, Scarfone K, Dodson D. Secure Software Development Framework (SSDF) Version 1.1. NIST SP 800-218. 2022. 技術框架，非臨床指引。</a></li>
-<li id="ref-2"><a href="https://github.com/ossu/computer-science" target="_blank" rel="noopener noreferrer">Open Source Society University. Computer Science curriculum. 官方課程 repository；查閱 2026-09-12。</a></li>
-<li id="ref-3"><a href="https://doi.org/10.1145/3576915.3623157" target="_blank" rel="noopener noreferrer">Perry N, Srivastava M, Kumar D, Boneh D. Do Users Write More Insecure Code with AI Assistants? Proceedings of CCS 2023:2785–2799.</a></li></ol></section>
+<section aria-labelledby="references" class="article-references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.6028/NIST.SP.800-218" rel="noopener noreferrer" target="_blank">Souppaya M, Scarfone K, Dodson D. Secure Software Development Framework (SSDF) Version 1.1. NIST SP 800-218. 2022. 技術框架，非臨床指引。</a></li>
+<li id="ref-2"><a href="https://github.com/ossu/computer-science" rel="noopener noreferrer" target="_blank">Open Source Society University. Computer Science curriculum. 官方課程 repository；查閱 2026-09-12。</a></li>
+<li id="ref-3"><a href="https://doi.org/10.1145/3576915.3623157" rel="noopener noreferrer" target="_blank">Perry N, Srivastava M, Kumar D, Boneh D. Do Users Write More Insecure Code with AI Assistants? Proceedings of CCS 2023:2785–2799.</a></li></ol></section>
 <footer class="article-author-note"><p>作者：蔡泓恩 職能治療師。本文為專業教育與證據整理；個別處置仍需完整評估、當事人參與及適當跨專業合作。</p></footer>
-<nav class="prev-next-nav" aria-label="相關文章"><a href="https://ian030590.trainerhub.cc/content/DigitLearn/001_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_OSSU%E5%AE%9A%E4%BD%8D%E8%88%87%E9%99%90%E5%88%B6.html">上一篇：職能治療師需要讀完整套資工課嗎？用臨床工具的風險決定學習深度</a><a href="https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html">下一篇：病人資料可以交給 AI 工具嗎？先確認資料品質、存取權與提示詞注入風險</a></nav>
-        <div class="article-bottom-actions">
-          <a href="/blog" class="button-secondary">
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+<nav aria-label="相關文章" class="prev-next-nav"><a href="https://ian030590.trainerhub.cc/content/DigitLearn/001_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_OSSU%E5%AE%9A%E4%BD%8D%E8%88%87%E9%99%90%E5%88%B6.html">上一篇：想用 AI 做復健工具，真的要先讀完資工嗎？OSSU 怎麼看</a><a href="https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html">下一篇：病人資料能放進 AI 嗎？先沿著資料流向問清楚</a></nav>
+<div class="article-bottom-actions">
+<a class="button-secondary" href="/blog">
+<span aria-hidden="true" class="material-symbols-outlined">arrow_back</span>
             返回所有專業專題列表
           </a>
-        </div>
+</div>
 </div></article>
-      </div>
-    </main>
-    <footer class="site-footer">
-      <div class="container footer-grid">
-        <div>
-          <div class="footer-brand">
-            <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo footer-logo" width="26" height="26" />
-            <span>蔡泓恩 | 職能治療師</span>
+</div>
+</main>
+<footer class="site-footer">
+<div class="container footer-grid">
+<div>
+<div class="footer-brand">
+<img alt="蔡泓恩 職能治療師 Logo" class="brand-logo footer-logo" height="26" src="../../icons/logo.png" width="26"/>
+<span>蔡泓恩 | 職能治療師</span>
+</div>
+<div class="footer-copy">
+            © <span data-year=""></span> Ian Tsai. 保留所有權利。
           </div>
-          <div class="footer-copy">
-            © <span data-year></span> Ian Tsai. 保留所有權利。
-          </div>
-        </div>
-        <div class="footer-links">
-          <a href="/">首頁</a>
-          <a href="/projects">專案</a>
-          <a href="/blog">專業文章</a>
-          <a href="/contact">聯絡</a>
-          <a href="/sponsor">贊助我</a>
-        </div>
-      </div>
-    </footer>
-    <script src="../../js/animate-icons.js"></script>
-    <script src="../../js/main.js"></script>
+</div>
+<div class="footer-links">
+<a href="/">首頁</a>
+<a href="/projects">專案</a>
+<a href="/blog">專業文章</a>
+<a href="/contact">聯絡</a>
+<a href="/sponsor">贊助我</a>
+</div>
+</div>
+</footer>
+<script src="../../js/animate-icons.js"></script>
+<script src="../../js/main.js"></script>
 </body></html>

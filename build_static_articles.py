@@ -8,6 +8,8 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from urllib.parse import quote
 
+from article_editorial_copy import HUMANIZED_ARTICLE_COPY
+
 sys.stdout.reconfigure(encoding='utf-8')
 
 BASE_DIR = Path(r'P:\3_WebSite\ian030590')
@@ -237,6 +239,10 @@ VT_IMAGES = {
 }
 
 BROKEN_DOI_FIXES = {
+    'https://research.google/pubs/everyone-wants-to-do-the-model-work-not-the-data-work-data-cascades-in-high-stakes-ai/': (
+        'https://doi.org/10.1145/3411764.3445518',
+        'Sambasivan N, Kapania S, Highfill H, et al. "Everyone wants to do the model work, not the data work": Data Cascades in High-Stakes AI. Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems. 2021. https://doi.org/10.1145/3411764.3445518'
+    ),
     '10.1609/hcomp.v11i1.27541': (
         'https://doi.org/10.48550/arXiv.2208.03274',
         'Markov, T., Zhang, C., Agarwal, S., et al. (2023). A Holistic Approach to Undesired Content Detection in the Real World. arXiv preprint arXiv:2208.03274.'
@@ -1128,7 +1134,167 @@ ARTICLE_BOTTOM_ACTIONS_HTML = """<div class="article-bottom-actions">
         </div>"""
 
 
-def update_article_head_and_styles(target_file: Path, art: dict = None):
+def sync_article_source(soup, art, all_articles=None):
+    """Keep the published article, metadata, and navigation in sync."""
+    if not art:
+        return
+
+    title = normalize_terminology(art.get('title', ''))
+    summary = normalize_terminology(art.get('summary', ''))
+    canonical_url = f"{SITE_BASE_URL}/content/{art['folder']}/{quote(art['new_filename'])}"
+    image_url = art.get('img_src') or f"{SITE_BASE_URL}/icons/icon.svg"
+
+    h1 = soup.find('h1', class_='article-title') or soup.find('h1')
+    if h1 and title:
+        h1.clear()
+        h1.append(title)
+
+    lead_box = soup.find('div', class_='article-lead-box')
+    lead_p = lead_box.find('p') if lead_box else None
+    if lead_p and summary:
+        lead_p.clear()
+        lead_p.append(summary)
+
+    body = soup.find('div', class_='article-body-content')
+    raw_body = art.get('raw_body', '')
+    if body and raw_body:
+        fragment = BeautifulSoup(raw_body, 'html.parser')
+        body.clear()
+        for child in list(fragment.contents):
+            body.append(child)
+
+    references = soup.select('.article-references ol > li')
+    for index, citation in enumerate(art.get('citations', [])):
+        if index >= len(references):
+            break
+        link = references[index].find('a')
+        if link is None or not citation.get('url'):
+            continue
+        link['href'] = citation['url']
+        link['target'] = '_blank'
+        link['rel'] = ['noopener', 'noreferrer']
+        link.clear()
+        link.append(citation['text'])
+
+    title_tag = soup.find('title')
+    if title_tag and title:
+        title_tag.string = f"{title}｜蔡泓恩 職能治療師"
+
+    keywords = ','.join(art.get('tags', []))
+    meta_values = [
+        ({'name': 'description'}, summary),
+        ({'name': 'keywords'}, keywords),
+        ({'property': 'og:title'}, title),
+        ({'property': 'og:description'}, summary),
+        ({'property': 'og:url'}, canonical_url),
+        ({'property': 'og:image'}, image_url),
+        ({'property': 'og:section'}, art.get('cat_name', '專業文章')),
+        ({'property': 'article:published_time'}, art.get('date_published', '')),
+        ({'property': 'article:modified_time'}, art.get('date_modified', '')),
+        ({'property': 'article:section'}, art.get('cat_name', '專業文章')),
+        ({'name': 'twitter:title'}, title),
+        ({'name': 'twitter:description'}, summary),
+        ({'name': 'twitter:image'}, image_url),
+    ]
+    for attrs, value in meta_values:
+        if not value:
+            continue
+        tag = soup.find('meta', attrs=attrs)
+        if tag is None and soup.head:
+            tag = soup.new_tag('meta')
+            for key, attr_value in attrs.items():
+                tag[key] = attr_value
+            soup.head.append(tag)
+        if tag is not None:
+            tag['content'] = value
+
+    canonical = soup.find('link', rel='canonical')
+    if canonical is not None:
+        canonical['href'] = canonical_url
+
+    for script in soup.find_all('script', type='application/ld+json'):
+        try:
+            data = json.loads(script.string or script.get_text())
+        except (TypeError, json.JSONDecodeError):
+            continue
+        nodes = data.get('@graph', []) if isinstance(data, dict) else []
+        nodes = nodes or [data]
+        for node in nodes:
+            if not isinstance(node, dict):
+                continue
+            types = node.get('@type', [])
+            if isinstance(types, str):
+                types = [types]
+            if 'Article' in types:
+                node['@id'] = f"{canonical_url}#article"
+                node['url'] = canonical_url
+                node['mainEntityOfPage'] = canonical_url
+                node['headline'] = title
+                node['description'] = summary
+                node['image'] = [image_url]
+                node['datePublished'] = art.get('date_published', node.get('datePublished'))
+                node['dateModified'] = art.get('date_modified', node.get('dateModified'))
+                node['articleSection'] = art.get('cat_name', '專業文章')
+                node['keywords'] = art.get('tags', [])
+                node['citation'] = [
+                    {
+                        '@type': 'CreativeWork',
+                        'name': citation['text'],
+                        'url': citation['url'],
+                    }
+                    for citation in art.get('citations', [])
+                    if citation.get('text') and citation.get('url')
+                ]
+            elif 'BreadcrumbList' in types:
+                for item in node.get('itemListElement', []):
+                    if item.get('position') == 3:
+                        item['name'] = title
+                        item['item'] = canonical_url
+        script.string = json.dumps(data, ensure_ascii=False)
+
+    if all_articles:
+        cluster_articles = sorted(
+            [
+                candidate
+                for candidate in all_articles
+                if candidate['folder'] == art['folder']
+                and candidate['cluster'] == art['cluster']
+            ],
+            key=lambda candidate: candidate['order'],
+        )
+        current_index = next(
+            (
+                index
+                for index, candidate in enumerate(cluster_articles)
+                if candidate['new_filename'] == art['new_filename']
+            ),
+            -1,
+        )
+        prev_article = (
+            cluster_articles[current_index - 1] if current_index > 0 else None
+        )
+        next_article = (
+            cluster_articles[current_index + 1]
+            if current_index >= 0 and current_index < len(cluster_articles) - 1
+            else None
+        )
+        prev_next = soup.find('nav', class_='prev-next-nav')
+        if prev_next:
+            prev_next.clear()
+            for label, article in (
+                (f"上一篇：", prev_article),
+                (f"下一篇：", next_article),
+            ):
+                if article:
+                    link = soup.new_tag(
+                        'a',
+                        href=f"{SITE_BASE_URL}/content/{article['folder']}/{quote(article['new_filename'])}",
+                    )
+                    link.string = label + article['title']
+                    prev_next.append(link)
+
+
+def update_article_head_and_styles(target_file: Path, art: dict = None, all_articles=None):
     content = target_file.read_text(encoding='utf-8')
     orig_content = content
     
@@ -1249,8 +1415,13 @@ def update_article_head_and_styles(target_file: Path, art: dict = None):
         content
     )
 
-    # 4. JSON-LD E-E-A-T signals
+    # 4. Synchronize editorial copy and all page metadata before adding E-E-A-T signals.
     soup = BeautifulSoup(content, 'html.parser')
+    sync_article_source(soup, art, all_articles)
+    content = str(soup)
+    soup = BeautifulSoup(content, 'html.parser')
+
+    # 5. JSON-LD E-E-A-T signals
     s = soup.find('script', type='application/ld+json')
     if s and s.string:
         data = json.loads(s.string)
@@ -1291,7 +1462,7 @@ def update_article_head_and_styles(target_file: Path, art: dict = None):
             flags=re.DOTALL
         )
 
-    # 5. Navbar (<header class="site-header">) and main layout wrapper
+    # 6. Navbar (<header class="site-header">) and main layout wrapper
     if '<header class="site-header">' not in content:
         content = re.sub(
             r'<body([^>]*)>',
@@ -1299,7 +1470,7 @@ def update_article_head_and_styles(target_file: Path, art: dict = None):
             content
         )
 
-    # 6. Top Bar: Back button ("返回上一頁") + Breadcrumb navigation
+    # 7. Top Bar: Back button ("返回上一頁") + Breadcrumb navigation
     title = ''
     cat_name = '專業文章'
     if art:
@@ -1341,7 +1512,7 @@ def update_article_head_and_styles(target_file: Path, art: dict = None):
             flags=re.DOTALL
         )
 
-    # 7. Bottom actions: Back to all articles button
+    # 8. Bottom actions: Back to all articles button
     if '<div class="article-bottom-actions">' in content:
         # If it was placed inside </nav>, move it outside
         content = re.sub(
@@ -1357,7 +1528,7 @@ def update_article_head_and_styles(target_file: Path, art: dict = None):
             content
         )
 
-    # 8. Close main layout and insert footer + scripts
+    # 9. Close main layout and insert footer + scripts
     if '<footer class="site-footer">' not in content:
         content = re.sub(
             r'(</article>\s*)(?=</body>)',
@@ -1628,18 +1799,22 @@ def collect_article_metadata():
             cluster = normalize_terminology(cluster)
             sub_cluster = normalize_terminology(sub_cluster)
 
+            art_key = f"{folder}_{order:03d}"
+            editorial_copy = HUMANIZED_ARTICLE_COPY.get(art_key)
+
             # 1. Title
             h1 = soup.find('h1')
             title = h1.get_text().strip() if h1 else ''
             if not title and soup.title:
                 title = soup.title.get_text().strip()
             title = normalize_terminology(title)
+            if editorial_copy:
+                title = normalize_terminology(editorial_copy['title'])
                 
             # 2. Precise Tags & Publish Date (Interleaved, monotonic, latest is VT_020)
             header = soup.find('header')
             spans = [s.get_text().strip() for s in header.find_all('span')] if header else []
             
-            art_key = f"{folder}_{order:03d}"
             html_tags = [a.get_text().strip() for a in header.select('.article-tag-badges a')] if header else []
             tags = html_tags or ARTICLE_TAG_MAP.get(art_key, [cat_name])
             if folder in ADDITIONAL_CONTENT_FOLDERS:
@@ -1708,6 +1883,8 @@ def collect_article_metadata():
                 summary = first_p.get_text().strip() if first_p else title
             summary = normalize_terminology(summary)
             summary = re.sub(r'\s*\[\d+\]', '', summary)
+            if editorial_copy:
+                summary = normalize_terminology(editorial_copy['summary'])
                 
             # 6. References
             ref_sec = soup.find(['section', 'footer'], class_=lambda c: c and 'reference' in c) or soup.find('footer') or soup.find('section', {'aria-label': lambda x: x and '參考' in x})
@@ -1785,6 +1962,9 @@ def collect_article_metadata():
                     body_parts.append(str(summary_box))
                 body_html = '\n'.join(body_parts)
                 
+            if editorial_copy:
+                body_html = editorial_copy['body']
+
             # Replace broken DOIs in body_html
             for old_doi, (new_doi, _) in BROKEN_DOI_FIXES.items():
                 if old_doi in body_html:
@@ -2353,7 +2533,17 @@ def validate_generated_site(all_articles):
             raise RuntimeError(f'Missing site-footer: {article_file}')
         if '.breadcrumb-trail, .ot-blog-article .prev-next-nav { display: none;' in article_file.read_text(encoding='utf-8'):
             raise RuntimeError(f'Hidden breadcrumb-trail or prev-next-nav in style: {article_file}')
-        if len(soup.select('.prev-next-nav a[href]')) < 1 and len(soup.select('.topic-cluster-nav a[href]')) < 1:
+        cluster_size = sum(
+            1
+            for candidate in additional_articles
+            if candidate['folder'] == art['folder']
+            and candidate['cluster'] == art['cluster']
+        )
+        if (
+            cluster_size > 1
+            and len(soup.select('.prev-next-nav a[href]')) < 1
+            and len(soup.select('.topic-cluster-nav a[href]')) < 1
+        ):
             raise RuntimeError(f'Missing topic-cluster internal links: {article_file}')
         if soup.find('a', href=lambda href: href and '../OriginalSources/' in href):
             raise RuntimeError(f'Dead OriginalSources link remains: {article_file}')
@@ -2376,7 +2566,7 @@ def main():
     for art in all_articles:
         folder = art['folder']
         target_file = CONTENT_DIR / folder / art['new_filename']
-        update_article_head_and_styles(target_file, art)
+        update_article_head_and_styles(target_file, art, all_articles)
         
     print('4. Removing old unrenamed files...')
     for art in all_articles:

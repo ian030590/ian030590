@@ -1,63 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-TW"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論｜蔡泓恩 職能治療師</title>
-<meta name="description" content="檢索增強生成可讓回答參考外部資料，但「有引用」不等於引用支持答案。臨床判斷仍須核對族群、推薦條件與證據限制。"><meta name="keywords" content="數位學習,AI應用">
-<link rel="canonical" href="https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html"><link rel="icon" type="image/svg+xml" href="../../icons/icon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
-<link rel="stylesheet" href="../../css/style.css">
-<meta property="og:type" content="article"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="蔡泓恩 | 職能治療師">
-<meta property="og:title" content="AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論"><meta property="og:description" content="檢索增強生成可讓回答參考外部資料，但「有引用」不等於引用支持答案。臨床判斷仍須核對族群、推薦條件與證據限制。"><meta property="og:url" content="https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html"><meta property="og:image" content="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
-<meta property="article:published_time" content="2026-09-12T08:00:00+08:00"><meta property="article:modified_time" content="2026-09-12T08:00:00+08:00"><meta property="article:author" content="https://ian030590.trainerhub.cc/"><meta property="article:section" content="數位學習">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論"><meta name="twitter:description" content="檢索增強生成可讓回答參考外部資料，但「有引用」不等於引用支持答案。臨床判斷仍須核對族群、推薦條件與證據限制。"><meta name="twitter:image" content="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "Article"], "@id": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html#article", "url": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html", "mainEntityOfPage": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html", "headline": "AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論", "description": "檢索增強生成可讓回答參考外部資料，但「有引用」不等於引用支持答案。臨床判斷仍須核對族群、推薦條件與證據限制。", "image": ["https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80"], "datePublished": "2026-09-12T08:00:00+08:00", "dateModified": "2026-09-12T08:00:00+08:00", "inLanguage": "zh-TW", "articleSection": "數位學習", "keywords": ["數位學習", "AI應用"], "author": {"@type": "Person", "name": "蔡泓恩", "alternateName": "Hung-En (Ian) Tsai", "url": "https://ian030590.trainerhub.cc/", "jobTitle": "職能治療師", "alumniOf": {"@type": "CollegeOrUniversity", "name": "國立臺灣大學"}, "knowsAbout": ["職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"], "sameAs": ["https://github.com/ian030590", "https://trainerhub.cc"]}, "citation": [{"@type": "CreativeWork", "name": "Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。", "url": "https://doi.org/10.6028/NIST.AI.600-1"}, {"@type": "CreativeWork", "name": "Lewis P, Perez E, Piktus A, et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS. 2020;33:9459–9474.", "url": "https://doi.org/10.48550/arXiv.2005.11401"}, {"@type": "CreativeWork", "name": "Liu NF, Lin K, Hewitt J, et al. Lost in the Middle: How Language Models Use Long Contexts. Transactions of the Association for Computational Linguistics. 2024;12:157–173.", "url": "https://doi.org/10.1162/tacl_a_00638"}], "publisher": {"@type": "Person", "name": "蔡泓恩", "url": "https://ian030590.trainerhub.cc/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://ian030590.trainerhub.cc/"}, {"@type": "ListItem", "position": 2, "name": "專業文章", "item": "https://ian030590.trainerhub.cc/blog"}, {"@type": "ListItem", "position": 3, "name": "AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論", "item": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html"}]}]}</script>
-</head><body>
-    <header class="site-header">
-      <div class="container nav">
-        <a class="brand" href="/">
-          <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo" width="36" height="36" />
-          <span>蔡泓恩 | 職能治療師</span>
-        </a>
-        <nav class="nav-links" aria-label="主要導覽">
-          <a class="nav-link" href="/">首頁</a>
-          <a class="nav-link" href="/projects">開源專案</a>
-          <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
-          <a class="nav-link" href="/contact">聯絡我</a>
-          <a class="nav-link" href="/sponsor">贊助我</a>
-        </nav>
-        <button
-          class="theme-toggle"
-          aria-label="切換深色模式"
-          title="切換深色模式"
-        >
-          <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
-          <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
-        </button>
-        <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
-        <button
-          class="menu-button"
-          aria-label="開啟選單"
-          aria-expanded="false"
-        >
-          <span
-            class="animate-icon animate-icon--menu"
-            data-animate-icon="menu"
-            aria-hidden="true"
-          ></span>
-        </button>
-      </div>
-      <div class="mobile-panel">
-        <a href="/">首頁</a>
-        <a href="/projects">開源專案</a>
-        <a href="/blog" aria-current="page">專業文章</a>
-        <a href="/contact">聯絡我</a>
-        <a href="/sponsor">贊助我</a>
-      </div>
-    </header>
-    <main class="page-main article-page-layout">
-      <div class="container">
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AI 找到文獻，答案就可信嗎？讀懂 RAG 的查找與核對｜蔡泓恩 職能治療師</title>
+<meta content="檢索增強生成可以把外部資料帶進回答，但有引用不等於引用支持結論。臨床使用時，要分開檢查找得對不對、摘要忠不忠實，以及資料是否適用眼前個案。" name="description"/><meta content="數位學習,AI應用" name="keywords"/>
+<link href="https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html" rel="canonical"/><link href="../../icons/icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../../icons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="../../icons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="../../icons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="../../css/style.css" rel="stylesheet"/>
+<meta content="article" property="og:type"/><meta content="zh_TW" property="og:locale"/><meta content="蔡泓恩 | 職能治療師" property="og:site_name"/>
+<meta content="AI 找到文獻，答案就可信嗎？讀懂 RAG 的查找與核對" property="og:title"/><meta content="檢索增強生成可以把外部資料帶進回答，但有引用不等於引用支持結論。臨床使用時，要分開檢查找得對不對、摘要忠不忠實，以及資料是否適用眼前個案。" property="og:description"/><meta content="https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html" property="og:url"/><meta content="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" property="og:image"/>
+<meta content="2026-09-12T08:00:00+08:00" property="article:published_time"/><meta content="2026-09-12T08:00:00+08:00" property="article:modified_time"/><meta content="https://ian030590.trainerhub.cc/" property="article:author"/><meta content="數位學習" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/><meta content="AI 找到文獻，答案就可信嗎？讀懂 RAG 的查找與核對" name="twitter:title"/><meta content="檢索增強生成可以把外部資料帶進回答，但有引用不等於引用支持結論。臨床使用時，要分開檢查找得對不對、摘要忠不忠實，以及資料是否適用眼前個案。" name="twitter:description"/><meta content="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" name="twitter:image"/>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "Article"], "@id": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html#article", "url": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html", "mainEntityOfPage": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html", "headline": "AI 找到文獻，答案就可信嗎？讀懂 RAG 的查找與核對", "description": "檢索增強生成可以把外部資料帶進回答，但有引用不等於引用支持結論。臨床使用時，要分開檢查找得對不對、摘要忠不忠實，以及資料是否適用眼前個案。", "image": ["https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80"], "datePublished": "2026-09-12T08:00:00+08:00", "dateModified": "2026-09-12T08:00:00+08:00", "inLanguage": "zh-TW", "articleSection": "數位學習", "keywords": ["數位學習", "AI應用"], "author": {"@type": "Person", "name": "蔡泓恩", "alternateName": "Hung-En (Ian) Tsai", "url": "https://ian030590.trainerhub.cc/", "jobTitle": "職能治療師", "alumniOf": {"@type": "CollegeOrUniversity", "name": "國立臺灣大學"}, "knowsAbout": ["職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"], "sameAs": ["https://github.com/ian030590", "https://trainerhub.cc"]}, "citation": [{"@type": "CreativeWork", "name": "Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。", "url": "https://doi.org/10.6028/NIST.AI.600-1"}, {"@type": "CreativeWork", "name": "Lewis P, Perez E, Piktus A, et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS. 2020;33:9459–9474.", "url": "https://doi.org/10.48550/arXiv.2005.11401"}, {"@type": "CreativeWork", "name": "Liu NF, Lin K, Hewitt J, et al. Lost in the Middle: How Language Models Use Long Contexts. Transactions of the Association for Computational Linguistics. 2024;12:157–173.", "url": "https://doi.org/10.1162/tacl_a_00638"}], "publisher": {"@type": "Person", "name": "蔡泓恩", "url": "https://ian030590.trainerhub.cc/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://ian030590.trainerhub.cc/"}, {"@type": "ListItem", "position": 2, "name": "專業文章", "item": "https://ian030590.trainerhub.cc/blog"}, {"@type": "ListItem", "position": 3, "name": "AI 找到文獻，答案就可信嗎？讀懂 RAG 的查找與核對", "item": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html"}]}]}</script>
+<meta content="數位學習" property="og:section"/></head><body>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="/">
+<img alt="蔡泓恩 職能治療師 Logo" class="brand-logo" height="36" src="../../icons/logo.png" width="36"/>
+<span>蔡泓恩 | 職能治療師</span>
+</a>
+<nav aria-label="主要導覽" class="nav-links">
+<a class="nav-link" href="/">首頁</a>
+<a class="nav-link" href="/projects">開源專案</a>
+<a aria-current="page" class="nav-link active" href="/blog">專業文章</a>
+<a class="nav-link" href="/contact">聯絡我</a>
+<a class="nav-link" href="/sponsor">贊助我</a>
+</nav>
+<button aria-label="切換深色模式" class="theme-toggle" title="切換深色模式">
+<span aria-hidden="true" class="material-symbols-outlined icon-dark">dark_mode</span>
+<span aria-hidden="true" class="material-symbols-outlined icon-light" style="display: none;">light_mode</span>
+</button>
+<a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
+<button aria-expanded="false" aria-label="開啟選單" class="menu-button">
+<span aria-hidden="true" class="animate-icon animate-icon--menu" data-animate-icon="menu"></span>
+</button>
+</div>
+<div class="mobile-panel">
+<a href="/">首頁</a>
+<a href="/projects">開源專案</a>
+<a aria-current="page" href="/blog">專業文章</a>
+<a href="/contact">聯絡我</a>
+<a href="/sponsor">贊助我</a>
+</div>
+</header>
+<main class="page-main article-page-layout">
+<div class="container">
 <!-- Blogger：在 HTML 編輯模式貼入下方 style 與 article；文章不需要本機講義。 -->
 <style>.ot-blog-article {
   
@@ -461,62 +450,61 @@ font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:
             <span class="breadcrumb-separator" aria-hidden="true">/</span>
             <a href="/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a>
             <span class="breadcrumb-separator" aria-hidden="true">/</span>
-            <span class="breadcrumb-current" aria-current="page">AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論</span>
+            <span class="breadcrumb-current" aria-current="page">AI 找到文獻，答案就可信嗎？讀懂 RAG 的查找與核對</span>
           </nav>
         </div>
         <header class="article-detail-header"><div class="article-tag-badges"><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=AI%E6%87%89%E7%94%A8">AI應用</a></div>
-<h1 class="article-title">AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論</h1><div class="article-meta-row"><span class="article-meta-item">蔡泓恩 職能治療師</span><time datetime="2026-09-12T08:00:00+08:00">更新：2026-09-12</time><span class="article-meta-item">約 4 分鐘閱讀</span></div></header>
-<figure class="article-featured-figure"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="醫療人員使用電腦的情境照片" class="article-featured-img" width="1200" height="800" loading="lazy" decoding="async"><figcaption class="article-figcaption">醫療人員使用電腦的情境照片；非本文研究受試者或研究結果。圖片：<a href="https://unsplash.com/photos/NFvdKIhxYlU" target="_blank" rel="noopener noreferrer">Unsplash 原始照片</a>。</figcaption></figure>
-<div class="article-lead-box"><div class="article-lead-box-title">本篇要回答的決策</div><p>檢索增強生成可讓回答參考外部資料，但「有引用」不等於引用支持答案。臨床判斷仍須核對族群、推薦條件與證據限制。</p></div>
+<h1 class="article-title">AI 找到文獻，答案就可信嗎？讀懂 RAG 的查找與核對</h1><div class="article-meta-row"><span class="article-meta-item">蔡泓恩 職能治療師</span><time datetime="2026-09-12T08:00:00+08:00">更新：2026-09-12</time><span class="article-meta-item">約 4 分鐘閱讀</span></div></header>
+<figure class="article-featured-figure"><img alt="醫療人員使用電腦的情境照片" class="article-featured-img" decoding="async" height="800" loading="lazy" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" width="1200"/><figcaption class="article-figcaption">醫療人員使用電腦的情境照片；非本文研究受試者或研究結果。圖片：<a href="https://unsplash.com/photos/NFvdKIhxYlU" rel="noopener noreferrer" target="_blank">Unsplash 原始照片</a>。</figcaption></figure>
+<div class="article-lead-box"><div class="article-lead-box-title">本篇要回答的決策</div><p>檢索增強生成可以把外部資料帶進回答，但有引用不等於引用支持結論。臨床使用時，要分開檢查找得對不對、摘要忠不忠實，以及資料是否適用眼前個案。</p></div>
 <div class="article-body-content">
-<section aria-labelledby="clinical-question"><h2 id="clinical-question">一、臨床問題</h2><p>臨床提問需要比流暢答案更多的保障。假設治療師問中風後是否應安排某項視覺訓練，AI 引用一篇真正存在的指引，卻省略「可考慮」與適用條件；答案看似有根據，實際上已改變推薦強度。本篇要回答的是：何時可把 AI 作為文獻整理助手，何時必須回到原文重新判斷？</p>
-<p>大型語言模型生成的是依輸入與訓練形成的文字，不是自動完成的證據查核。提示可以指定格式與任務，但不能保證每個事實正確；把未知欄位填得整齊，仍可能比留下空白更危險。臨床使用應讓不確定性可見，而不是要求每題一定給出確定處方。<sup class="source-citation">[<a href="#ref-1">1</a>]</sup></p></section>
-<section aria-labelledby="guidance"><h2 id="guidance">二、有無臨床指引？正式規範如何建議</h2><p>本題沒有推薦特定 RAG 系統可直接決定治療的臨床指引。NIST 的生成式 AI 風險文件將自信但錯誤的內容列為需要管理的風險；它提供跨領域治理方向，不證明加上資料庫後即可免除專業核對。<sup class="source-citation">[<a href="#ref-1">1</a>]</sup></p>
-<p>RAG 是先找資料，再讓模型依找到的內容生成回答。典型流程會把文件切成片段，依問題檢索相關內容，再提供給模型；任何一段失誤，包括漏找否定建議或混用版本，都可能傳到答案。檢索命中與忠實摘要因此要分開檢查。<sup class="source-citation">[<a href="#ref-2">2</a>]</sup></p>
-<p>提示可以要求可核查的欄位，而不是索取更多自信語氣。實務上可要求列出族群、問題、推薦原意、強度、限制及來源章節；資料沒有的欄位寫「來源未提供」。這是作者提出的整理格式，不是已驗證可防止錯誤的提示配方。輸出即使符合 JSON 等結構，內容仍需逐項核對。</p></section>
-<section aria-labelledby="evidence"><h2 id="evidence">三、研究如何支持或限制這項建議</h2><p>原始 RAG 研究支持部分知識任務的技術效益。Lewis 等人比較檢索加生成與只依模型內部參數等基線，在開放領域問答及部分生成任務表現較佳。這些是文字任務基準，不是職能治療決策或病人結局試驗，不能宣稱 RAG 已證明提升復健成效。<sup class="source-citation">[<a href="#ref-2">2</a>]</sup></p>
-<p>提供更長文件也不保證模型用得到關鍵內容。Liu 等人的研究以多文件問答與鍵值查找等任務改變相關資訊的位置，發現受測模型在資訊位於中段時常表現較差。研究使用特定模型與測試設計，不能給所有新模型相同失誤率，但支持把位置與文件長度納入測試。<sup class="source-citation">[<a href="#ref-3">3</a>]</sup></p>
-<p>上述研究共同提醒我們，錯誤可能發生在找資料或解讀資料兩個階段。若根本沒找到相關段落，改善提示不一定有用；若已提供正確段落卻誤寫推薦，增加更多文件也未必解決。應保留檢索片段與答案對照，才能定位問題，而不是每次直接更換模型。</p>
-<h3>把證據轉成現場判斷</h3><figure class="decision-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 310" role="img" aria-labelledby="DigitLearn8-title DigitLearn8-desc"><title id="DigitLearn8-title">本篇決策流程</title><desc id="DigitLearn8-desc">界定問題並檢索，再對照推薦與證據，再由專業者判斷適用。作者依本文整理，不是研究量化結果。</desc><rect x="20" y="20" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="62" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">1. 界定問題並檢索</text><path d="M260 92 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="118" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="160" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">2. 對照推薦與證據</text><path d="M260 190 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="216" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="258" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">3. 由專業者判斷適用</text></svg><figcaption class="article-figcaption">圖 1．界定問題並檢索 → 對照推薦與證據 → 由專業者判斷適用。作者依本文證據與應用整理；不是已驗證的標準演算法。</figcaption></figure>
-<div class="table-wrapper" role="region" aria-label="情境與決策比較表，可左右捲動" tabindex="0"><table class="article-table"><caption>表 1．決策情境對照：作者依本文整理，不是統一處方。</caption><thead><tr><th scope="col">遇到的情境</th><th scope="col">評估或處理方向</th><th scope="col">決策與追蹤重點</th></tr></thead><tbody><tr><th scope="row">答案沒有可定位來源</th><td>檢查是否檢索到真正相關內容</td><td>不能因語氣肯定而採用</td></tr><tr><th scope="row">有來源但推薦被寫得更強</th><td>對照族群、強度與否定條件</td><td>修正解讀並保留不確定性</td></tr><tr><th scope="row">不同版本或研究相互衝突</th><td>確認日期、目的與證據設計</td><td>由專業者整合，不取多數票</td></tr></tbody></table></div>
-<h3>如何應用與追蹤</h3><p>可把臨床問題先拆成明確條件。以某介入為例，寫出疾病階段、主要障礙、比較選項與希望改善的活動；接著請系統只整理找到的推薦及研究，不在缺乏資料時補出劑量。治療師再查看原段落，確認其是否真的涵蓋眼前個案。</p>
-<p>保留「不能回答」是臨床工具的必要功能。來源缺漏、族群不符或存在重大矛盾時，應標記待查並提供原文入口；已核對的摘要才用於討論，不能直接複製為個別處方。若涉及病人資料，還需先確認機構允許的使用方式。</p></section>
-<section aria-labelledby="conclusions"><h2 id="conclusions">四、結語：4 個重點</h2><ul><li>RAG 提供資料來源，不保證答案忠實或臨床適用。</li><li>把檢索是否正確與摘要是否正確分開檢查。</li><li>提示與結構化輸出不能代替原文核對。</li><li>來源不足或不適用時保留無法回答，不自行補出處方。</li></ul></section>
+<section aria-labelledby="rag-question"><h2 id="rag-question">找到一篇真的文獻，仍可能答錯</h2>
+<p>如果治療師問中風後是否適合某項視覺訓練，系統可能找到真正存在的指引，卻省略「可考慮」、適用族群或研究限制。答案看似有來源，推薦強度卻已被改寫。</p>
+<p>大型語言模型會依輸入生成文字，不會自動替每個句子完成證據查核。臨床工具必須允許它說資料不足，不能要求每一題都產生確定處方。</p></section>
+<section aria-labelledby="rag-flow"><h2 id="rag-flow">RAG 是兩個階段，不是一個保證</h2>
+<p>RAG 通常先把文件切成片段，依問題找出相關內容，再讓模型根據片段生成回答。漏掉否定句、混用版本或找到不適用族群，都可能一路傳到最後文字。NIST 也把自信但錯誤的生成內容列為需要管理的風險。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-1">1，NIST AI RMF 生成式 AI Profile</a>]</sup></span></p>
+<p>提示可以要求列出族群、問題、推薦原意、強度、限制和來源章節；資料沒有的欄位就寫「來源未提供」。這是一種整理格式，不是已驗證能防止錯誤的提示配方。</p></section>
+<section aria-labelledby="rag-evidence"><h2 id="rag-evidence">研究支持技術用途，也沒有替臨床決策背書</h2>
+<p>Lewis 等人的研究在開放領域問答和部分知識密集任務中，觀察到檢索加生成相較基線的改善；研究不是職能治療決策或病人結局試驗，不能宣稱 RAG 已提升復健成效。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-2">2，Lewis 等人</a>]</sup></span></p>
+<p>Liu 等人把相關資訊放在長文件的不同位置，發現受測模型在資訊位於中段時常表現較差。這是特定模型和測試設計的結果，不能換算成所有新模型相同的失誤率，但支持把文件長度和資訊位置納入測試。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-3">3，Liu 等人</a>]</sup></span></p></section>
+<section aria-labelledby="rag-check"><h2 id="rag-check">保留原文片段，才知道錯在哪一段</h2>
+<ul><li>先寫清疾病階段、主要障礙、比較選項和希望改善的活動。</li><li>同時保存檢索片段與回答，核對每個結論是否真的有原文支持。</li><li>來源缺漏、族群不符或內容矛盾時，標記待查並提供原文入口。</li></ul>
+<p>即使輸出符合 JSON 或其他格式，內容仍要逐項核對。已核對的摘要可以協助討論，不能直接複製成個別處方。</p></section>
 </div>
-<section class="article-references" aria-labelledby="references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.6028/NIST.AI.600-1" target="_blank" rel="noopener noreferrer">Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。</a></li>
-<li id="ref-2"><a href="https://doi.org/10.48550/arXiv.2005.11401" target="_blank" rel="noopener noreferrer">Lewis P, Perez E, Piktus A, et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS. 2020;33:9459–9474.</a></li>
-<li id="ref-3"><a href="https://doi.org/10.1162/tacl_a_00638" target="_blank" rel="noopener noreferrer">Liu NF, Lin K, Hewitt J, et al. Lost in the Middle: How Language Models Use Long Contexts. Transactions of the Association for Computational Linguistics. 2024;12:157–173.</a></li></ol></section>
+<section aria-labelledby="references" class="article-references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.6028/NIST.AI.600-1" rel="noopener noreferrer" target="_blank">Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。</a></li>
+<li id="ref-2"><a href="https://doi.org/10.48550/arXiv.2005.11401" rel="noopener noreferrer" target="_blank">Lewis P, Perez E, Piktus A, et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS. 2020;33:9459–9474.</a></li>
+<li id="ref-3"><a href="https://doi.org/10.1162/tacl_a_00638" rel="noopener noreferrer" target="_blank">Liu NF, Lin K, Hewitt J, et al. Lost in the Middle: How Language Models Use Long Contexts. Transactions of the Association for Computational Linguistics. 2024;12:157–173.</a></li></ol></section>
 <footer class="article-author-note"><p>作者：蔡泓恩 職能治療師。本文為專業教育與證據整理；個別處置仍需完整評估、當事人參與及適當跨專業合作。</p></footer>
-<nav class="prev-next-nav" aria-label="相關文章"><a href="https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html">上一篇：病人資料可以交給 AI 工具嗎？先確認資料品質、存取權與提示詞注入風險</a><a href="https://ian030590.trainerhub.cc/content/DigitLearn/009_AI%E6%87%89%E7%94%A8_AI%E7%94%A2%E5%93%81%E8%BB%9F%E9%AB%94%E6%9E%B6%E6%A7%8B.html">下一篇：臨床 AI 需要能「動手」的智慧體嗎？用任務與授權決定 Agent、MCP 及系統架構</a></nav>
-        <div class="article-bottom-actions">
-          <a href="/blog" class="button-secondary">
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+<nav aria-label="相關文章" class="prev-next-nav"><a href="https://ian030590.trainerhub.cc/content/DigitLearn/009_AI%E6%87%89%E7%94%A8_AI%E7%94%A2%E5%93%81%E8%BB%9F%E9%AB%94%E6%9E%B6%E6%A7%8B.html">下一篇：臨床 AI 要不要能自己動手？從 Agent 與 MCP 看授權</a></nav>
+<div class="article-bottom-actions">
+<a class="button-secondary" href="/blog">
+<span aria-hidden="true" class="material-symbols-outlined">arrow_back</span>
             返回所有專業專題列表
           </a>
-        </div>
+</div>
 </div></article>
-      </div>
-    </main>
-    <footer class="site-footer">
-      <div class="container footer-grid">
-        <div>
-          <div class="footer-brand">
-            <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo footer-logo" width="26" height="26" />
-            <span>蔡泓恩 | 職能治療師</span>
+</div>
+</main>
+<footer class="site-footer">
+<div class="container footer-grid">
+<div>
+<div class="footer-brand">
+<img alt="蔡泓恩 職能治療師 Logo" class="brand-logo footer-logo" height="26" src="../../icons/logo.png" width="26"/>
+<span>蔡泓恩 | 職能治療師</span>
+</div>
+<div class="footer-copy">
+            © <span data-year=""></span> Ian Tsai. 保留所有權利。
           </div>
-          <div class="footer-copy">
-            © <span data-year></span> Ian Tsai. 保留所有權利。
-          </div>
-        </div>
-        <div class="footer-links">
-          <a href="/">首頁</a>
-          <a href="/projects">專案</a>
-          <a href="/blog">專業文章</a>
-          <a href="/contact">聯絡</a>
-          <a href="/sponsor">贊助我</a>
-        </div>
-      </div>
-    </footer>
-    <script src="../../js/animate-icons.js"></script>
-    <script src="../../js/main.js"></script>
+</div>
+<div class="footer-links">
+<a href="/">首頁</a>
+<a href="/projects">專案</a>
+<a href="/blog">專業文章</a>
+<a href="/contact">聯絡</a>
+<a href="/sponsor">贊助我</a>
+</div>
+</div>
+</footer>
+<script src="../../js/animate-icons.js"></script>
+<script src="../../js/main.js"></script>
 </body></html>
