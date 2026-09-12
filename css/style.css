@@ -3465,3 +3465,21 @@ a.contact-channel:hover {
   border-left: 4px solid var(--warning, #b7791f);
   background: var(--surface-2, var(--surface));
 }
+
+/* References Link Style: No underline */
+.article-references a,
+.ot-blog-article .article-references a {
+  text-decoration: none;
+}
+
+.article-references a:hover,
+.ot-blog-article .article-references a:hover {
+  text-decoration: none;
+  color: var(--primary-strong, #064c86);
+}
+
+.source-citation a,
+.ot-blog-article .source-citation a {
+  text-decoration: none;
+}
+

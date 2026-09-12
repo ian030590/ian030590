@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="zh-TW"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>病人資料可以交給 AI 工具嗎？先確認資料品質、存取權與提示詞注入風險｜蔡泓恩 職能治療師</title>
+<meta name="description" content="刪掉姓名與加上一句「不得洩密」都不足以證明安全。資料能否使用，需要同時確認用途、辨識風險、儲存流向與系統真正允許的行動。"><meta name="keywords" content="數位學習,AI應用">
+<link rel="canonical" href="https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html"><link rel="stylesheet" href="../../css/style.css">
+<meta property="og:type" content="article"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="蔡泓恩 | 職能治療師">
+<meta property="og:title" content="病人資料可以交給 AI 工具嗎？先確認資料品質、存取權與提示詞注入風險"><meta property="og:description" content="刪掉姓名與加上一句「不得洩密」都不足以證明安全。資料能否使用，需要同時確認用途、辨識風險、儲存流向與系統真正允許的行動。"><meta property="og:url" content="https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html"><meta property="og:image" content="https://images.unsplash.com/photo-1666886573264-38075cc56104?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+<meta property="article:published_time" content="2026-09-12T08:00:00+08:00"><meta property="article:modified_time" content="2026-09-12T08:00:00+08:00"><meta property="article:author" content="https://ian030590.trainerhub.cc/"><meta property="article:section" content="數位學習">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="病人資料可以交給 AI 工具嗎？先確認資料品質、存取權與提示詞注入風險"><meta name="twitter:description" content="刪掉姓名與加上一句「不得洩密」都不足以證明安全。資料能否使用，需要同時確認用途、辨識風險、儲存流向與系統真正允許的行動。"><meta name="twitter:image" content="https://images.unsplash.com/photo-1666886573264-38075cc56104?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "Article"], "@id": "https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html#article", "url": "https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html", "mainEntityOfPage": "https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html", "headline": "病人資料可以交給 AI 工具嗎？先確認資料品質、存取權與提示詞注入風險", "description": "刪掉姓名與加上一句「不得洩密」都不足以證明安全。資料能否使用，需要同時確認用途、辨識風險、儲存流向與系統真正允許的行動。", "image": ["https://images.unsplash.com/photo-1666886573264-38075cc56104?auto=format&fit=crop&w=1200&q=80"], "datePublished": "2026-09-12T08:00:00+08:00", "dateModified": "2026-09-12T08:00:00+08:00", "inLanguage": "zh-TW", "articleSection": "數位學習", "keywords": ["數位學習", "AI應用"], "author": {"@type": "Person", "name": "蔡泓恩", "alternateName": "Hung-En (Ian) Tsai", "url": "https://ian030590.trainerhub.cc/", "jobTitle": "職能治療師", "alumniOf": {"@type": "CollegeOrUniversity", "name": "國立臺灣大學"}, "knowsAbout": ["職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"], "sameAs": ["https://github.com/ian030590", "https://trainerhub.cc"]}, "citation": [{"@type": "CreativeWork", "name": "Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。", "url": "https://doi.org/10.6028/NIST.AI.600-1"}, {"@type": "CreativeWork", "name": "OWASP Gen AI Security Project. LLM01:2025 Prompt Injection. 技術風險與緩解建議；查閱 2026-09-12。", "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"}, {"@type": "CreativeWork", "name": "Sambasivan N, Kapania S, Highfill H, Akrong D, Paritosh P, Aroyo LM. “Everyone wants to do the model work, not the data work”: Data Cascades in High-Stakes AI. CHI. 2021.", "url": "https://research.google/pubs/everyone-wants-to-do-the-model-work-not-the-data-work-data-cascades-in-high-stakes-ai/"}, {"@type": "CreativeWork", "name": "Greshake K, Abdelnabi S, Mishra S, Endres C, Holz T, Fritz M. Not what you’ve signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection. arXiv:2302.12173. 2023. 此連結為預印本版本。", "url": "https://doi.org/10.48550/arXiv.2302.12173"}], "publisher": {"@type": "Person", "name": "蔡泓恩", "url": "https://ian030590.trainerhub.cc/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://ian030590.trainerhub.cc/"}, {"@type": "ListItem", "position": 2, "name": "專業文章", "item": "https://ian030590.trainerhub.cc/blog"}, {"@type": "ListItem", "position": 3, "name": "病人資料可以交給 AI 工具嗎？先確認資料品質、存取權與提示詞注入風險", "item": "https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html"}]}]}</script>
+</head><body>
+<!-- Blogger：在 HTML 編輯模式貼入下方 style 與 article；文章不需要本機講義。 -->
+<style>.ot-blog-article {
+  
+  
+  --slate-50: #f7faff;
+  --slate-100: #edf4fc;
+  --slate-200: #d5e4f5;
+  --slate-300: #c7d9ee;
+  --slate-400: #9bb3d1;
+  --slate-500: #7694b7;
+  --slate-600: #526e8e;
+  --slate-700: #3d5068;
+  --slate-800: #233348;
+  --slate-850: #142032;
+  --slate-900: #0e1726;
+  --slate-950: #0a1220;
+  --slate-990: #070d18;
+
+  
+  --blue-50: #eff6ff;
+  --blue-100: #deedff;
+  --blue-200: #bedbfe;
+  --blue-300: #8ebff6;
+  --blue-400: #529deb;
+  --blue-500: #1d78d6;
+  --blue-600: #0f6cbd;
+  --blue-700: #064c86;
+  --blue-800: #003864;
+  --blue-900: #002646;
+  --blue-950: #00162b;
+
+  
+  
+  --color-bg-canvas: var(--slate-50);
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-elevated: #ffffff;
+  --color-bg-surface-subtle: var(--slate-100);
+  --color-bg-header: rgba(255, 255, 255, 0.94);
+  --color-bg-placeholder: linear-gradient(135deg, #eaf2fb 0%, #d8e8f8 100%);
+  --color-bg-footer: var(--slate-950);
+  --color-text-footer: #e8f1ff;
+
+  
+  --color-text-primary: var(--slate-950);
+  --color-text-secondary: var(--slate-700);
+  --color-text-muted: var(--slate-600);
+  --color-text-inverse: #ffffff;
+  --color-border-subtle: var(--slate-200);
+  --color-border-default: var(--slate-300);
+  --color-border-strong: var(--slate-500);
+
+  
+  --color-action-primary-bg: var(--blue-700);
+  --color-action-primary-hover: var(--blue-800);
+  --color-action-primary-text: #ffffff;
+  --color-action-secondary-border: var(--blue-600);
+  --color-action-secondary-text: var(--blue-600);
+  --color-action-secondary-hover: var(--blue-100);
+  --color-link-default: var(--blue-600);
+  --color-link-hover: var(--blue-700);
+  --color-badge-bg: var(--blue-100);
+  --color-badge-text: var(--blue-800);
+  --color-focus-ring: var(--blue-600);
+  --color-focus-glow: rgba(15, 108, 189, 0.18);
+  --color-shadow: 0 8px 24px rgba(0, 56, 100, 0.08);
+  --color-shadow-hover: 0 16px 36px rgba(0, 56, 100, 0.12);
+
+  
+  --bg: var(--color-bg-canvas);
+  --surface: var(--color-bg-surface);
+  --surface-soft: var(--color-bg-surface-subtle);
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --line: var(--color-border-default);
+  --primary: var(--color-action-primary-bg);
+  --primary-strong: var(--color-action-primary-hover);
+  --accent: var(--color-link-default);
+  --accent-soft: var(--color-badge-bg);
+  --dark: var(--slate-950);
+  --shadow: var(--color-shadow);
+  --radius: 14px;
+font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:var(--ink); background:var(--surface); overflow-wrap:anywhere; line-height:1.85;}
+.ot-blog-article, .ot-blog-article * {box-sizing:border-box;}
+.ot-blog-article .article-title {
+  font: 600 18.5px/1.38 Lexend, "Noto Sans TC", sans-serif;
+  letter-spacing: -0.025em;
+  margin: 0 0 10px;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s ease;
+}
+.ot-blog-article .article-card:hover .article-title {
+  color: var(--primary);
+}
+.ot-blog-article .article-card--featured .article-title {
+  font-size: 23px;
+  line-height: 1.32;
+  margin-bottom: 12px;
+}
+.ot-blog-article .article-card--featured .article-title {
+    font-size: 20px;
+  }
+.ot-blog-article .breadcrumb-trail {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ot-blog-article .breadcrumb-trail a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.ot-blog-article .breadcrumb-trail a:hover {
+  color: var(--primary);
+}
+.ot-blog-article .breadcrumb-separator {
+  color: var(--color-border-strong);
+  font-size: 12px;
+  user-select: none;
+}
+.ot-blog-article .article-container {
+  max-width: 880px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 44px 40px 36px 40px;
+  box-shadow: var(--shadow);
+}
+.ot-blog-article .article-container {
+    padding: 24px 18px 24px 18px;
+    border-radius: 10px;
+  }
+.ot-blog-article .article-detail-header {
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 24px;
+}
+.ot-blog-article .article-tag-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.ot-blog-article .article-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-soft);
+  color: var(--color-badge-text);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.ot-blog-article .article-title {
+  font-size: 32px;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 16px 0;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.ot-blog-article .article-title {
+    font-size: 24px;
+  }
+.ot-blog-article .article-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ot-blog-article .article-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.ot-blog-article .article-meta-item .material-symbols-outlined {
+  font-size: 16px;
+}
+.ot-blog-article .article-featured-figure {
+  margin: 0 0 32px 0;
+  text-align: center;
+}
+.ot-blog-article .article-featured-img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.ot-blog-article .article-figcaption {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.6;
+  text-align: center;
+}
+.ot-blog-article .article-lead-box {
+  background-color: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--primary);
+  padding: 22px 26px;
+  margin-bottom: 36px;
+  border-radius: 0 10px 10px 0;
+}
+.ot-blog-article .article-lead-box-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-strong);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ot-blog-article .article-lead-box p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--ink);
+  font-weight: 500;
+}
+.ot-blog-article .article-lead-box ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+.ot-blog-article .article-body-content {
+  font-size: 18px;
+  line-height: 1.85;
+  color: var(--ink);
+}
+.ot-blog-article .article-body-content p {
+  margin: 0 0 22px 0;
+  line-height: 1.85;
+}
+.ot-blog-article .article-body-content h2 {
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--ink);
+  border-left: 5px solid var(--primary);
+  padding-left: 14px;
+  margin-top: 48px;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+.ot-blog-article .article-body-content h3 {
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-top: 32px;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.ot-blog-article .article-body-content ul, .ot-blog-article .article-body-content ol {
+  margin: 0 0 24px 0;
+  padding-left: 26px;
+  line-height: 1.8;
+}
+.ot-blog-article .article-body-content li {
+  margin-bottom: 10px;
+}
+.ot-blog-article .article-body-content strong {
+  color: var(--ink);
+}
+.ot-blog-article .callout-box {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+.ot-blog-article .callout-box.warning {
+  border-left-color: #e53e3e;
+  background: rgba(229, 62, 62, 0.06);
+}
+.ot-blog-article .callout-box.amber {
+  border-left-color: #dd6b20;
+  background: rgba(221, 107, 32, 0.06);
+}
+.ot-blog-article .callout-box.success {
+  border-left-color: #137333;
+  background: rgba(19, 115, 51, 0.06);
+}
+.ot-blog-article .table-wrapper {
+  overflow-x: auto;
+  margin: 28px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.ot-blog-article .article-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 15.5px;
+  background: var(--surface);
+}
+.ot-blog-article .article-table th {
+  background: var(--surface-soft);
+  color: var(--ink);
+  padding: 13px 16px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--line);
+}
+.ot-blog-article .article-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+.ot-blog-article .article-references {
+  margin-top: 48px;
+  border-top: 2px solid var(--line);
+  padding-top: 28px;
+}
+.ot-blog-article .article-references h2 {
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 18px;
+  border-left: 5px solid var(--muted);
+  padding-left: 12px;
+}
+.ot-blog-article .article-references ol {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--muted);
+  padding-left: 24px;
+  margin: 0;
+}
+.ot-blog-article .article-references li {
+  margin-bottom: 14px;
+}
+.ot-blog-article .article-references a {
+  color: var(--primary);
+  text-decoration: none;
+  word-break: break-all;
+}
+.ot-blog-article .article-references a:hover {
+  text-decoration: none;
+  color: var(--primary-strong);
+}
+.ot-blog-article .article-container, .ot-blog-article .library-hero {
+    border: 0;
+    box-shadow: none;
+  }
+.ot-blog-article .breadcrumb-trail, .ot-blog-article .prev-next-nav {
+    display: none;
+  }
+.ot-blog-article .article-container {max-width:880px;margin:0 auto;padding:40px 36px;}
+.ot-blog-article .article-title {font-size:32px;}
+.ot-blog-article a {color:var(--primary);text-underline-offset:3px;}
+.ot-blog-article a:focus-visible,.ot-blog-article summary:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+.ot-blog-article .source-citation {font-size:0.73em;line-height:1.6;vertical-align:baseline;}
+.ot-blog-article .source-citation a {text-decoration:none;}
+.ot-blog-article .decision-figure {margin:28px 0;}
+.ot-blog-article .decision-figure svg {display:block;width:100%;max-width:520px;height:auto;margin:auto;}
+.ot-blog-article .article-table {min-width:540px;}
+.ot-blog-article .article-table caption {padding:12px;text-align:left;font-weight:600;color:var(--ink);}
+.ot-blog-article .evidence-key {font-size:15px;margin:22px 0;padding:12px 16px;border:1px solid var(--line);border-radius:8px;}
+.ot-blog-article .evidence-key summary {cursor:pointer;font-weight:600;}
+.ot-blog-article .evidence-key p {margin:12px 0 0;}
+.ot-blog-article .article-author-note {border-top:1px solid var(--line);padding-top:20px;margin-top:28px;font-size:14px;color:var(--muted);}
+.ot-blog-article .prev-next-nav {display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;margin-top:24px;font-size:15px;}
+.ot-blog-article .prev-next-nav a {flex:1 1 220px;}
+@media(max-width:640px) {.ot-blog-article .article-container {padding:22px 16px;border-radius:8px;} .ot-blog-article .article-title {font-size:25px;} .ot-blog-article .article-body-content {font-size:17px;} .ot-blog-article .article-lead-box {padding:18px;} .ot-blog-article .article-body-content h2 {font-size:22px;}}
+</style>
+<article class="ot-blog-article" lang="zh-TW"><div class="article-container">
+<nav class="breadcrumb-trail" aria-label="文章路徑導覽"><a href="https://ian030590.trainerhub.cc/">首頁</a><span aria-hidden="true">／</span><a href="https://ian030590.trainerhub.cc/blog">專業文章</a><span aria-hidden="true">／</span><span aria-current="page">數位學習</span></nav>
+<header class="article-detail-header"><div class="article-tag-badges"><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=AI%E6%87%89%E7%94%A8">AI應用</a></div>
+<h1 class="article-title">病人資料可以交給 AI 工具嗎？先確認資料品質、存取權與提示詞注入風險</h1><div class="article-meta-row"><span class="article-meta-item">蔡泓恩 職能治療師</span><time datetime="2026-09-12T08:00:00+08:00">更新：2026-09-12</time><span class="article-meta-item">約 4 分鐘閱讀</span></div></header>
+<figure class="article-featured-figure"><img src="https://images.unsplash.com/photo-1666886573264-38075cc56104?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="使用筆記型電腦的情境照片" class="article-featured-img" width="1200" height="800" loading="lazy" decoding="async"><figcaption class="article-figcaption">使用筆記型電腦的情境照片；非本文研究受試者或研究結果。圖片：<a href="https://unsplash.com/photos/heGTlwA705U" target="_blank" rel="noopener noreferrer">Unsplash 原始照片</a>。</figcaption></figure>
+<div class="article-lead-box"><div class="article-lead-box-title">本篇要回答的決策</div><p>刪掉姓名與加上一句「不得洩密」都不足以證明安全。資料能否使用，需要同時確認用途、辨識風險、儲存流向與系統真正允許的行動。</p></div>
+<div class="article-body-content">
+<section aria-labelledby="clinical-question"><h2 id="clinical-question">一、臨床問題</h2><p>資料決策應在上傳之前完成。假設治療師想讓 AI 摘要出院紀錄，已移除姓名，但文字仍包含罕見職業、精確日期與特殊病程；即使介面沒有顯示病歷號，也不代表無法與其他資訊連結辨識。臨床問題是：這項用途能否在機構允許的條件下，使用必要而可信的資料？</p>
+<p>資料品質與保密是兩個不同門檻。完全保密的資料仍可能把未測量誤記成零、把左右側混在一起；格式正確的紀錄也可能送到未經允許的服務。不能用其中一項通過，替另一項背書。</p></section>
+<section aria-labelledby="guidance"><h2 id="guidance">二、有無臨床指引？正式規範如何建議</h2><p>本題應採機構資料治理與正式技術風險框架，而不是把一般課程當成法律意見。NIST 生成式 AI 風險文件涵蓋資料隱私、資訊安全及人機互動等風險；具體能否使用某項服務，仍需依用途、契約、所在地要求與機構審查確認。<sup class="source-citation">[<a href="#ref-1">1</a>]</sup></p>
+<p>提示詞注入是資料被誤當指令的風險。OWASP 說明，攻擊內容可由使用者直接輸入，也可藏在被檢索的文件或網頁。分隔標籤與要求「忽略惡意指令」可作提示設計，但不是安全隔離；系統仍需限制權限、檢查輸出與敏感操作。<sup class="source-citation">[<a href="#ref-2">2</a>]</sup></p>
+<p>判斷流向比工具名稱更重要。應請資訊團隊說明原文、摘要、向量索引及操作日誌存在哪裡、誰可讀取、保留多久，以及是否會送往其他服務；向量化也不應被當成自動匿名化。以下流程是風險管理的應用，並非對任何特定供應商的合規保證。</p></section>
+<section aria-labelledby="evidence"><h2 id="evidence">三、研究如何支持或限制這項建議</h2><p>資料問題有實務研究支持，但沒有通用事故比例。Sambasivan 等人訪談 53 位高風險 AI 領域從業者，描述上游資料問題如何隨工作流程累積、影響下游系統。這是跨領域質性研究，不是醫院事故監測，不能改寫成固定比例的 AI 故障都由資料造成。<sup class="source-citation">[<a href="#ref-3">3</a>]</sup></p>
+<p>間接注入研究證明風險不只來自聊天的人。Greshake 等人透過真實及研究用整合系統，展示外部內容可以改變應用行為與工具呼叫。這類安全研究支持威脅的可行性，卻不能提供目前所有醫療產品的攻擊成功率，也不能證明一種提示格式可完全消除風險。<sup class="source-citation">[<a href="#ref-4">4</a>]</sup></p>
+<p>兩類研究支持不同檢查。資料研究提醒我們確認欄位意義、收集條件及責任；安全研究提醒我們限制未信任內容能造成的行動。它們都不是證明 AI 摘要具有臨床效益的試驗，因此通過資料治理後，仍需另外驗證摘要是否漏掉關鍵訊息。</p>
+<h3>把證據轉成現場判斷</h3><figure class="decision-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 310" role="img" aria-labelledby="DigitLearn5-title DigitLearn5-desc"><title id="DigitLearn5-title">本篇決策流程</title><desc id="DigitLearn5-desc">核對資料與用途，再限制流向及權限，再驗證輸出與事件處理。作者依本文整理，不是研究量化結果。</desc><rect x="20" y="20" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="62" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">1. 核對資料與用途</text><path d="M260 92 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="118" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="160" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">2. 限制流向及權限</text><path d="M260 190 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="216" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="258" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">3. 驗證輸出與事件處理</text></svg><figcaption class="article-figcaption">圖 1．核對資料與用途 → 限制流向及權限 → 驗證輸出與事件處理。作者依本文證據與應用整理；不是已驗證的標準演算法。</figcaption></figure>
+<div class="table-wrapper" role="region" aria-label="情境與決策比較表，可左右捲動" tabindex="0"><table class="article-table"><caption>表 1．決策情境對照：作者依本文整理，不是統一處方。</caption><thead><tr><th scope="col">遇到的情境</th><th scope="col">評估或處理方向</th><th scope="col">決策與追蹤重點</th></tr></thead><tbody><tr><th scope="row">欄位存在但意義不一致</th><td>定義單位、缺值、左右側及時間</td><td>先修資料，不靠模型猜測</td></tr><tr><th scope="row">刪姓名後準備上傳</th><td>檢查間接辨識、用途及儲存流向</td><td>未獲允許先用虛構資料</td></tr><tr><th scope="row">系統讀文件後還能寄信或寫入</th><td>隔離外部內容與執行權限</td><td>敏感操作需授權與可追蹤紀錄</td></tr></tbody></table></div>
+<h3>如何應用與追蹤</h3><p>可以先用完整虛構的病例測試流程。讓測試紀錄包含缺值、相互矛盾的日期與要求模型改變任務的無害測試句，觀察系統是否如實指出問題，而不是補寫正常結果。測試不可放入真實識別資料，也不需要為驗證而攻擊第三方服務。</p>
+<p>資料獲准使用後仍需最小化與持續管理。只提供必要欄位，限制可見範圍，並核對輸出是否包含不必要的敏感內容；若發現疑似外洩，應依機構事件處理流程停止相關傳輸並通知負責人。重新寫一段更嚴厲的提示詞，不能取代事件處理與權限修正。</p></section>
+<section aria-labelledby="conclusions"><h2 id="conclusions">四、結語：4 個重點</h2><ul><li>資料品質、保密及用途授權必須分別確認。</li><li>移除姓名或向量化不等於完成匿名化。</li><li>提示詞注入需要系統層級權限與輸出防護，不能只靠文字命令。</li><li>先用虛構資料驗證；實際資料須符合機構治理並限制流向。</li></ul></section>
+</div>
+<section class="article-references" aria-labelledby="references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.6028/NIST.AI.600-1" target="_blank" rel="noopener noreferrer">Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。</a></li>
+<li id="ref-2"><a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/" target="_blank" rel="noopener noreferrer">OWASP Gen AI Security Project. LLM01:2025 Prompt Injection. 技術風險與緩解建議；查閱 2026-09-12。</a></li>
+<li id="ref-3"><a href="https://research.google/pubs/everyone-wants-to-do-the-model-work-not-the-data-work-data-cascades-in-high-stakes-ai/" target="_blank" rel="noopener noreferrer">Sambasivan N, Kapania S, Highfill H, Akrong D, Paritosh P, Aroyo LM. “Everyone wants to do the model work, not the data work”: Data Cascades in High-Stakes AI. CHI. 2021.</a></li>
+<li id="ref-4"><a href="https://doi.org/10.48550/arXiv.2302.12173" target="_blank" rel="noopener noreferrer">Greshake K, Abdelnabi S, Mishra S, Endres C, Holz T, Fritz M. Not what you’ve signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection. arXiv:2302.12173. 2023. 此連結為預印本版本。</a></li></ol></section>
+<footer class="article-author-note"><p>作者：蔡泓恩 職能治療師。本文為專業教育與證據整理；個別處置仍需完整評估、當事人參與及適當跨專業合作。</p></footer>
+<nav class="prev-next-nav" aria-label="相關文章"><a href="https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html">上一篇：AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本</a><a href="https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html">下一篇：AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論</a></nav>
+</div></article>
+</body></html>

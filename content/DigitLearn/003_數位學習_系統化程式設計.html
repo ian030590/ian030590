@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="zh-TW"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本｜蔡泓恩 職能治療師</title>
+<meta name="description" content="能開啟的網頁只是原型。臨床使用前要確認計算與操作符合需求、錯誤會被攔下，以及修改失敗時能回到已知版本。"><meta name="keywords" content="數位學習,AI應用">
+<link rel="canonical" href="https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html"><link rel="stylesheet" href="../../css/style.css">
+<meta property="og:type" content="article"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="蔡泓恩 | 職能治療師">
+<meta property="og:title" content="AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本"><meta property="og:description" content="能開啟的網頁只是原型。臨床使用前要確認計算與操作符合需求、錯誤會被攔下，以及修改失敗時能回到已知版本。"><meta property="og:url" content="https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html"><meta property="og:image" content="https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+<meta property="article:published_time" content="2026-09-12T08:00:00+08:00"><meta property="article:modified_time" content="2026-09-12T08:00:00+08:00"><meta property="article:author" content="https://ian030590.trainerhub.cc/"><meta property="article:section" content="數位學習">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本"><meta name="twitter:description" content="能開啟的網頁只是原型。臨床使用前要確認計算與操作符合需求、錯誤會被攔下，以及修改失敗時能回到已知版本。"><meta name="twitter:image" content="https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "Article"], "@id": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html#article", "url": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html", "mainEntityOfPage": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html", "headline": "AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本", "description": "能開啟的網頁只是原型。臨床使用前要確認計算與操作符合需求、錯誤會被攔下，以及修改失敗時能回到已知版本。", "image": ["https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&fit=crop&w=1200&q=80"], "datePublished": "2026-09-12T08:00:00+08:00", "dateModified": "2026-09-12T08:00:00+08:00", "inLanguage": "zh-TW", "articleSection": "數位學習", "keywords": ["數位學習", "AI應用"], "author": {"@type": "Person", "name": "蔡泓恩", "alternateName": "Hung-En (Ian) Tsai", "url": "https://ian030590.trainerhub.cc/", "jobTitle": "職能治療師", "alumniOf": {"@type": "CollegeOrUniversity", "name": "國立臺灣大學"}, "knowsAbout": ["職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"], "sameAs": ["https://github.com/ian030590", "https://trainerhub.cc"]}, "citation": [{"@type": "CreativeWork", "name": "Souppaya M, Scarfone K, Dodson D. Secure Software Development Framework (SSDF) Version 1.1. NIST SP 800-218. 2022. 技術框架，非臨床指引。", "url": "https://doi.org/10.6028/NIST.SP.800-218"}, {"@type": "CreativeWork", "name": "Open Source Society University. Computer Science curriculum. 官方課程 repository；查閱 2026-09-12。", "url": "https://github.com/ossu/computer-science"}, {"@type": "CreativeWork", "name": "Perry N, Srivastava M, Kumar D, Boneh D. Do Users Write More Insecure Code with AI Assistants? Proceedings of CCS 2023:2785–2799.", "url": "https://doi.org/10.1145/3576915.3623157"}], "publisher": {"@type": "Person", "name": "蔡泓恩", "url": "https://ian030590.trainerhub.cc/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://ian030590.trainerhub.cc/"}, {"@type": "ListItem", "position": 2, "name": "專業文章", "item": "https://ian030590.trainerhub.cc/blog"}, {"@type": "ListItem", "position": 3, "name": "AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本", "item": "https://ian030590.trainerhub.cc/content/DigitLearn/003_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88.html"}]}]}</script>
+</head><body>
+<!-- Blogger：在 HTML 編輯模式貼入下方 style 與 article；文章不需要本機講義。 -->
+<style>.ot-blog-article {
+  
+  
+  --slate-50: #f7faff;
+  --slate-100: #edf4fc;
+  --slate-200: #d5e4f5;
+  --slate-300: #c7d9ee;
+  --slate-400: #9bb3d1;
+  --slate-500: #7694b7;
+  --slate-600: #526e8e;
+  --slate-700: #3d5068;
+  --slate-800: #233348;
+  --slate-850: #142032;
+  --slate-900: #0e1726;
+  --slate-950: #0a1220;
+  --slate-990: #070d18;
+
+  
+  --blue-50: #eff6ff;
+  --blue-100: #deedff;
+  --blue-200: #bedbfe;
+  --blue-300: #8ebff6;
+  --blue-400: #529deb;
+  --blue-500: #1d78d6;
+  --blue-600: #0f6cbd;
+  --blue-700: #064c86;
+  --blue-800: #003864;
+  --blue-900: #002646;
+  --blue-950: #00162b;
+
+  
+  
+  --color-bg-canvas: var(--slate-50);
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-elevated: #ffffff;
+  --color-bg-surface-subtle: var(--slate-100);
+  --color-bg-header: rgba(255, 255, 255, 0.94);
+  --color-bg-placeholder: linear-gradient(135deg, #eaf2fb 0%, #d8e8f8 100%);
+  --color-bg-footer: var(--slate-950);
+  --color-text-footer: #e8f1ff;
+
+  
+  --color-text-primary: var(--slate-950);
+  --color-text-secondary: var(--slate-700);
+  --color-text-muted: var(--slate-600);
+  --color-text-inverse: #ffffff;
+  --color-border-subtle: var(--slate-200);
+  --color-border-default: var(--slate-300);
+  --color-border-strong: var(--slate-500);
+
+  
+  --color-action-primary-bg: var(--blue-700);
+  --color-action-primary-hover: var(--blue-800);
+  --color-action-primary-text: #ffffff;
+  --color-action-secondary-border: var(--blue-600);
+  --color-action-secondary-text: var(--blue-600);
+  --color-action-secondary-hover: var(--blue-100);
+  --color-link-default: var(--blue-600);
+  --color-link-hover: var(--blue-700);
+  --color-badge-bg: var(--blue-100);
+  --color-badge-text: var(--blue-800);
+  --color-focus-ring: var(--blue-600);
+  --color-focus-glow: rgba(15, 108, 189, 0.18);
+  --color-shadow: 0 8px 24px rgba(0, 56, 100, 0.08);
+  --color-shadow-hover: 0 16px 36px rgba(0, 56, 100, 0.12);
+
+  
+  --bg: var(--color-bg-canvas);
+  --surface: var(--color-bg-surface);
+  --surface-soft: var(--color-bg-surface-subtle);
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --line: var(--color-border-default);
+  --primary: var(--color-action-primary-bg);
+  --primary-strong: var(--color-action-primary-hover);
+  --accent: var(--color-link-default);
+  --accent-soft: var(--color-badge-bg);
+  --dark: var(--slate-950);
+  --shadow: var(--color-shadow);
+  --radius: 14px;
+font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:var(--ink); background:var(--surface); overflow-wrap:anywhere; line-height:1.85;}
+.ot-blog-article, .ot-blog-article * {box-sizing:border-box;}
+.ot-blog-article .article-title {
+  font: 600 18.5px/1.38 Lexend, "Noto Sans TC", sans-serif;
+  letter-spacing: -0.025em;
+  margin: 0 0 10px;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s ease;
+}
+.ot-blog-article .article-card:hover .article-title {
+  color: var(--primary);
+}
+.ot-blog-article .article-card--featured .article-title {
+  font-size: 23px;
+  line-height: 1.32;
+  margin-bottom: 12px;
+}
+.ot-blog-article .article-card--featured .article-title {
+    font-size: 20px;
+  }
+.ot-blog-article .breadcrumb-trail {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ot-blog-article .breadcrumb-trail a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.ot-blog-article .breadcrumb-trail a:hover {
+  color: var(--primary);
+}
+.ot-blog-article .breadcrumb-separator {
+  color: var(--color-border-strong);
+  font-size: 12px;
+  user-select: none;
+}
+.ot-blog-article .article-container {
+  max-width: 880px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 44px 40px 36px 40px;
+  box-shadow: var(--shadow);
+}
+.ot-blog-article .article-container {
+    padding: 24px 18px 24px 18px;
+    border-radius: 10px;
+  }
+.ot-blog-article .article-detail-header {
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 24px;
+}
+.ot-blog-article .article-tag-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.ot-blog-article .article-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-soft);
+  color: var(--color-badge-text);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.ot-blog-article .article-title {
+  font-size: 32px;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 16px 0;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.ot-blog-article .article-title {
+    font-size: 24px;
+  }
+.ot-blog-article .article-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ot-blog-article .article-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.ot-blog-article .article-meta-item .material-symbols-outlined {
+  font-size: 16px;
+}
+.ot-blog-article .article-featured-figure {
+  margin: 0 0 32px 0;
+  text-align: center;
+}
+.ot-blog-article .article-featured-img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.ot-blog-article .article-figcaption {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.6;
+  text-align: center;
+}
+.ot-blog-article .article-lead-box {
+  background-color: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--primary);
+  padding: 22px 26px;
+  margin-bottom: 36px;
+  border-radius: 0 10px 10px 0;
+}
+.ot-blog-article .article-lead-box-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-strong);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ot-blog-article .article-lead-box p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--ink);
+  font-weight: 500;
+}
+.ot-blog-article .article-lead-box ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+.ot-blog-article .article-body-content {
+  font-size: 18px;
+  line-height: 1.85;
+  color: var(--ink);
+}
+.ot-blog-article .article-body-content p {
+  margin: 0 0 22px 0;
+  line-height: 1.85;
+}
+.ot-blog-article .article-body-content h2 {
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--ink);
+  border-left: 5px solid var(--primary);
+  padding-left: 14px;
+  margin-top: 48px;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+.ot-blog-article .article-body-content h3 {
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-top: 32px;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.ot-blog-article .article-body-content ul, .ot-blog-article .article-body-content ol {
+  margin: 0 0 24px 0;
+  padding-left: 26px;
+  line-height: 1.8;
+}
+.ot-blog-article .article-body-content li {
+  margin-bottom: 10px;
+}
+.ot-blog-article .article-body-content strong {
+  color: var(--ink);
+}
+.ot-blog-article .callout-box {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+.ot-blog-article .callout-box.warning {
+  border-left-color: #e53e3e;
+  background: rgba(229, 62, 62, 0.06);
+}
+.ot-blog-article .callout-box.amber {
+  border-left-color: #dd6b20;
+  background: rgba(221, 107, 32, 0.06);
+}
+.ot-blog-article .callout-box.success {
+  border-left-color: #137333;
+  background: rgba(19, 115, 51, 0.06);
+}
+.ot-blog-article .table-wrapper {
+  overflow-x: auto;
+  margin: 28px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.ot-blog-article .article-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 15.5px;
+  background: var(--surface);
+}
+.ot-blog-article .article-table th {
+  background: var(--surface-soft);
+  color: var(--ink);
+  padding: 13px 16px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--line);
+}
+.ot-blog-article .article-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+.ot-blog-article .article-references {
+  margin-top: 48px;
+  border-top: 2px solid var(--line);
+  padding-top: 28px;
+}
+.ot-blog-article .article-references h2 {
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 18px;
+  border-left: 5px solid var(--muted);
+  padding-left: 12px;
+}
+.ot-blog-article .article-references ol {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--muted);
+  padding-left: 24px;
+  margin: 0;
+}
+.ot-blog-article .article-references li {
+  margin-bottom: 14px;
+}
+.ot-blog-article .article-references a {
+  color: var(--primary);
+  text-decoration: none;
+  word-break: break-all;
+}
+.ot-blog-article .article-references a:hover {
+  text-decoration: none;
+  color: var(--primary-strong);
+}
+.ot-blog-article .article-container, .ot-blog-article .library-hero {
+    border: 0;
+    box-shadow: none;
+  }
+.ot-blog-article .breadcrumb-trail, .ot-blog-article .prev-next-nav {
+    display: none;
+  }
+.ot-blog-article .article-container {max-width:880px;margin:0 auto;padding:40px 36px;}
+.ot-blog-article .article-title {font-size:32px;}
+.ot-blog-article a {color:var(--primary);text-underline-offset:3px;}
+.ot-blog-article a:focus-visible,.ot-blog-article summary:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+.ot-blog-article .source-citation {font-size:0.73em;line-height:1.6;vertical-align:baseline;}
+.ot-blog-article .source-citation a {text-decoration:none;}
+.ot-blog-article .decision-figure {margin:28px 0;}
+.ot-blog-article .decision-figure svg {display:block;width:100%;max-width:520px;height:auto;margin:auto;}
+.ot-blog-article .article-table {min-width:540px;}
+.ot-blog-article .article-table caption {padding:12px;text-align:left;font-weight:600;color:var(--ink);}
+.ot-blog-article .evidence-key {font-size:15px;margin:22px 0;padding:12px 16px;border:1px solid var(--line);border-radius:8px;}
+.ot-blog-article .evidence-key summary {cursor:pointer;font-weight:600;}
+.ot-blog-article .evidence-key p {margin:12px 0 0;}
+.ot-blog-article .article-author-note {border-top:1px solid var(--line);padding-top:20px;margin-top:28px;font-size:14px;color:var(--muted);}
+.ot-blog-article .prev-next-nav {display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;margin-top:24px;font-size:15px;}
+.ot-blog-article .prev-next-nav a {flex:1 1 220px;}
+@media(max-width:640px) {.ot-blog-article .article-container {padding:22px 16px;border-radius:8px;} .ot-blog-article .article-title {font-size:25px;} .ot-blog-article .article-body-content {font-size:17px;} .ot-blog-article .article-lead-box {padding:18px;} .ot-blog-article .article-body-content h2 {font-size:22px;}}
+</style>
+<article class="ot-blog-article" lang="zh-TW"><div class="article-container">
+<nav class="breadcrumb-trail" aria-label="文章路徑導覽"><a href="https://ian030590.trainerhub.cc/">首頁</a><span aria-hidden="true">／</span><a href="https://ian030590.trainerhub.cc/blog">專業文章</a><span aria-hidden="true">／</span><span aria-current="page">數位學習</span></nav>
+<header class="article-detail-header"><div class="article-tag-badges"><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=AI%E6%87%89%E7%94%A8">AI應用</a></div>
+<h1 class="article-title">AI 寫出的復健工具可以直接給病人用嗎？從需求、測試到可回復版本</h1><div class="article-meta-row"><span class="article-meta-item">蔡泓恩 職能治療師</span><time datetime="2026-09-12T08:00:00+08:00">更新：2026-09-12</time><span class="article-meta-item">約 4 分鐘閱讀</span></div></header>
+<figure class="article-featured-figure"><img src="https://images.unsplash.com/photo-1666886573301-b5d526cfd518?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="使用平板裝置的情境照片" class="article-featured-img" width="1200" height="800" loading="lazy" decoding="async"><figcaption class="article-figcaption">使用平板裝置的情境照片；非本文研究受試者或研究結果。圖片：<a href="https://unsplash.com/photos/0mFqLqD9DYI" target="_blank" rel="noopener noreferrer">Unsplash 原始照片</a>。</figcaption></figure>
+<div class="article-lead-box"><div class="article-lead-box-title">本篇要回答的決策</div><p>能開啟的網頁只是原型。臨床使用前要確認計算與操作符合需求、錯誤會被攔下，以及修改失敗時能回到已知版本。</p></div>
+<div class="article-body-content">
+<section aria-labelledby="clinical-question"><h2 id="clinical-question">一、臨床問題</h2><p>原型成功的條件通常比臨床使用單純。假設治療師請 AI 做一個反應時間遊戲，試玩幾次正常便想用來比較個案進步；但重複點擊、裝置延遲、提示呈現及取消試次如何處理，都可能改變結果。真正問題是：這個工具的數字能否支持預定用途，而不只是畫面能動？</p>
+<p>需求錯誤不會因程式完全照做就消失。若最初把「沒有反應」當成零毫秒，程式可能準確執行這條規則，卻產生相反的臨床解釋。治療師的關鍵角色是與工程者一起定義活動、資料與判讀邊界，而不是只要求介面更漂亮。</p></section>
+<section aria-labelledby="guidance"><h2 id="guidance">二、有無臨床指引？正式規範如何建議</h2><p>本題沒有「AI 生成即可臨床使用」的指引。NIST SSDF 是安全開發的技術框架，支持把需求、程式檢查、測試與漏洞處理納入生命週期；它不提供某個復健工具的測量效度，也不取代機構對實際用途的審查。<sup class="source-citation">[<a href="#ref-1">1</a>]</sup></p>
+<p>系統化程式設計先定義可檢查的行為。OSSU 的相關課程涵蓋需求、測試與設計；轉為臨床合作語言，就是「給什麼輸入、預期什麼輸出、哪些情況必須拒絕」。以反應時間為例，至少需區分有效試次、未作答、誤觸與中途退出，而不是只提供平均值。<sup class="source-citation">[<a href="#ref-2">2</a>；範例為作者應用]</sup></p>
+<p>版本控制保存改動脈絡，不會自動證明改動正確。Git 可協助比較及回復程式版本；命令列則是操作工具的文字介面，具有刪改檔案等實際能力。沒有理解的指令不應直接在臨床資料目錄執行，回復程式也不等於恢復已被改寫的病歷資料。<sup class="source-citation">[<a href="#ref-2">2</a>；安全操作為作者應用]</sup></p></section>
+<section aria-labelledby="evidence"><h2 id="evidence">三、研究如何支持或限制這項建議</h2><p>Perry 等人的研究顯示，主觀把握與程式安全可能不一致。研究比較有無 AI 助手的多種安全編程任務，助手組整體的安全表現較差，信心卻較高；這是特定模型與研究任務的結果，並不是今天所有生成工具的固定錯誤率。<sup class="source-citation">[<a href="#ref-3">3</a>]</sup></p>
+<p>研究沒有直接測試復健遊戲的臨床效度。它支持把生成程式視為需要審查的產物，而不能回答反應時間是否精準、測量誤差是否小於病人變化，或不同設備是否可比較。這些問題還需要針對工具用途的技術測試與測量研究。</p>
+<p>功能測試與測量驗證應分開。按鈕能送出資料屬功能正確性；是否忠實測到目標能力屬效度；相同條件下變異多大屬信度與誤差。沒有後兩者證據時，可以把工具定位為活動練習或探索性紀錄，不能宣稱能診斷或量化療效。</p>
+<h3>把證據轉成現場判斷</h3><figure class="decision-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 310" role="img" aria-labelledby="DigitLearn3-title DigitLearn3-desc"><title id="DigitLearn3-title">本篇決策流程</title><desc id="DigitLearn3-desc">寫清規則與例外，再獨立測試及審查，再限定用途與版本。作者依本文整理，不是研究量化結果。</desc><rect x="20" y="20" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="62" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">1. 寫清規則與例外</text><path d="M260 92 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="118" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="160" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">2. 獨立測試及審查</text><path d="M260 190 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="216" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="258" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">3. 限定用途與版本</text></svg><figcaption class="article-figcaption">圖 1．寫清規則與例外 → 獨立測試及審查 → 限定用途與版本。作者依本文證據與應用整理；不是已驗證的標準演算法。</figcaption></figure>
+<div class="table-wrapper" role="region" aria-label="情境與決策比較表，可左右捲動" tabindex="0"><table class="article-table"><caption>表 1．決策情境對照：作者依本文整理，不是統一處方。</caption><thead><tr><th scope="col">遇到的情境</th><th scope="col">評估或處理方向</th><th scope="col">決策與追蹤重點</th></tr></thead><tbody><tr><th scope="row">畫面與操作可執行</th><td>檢查正常、空白、重複與取消輸入</td><td>確認錯誤不被當成有效分數</td></tr><tr><th scope="row">準備用數值判斷個案改變</th><td>檢查效度、重測與裝置影響</td><td>沒有證據就限制判讀用途</td></tr><tr><th scope="row">AI 修改後出現新問題</th><td>比較版本並重跑原有案例</td><td>必要時回復，另確認資料完整性</td></tr></tbody></table></div>
+<h3>如何應用與追蹤</h3><p>交給 AI 或工程者的需求應包含失敗情境。可寫成：「未作答須另記，不得納入平均反應時間；重複點擊只接受規則指定的一次；離開頁面後該試次如何處理需明示。」這些是範例，不是所有測驗共用的計分規則，實際設定仍需來源依據。</p>
+<p>上線前應讓未參與開發的人試用並核對結果。先用虛構資料與人工可算的案例，檢查匯出、中文、時間與錯誤訊息；再確認誰維護、何時停用與如何回復。若改變程式會影響計分，舊新版本數據不可未經檢查就接成同一條進步曲線。</p></section>
+<section aria-labelledby="conclusions"><h2 id="conclusions">四、結語：4 個重點</h2><ul><li>能執行不等於符合臨床需求，更不等於測量有效。</li><li>需求要寫清正常與失敗情境，尤其缺值與計分規則。</li><li>Git 幫助追蹤與回復，但不是測試或資料備份的替代品。</li><li>每次重要修改都需重測，臨床用途不得超過已驗證範圍。</li></ul></section>
+</div>
+<section class="article-references" aria-labelledby="references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.6028/NIST.SP.800-218" target="_blank" rel="noopener noreferrer">Souppaya M, Scarfone K, Dodson D. Secure Software Development Framework (SSDF) Version 1.1. NIST SP 800-218. 2022. 技術框架，非臨床指引。</a></li>
+<li id="ref-2"><a href="https://github.com/ossu/computer-science" target="_blank" rel="noopener noreferrer">Open Source Society University. Computer Science curriculum. 官方課程 repository；查閱 2026-09-12。</a></li>
+<li id="ref-3"><a href="https://doi.org/10.1145/3576915.3623157" target="_blank" rel="noopener noreferrer">Perry N, Srivastava M, Kumar D, Boneh D. Do Users Write More Insecure Code with AI Assistants? Proceedings of CCS 2023:2785–2799.</a></li></ol></section>
+<footer class="article-author-note"><p>作者：蔡泓恩 職能治療師。本文為專業教育與證據整理；個別處置仍需完整評估、當事人參與及適當跨專業合作。</p></footer>
+<nav class="prev-next-nav" aria-label="相關文章"><a href="https://ian030590.trainerhub.cc/content/DigitLearn/001_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_OSSU%E5%AE%9A%E4%BD%8D%E8%88%87%E9%99%90%E5%88%B6.html">上一篇：職能治療師需要讀完整套資工課嗎？用臨床工具的風險決定學習深度</a><a href="https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html">下一篇：病人資料可以交給 AI 工具嗎？先確認資料品質、存取權與提示詞注入風險</a></nav>
+</div></article>
+</body></html>

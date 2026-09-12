@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="zh-TW"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論｜蔡泓恩 職能治療師</title>
+<meta name="description" content="檢索增強生成可讓回答參考外部資料，但「有引用」不等於引用支持答案。臨床判斷仍須核對族群、推薦條件與證據限制。"><meta name="keywords" content="數位學習,AI應用">
+<link rel="canonical" href="https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html"><link rel="stylesheet" href="../../css/style.css">
+<meta property="og:type" content="article"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="蔡泓恩 | 職能治療師">
+<meta property="og:title" content="AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論"><meta property="og:description" content="檢索增強生成可讓回答參考外部資料，但「有引用」不等於引用支持答案。臨床判斷仍須核對族群、推薦條件與證據限制。"><meta property="og:url" content="https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html"><meta property="og:image" content="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+<meta property="article:published_time" content="2026-09-12T08:00:00+08:00"><meta property="article:modified_time" content="2026-09-12T08:00:00+08:00"><meta property="article:author" content="https://ian030590.trainerhub.cc/"><meta property="article:section" content="數位學習">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論"><meta name="twitter:description" content="檢索增強生成可讓回答參考外部資料，但「有引用」不等於引用支持答案。臨床判斷仍須核對族群、推薦條件與證據限制。"><meta name="twitter:image" content="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "Article"], "@id": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html#article", "url": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html", "mainEntityOfPage": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html", "headline": "AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論", "description": "檢索增強生成可讓回答參考外部資料，但「有引用」不等於引用支持答案。臨床判斷仍須核對族群、推薦條件與證據限制。", "image": ["https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80"], "datePublished": "2026-09-12T08:00:00+08:00", "dateModified": "2026-09-12T08:00:00+08:00", "inLanguage": "zh-TW", "articleSection": "數位學習", "keywords": ["數位學習", "AI應用"], "author": {"@type": "Person", "name": "蔡泓恩", "alternateName": "Hung-En (Ian) Tsai", "url": "https://ian030590.trainerhub.cc/", "jobTitle": "職能治療師", "alumniOf": {"@type": "CollegeOrUniversity", "name": "國立臺灣大學"}, "knowsAbout": ["職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"], "sameAs": ["https://github.com/ian030590", "https://trainerhub.cc"]}, "citation": [{"@type": "CreativeWork", "name": "Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。", "url": "https://doi.org/10.6028/NIST.AI.600-1"}, {"@type": "CreativeWork", "name": "Lewis P, Perez E, Piktus A, et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS. 2020;33:9459–9474.", "url": "https://doi.org/10.48550/arXiv.2005.11401"}, {"@type": "CreativeWork", "name": "Liu NF, Lin K, Hewitt J, et al. Lost in the Middle: How Language Models Use Long Contexts. Transactions of the Association for Computational Linguistics. 2024;12:157–173.", "url": "https://doi.org/10.1162/tacl_a_00638"}], "publisher": {"@type": "Person", "name": "蔡泓恩", "url": "https://ian030590.trainerhub.cc/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://ian030590.trainerhub.cc/"}, {"@type": "ListItem", "position": 2, "name": "專業文章", "item": "https://ian030590.trainerhub.cc/blog"}, {"@type": "ListItem", "position": 3, "name": "AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論", "item": "https://ian030590.trainerhub.cc/content/DigitLearn/008_AI%E6%87%89%E7%94%A8_%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B.html"}]}]}</script>
+</head><body>
+<!-- Blogger：在 HTML 編輯模式貼入下方 style 與 article；文章不需要本機講義。 -->
+<style>.ot-blog-article {
+  
+  
+  --slate-50: #f7faff;
+  --slate-100: #edf4fc;
+  --slate-200: #d5e4f5;
+  --slate-300: #c7d9ee;
+  --slate-400: #9bb3d1;
+  --slate-500: #7694b7;
+  --slate-600: #526e8e;
+  --slate-700: #3d5068;
+  --slate-800: #233348;
+  --slate-850: #142032;
+  --slate-900: #0e1726;
+  --slate-950: #0a1220;
+  --slate-990: #070d18;
+
+  
+  --blue-50: #eff6ff;
+  --blue-100: #deedff;
+  --blue-200: #bedbfe;
+  --blue-300: #8ebff6;
+  --blue-400: #529deb;
+  --blue-500: #1d78d6;
+  --blue-600: #0f6cbd;
+  --blue-700: #064c86;
+  --blue-800: #003864;
+  --blue-900: #002646;
+  --blue-950: #00162b;
+
+  
+  
+  --color-bg-canvas: var(--slate-50);
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-elevated: #ffffff;
+  --color-bg-surface-subtle: var(--slate-100);
+  --color-bg-header: rgba(255, 255, 255, 0.94);
+  --color-bg-placeholder: linear-gradient(135deg, #eaf2fb 0%, #d8e8f8 100%);
+  --color-bg-footer: var(--slate-950);
+  --color-text-footer: #e8f1ff;
+
+  
+  --color-text-primary: var(--slate-950);
+  --color-text-secondary: var(--slate-700);
+  --color-text-muted: var(--slate-600);
+  --color-text-inverse: #ffffff;
+  --color-border-subtle: var(--slate-200);
+  --color-border-default: var(--slate-300);
+  --color-border-strong: var(--slate-500);
+
+  
+  --color-action-primary-bg: var(--blue-700);
+  --color-action-primary-hover: var(--blue-800);
+  --color-action-primary-text: #ffffff;
+  --color-action-secondary-border: var(--blue-600);
+  --color-action-secondary-text: var(--blue-600);
+  --color-action-secondary-hover: var(--blue-100);
+  --color-link-default: var(--blue-600);
+  --color-link-hover: var(--blue-700);
+  --color-badge-bg: var(--blue-100);
+  --color-badge-text: var(--blue-800);
+  --color-focus-ring: var(--blue-600);
+  --color-focus-glow: rgba(15, 108, 189, 0.18);
+  --color-shadow: 0 8px 24px rgba(0, 56, 100, 0.08);
+  --color-shadow-hover: 0 16px 36px rgba(0, 56, 100, 0.12);
+
+  
+  --bg: var(--color-bg-canvas);
+  --surface: var(--color-bg-surface);
+  --surface-soft: var(--color-bg-surface-subtle);
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --line: var(--color-border-default);
+  --primary: var(--color-action-primary-bg);
+  --primary-strong: var(--color-action-primary-hover);
+  --accent: var(--color-link-default);
+  --accent-soft: var(--color-badge-bg);
+  --dark: var(--slate-950);
+  --shadow: var(--color-shadow);
+  --radius: 14px;
+font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:var(--ink); background:var(--surface); overflow-wrap:anywhere; line-height:1.85;}
+.ot-blog-article, .ot-blog-article * {box-sizing:border-box;}
+.ot-blog-article .article-title {
+  font: 600 18.5px/1.38 Lexend, "Noto Sans TC", sans-serif;
+  letter-spacing: -0.025em;
+  margin: 0 0 10px;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s ease;
+}
+.ot-blog-article .article-card:hover .article-title {
+  color: var(--primary);
+}
+.ot-blog-article .article-card--featured .article-title {
+  font-size: 23px;
+  line-height: 1.32;
+  margin-bottom: 12px;
+}
+.ot-blog-article .article-card--featured .article-title {
+    font-size: 20px;
+  }
+.ot-blog-article .breadcrumb-trail {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ot-blog-article .breadcrumb-trail a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.ot-blog-article .breadcrumb-trail a:hover {
+  color: var(--primary);
+}
+.ot-blog-article .breadcrumb-separator {
+  color: var(--color-border-strong);
+  font-size: 12px;
+  user-select: none;
+}
+.ot-blog-article .article-container {
+  max-width: 880px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 44px 40px 36px 40px;
+  box-shadow: var(--shadow);
+}
+.ot-blog-article .article-container {
+    padding: 24px 18px 24px 18px;
+    border-radius: 10px;
+  }
+.ot-blog-article .article-detail-header {
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 24px;
+}
+.ot-blog-article .article-tag-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.ot-blog-article .article-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-soft);
+  color: var(--color-badge-text);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.ot-blog-article .article-title {
+  font-size: 32px;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 16px 0;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.ot-blog-article .article-title {
+    font-size: 24px;
+  }
+.ot-blog-article .article-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ot-blog-article .article-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.ot-blog-article .article-meta-item .material-symbols-outlined {
+  font-size: 16px;
+}
+.ot-blog-article .article-featured-figure {
+  margin: 0 0 32px 0;
+  text-align: center;
+}
+.ot-blog-article .article-featured-img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.ot-blog-article .article-figcaption {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.6;
+  text-align: center;
+}
+.ot-blog-article .article-lead-box {
+  background-color: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--primary);
+  padding: 22px 26px;
+  margin-bottom: 36px;
+  border-radius: 0 10px 10px 0;
+}
+.ot-blog-article .article-lead-box-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-strong);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ot-blog-article .article-lead-box p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--ink);
+  font-weight: 500;
+}
+.ot-blog-article .article-lead-box ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+.ot-blog-article .article-body-content {
+  font-size: 18px;
+  line-height: 1.85;
+  color: var(--ink);
+}
+.ot-blog-article .article-body-content p {
+  margin: 0 0 22px 0;
+  line-height: 1.85;
+}
+.ot-blog-article .article-body-content h2 {
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--ink);
+  border-left: 5px solid var(--primary);
+  padding-left: 14px;
+  margin-top: 48px;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+.ot-blog-article .article-body-content h3 {
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-top: 32px;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.ot-blog-article .article-body-content ul, .ot-blog-article .article-body-content ol {
+  margin: 0 0 24px 0;
+  padding-left: 26px;
+  line-height: 1.8;
+}
+.ot-blog-article .article-body-content li {
+  margin-bottom: 10px;
+}
+.ot-blog-article .article-body-content strong {
+  color: var(--ink);
+}
+.ot-blog-article .callout-box {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+.ot-blog-article .callout-box.warning {
+  border-left-color: #e53e3e;
+  background: rgba(229, 62, 62, 0.06);
+}
+.ot-blog-article .callout-box.amber {
+  border-left-color: #dd6b20;
+  background: rgba(221, 107, 32, 0.06);
+}
+.ot-blog-article .callout-box.success {
+  border-left-color: #137333;
+  background: rgba(19, 115, 51, 0.06);
+}
+.ot-blog-article .table-wrapper {
+  overflow-x: auto;
+  margin: 28px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.ot-blog-article .article-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 15.5px;
+  background: var(--surface);
+}
+.ot-blog-article .article-table th {
+  background: var(--surface-soft);
+  color: var(--ink);
+  padding: 13px 16px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--line);
+}
+.ot-blog-article .article-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+.ot-blog-article .article-references {
+  margin-top: 48px;
+  border-top: 2px solid var(--line);
+  padding-top: 28px;
+}
+.ot-blog-article .article-references h2 {
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 18px;
+  border-left: 5px solid var(--muted);
+  padding-left: 12px;
+}
+.ot-blog-article .article-references ol {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--muted);
+  padding-left: 24px;
+  margin: 0;
+}
+.ot-blog-article .article-references li {
+  margin-bottom: 14px;
+}
+.ot-blog-article .article-references a {
+  color: var(--primary);
+  text-decoration: none;
+  word-break: break-all;
+}
+.ot-blog-article .article-references a:hover {
+  text-decoration: none;
+  color: var(--primary-strong);
+}
+.ot-blog-article .article-container, .ot-blog-article .library-hero {
+    border: 0;
+    box-shadow: none;
+  }
+.ot-blog-article .breadcrumb-trail, .ot-blog-article .prev-next-nav {
+    display: none;
+  }
+.ot-blog-article .article-container {max-width:880px;margin:0 auto;padding:40px 36px;}
+.ot-blog-article .article-title {font-size:32px;}
+.ot-blog-article a {color:var(--primary);text-underline-offset:3px;}
+.ot-blog-article a:focus-visible,.ot-blog-article summary:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+.ot-blog-article .source-citation {font-size:0.73em;line-height:1.6;vertical-align:baseline;}
+.ot-blog-article .source-citation a {text-decoration:none;}
+.ot-blog-article .decision-figure {margin:28px 0;}
+.ot-blog-article .decision-figure svg {display:block;width:100%;max-width:520px;height:auto;margin:auto;}
+.ot-blog-article .article-table {min-width:540px;}
+.ot-blog-article .article-table caption {padding:12px;text-align:left;font-weight:600;color:var(--ink);}
+.ot-blog-article .evidence-key {font-size:15px;margin:22px 0;padding:12px 16px;border:1px solid var(--line);border-radius:8px;}
+.ot-blog-article .evidence-key summary {cursor:pointer;font-weight:600;}
+.ot-blog-article .evidence-key p {margin:12px 0 0;}
+.ot-blog-article .article-author-note {border-top:1px solid var(--line);padding-top:20px;margin-top:28px;font-size:14px;color:var(--muted);}
+.ot-blog-article .prev-next-nav {display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;margin-top:24px;font-size:15px;}
+.ot-blog-article .prev-next-nav a {flex:1 1 220px;}
+@media(max-width:640px) {.ot-blog-article .article-container {padding:22px 16px;border-radius:8px;} .ot-blog-article .article-title {font-size:25px;} .ot-blog-article .article-body-content {font-size:17px;} .ot-blog-article .article-lead-box {padding:18px;} .ot-blog-article .article-body-content h2 {font-size:22px;}}
+</style>
+<article class="ot-blog-article" lang="zh-TW"><div class="article-container">
+<nav class="breadcrumb-trail" aria-label="文章路徑導覽"><a href="https://ian030590.trainerhub.cc/">首頁</a><span aria-hidden="true">／</span><a href="https://ian030590.trainerhub.cc/blog">專業文章</a><span aria-hidden="true">／</span><span aria-current="page">數位學習</span></nav>
+<header class="article-detail-header"><div class="article-tag-badges"><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=AI%E6%87%89%E7%94%A8">AI應用</a></div>
+<h1 class="article-title">AI 找到指引就能回答臨床問題嗎？用 RAG 檢查來源、適用性與結論</h1><div class="article-meta-row"><span class="article-meta-item">蔡泓恩 職能治療師</span><time datetime="2026-09-12T08:00:00+08:00">更新：2026-09-12</time><span class="article-meta-item">約 4 分鐘閱讀</span></div></header>
+<figure class="article-featured-figure"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="醫療人員使用電腦的情境照片" class="article-featured-img" width="1200" height="800" loading="lazy" decoding="async"><figcaption class="article-figcaption">醫療人員使用電腦的情境照片；非本文研究受試者或研究結果。圖片：<a href="https://unsplash.com/photos/NFvdKIhxYlU" target="_blank" rel="noopener noreferrer">Unsplash 原始照片</a>。</figcaption></figure>
+<div class="article-lead-box"><div class="article-lead-box-title">本篇要回答的決策</div><p>檢索增強生成可讓回答參考外部資料，但「有引用」不等於引用支持答案。臨床判斷仍須核對族群、推薦條件與證據限制。</p></div>
+<div class="article-body-content">
+<section aria-labelledby="clinical-question"><h2 id="clinical-question">一、臨床問題</h2><p>臨床提問需要比流暢答案更多的保障。假設治療師問中風後是否應安排某項視覺訓練，AI 引用一篇真正存在的指引，卻省略「可考慮」與適用條件；答案看似有根據，實際上已改變推薦強度。本篇要回答的是：何時可把 AI 作為文獻整理助手，何時必須回到原文重新判斷？</p>
+<p>大型語言模型生成的是依輸入與訓練形成的文字，不是自動完成的證據查核。提示可以指定格式與任務，但不能保證每個事實正確；把未知欄位填得整齊，仍可能比留下空白更危險。臨床使用應讓不確定性可見，而不是要求每題一定給出確定處方。<sup class="source-citation">[<a href="#ref-1">1</a>]</sup></p></section>
+<section aria-labelledby="guidance"><h2 id="guidance">二、有無臨床指引？正式規範如何建議</h2><p>本題沒有推薦特定 RAG 系統可直接決定治療的臨床指引。NIST 的生成式 AI 風險文件將自信但錯誤的內容列為需要管理的風險；它提供跨領域治理方向，不證明加上資料庫後即可免除專業核對。<sup class="source-citation">[<a href="#ref-1">1</a>]</sup></p>
+<p>RAG 是先找資料，再讓模型依找到的內容生成回答。典型流程會把文件切成片段，依問題檢索相關內容，再提供給模型；任何一段失誤，包括漏找否定建議或混用版本，都可能傳到答案。檢索命中與忠實摘要因此要分開檢查。<sup class="source-citation">[<a href="#ref-2">2</a>]</sup></p>
+<p>提示可以要求可核查的欄位，而不是索取更多自信語氣。實務上可要求列出族群、問題、推薦原意、強度、限制及來源章節；資料沒有的欄位寫「來源未提供」。這是作者提出的整理格式，不是已驗證可防止錯誤的提示配方。輸出即使符合 JSON 等結構，內容仍需逐項核對。</p></section>
+<section aria-labelledby="evidence"><h2 id="evidence">三、研究如何支持或限制這項建議</h2><p>原始 RAG 研究支持部分知識任務的技術效益。Lewis 等人比較檢索加生成與只依模型內部參數等基線，在開放領域問答及部分生成任務表現較佳。這些是文字任務基準，不是職能治療決策或病人結局試驗，不能宣稱 RAG 已證明提升復健成效。<sup class="source-citation">[<a href="#ref-2">2</a>]</sup></p>
+<p>提供更長文件也不保證模型用得到關鍵內容。Liu 等人的研究以多文件問答與鍵值查找等任務改變相關資訊的位置，發現受測模型在資訊位於中段時常表現較差。研究使用特定模型與測試設計，不能給所有新模型相同失誤率，但支持把位置與文件長度納入測試。<sup class="source-citation">[<a href="#ref-3">3</a>]</sup></p>
+<p>上述研究共同提醒我們，錯誤可能發生在找資料或解讀資料兩個階段。若根本沒找到相關段落，改善提示不一定有用；若已提供正確段落卻誤寫推薦，增加更多文件也未必解決。應保留檢索片段與答案對照，才能定位問題，而不是每次直接更換模型。</p>
+<h3>把證據轉成現場判斷</h3><figure class="decision-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 310" role="img" aria-labelledby="DigitLearn8-title DigitLearn8-desc"><title id="DigitLearn8-title">本篇決策流程</title><desc id="DigitLearn8-desc">界定問題並檢索，再對照推薦與證據，再由專業者判斷適用。作者依本文整理，不是研究量化結果。</desc><rect x="20" y="20" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="62" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">1. 界定問題並檢索</text><path d="M260 92 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="118" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="160" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">2. 對照推薦與證據</text><path d="M260 190 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="216" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="258" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">3. 由專業者判斷適用</text></svg><figcaption class="article-figcaption">圖 1．界定問題並檢索 → 對照推薦與證據 → 由專業者判斷適用。作者依本文證據與應用整理；不是已驗證的標準演算法。</figcaption></figure>
+<div class="table-wrapper" role="region" aria-label="情境與決策比較表，可左右捲動" tabindex="0"><table class="article-table"><caption>表 1．決策情境對照：作者依本文整理，不是統一處方。</caption><thead><tr><th scope="col">遇到的情境</th><th scope="col">評估或處理方向</th><th scope="col">決策與追蹤重點</th></tr></thead><tbody><tr><th scope="row">答案沒有可定位來源</th><td>檢查是否檢索到真正相關內容</td><td>不能因語氣肯定而採用</td></tr><tr><th scope="row">有來源但推薦被寫得更強</th><td>對照族群、強度與否定條件</td><td>修正解讀並保留不確定性</td></tr><tr><th scope="row">不同版本或研究相互衝突</th><td>確認日期、目的與證據設計</td><td>由專業者整合，不取多數票</td></tr></tbody></table></div>
+<h3>如何應用與追蹤</h3><p>可把臨床問題先拆成明確條件。以某介入為例，寫出疾病階段、主要障礙、比較選項與希望改善的活動；接著請系統只整理找到的推薦及研究，不在缺乏資料時補出劑量。治療師再查看原段落，確認其是否真的涵蓋眼前個案。</p>
+<p>保留「不能回答」是臨床工具的必要功能。來源缺漏、族群不符或存在重大矛盾時，應標記待查並提供原文入口；已核對的摘要才用於討論，不能直接複製為個別處方。若涉及病人資料，還需先確認機構允許的使用方式。</p></section>
+<section aria-labelledby="conclusions"><h2 id="conclusions">四、結語：4 個重點</h2><ul><li>RAG 提供資料來源，不保證答案忠實或臨床適用。</li><li>把檢索是否正確與摘要是否正確分開檢查。</li><li>提示與結構化輸出不能代替原文核對。</li><li>來源不足或不適用時保留無法回答，不自行補出處方。</li></ul></section>
+</div>
+<section class="article-references" aria-labelledby="references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.6028/NIST.AI.600-1" target="_blank" rel="noopener noreferrer">Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。</a></li>
+<li id="ref-2"><a href="https://doi.org/10.48550/arXiv.2005.11401" target="_blank" rel="noopener noreferrer">Lewis P, Perez E, Piktus A, et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS. 2020;33:9459–9474.</a></li>
+<li id="ref-3"><a href="https://doi.org/10.1162/tacl_a_00638" target="_blank" rel="noopener noreferrer">Liu NF, Lin K, Hewitt J, et al. Lost in the Middle: How Language Models Use Long Contexts. Transactions of the Association for Computational Linguistics. 2024;12:157–173.</a></li></ol></section>
+<footer class="article-author-note"><p>作者：蔡泓恩 職能治療師。本文為專業教育與證據整理；個別處置仍需完整評估、當事人參與及適當跨專業合作。</p></footer>
+<nav class="prev-next-nav" aria-label="相關文章"><a href="https://ian030590.trainerhub.cc/content/DigitLearn/005_%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92_%E8%B3%87%E6%96%99%E5%BA%AB%E8%88%87%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E5%9F%BA%E7%A4%8E.html">上一篇：病人資料可以交給 AI 工具嗎？先確認資料品質、存取權與提示詞注入風險</a><a href="https://ian030590.trainerhub.cc/content/DigitLearn/009_AI%E6%87%89%E7%94%A8_AI%E7%94%A2%E5%93%81%E8%BB%9F%E9%AB%94%E6%9E%B6%E6%A7%8B.html">下一篇：臨床 AI 需要能「動手」的智慧體嗎？用任務與授權決定 Agent、MCP 及系統架構</a></nav>
+</div></article>
+</body></html>

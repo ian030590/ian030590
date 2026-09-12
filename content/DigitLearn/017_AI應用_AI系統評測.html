@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="zh-TW"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>臨床 AI 試用成績很好就能上線嗎？把評測、成本與停用條件放進同一個決策｜蔡泓恩 職能治療師</title>
+<meta name="description" content="平均答對率與漂亮示範不足以支持導入。要同時看高風險錯誤、來源忠實度、使用者負擔，以及版本變動後能否維持表現。"><meta name="keywords" content="數位學習,AI應用">
+<link rel="canonical" href="https://ian030590.trainerhub.cc/content/DigitLearn/017_AI%E6%87%89%E7%94%A8_AI%E7%B3%BB%E7%B5%B1%E8%A9%95%E6%B8%AC.html"><link rel="stylesheet" href="../../css/style.css">
+<meta property="og:type" content="article"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="蔡泓恩 | 職能治療師">
+<meta property="og:title" content="臨床 AI 試用成績很好就能上線嗎？把評測、成本與停用條件放進同一個決策"><meta property="og:description" content="平均答對率與漂亮示範不足以支持導入。要同時看高風險錯誤、來源忠實度、使用者負擔，以及版本變動後能否維持表現。"><meta property="og:url" content="https://ian030590.trainerhub.cc/content/DigitLearn/017_AI%E6%87%89%E7%94%A8_AI%E7%B3%BB%E7%B5%B1%E8%A9%95%E6%B8%AC.html"><meta property="og:image" content="https://images.unsplash.com/photo-1666886573264-38075cc56104?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+<meta property="article:published_time" content="2026-09-12T08:00:00+08:00"><meta property="article:modified_time" content="2026-09-12T08:00:00+08:00"><meta property="article:author" content="https://ian030590.trainerhub.cc/"><meta property="article:section" content="數位學習">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="臨床 AI 試用成績很好就能上線嗎？把評測、成本與停用條件放進同一個決策"><meta name="twitter:description" content="平均答對率與漂亮示範不足以支持導入。要同時看高風險錯誤、來源忠實度、使用者負擔，以及版本變動後能否維持表現。"><meta name="twitter:image" content="https://images.unsplash.com/photo-1666886573264-38075cc56104?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "Article"], "@id": "https://ian030590.trainerhub.cc/content/DigitLearn/017_AI%E6%87%89%E7%94%A8_AI%E7%B3%BB%E7%B5%B1%E8%A9%95%E6%B8%AC.html#article", "url": "https://ian030590.trainerhub.cc/content/DigitLearn/017_AI%E6%87%89%E7%94%A8_AI%E7%B3%BB%E7%B5%B1%E8%A9%95%E6%B8%AC.html", "mainEntityOfPage": "https://ian030590.trainerhub.cc/content/DigitLearn/017_AI%E6%87%89%E7%94%A8_AI%E7%B3%BB%E7%B5%B1%E8%A9%95%E6%B8%AC.html", "headline": "臨床 AI 試用成績很好就能上線嗎？把評測、成本與停用條件放進同一個決策", "description": "平均答對率與漂亮示範不足以支持導入。要同時看高風險錯誤、來源忠實度、使用者負擔，以及版本變動後能否維持表現。", "image": ["https://images.unsplash.com/photo-1666886573264-38075cc56104?auto=format&fit=crop&w=1200&q=80"], "datePublished": "2026-09-12T08:00:00+08:00", "dateModified": "2026-09-12T08:00:00+08:00", "inLanguage": "zh-TW", "articleSection": "數位學習", "keywords": ["數位學習", "AI應用"], "author": {"@type": "Person", "name": "蔡泓恩", "alternateName": "Hung-En (Ian) Tsai", "url": "https://ian030590.trainerhub.cc/", "jobTitle": "職能治療師", "alumniOf": {"@type": "CollegeOrUniversity", "name": "國立臺灣大學"}, "knowsAbout": ["職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"], "sameAs": ["https://github.com/ian030590", "https://trainerhub.cc"]}, "citation": [{"@type": "CreativeWork", "name": "Gallifant J, Afshar M, Ameen S, et al. The TRIPOD-LLM reporting guideline for studies using large language models. Nature Medicine. 2025;31:60–69.", "url": "https://doi.org/10.1038/s41591-024-03425-5"}, {"@type": "CreativeWork", "name": "Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。", "url": "https://doi.org/10.6028/NIST.AI.600-1"}, {"@type": "CreativeWork", "name": "Zheng L, Chiang WL, Sheng Y, et al. Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena. NeurIPS Datasets and Benchmarks. 2023.", "url": "https://doi.org/10.48550/arXiv.2306.05685"}, {"@type": "CreativeWork", "name": "Sambasivan N, Kapania S, Highfill H, Akrong D, Paritosh P, Aroyo LM. “Everyone wants to do the model work, not the data work”: Data Cascades in High-Stakes AI. CHI. 2021.", "url": "https://research.google/pubs/everyone-wants-to-do-the-model-work-not-the-data-work-data-cascades-in-high-stakes-ai/"}], "publisher": {"@type": "Person", "name": "蔡泓恩", "url": "https://ian030590.trainerhub.cc/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://ian030590.trainerhub.cc/"}, {"@type": "ListItem", "position": 2, "name": "專業文章", "item": "https://ian030590.trainerhub.cc/blog"}, {"@type": "ListItem", "position": 3, "name": "臨床 AI 試用成績很好就能上線嗎？把評測、成本與停用條件放進同一個決策", "item": "https://ian030590.trainerhub.cc/content/DigitLearn/017_AI%E6%87%89%E7%94%A8_AI%E7%B3%BB%E7%B5%B1%E8%A9%95%E6%B8%AC.html"}]}]}</script>
+</head><body>
+<!-- Blogger：在 HTML 編輯模式貼入下方 style 與 article；文章不需要本機講義。 -->
+<style>.ot-blog-article {
+  
+  
+  --slate-50: #f7faff;
+  --slate-100: #edf4fc;
+  --slate-200: #d5e4f5;
+  --slate-300: #c7d9ee;
+  --slate-400: #9bb3d1;
+  --slate-500: #7694b7;
+  --slate-600: #526e8e;
+  --slate-700: #3d5068;
+  --slate-800: #233348;
+  --slate-850: #142032;
+  --slate-900: #0e1726;
+  --slate-950: #0a1220;
+  --slate-990: #070d18;
+
+  
+  --blue-50: #eff6ff;
+  --blue-100: #deedff;
+  --blue-200: #bedbfe;
+  --blue-300: #8ebff6;
+  --blue-400: #529deb;
+  --blue-500: #1d78d6;
+  --blue-600: #0f6cbd;
+  --blue-700: #064c86;
+  --blue-800: #003864;
+  --blue-900: #002646;
+  --blue-950: #00162b;
+
+  
+  
+  --color-bg-canvas: var(--slate-50);
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-elevated: #ffffff;
+  --color-bg-surface-subtle: var(--slate-100);
+  --color-bg-header: rgba(255, 255, 255, 0.94);
+  --color-bg-placeholder: linear-gradient(135deg, #eaf2fb 0%, #d8e8f8 100%);
+  --color-bg-footer: var(--slate-950);
+  --color-text-footer: #e8f1ff;
+
+  
+  --color-text-primary: var(--slate-950);
+  --color-text-secondary: var(--slate-700);
+  --color-text-muted: var(--slate-600);
+  --color-text-inverse: #ffffff;
+  --color-border-subtle: var(--slate-200);
+  --color-border-default: var(--slate-300);
+  --color-border-strong: var(--slate-500);
+
+  
+  --color-action-primary-bg: var(--blue-700);
+  --color-action-primary-hover: var(--blue-800);
+  --color-action-primary-text: #ffffff;
+  --color-action-secondary-border: var(--blue-600);
+  --color-action-secondary-text: var(--blue-600);
+  --color-action-secondary-hover: var(--blue-100);
+  --color-link-default: var(--blue-600);
+  --color-link-hover: var(--blue-700);
+  --color-badge-bg: var(--blue-100);
+  --color-badge-text: var(--blue-800);
+  --color-focus-ring: var(--blue-600);
+  --color-focus-glow: rgba(15, 108, 189, 0.18);
+  --color-shadow: 0 8px 24px rgba(0, 56, 100, 0.08);
+  --color-shadow-hover: 0 16px 36px rgba(0, 56, 100, 0.12);
+
+  
+  --bg: var(--color-bg-canvas);
+  --surface: var(--color-bg-surface);
+  --surface-soft: var(--color-bg-surface-subtle);
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --line: var(--color-border-default);
+  --primary: var(--color-action-primary-bg);
+  --primary-strong: var(--color-action-primary-hover);
+  --accent: var(--color-link-default);
+  --accent-soft: var(--color-badge-bg);
+  --dark: var(--slate-950);
+  --shadow: var(--color-shadow);
+  --radius: 14px;
+font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:var(--ink); background:var(--surface); overflow-wrap:anywhere; line-height:1.85;}
+.ot-blog-article, .ot-blog-article * {box-sizing:border-box;}
+.ot-blog-article .article-title {
+  font: 600 18.5px/1.38 Lexend, "Noto Sans TC", sans-serif;
+  letter-spacing: -0.025em;
+  margin: 0 0 10px;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s ease;
+}
+.ot-blog-article .article-card:hover .article-title {
+  color: var(--primary);
+}
+.ot-blog-article .article-card--featured .article-title {
+  font-size: 23px;
+  line-height: 1.32;
+  margin-bottom: 12px;
+}
+.ot-blog-article .article-card--featured .article-title {
+    font-size: 20px;
+  }
+.ot-blog-article .breadcrumb-trail {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ot-blog-article .breadcrumb-trail a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.ot-blog-article .breadcrumb-trail a:hover {
+  color: var(--primary);
+}
+.ot-blog-article .breadcrumb-separator {
+  color: var(--color-border-strong);
+  font-size: 12px;
+  user-select: none;
+}
+.ot-blog-article .article-container {
+  max-width: 880px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 44px 40px 36px 40px;
+  box-shadow: var(--shadow);
+}
+.ot-blog-article .article-container {
+    padding: 24px 18px 24px 18px;
+    border-radius: 10px;
+  }
+.ot-blog-article .article-detail-header {
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 24px;
+}
+.ot-blog-article .article-tag-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.ot-blog-article .article-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-soft);
+  color: var(--color-badge-text);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.ot-blog-article .article-title {
+  font-size: 32px;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 16px 0;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.ot-blog-article .article-title {
+    font-size: 24px;
+  }
+.ot-blog-article .article-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ot-blog-article .article-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.ot-blog-article .article-meta-item .material-symbols-outlined {
+  font-size: 16px;
+}
+.ot-blog-article .article-featured-figure {
+  margin: 0 0 32px 0;
+  text-align: center;
+}
+.ot-blog-article .article-featured-img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.ot-blog-article .article-figcaption {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.6;
+  text-align: center;
+}
+.ot-blog-article .article-lead-box {
+  background-color: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--primary);
+  padding: 22px 26px;
+  margin-bottom: 36px;
+  border-radius: 0 10px 10px 0;
+}
+.ot-blog-article .article-lead-box-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-strong);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ot-blog-article .article-lead-box p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--ink);
+  font-weight: 500;
+}
+.ot-blog-article .article-lead-box ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+.ot-blog-article .article-body-content {
+  font-size: 18px;
+  line-height: 1.85;
+  color: var(--ink);
+}
+.ot-blog-article .article-body-content p {
+  margin: 0 0 22px 0;
+  line-height: 1.85;
+}
+.ot-blog-article .article-body-content h2 {
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--ink);
+  border-left: 5px solid var(--primary);
+  padding-left: 14px;
+  margin-top: 48px;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+.ot-blog-article .article-body-content h3 {
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-top: 32px;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.ot-blog-article .article-body-content ul, .ot-blog-article .article-body-content ol {
+  margin: 0 0 24px 0;
+  padding-left: 26px;
+  line-height: 1.8;
+}
+.ot-blog-article .article-body-content li {
+  margin-bottom: 10px;
+}
+.ot-blog-article .article-body-content strong {
+  color: var(--ink);
+}
+.ot-blog-article .callout-box {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+.ot-blog-article .callout-box.warning {
+  border-left-color: #e53e3e;
+  background: rgba(229, 62, 62, 0.06);
+}
+.ot-blog-article .callout-box.amber {
+  border-left-color: #dd6b20;
+  background: rgba(221, 107, 32, 0.06);
+}
+.ot-blog-article .callout-box.success {
+  border-left-color: #137333;
+  background: rgba(19, 115, 51, 0.06);
+}
+.ot-blog-article .table-wrapper {
+  overflow-x: auto;
+  margin: 28px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.ot-blog-article .article-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 15.5px;
+  background: var(--surface);
+}
+.ot-blog-article .article-table th {
+  background: var(--surface-soft);
+  color: var(--ink);
+  padding: 13px 16px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--line);
+}
+.ot-blog-article .article-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+.ot-blog-article .article-references {
+  margin-top: 48px;
+  border-top: 2px solid var(--line);
+  padding-top: 28px;
+}
+.ot-blog-article .article-references h2 {
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 18px;
+  border-left: 5px solid var(--muted);
+  padding-left: 12px;
+}
+.ot-blog-article .article-references ol {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--muted);
+  padding-left: 24px;
+  margin: 0;
+}
+.ot-blog-article .article-references li {
+  margin-bottom: 14px;
+}
+.ot-blog-article .article-references a {
+  color: var(--primary);
+  text-decoration: none;
+  word-break: break-all;
+}
+.ot-blog-article .article-references a:hover {
+  text-decoration: none;
+  color: var(--primary-strong);
+}
+.ot-blog-article .article-container, .ot-blog-article .library-hero {
+    border: 0;
+    box-shadow: none;
+  }
+.ot-blog-article .breadcrumb-trail, .ot-blog-article .prev-next-nav {
+    display: none;
+  }
+.ot-blog-article .article-container {max-width:880px;margin:0 auto;padding:40px 36px;}
+.ot-blog-article .article-title {font-size:32px;}
+.ot-blog-article a {color:var(--primary);text-underline-offset:3px;}
+.ot-blog-article a:focus-visible,.ot-blog-article summary:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+.ot-blog-article .source-citation {font-size:0.73em;line-height:1.6;vertical-align:baseline;}
+.ot-blog-article .source-citation a {text-decoration:none;}
+.ot-blog-article .decision-figure {margin:28px 0;}
+.ot-blog-article .decision-figure svg {display:block;width:100%;max-width:520px;height:auto;margin:auto;}
+.ot-blog-article .article-table {min-width:540px;}
+.ot-blog-article .article-table caption {padding:12px;text-align:left;font-weight:600;color:var(--ink);}
+.ot-blog-article .evidence-key {font-size:15px;margin:22px 0;padding:12px 16px;border:1px solid var(--line);border-radius:8px;}
+.ot-blog-article .evidence-key summary {cursor:pointer;font-weight:600;}
+.ot-blog-article .evidence-key p {margin:12px 0 0;}
+.ot-blog-article .article-author-note {border-top:1px solid var(--line);padding-top:20px;margin-top:28px;font-size:14px;color:var(--muted);}
+.ot-blog-article .prev-next-nav {display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;margin-top:24px;font-size:15px;}
+.ot-blog-article .prev-next-nav a {flex:1 1 220px;}
+@media(max-width:640px) {.ot-blog-article .article-container {padding:22px 16px;border-radius:8px;} .ot-blog-article .article-title {font-size:25px;} .ot-blog-article .article-body-content {font-size:17px;} .ot-blog-article .article-lead-box {padding:18px;} .ot-blog-article .article-body-content h2 {font-size:22px;}}
+</style>
+<article class="ot-blog-article" lang="zh-TW"><div class="article-container">
+<nav class="breadcrumb-trail" aria-label="文章路徑導覽"><a href="https://ian030590.trainerhub.cc/">首頁</a><span aria-hidden="true">／</span><a href="https://ian030590.trainerhub.cc/blog">專業文章</a><span aria-hidden="true">／</span><span aria-current="page">數位學習</span></nav>
+<header class="article-detail-header"><div class="article-tag-badges"><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=%E6%95%B8%E4%BD%8D%E5%AD%B8%E7%BF%92">數位學習</a><a class="article-badge" href="https://ian030590.trainerhub.cc/blog?tag=AI%E6%87%89%E7%94%A8">AI應用</a></div>
+<h1 class="article-title">臨床 AI 試用成績很好就能上線嗎？把評測、成本與停用條件放進同一個決策</h1><div class="article-meta-row"><span class="article-meta-item">蔡泓恩 職能治療師</span><time datetime="2026-09-12T08:00:00+08:00">更新：2026-09-12</time><span class="article-meta-item">約 4 分鐘閱讀</span></div></header>
+<figure class="article-featured-figure"><img src="https://images.unsplash.com/photo-1666886573264-38075cc56104?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="使用筆記型電腦的情境照片" class="article-featured-img" width="1200" height="800" loading="lazy" decoding="async"><figcaption class="article-figcaption">使用筆記型電腦的情境照片；非本文研究受試者或研究結果。圖片：<a href="https://unsplash.com/photos/heGTlwA705U" target="_blank" rel="noopener noreferrer">Unsplash 原始照片</a>。</figcaption></figure>
+<div class="article-lead-box"><div class="article-lead-box-title">本篇要回答的決策</div><p>平均答對率與漂亮示範不足以支持導入。要同時看高風險錯誤、來源忠實度、使用者負擔，以及版本變動後能否維持表現。</p></div>
+<div class="article-body-content">
+<section aria-labelledby="clinical-question"><h2 id="clinical-question">一、臨床問題</h2><p>上線決策需要代表性失敗案例，而不只精選成功案例。假設摘要工具在十份簡單紀錄中都表現順暢，遇到互相矛盾的左右側或新舊處方卻自行選一個答案；平均滿意度可能仍高，但臨床影響很大。本篇要回答的是：哪些證據足以進入受控試用，哪些情況應暫停？</p>
+<p>成本應以完成可採用的工作計算。較便宜的模型若需要更多重試與人工修正，整體成本未必較低；串流顯示只是提早看見部分文字，也不保證最後答案更快或更正確。性能、延遲與工作負擔應一起量測，而不只比較單次呼叫價格。</p></section>
+<section aria-labelledby="guidance"><h2 id="guidance">二、有無臨床指引？正式規範如何建議</h2><p>TRIPOD-LLM 2025 提供的是研究報告規範，不是產品核准門檻。它要求研究透明交代模型、資料、提示與評估等資訊，使讀者能理解結果如何產生；報告完整有助判讀，但不代表系統已有效或安全。<sup class="source-citation">[<a href="#ref-1">1</a>]</sup></p>
+<p>風險管理需要涵蓋使用後的變化。NIST 生成式 AI 文件提供跨生命週期的管理方向；臨床應用可據此安排上線前測試、受控使用、事件回報及重新評估。沒有通用的「答對九成即可上線」標準，門檻須依錯誤後果與使用情境制定。<sup class="source-citation">[<a href="#ref-2">2</a>；門檻說明為作者應用]</sup></p>
+<p>測試資料應與調整提示的資料分開。若反覆用同一批問題修改模型或提示，再用它宣布成功，容易高估泛化表現；至少需要未參與調整的案例、相關族群與明確評分準則。評分者是否知道工具版本及如何處理分歧，也應交代。<sup class="source-citation">[<a href="#ref-1">1，研究報告原則與作者應用</a>]</sup></p></section>
+<section aria-labelledby="evidence"><h2 id="evidence">三、研究如何支持或限制這項建議</h2><p>模型裁判能協助擴大評測，但偏好一致不等於醫療正確。Zheng 等人以 MT-Bench 與 Chatbot Arena 比較模型評分及人類偏好，部分強模型有較高一致性，同時發現位置、篇幅及偏好自身輸出的偏差。研究不是職能治療安全評估，不能直接用其分數取代臨床審查。<sup class="source-citation">[<a href="#ref-3">3</a>]</sup></p>
+<p>資料品質研究提醒我們追查上游原因。Sambasivan 等人的 53 人質性訪談描述資料問題如何累積為下游困難，支持記錄收集、標註與責任脈絡；它沒有證明某一比例的工程成本或事故必然由資料造成，也不提供所有產品共用的維護頻率。<sup class="source-citation">[<a href="#ref-4">4</a>]</sup></p>
+<p>這些研究支持透明評估與可追查流程，而不是固定技術配方。版本標記有助重現，但仍有來源、外部工具與使用族群變化；換到備援模型可能改變回答方式與資料流向，不能宣稱自動切換必然無縫且等效。需要用本地任務重新驗證。</p>
+<h3>把證據轉成現場判斷</h3><figure class="decision-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 310" role="img" aria-labelledby="DigitLearn17-title DigitLearn17-desc"><title id="DigitLearn17-title">本篇決策流程</title><desc id="DigitLearn17-desc">預定評分與風險，再受控試用並核對，再監測更新與停用。作者依本文整理，不是研究量化結果。</desc><rect x="20" y="20" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="62" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">1. 預定評分與風險</text><path d="M260 92 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="118" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="160" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">2. 受控試用並核對</text><path d="M260 190 v18 m-7 -7 l7 7 7 -7" fill="none" stroke="#064c86" stroke-width="3"/><rect x="20" y="216" width="480" height="68" rx="10" fill="#edf4fc" stroke="#9bb3d1"/><text x="260" y="258" text-anchor="middle" font-size="24" fill="#0a1220" font-family="sans-serif">3. 監測更新與停用</text></svg><figcaption class="article-figcaption">圖 1．預定評分與風險 → 受控試用並核對 → 監測更新與停用。作者依本文證據與應用整理；不是已驗證的標準演算法。</figcaption></figure>
+<div class="table-wrapper" role="region" aria-label="情境與決策比較表，可左右捲動" tabindex="0"><table class="article-table"><caption>表 1．決策情境對照：作者依本文整理，不是統一處方。</caption><thead><tr><th scope="col">遇到的情境</th><th scope="col">評估或處理方向</th><th scope="col">決策與追蹤重點</th></tr></thead><tbody><tr><th scope="row">平均表現高但漏重要禁忌</th><td>分列高風險錯誤與來源忠實度</td><td>重大錯誤未處理不擴大使用</td></tr><tr><th scope="row">單次價格低但常需重做</th><td>計入重試、人工修正與等待</td><td>比較每份可採用輸出的總負擔</td></tr><tr><th scope="row">模型、提示或資料來源更新</th><td>保留版本並重跑代表案例</td><td>未通過則暫停或回復既定流程</td></tr></tbody></table></div>
+<h3>如何應用與追蹤</h3><p>受控試用可以從不直接影響照護的對照流程開始。讓系統處理獲准資料，但輸出不自動進入病歷或對病人發送，由專業者依預定規則比較；記錄關鍵遺漏、無依據內容、錯誤拒答、修正時間與不同情境表現。這是導入設計範例，不是已驗證的統一樣本數要求。</p>
+<p>停用條件應讓第一線知道如何執行。疑似外洩、錯病人資料、重大錯誤建議或服務不穩定時，應有指定聯絡人與原有人工流程可接手；回報內容亦需資料最小化。先調查原因再決定修正、回復或撤除，不能只把負評餵回模型便視為完成品質改善。</p></section>
+<section aria-labelledby="conclusions"><h2 id="conclusions">四、結語：4 個重點</h2><ul><li>導入需評估代表性案例與高風險錯誤，不只看平均成績。</li><li>TRIPOD-LLM 是透明報告規範，不是安全核准。</li><li>模型裁判可輔助，但臨床正確性仍需適當專業核對。</li><li>版本、總成本、監測與停用流程都應納入導入決策。</li></ul></section>
+</div>
+<section class="article-references" aria-labelledby="references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.1038/s41591-024-03425-5" target="_blank" rel="noopener noreferrer">Gallifant J, Afshar M, Ameen S, et al. The TRIPOD-LLM reporting guideline for studies using large language models. Nature Medicine. 2025;31:60–69.</a></li>
+<li id="ref-2"><a href="https://doi.org/10.6028/NIST.AI.600-1" target="_blank" rel="noopener noreferrer">Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。</a></li>
+<li id="ref-3"><a href="https://doi.org/10.48550/arXiv.2306.05685" target="_blank" rel="noopener noreferrer">Zheng L, Chiang WL, Sheng Y, et al. Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena. NeurIPS Datasets and Benchmarks. 2023.</a></li>
+<li id="ref-4"><a href="https://research.google/pubs/everyone-wants-to-do-the-model-work-not-the-data-work-data-cascades-in-high-stakes-ai/" target="_blank" rel="noopener noreferrer">Sambasivan N, Kapania S, Highfill H, Akrong D, Paritosh P, Aroyo LM. “Everyone wants to do the model work, not the data work”: Data Cascades in High-Stakes AI. CHI. 2021.</a></li></ol></section>
+<footer class="article-author-note"><p>作者：蔡泓恩 職能治療師。本文為專業教育與證據整理；個別處置仍需完整評估、當事人參與及適當跨專業合作。</p></footer>
+<nav class="prev-next-nav" aria-label="相關文章"><a href="https://ian030590.trainerhub.cc/content/DigitLearn/009_AI%E6%87%89%E7%94%A8_AI%E7%94%A2%E5%93%81%E8%BB%9F%E9%AB%94%E6%9E%B6%E6%A7%8B.html">上一篇：臨床 AI 需要能「動手」的智慧體嗎？用任務與授權決定 Agent、MCP 及系統架構</a></nav>
+</div></article>
+</body></html>

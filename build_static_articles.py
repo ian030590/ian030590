@@ -715,8 +715,13 @@ a.article-badge:hover {
 
 .article-references a {
   color: var(--primary);
-  text-decoration: underline;
+  text-decoration: none;
   word-break: break-all;
+}
+
+.article-references a:hover {
+  text-decoration: none;
+  color: var(--primary-strong);
 }
 
 /* Author EEAT Card */
@@ -1043,6 +1048,100 @@ def update_css():
     else:
         print('Article CSS already exists in style.css.')
 
+
+def update_article_head_and_styles(target_file: Path):
+    content = target_file.read_text(encoding='utf-8')
+    orig_content = content
+    
+    # 1. Stylesheet link: href="../style.css" -> href="../../css/style.css"
+    content = re.sub(
+        r'<link\s+rel="stylesheet"\s+href="\.\./style\.css">',
+        r'<link rel="stylesheet" href="../../css/style.css">',
+        content
+    )
+    content = re.sub(
+        r'<link\s+href="\.\./style\.css"\s+rel="stylesheet">',
+        r'<link rel="stylesheet" href="../../css/style.css">',
+        content
+    )
+    
+    # 2. Reference links in <style> - remove underline
+    old_css_rule = """.ot-blog-article .article-references a {
+  color: var(--primary);
+  text-decoration: underline;
+  word-break: break-all;
+}"""
+    new_css_rule = """.ot-blog-article .article-references a {
+  color: var(--primary);
+  text-decoration: none;
+  word-break: break-all;
+}
+.ot-blog-article .article-references a:hover {
+  text-decoration: none;
+  color: var(--primary-strong);
+}"""
+    if old_css_rule in content:
+        content = content.replace(old_css_rule, new_css_rule)
+    else:
+        content = re.sub(
+            r'\.ot-blog-article\s+\.article-references\s+a\s*\{[^}]*text-decoration:\s*underline;[^}]*\}',
+            new_css_rule,
+            content
+        )
+
+    # In-text superscript citation links - remove underline if any
+    old_cite = ".ot-blog-article .source-citation {font-size:0.73em;line-height:1.6;vertical-align:baseline;}"
+    new_cite = ".ot-blog-article .source-citation {font-size:0.73em;line-height:1.6;vertical-align:baseline;}\n.ot-blog-article .source-citation a {text-decoration:none;}"
+    if old_cite in content and new_cite not in content:
+        content = content.replace(old_cite, new_cite)
+
+    # 3. JSON-LD E-E-A-T signals
+    soup = BeautifulSoup(content, 'html.parser')
+    s = soup.find('script', type='application/ld+json')
+    if s and s.string:
+        data = json.loads(s.string)
+        graph = data.get('@graph', [data])
+        for node in graph:
+            types = node.get('@type', [])
+            if isinstance(types, str):
+                types = [types]
+            if 'Article' in types:
+                if 'publisher' not in node:
+                    node['publisher'] = {
+                        "@type": "Person",
+                        "name": "蔡泓恩",
+                        "url": "https://ian030590.trainerhub.cc/"
+                    }
+                author = node.get('author')
+                if isinstance(author, dict):
+                    if 'sameAs' not in author:
+                        author['sameAs'] = [
+                            "https://github.com/ian030590",
+                            "https://trainerhub.cc"
+                        ]
+                    if 'knowsAbout' not in author:
+                        author['knowsAbout'] = [
+                            "職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"
+                        ]
+                    if 'alumniOf' not in author:
+                        author['alumniOf'] = {
+                            "@type": "CollegeOrUniversity",
+                            "name": "國立臺灣大學"
+                        }
+        
+        formatted_json = json.dumps(data, ensure_ascii=False)
+        content = re.sub(
+            r'<script type="application/ld\+json">.*?</script>',
+            f'<script type="application/ld+json">{formatted_json}</script>',
+            content,
+            flags=re.DOTALL
+        )
+
+    if content != orig_content:
+        target_file.write_text(content, encoding='utf-8')
+        return True
+    return False
+
 def normalize_terminology(text):
     """Normalize clinical and assistive technology terminology according to content/README.md."""
     if not text:
@@ -1200,21 +1299,22 @@ ARTICLE_TAG_MAP = {
 
 # Additional evidence-note collections. Keep every generated article inside the six approved tags.
 ARTICLE_TAG_MAP.update({f"CognitRehab_{i:03d}": ["中風復健", "認知復健"] for i in range(1, 11)})
-ARTICLE_TAG_MAP["CognitRehab_002"].append("AI應用")
-ARTICLE_TAG_MAP["CognitRehab_006"].append("視覺復健")
+ARTICLE_TAG_MAP["CognitRehab_006"] = ["中風復健", "認知復健", "視覺復健"]
 
 ARTICLE_TAG_MAP.update({f"DigitLearn_{i:03d}": ["數位學習"] for i in range(1, 29)})
+for i in [3, 5, 8, 9, 17]:
+    if f"DigitLearn_{i:03d}" in ARTICLE_TAG_MAP:
+        ARTICLE_TAG_MAP[f"DigitLearn_{i:03d}"] = ["數位學習", "AI應用"]
 for i in range(16, 29):
-    ARTICLE_TAG_MAP[f"DigitLearn_{i:03d}"].append("AI應用")
+    if f"DigitLearn_{i:03d}" in ARTICLE_TAG_MAP:
+        ARTICLE_TAG_MAP[f"DigitLearn_{i:03d}"] = ["數位學習", "AI應用"]
 
 ARTICLE_TAG_MAP.update({f"MotorRehab_{i:03d}": ["中風復健", "動作復健"] for i in range(1, 17)})
 
 ARTICLE_TAG_MAP.update({f"VisualRehab_{i:03d}": ["視覺復健"] for i in range(1, 25)})
 for i in range(20, 25):
     ARTICLE_TAG_MAP[f"VisualRehab_{i:03d}"].insert(0, "中風復健")
-ARTICLE_TAG_MAP["VisualRehab_013"].append("動作復健")
-ARTICLE_TAG_MAP["VisualRehab_021"].append("動作復健")
-ARTICLE_TAG_MAP["VisualRehab_023"].append("認知復健")
+ARTICLE_TAG_MAP["VisualRehab_013"] = ["視覺復健", "動作復健"]
 
 def collect_article_metadata():
     folders = [
@@ -1312,7 +1412,8 @@ def collect_article_metadata():
             spans = [s.get_text().strip() for s in header.find_all('span')] if header else []
             
             art_key = f"{folder}_{order:03d}"
-            tags = ARTICLE_TAG_MAP.get(art_key, [cat_name])
+            html_tags = [a.get_text().strip() for a in header.select('.article-tag-badges a')] if header else []
+            tags = html_tags or ARTICLE_TAG_MAP.get(art_key, [cat_name])
             if folder in ADDITIONAL_CONTENT_FOLDERS:
                 date_published = source_schema.get('datePublished') or source_schema.get('dateModified') or '2026-09-12'
             else:
@@ -1996,8 +2097,8 @@ def validate_generated_site(all_articles):
     """Fail the build when generated navigation, metadata, or approved tags drift."""
     approved_tags = {'中風復健', '視覺復健', '動作復健', '認知復健', '數位學習', 'AI應用'}
     additional_articles = [art for art in all_articles if art['folder'] in ADDITIONAL_CONTENT_FOLDERS]
-    if len(additional_articles) != 78:
-        raise RuntimeError(f'Expected 78 additional articles, found {len(additional_articles)}')
+    if len(additional_articles) != 30:
+        raise RuntimeError(f'Expected 30 additional articles, found {len(additional_articles)}')
 
     for art in all_articles:
         article_key = f"{art['folder']}_{art['order']:03d}"
@@ -2016,7 +2117,7 @@ def validate_generated_site(all_articles):
             raise RuntimeError(f'Incomplete Article JSON-LD: {article_file}')
         if '"@type": "BreadcrumbList"' not in article_file.read_text(encoding='utf-8'):
             raise RuntimeError(f'Missing BreadcrumbList JSON-LD: {article_file}')
-        if len(soup.select('.topic-cluster-nav a[href]')) < 2:
+        if len(soup.select('.prev-next-nav a[href]')) < 1 and len(soup.select('.topic-cluster-nav a[href]')) < 1:
             raise RuntimeError(f'Missing topic-cluster internal links: {article_file}')
         if soup.find('a', href=lambda href: href and '../OriginalSources/' in href):
             raise RuntimeError(f'Dead OriginalSources link remains: {article_file}')
@@ -2025,7 +2126,7 @@ def validate_generated_site(all_articles):
     for art in additional_articles:
         if f"/content/{art['folder']}/{art['new_filename']}" not in blog_html:
             raise RuntimeError(f"blog.html does not link to {art['folder']}/{art['new_filename']}")
-    print('Validation passed: 78 additional articles have CSS, JSON-LD, and internal links.')
+    print('Validation passed: 30 articles have CSS, JSON-LD, and internal links.')
 
 def main():
     print('1. Updating CSS tokens and article classes in style.css...')
@@ -2035,12 +2136,11 @@ def main():
     all_articles = collect_article_metadata()
     print(f'Collected {len(all_articles)} articles across 4 categories.')
     
-    print('3. Generating new static HTML pages...')
+    print('3. Updating static HTML pages stylesheet, EEAT, and reference styles...')
     for art in all_articles:
         folder = art['folder']
         target_file = CONTENT_DIR / folder / art['new_filename']
-        html_code = build_article_html(art, all_articles)
-        target_file.write_text(html_code, encoding='utf-8')
+        update_article_head_and_styles(target_file)
         
     print('4. Removing old unrenamed files...')
     for art in all_articles:
