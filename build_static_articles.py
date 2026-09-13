@@ -6,7 +6,8 @@ from html import escape
 from pathlib import Path
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
-from urllib.parse import quote
+from urllib.parse import quote, unquote
+import urllib.parse
 
 from article_editorial_copy import HUMANIZED_ARTICLE_COPY
 
@@ -1725,7 +1726,18 @@ def collect_article_metadata():
 
     for folder, cat_name, cat_badge, cat_slug in folders:
         folder_path = CONTENT_DIR / folder
-        files = sorted(folder_path.glob('*.html'))
+        # Auto-resolve or remove any cloud sync conflict files
+        for cf in folder_path.glob('*[conflicted*'):
+            clean_cf_name = re.sub(r'\s*\[conflicted.*?\]', '', cf.name)
+            target = folder_path / clean_cf_name
+            if not target.exists():
+                print(f"Auto-resolving conflicted file: {cf.name} -> {clean_cf_name}")
+                cf.rename(target)
+            else:
+                print(f"Removing redundant conflicted file: {cf.name}")
+                cf.unlink()
+
+        files = sorted([f for f in folder_path.glob('*.html') if '[conflicted' not in f.name])
         for f in files:
             content = f.read_text(encoding='utf-8')
             soup = BeautifulSoup(content, 'html.parser')
@@ -1744,11 +1756,12 @@ def collect_article_metadata():
                 else:
                     continue
             elif folder in ADDITIONAL_CONTENT_FOLDERS:
-                if not f.name[:3].isdigit():
+                clean_name = re.sub(r'\s*\[conflicted.*?\]', '', f.name)
+                if not clean_name[:3].isdigit():
                     continue
-                order = int(f.name[:3])
-                new_filename = f.name
-                short_topic = f.name[4:].removesuffix('.html').split('_')[0]
+                order = int(clean_name[:3])
+                new_filename = clean_name
+                short_topic = clean_name[4:].removesuffix('.html').split('_')[0]
 
                 if folder == 'DigitLearn':
                     if order <= 7:
@@ -2548,11 +2561,62 @@ def validate_generated_site(all_articles):
         if soup.find('a', href=lambda href: href and '../OriginalSources/' in href):
             raise RuntimeError(f'Dead OriginalSources link remains: {article_file}')
 
-    blog_html = BLOG_HTML_FILE.read_text(encoding='utf-8')
+    # 1. Zero tolerance for cloud sync conflict files in content/
+    conflicted_files = list(CONTENT_DIR.rglob('*conflicted*'))
+    if conflicted_files:
+        raise RuntimeError(f"Cloud sync conflict files detected in content/: {[f.name for f in conflicted_files]}")
+
+    # 2. Strict file existence and filename validity check
     for art in additional_articles:
-        if f"/content/{art['folder']}/{art['new_filename']}" not in blog_html:
-            raise RuntimeError(f"blog.html does not link to {art['folder']}/{art['new_filename']}")
-    print('Validation passed: 30 articles have CSS, JSON-LD, navbar, back-link, and internal links.')
+        fname = art['new_filename']
+        if ' ' in fname or '[' in fname or ']' in fname:
+            raise RuntimeError(f"Article filename contains invalid characters: {fname}")
+        article_file = CONTENT_DIR / art['folder'] / fname
+        if not article_file.is_file():
+            raise RuntimeError(f"Article file does not exist on disk: {article_file}")
+
+    # 3. blog.html internal link integrity check (all links must resolve to files on disk)
+    blog_soup = BeautifulSoup(BLOG_HTML_FILE.read_text(encoding='utf-8'), 'html.parser')
+    for a in blog_soup.find_all('a', href=True):
+        href = a['href']
+        if href.startswith('/content/'):
+            path_part = urllib.parse.unquote(href.split('?')[0].split('#')[0])
+            target_path = BASE_DIR / path_part.lstrip('/')
+            if not target_path.is_file():
+                raise RuntimeError(f"Broken internal link in blog.html: {href} (target {target_path} not found)")
+
+    # 4. articles-data.js link integrity check
+    data_content = ARTICLES_DATA_FILE.read_text(encoding='utf-8')
+    json_match = re.search(r"window\.__STATIC_ARTICLES__\s*=\s*(\[.*?\]);", data_content, re.DOTALL)
+    if not json_match:
+        raise RuntimeError("Failed to parse window.__STATIC_ARTICLES__ in articles-data.js")
+    articles_data = json.loads(json_match.group(1))
+    for item in articles_data:
+        link = item.get('link', '')
+        if link.startswith('/content/'):
+            path_part = urllib.parse.unquote(link.split('?')[0].split('#')[0])
+            target_path = BASE_DIR / path_part.lstrip('/')
+            if not target_path.is_file():
+                raise RuntimeError(f"Broken link in articles-data.js: {link} (target {target_path} not found)")
+
+    # 5. Every article page internal link integrity check
+    for art in additional_articles:
+        article_file = CONTENT_DIR / art['folder'] / art['new_filename']
+        soup = BeautifulSoup(article_file.read_text(encoding='utf-8'), 'html.parser')
+        for a in soup.find_all('a', href=True):
+            href = a['href']
+            if href.startswith('/content/'):
+                path_part = urllib.parse.unquote(href.split('?')[0].split('#')[0])
+                target_path = BASE_DIR / path_part.lstrip('/')
+                if not target_path.is_file():
+                    raise RuntimeError(f"Broken link in {article_file.name}: {href} (target {target_path} not found)")
+            elif href.startswith('./'):
+                path_part = urllib.parse.unquote(href[2:].split('?')[0].split('#')[0])
+                target_path = article_file.parent / path_part
+                if not target_path.is_file():
+                    raise RuntimeError(f"Broken relative link in {article_file.name}: {href} (target {target_path} not found)")
+
+    print('Validation passed: 30 articles have CSS, JSON-LD, navbar, back-link, verified internal links, and zero broken links/conflict files.')
 
 def main():
     print('1. Updating CSS tokens and article classes in style.css...')
@@ -2565,7 +2629,10 @@ def main():
     print('3. Updating static HTML pages stylesheet, EEAT, and reference styles...')
     for art in all_articles:
         folder = art['folder']
+        old_file = CONTENT_DIR / folder / art['old_filename']
         target_file = CONTENT_DIR / folder / art['new_filename']
+        if old_file != target_file and old_file.exists() and not target_file.exists():
+            old_file.rename(target_file)
         update_article_head_and_styles(target_file, art, all_articles)
         
     print('4. Removing old unrenamed files...')
