@@ -12,7 +12,7 @@ from article_editorial_copy import HUMANIZED_ARTICLE_COPY
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-BASE_DIR = Path(r'P:\3_WebSite\ian030590')
+BASE_DIR = Path(__file__).resolve().parent
 CONTENT_DIR = BASE_DIR / 'content'
 CSS_FILE = BASE_DIR / 'css' / 'style.css'
 SITEMAP_FILE = BASE_DIR / 'sitemap.xml'
