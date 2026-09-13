@@ -74,6 +74,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
     <link rel="stylesheet" href="./css/style.css" />
+    <script>
+      (function(){
+        var t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") {
+          document.documentElement.setAttribute("data-theme", t);
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -150,14 +160,14 @@
               <article class="article-card article-card--featured">
                 <a class="card-link" href="/content/MotorRehab/016_動作復健_工作失能預防與初期處置_ACOEM職業傷病實證指引.html">
                 <div class="article-visual">
-                  <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="工作失能預防與職業傷病初期處置：ACOEM實證指引下的生物心理社會評估與功能導向復工架構" loading="lazy" />
+                  <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="受傷後一定要躺平休養嗎？從 ACOEM 指引看工作失能預防與初期處置" loading="lazy" />
                   <span class="featured-badge">最新專題</span>
                 </div>
                   <div class="article-content">
                     <div class="card-tags-row"><span class="card-tag-pill">動作復健</span><span class="card-tag-pill blue">認知復健</span></div>
-                    <h2 class="article-title">工作失能預防與職業傷病初期處置：ACOEM實證指引下的生物心理社會評估與功能導向復工架構</h2>
+                    <h2 class="article-title">受傷後一定要躺平休養嗎？從 ACOEM 指引看工作失能預防與初期處置</h2>
                     <div class="article-meta"><time datetime="2026-09-13T08:00:00+08:00">2026-09-13</time></div>
-                    <p class="article-excerpt">依據美國職業暨環境醫學學會（ACOEM）2025年與2026年發布之基礎實證指引，工作失能不僅涉及勞動力與經濟損失，流行病學研究更顯示其與全因死亡率增加約50%、失業死亡率增加63%密切相關。臨床處置之核心典範在於：初次就醫時即排除感染、骨折、惡性腫瘤等紅旗徵兆，建立數日至數週內症狀好轉的正向預期；以「相對休息與實質惡</p>
+                    <p class="article-excerpt">工傷初期過度臥床只會加速生理去適應與心理依賴。ACOEM 實證指引指出，排除紅旗徵兆後及早建立正向預期、以相對休息取代完全制動，並運用能耐架構推進漸進復工，才是阻斷慢性失能的關鍵。</p>
                     <div class="article-footer"><span class="source-kicker">動作復健</span><span class="read-more-link">閱讀全文</span></div>
                   </div>
                 </a>

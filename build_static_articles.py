@@ -1168,6 +1168,7 @@ def sync_article_source(soup, art, all_articles=None):
     for index, citation in enumerate(art.get('citations', [])):
         if index >= len(references):
             break
+        references[index]['id'] = f"ref-{index + 1}"
         link = references[index].find('a')
         if link is None or not citation.get('url'):
             continue
@@ -1180,6 +1181,49 @@ def sync_article_source(soup, art, all_articles=None):
     title_tag = soup.find('title')
     if title_tag and title:
         title_tag.string = f"{title}｜蔡泓恩 職能治療師"
+
+    curr_bc = soup.find('span', class_='breadcrumb-current')
+    if curr_bc and title:
+        curr_bc.clear()
+        curr_bc.append(title)
+
+    tag_badges = soup.find('div', class_='article-tag-badges')
+    if tag_badges and art.get('tags'):
+        tag_badges.clear()
+        for t in art['tags']:
+            badge = soup.new_tag('a', attrs={
+                'class': 'article-badge',
+                'href': f"{SITE_BASE_URL}/blog?tag={quote(t)}"
+            })
+            badge.string = t
+            tag_badges.append(badge)
+
+    lead_box_title = soup.find('div', class_='article-lead-box-title')
+    if lead_box_title:
+        lead_box_title.clear()
+        lead_box_title.append("本篇要回答的決策")
+
+    meta_row = soup.find('div', class_='article-meta-row')
+    if meta_row:
+        time_tag = meta_row.find('time')
+        if not time_tag:
+            date_str = (art.get('date_modified') or art.get('date_published', '2026-09-13'))[:10]
+            meta_row.clear()
+            author_span = soup.new_tag('span', attrs={'class': 'article-meta-item'})
+            author_span.string = "蔡泓恩 職能治療師"
+            time_elem = soup.new_tag('time', attrs={'datetime': art.get('date_modified') or art.get('date_published', '2026-09-13T08:00:00+08:00')})
+            time_elem.string = f"更新：{date_str}"
+            read_span = soup.new_tag('span', attrs={'class': 'article-meta-item'})
+            read_span.string = art.get('read_time', '約 8 分鐘閱讀')
+            meta_row.append(author_span)
+            meta_row.append(time_elem)
+            meta_row.append(read_span)
+
+    author_note = soup.find('footer', class_='article-author-note')
+    if author_note:
+        p = author_note.find('p')
+        if p:
+            p.string = "作者：蔡泓恩 職能治療師。本文為專業教育與證據整理；個別處置仍需完整評估、當事人參與及適當跨專業合作。"
 
     keywords = ','.join(art.get('tags', []))
     meta_values = [
@@ -1304,6 +1348,16 @@ def update_article_head_and_styles(target_file: Path, art: dict = None, all_arti
     content = target_file.read_text(encoding='utf-8')
     orig_content = content
     
+    # Ensure Blogger inline style block is present
+    if '<style>.ot-blog-article' not in content:
+        ref_file = CONTENT_DIR / 'MotorRehab' / '015_動作復健_吞嚥與營養.html'
+        if ref_file.exists():
+            ref_content = ref_file.read_text(encoding='utf-8')
+            m = re.search(r'(<!-- Blogger.*?<\/style>)', ref_content, re.DOTALL)
+            if m:
+                blogger_style = m.group(1)
+                content = content.replace('<article class="ot-blog-article"', blogger_style + '\n<article class="ot-blog-article"', 1)
+
     # 1. Stylesheet link: href="../style.css" -> href="../../css/style.css"
     content = re.sub(
         r'<link\s+rel="stylesheet"\s+href="\.\./style\.css">',
@@ -1324,6 +1378,21 @@ def update_article_head_and_styles(target_file: Path, art: dict = None, all_arti
 <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
 """
         content = content.replace('<link rel="stylesheet"', favicons + '<link rel="stylesheet"', 1)
+
+    # Early theme bootstrap script in <head> to prevent theme flickering
+    if 'prefers-color-scheme' not in content:
+        theme_init_script = """<script>
+(function(){
+  var t = localStorage.getItem("theme");
+  if (t === "dark" || t === "light") {
+    document.documentElement.setAttribute("data-theme", t);
+  } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+})();
+</script>
+"""
+        content = content.replace('</head>', theme_init_script + '</head>', 1)
     
     # 2. Reference links in <style> - remove underline
     old_css_rule = """.ot-blog-article .article-references a {
@@ -1539,6 +1608,12 @@ def update_article_head_and_styles(target_file: Path, art: dict = None, all_arti
         content = re.sub(
             r'(</article>\s*)(?=</body>)',
             r'\1      </div>\n    </main>\n    ' + ARTICLE_SITE_FOOTER_HTML + '\n',
+            content
+        )
+    elif 'main.js' not in content:
+        content = re.sub(
+            r'(?=</body>)',
+            r'    <script src="../../js/animate-icons.js"></script>\n    <script src="../../js/main.js"></script>\n  ',
             content
         )
 
@@ -2550,6 +2625,8 @@ def validate_generated_site(all_articles):
             raise RuntimeError(f'Missing article-back-link: {article_file}')
         if not soup.find('footer', class_='site-footer'):
             raise RuntimeError(f'Missing site-footer: {article_file}')
+        if 'main.js' not in article_file.read_text(encoding='utf-8'):
+            raise RuntimeError(f'Missing main.js script: {article_file}')
         if '.breadcrumb-trail, .ot-blog-article .prev-next-nav { display: none;' in article_file.read_text(encoding='utf-8'):
             raise RuntimeError(f'Hidden breadcrumb-trail or prev-next-nav in style: {article_file}')
         cluster_size = sum(

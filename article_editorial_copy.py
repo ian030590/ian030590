@@ -340,6 +340,195 @@ HUMANIZED_ARTICLE_COPY = {
 <p>職能治療團隊在用餐姿勢擺位、輔助餐具選配與環境干擾排除上扮演關鍵角色，但絕不能在未經語言治療師與醫療團隊核可前，私自變更吞嚥質地。讓個案能夠尊嚴、安全地重新享受進食，需要整個醫療團隊、照護者與個案本身的密切協作。</p></section>
 """,
     ),
+    "MotorRehab_016": copy(
+        "受傷後一定要躺平休養嗎？從 ACOEM 指引看工作失能預防與初期處置",
+        "工傷初期過度臥床只會加速生理去適應與心理依賴。ACOEM 實證指引指出，排除紅旗徵兆後及早建立正向預期、以相對休息取代完全制動，並運用能耐架構推進漸進復工，才是阻斷慢性失能的關鍵。",
+        """
+<section aria-labelledby="disability-epidemiology"><h2 id="disability-epidemiology">離開職場不只是沒薪水：工作失能與生命存續的公衛實證</h2>
+<p>在成年人的生命歷程中，持續參與具生產力的活動（無論為有給職工作或志願性職能活動），普遍被臨床醫學與公共衛生界視為維繫身心健康與生活品質的重要基石。然而，當受僱者因急性肌肉骨骼損傷、下背疼痛、累積性外傷或重大疾病而被迫離開工作崗位時，其面臨的衝擊往往迅速超越局部組織損傷本身，演變為廣泛的生活失能與系統性健康崩解。</p>
+<p>回顧既有大規模流行病學與隊列研究，工作失能對個體生命存續具有顯著的負面影響。美國社區人口隊列研究指出，失能狀態與全因死亡率增加約 50% 存在統計上的顯著相關<span class="citation-anchor">${ref(6, "Forman-Hoffman 2015")}</span>。一項收錄全球多國研究之系統性回顧與統合分析進一步顯示，失業與全因死亡風險增加 63% 顯著相關，且男性的相對風險較女性高出約 37%<span class="citation-anchor">${ref(5, "Roelfs 2011")}</span>。荷蘭的一項人口連結世代研究亦估計，在日常生活活動（ADL）與移動能力受限的失能者中，其平均預期壽命較無失能者縮短約 10 年；令人警醒的是，其中僅有 6 年的壽命減損能由生活型態、社會人口學特徵及既有重大慢性疾病加以解釋，其餘 4 年的壽命落差則與失能狀態本身及其引發的生理心理去適應直接相關<span class="citation-anchor">${ref(7, "Majer 2011")}</span>。</p>
+<p>有鑑於此，美國職業暨環境醫學學會（American College of Occupational and Environmental Medicine, ACOEM）於 2025 年與 2026 年接續發表兩篇奠基性的基礎臨床指引——《工作失能預防與管理》<span class="citation-anchor">${ref(1, "Kertay 2025")}</span>與《初次治療處置策略》<span class="citation-anchor">${ref(2, "Klees 2026")}</span>。兩份指引確立了一致的核心前提：維持或儘早恢復具生產力的活動，符合患者的最大健康利益；臨床醫療人員在工作傷病的最初診療階段，即肩負著阻斷失能進程的關鍵責任。</p></section>
+<section aria-labelledby="clinical-dilemmas"><h2 id="clinical-dilemmas">越休息反而越嚴重？傳統「絕對靜養」帶來的醫源性危害</h2>
+<p>在當前臨床常規與勞工傷病照護中，醫療端與職場管理端常陷入直覺性卻缺乏實證支持的處置盲區。最常見的困境包括：將急性疼痛等同於必須絕對靜養臥床、過度仰賴被動儀器治療、輕率開立長假與高風險管制止痛藥物，以及未能即時與雇主協商暫時性職務調整。</p>
+<p>ACOEM 指引工作小組明確指出，不當的醫療介入與行政流程本身，即為催生長期工作失能的重大危險因子，稱之為「醫源性（Iatrogenicity）」與「訴訟維權傾向（Advocagenicity）」影響<span class="citation-anchor">${ref(1, "Kertay 2025 指引背景")}</span>：</p>
+<ul>
+<li><strong>非必要的影像學檢查與標籤化效應</strong>：在無重大神經缺損或紅旗徵兆的情況下，過早安排核磁共振（MRI）等高階影像檢查，常檢出無症狀的退化性腰椎間盤突出或關節退化，導致患者產生過度災難化認知，深信脊椎「已嚴重損壞」而不敢動彈。</li>
+<li><strong>過度給假與長期臥床導致的生理去適應</strong>：完全脫離日常活動會導致肌肉萎縮、心肺耐力驟降、關節僵硬與神經敏化，使原本可在數日內好轉的軟組織扭挫傷，迅速惡化為慢性失能狀態。</li>
+<li><strong>被動儀器治療造成的外部控制信念</strong>：過度仰賴熱敷、電療、牽引或按摩等被動手段，容易促使患者建立「自己無需努力，康復全靠醫療人員操作儀器」的消極心態，削弱主動自我復健與重返職場的動機。</li>
+<li><strong>混淆客觀「限制」與主觀「耐受度」</strong>：醫療人員常在診斷證明書上直接採納勞工「因疼痛而不想動」的主觀表述，將之標註為醫學上的「禁忌」，導致雇主不敢安排任何輕量職務，徹底阻斷過渡性復工的契機。</li>
+</ul>
+<div class="callout-box warning">
+<p><strong>臨床警示：醫源性與行政性失能的致命循環</strong><br/>
+研究表明，離開工作崗位超過 6 個月以上的傷病勞工，最終能成功重返原職場全職工作的比例將降至 50% 以下；超過 1 年者更低於 20%<span class="citation-anchor">${ref(1, "Kertay 2025 流行病學數據")}</span>。延遲介入與缺乏職能復工規劃，將使短暫的急性傷病固化為永久性工作失能。</p>
+</div></section>
+<section aria-labelledby="biopsychosocial-mechanism"><h2 id="biopsychosocial-mechanism">痛覺與恐懼的惡性循環：工作失能的生物心理社會本質</h2>
+<p>工作失能並非單一組織病理學（如韌帶撕裂或肌纖維發炎）的單向結果，而是一個複雜交織的「生物心理社會（Biopsychosocial）」動態系統。當勞工遭受急性職業傷害時，疼痛感覺訊號經由周邊神經傳導至中樞神經系統，若伴隨負向認知（如對疼痛的災難化評估、恐懼自己永久癱瘓），大腦前額葉與邊緣系統便會啟動防禦性保護反應，觸發「恐懼—逃避（Fear-Avoidance）」行為模式。</p>
+<p>在此機轉下，個體因懼怕疼痛加劇而主動減少所有肢體活動與社交參與；長期的活動不足進一步促成肌肉肌力衰退、神經肌肉控制失調與中樞痛覺敏化（Central Sensitization）。此時，職場若缺乏主管支持、勞資溝通中斷，或保險爭議與補償制度引發不公感，患者便會在心理層面固化其「傷病受害者」的生活角色，最終使工作失能徹底脫離原本的組織癒合時間軸，轉變為難以逆轉的慢性功能障礙<span class="citation-anchor">${ref(1, "Kertay 2025 表 1")}</span>。</p>
+<div class="table-wrapper">
+<table class="article-table">
+<caption>表一：工作失能的生物心理社會風險因子分類表（整理自 Kertay et al., 2025 Table 1）</caption>
+<thead>
+<tr>
+<th>範疇類別</th>
+<th>指引指認之主要危險因子</th>
+<th>臨床病理與行為表現特徵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>人口統計學因子</strong></td>
+<td>高齡、女性性別</td>
+<td>組織代謝修復速度隨年齡遞減；特定職業族群之社會支持與家務負擔結構差異。</td>
+</tr>
+<tr>
+<td><strong>心理社會因子</strong></td>
+<td>憂鬱症狀、焦慮症、疼痛災難化思考、恐懼—逃避信念、感知不公、工作滿意度低、因應策略不良、身體化傾向</td>
+<td>過度聚焦於疼痛徵候、認為動作必帶來組織破壞、缺乏正向自我效能感、將疾病歸咎於外部敵對環境。</td>
+</tr>
+<tr>
+<td><strong>醫療與身體因子</strong></td>
+<td>肥胖、多重共病、既往慢性疼痛病史、嚴重體能去適應（Deconditioning）、長期缺乏身體活動習慣</td>
+<td>心肺耐力低落、核心與伸肌群肌耐力不足、系統性慢性發炎狀態，延緩急性組織自然癒合進程。</td>
+</tr>
+<tr>
+<td><strong>職場與制度因子</strong></td>
+<td>重體力勞動負荷、缺乏暫時性調整職務／輕量工作選項、主管或同儕支持度低、勞資對立或工傷補償訴訟程序</td>
+<td>復工環境缺乏人因工程防護、傷病勞工感受職場排斥或懲罰性審查，進一步加深法律對抗心態。</td>
+</tr>
+</tbody>
+</table>
+</div></section>
+<section aria-labelledby="assessment-framework"><h2 id="assessment-framework">分清「不能做」還是「不敢做」：SPICE 模型與 CLRRT 能耐評估</h2>
+<p>為打破上述失能循環，臨床醫療與職能復健團隊必須在接診第一時間採用結構化評估工具，精準鑑別生理受損與心理社會阻礙。ACOEM 指引推薦的核心架構涵蓋兩大面向：</p>
+<p><strong>1. SPICE 臨床介入原則</strong>：由 Hall 及 Hadler 提出，並經指引工作小組採納之五大核心原則<span class="citation-anchor">${ref(1, "Kertay 2025 §SPICE")}</span>：</p>
+<ul>
+<li><strong>單純性（Simplicity）</strong>：處方與治療方案應簡潔聚焦，避免複雜且不必要的檢查，消除患者對疾病嚴重度的非理性恐懼。</li>
+<li><strong>就近性（Proximity）</strong>：盡可能在工作者生活圈與原生活環境周邊提供處置，維持個體與家庭及職場的物理連結。</li>
+<li><strong>即時性（Immediacy）</strong>：在受傷初診時立即啟動失能預防措施，不等待病程演變為慢性期才轉介。</li>
+<li><strong>核心性（Centrality）</strong>：指派專責協調者統一整合醫療端、雇主端與勞工端的溝通，確保處置訊息一致。</li>
+<li><strong>期望性（Expectancy）</strong>：從初診起便向勞工、家屬及主管明確傳遞「本病多屬自限性，數日至數週內可望康復重返工作」的正向預期。</li>
+</ul>
+<p><strong>2. CLRRT 能耐評估模型</strong>：由 Talmage 及 Melhorn 提出之功能評估架構，其核心價值在於<strong>嚴格區分客觀醫學能耐與主觀心理耐受度</strong><span class="citation-anchor">${ref(1, "Kertay 2025 §CLRRT")}</span>：</p>
+<div class="table-wrapper">
+<table class="article-table">
+<caption>表二：CLRRT 能耐評估架構與臨床決策意涵表（整理自 Kertay et al., 2025）</caption>
+<thead>
+<tr>
+<th>評估維度</th>
+<th>英文定義</th>
+<th>實質內涵與臨床判斷標準</th>
+<th>對應處方與行政決策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>客觀能力</strong></td>
+<td>Capacity</td>
+<td>個案在解剖生理與肌力上「實際能執行之最大極限」，非勞工主觀猜測。</td>
+<td>透過標準化功能性能力評估（FCE）客觀量測抬舉重量、關節活動度與耐力。</td>
+</tr>
+<tr>
+<td><strong>功能受限</strong></td>
+<td>Limitation</td>
+<td>因客觀生理功能喪失，導致個案「客觀上無法達成」之動作範疇。</td>
+<td>例如肌腱斷裂無法抗阻屈曲、關節強直無法彎腰。需安排輔具或工站調整。</td>
+</tr>
+<tr>
+<td><strong>醫療風險</strong></td>
+<td>Risk</td>
+<td>執行特定工作活動時，可能引發「實質解剖破壞或病情惡化」之客觀醫學機率。</td>
+<td>由醫師開立為明確醫學禁忌（Restriction）。例如骨折未癒合禁止負重。</td>
+</tr>
+<tr>
+<td><strong>醫學禁忌</strong></td>
+<td>Restriction</td>
+<td>由醫療人員正式開立、告知雇主「患者不應從事」之保護性指令。</td>
+<td>僅限於具有客觀 Risk 之活動；<strong>絕對禁止將單純的不適或疼痛逕行開立為禁忌</strong>。</td>
+</tr>
+<tr>
+<td><strong>主觀耐受度</strong></td>
+<td>Tolerance</td>
+<td>個案在執行活動時，承受疼痛、疲勞與心理不適之「個人主觀意願與感覺」。</td>
+<td>耐受度低並不代表組織遭受破壞。應衛教「疼痛不等於傷害」，鼓勵主動適應。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在心理社會層面，指引建議於病程 2 至 4 週內，針對康復遲緩之個案運用 <strong>ACT-UP 簡短評估工具</strong><span class="citation-anchor">${ref(1, "Kertay 2025 §ACT-UP")}</span>，快速盤查其日常生活活動（Activity）、因應策略（Coping）、疾病認知思考（Think）、家庭與社會背景（Underlying）、以及生活各項優先事項（Priorities），及早找出阻礙復工的黃旗與藍旗因子。</p></section>
+<section aria-labelledby="initial-treatment"><h2 id="initial-treatment">初期處置三原則：建立正向預期、相對休息與主動運動處方</h2>
+<p>依據 Klees 等人（2026）針對職業傷病初次治療處置發布之 ACOEM 實證指引，醫療團隊在接診急性肌肉骨骼損傷時，應嚴格奉行以下四大處置支柱<span class="citation-anchor">${ref(2, "Klees 2026 初期處置建議")}</span>：</p>
+<p><strong>1. 初診排除紅旗徵兆，建立自限性正向預期</strong>：初次診療的第一要務，是透過病史與理學檢查排除骨折、馬尾症候群、進行性神經壓迫缺損、感染及惡性腫瘤等「紅旗徵兆（Red Flags）」。一旦確認無嚴重器質性病變，醫師必須以篤定且平靜的語氣告知患者：多數急性肌肉骨骼損傷本質上屬於自限性（Self-limiting），軟組織具備強大的自我修復能力，只要維持適度活動，數日至數週內即可大幅好轉。這項衛教能直接阻斷痛覺災難化思維的萌芽。</p>
+<p><strong>2. 以「相對休息」取代「絕對臥床」</strong>：指引強烈反對常規性開立臥床休息醫囑。正確的原則為<strong>「相對休息（Relative Rest）」</strong>——僅在急性組織損傷的極初期，暫時減少可能引發實質惡化風險的重負荷機械刺激（如避免深蹲負重或劇烈扭轉），同時鼓勵維持日常生活活動、輕度步行與關節非阻力活動。過度制動與石膏固定只會加劇關節攣縮與本體感覺退化。</p>
+<p><strong>3. 藥物處方原則：首選非類固醇抗發炎藥，嚴格限縮鴉片類藥物</strong>：</p>
+<ul>
+<li><strong>第一線口服藥物</strong>：首選非類固醇抗發炎藥（NSAIDs）或乙醯胺酚（Acetaminophen），具備明確止痛抗發炎實證且成癮風險極低<span class="citation-anchor">${ref(3, "Busse 2020 急性肌骨疼痛非鴉片用藥")}</span>。</li>
+<li><strong>第二線短效輔助藥物</strong>：若合併嚴重痛性肌肉痙攣，可短期（3 至 5 天內）輔助使用骨骼肌鬆弛劑（SMRs），但需警惕鎮靜與嗜睡副作用，嚴禁與鎮靜安眠藥併用。</li>
+<li><strong>嚴格限制鴉片類止痛劑（Opioids）</strong>：多項大規模系統性回顧證實，在非癌性急性肌肉骨骼疼痛中，鴉片類藥物的止痛效果並未顯著優於 NSAIDs，反而帶來呼吸抑制、便秘、藥物耐受性、濫用成癮及大幅提高長期失能的風險<span class="citation-anchor">${ref(4, "Busse 2018 鴉片類藥物限制")}</span>。ACOEM 指引明文限制：<strong>僅在常規止痛藥無效、疼痛極度劇烈、且嚴重影響夜間睡眠時，方可「謹慎考慮」處方短效型鴉片類藥物；處方天數嚴格限定於 3 至 5 天之內，每日劑量不得超過 20 至 50 毫克嗎啡當量（MME），且嚴格禁止於工作期間或駕駛時服用</strong><span class="citation-anchor">${ref(2, "Klees 2026 鴉片類藥物限制")}</span>。</li>
+</ul>
+<p><strong>4. 以主動漸進式運動為核心，防範被動儀器依賴</strong>：物理與職能治療介入應以「主動運動處方（Active Exercise）」為絕對核心，包括針對受傷部位的向心／離心肌力強化、神經肌肉穩定訓練與有氧耐力活動。對於熱敷、紅外線、經皮電刺激（TENS）、牽引與被動手法治療，指引明確指出其止痛效果短暫，僅能作為緩解急性劇痛以利主動運動開展的「次要輔助手段」，<strong>絕對禁止單獨或長期提供純被動治療</strong>。臨床應以「4 至 6 次療程」為一個評估區塊，若經 4 至 6 次治療後患者未展現客觀功能指標（如關節活動度、抬舉能力）的實質進展，即應立即停止原處置並重新審查診斷。</p></section>
+<section aria-labelledby="delayed-recovery"><h2 id="delayed-recovery">康復卡關時怎麼辦？認知行為治療、職務調整與個案管理實證</h2>
+<p>當傷病勞工於受傷後 2 至 4 週仍未展現預期之功能康復，且重返職場遭遇重重阻礙時，處置重心必須從單純的組織病理學迅速轉向心理社會與職場人因介入。依據 Kertay 等人（2025）之系統性證據回顧，指引工作小組對各項延遲康復介入策略提出了明確的推薦位階<span class="citation-anchor">${ref(1, "Kertay 2025 指引建議彙整")}</span>：</p>
+<div class="table-wrapper">
+<table class="article-table">
+<caption>表三：ACOEM 工作失能介入指引建議強度與適用族群對照表（整理自 Kertay et al., 2025）</caption>
+<thead>
+<tr>
+<th>介入措施名稱</th>
+<th>指引推薦強度與證據等級</th>
+<th>臨床適用對象與操作要點</th>
+<th>研究證據限制與外推邊界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>工作導向認知行為治療（Work-focused CBT）</strong></td>
+<td><strong>推薦（Recommended）</strong><br/>實證等級 C，低信心度</td>
+<td>適用於停工或有停工風險、合併高疼痛災難化思考、恐懼逃避信念或憂鬱症狀者。由受訓治療師介入，重點在於辨識負向思維、重構復工信念、漸進暴露挑戰。</td>
+<td>實證多來自北歐與西歐社會福利國家體系；多數試驗品質中等；非工作導向的純一般心理諮商對縮短停工天數無顯著效益。</td>
+</tr>
+<tr>
+<td><strong>職場職務調整與人因介入（Job Modification）</strong></td>
+<td><strong>選擇性建議（Selectively Recommended）</strong><br/>實證等級 I，中等信心度</td>
+<td>適用於停工中或有高度停工風險之工作者。推動參與式人因工程（Participatory Ergonomics），提供過渡性輕量職務調整或工站改善。</td>
+<td>介入成效高度仰賴雇主組織文化與勞資信任度；調整應具備過渡漸進性，避免職務降級造成個案自尊受損。</td>
+</tr>
+<tr>
+<td><strong>專案護理／職能個案管理（Case Management）</strong></td>
+<td><strong>選擇性建議（Selectively Recommended）</strong><br/>實證等級 I，中等信心度</td>
+<td>適用於病況複雜、多重共病、復工阻礙繁多且停工超過預期之慢性個案。協調跨專業溝通與轉銜。</td>
+<td>對於單純且預後良好之急性損傷，常規指派個案管理並無顯著額外效益。</td>
+</tr>
+<tr>
+<td><strong>職業重建（Vocational Rehabilitation, VR）</strong></td>
+<td><strong>高度選擇性建議（Highly Selectively Recommended）</strong><br/>實證等級 I，中等信心度</td>
+<td>嚴格限定於<strong>病情慢性且穩定</strong>、且<strong>個人具備強烈重返職場動機</strong>之工作者；或亞急性期評估確認無法返回原職務之個案。</td>
+<td>計畫成本高昂；既有腦傷或焦慮症族群試驗顯示成效分歧；若個案缺乏復工自我效能感與工作意願，職業重建往往難以顯著展現效益。</td>
+</tr>
+</tbody>
+</table>
+</div></section>
+<section aria-labelledby="return-to-work-path"><h2 id="return-to-work-path">從急性期到全工復工：五步驟階梯式行動路徑</h2>
+<p>整合 Klees（2026）與 Kertay（2025）兩大指引之精髓，跨專業臨床醫療與職能復健團隊在面對工作傷病時，應落實具體之階梯式行動路徑<span class="citation-anchor">${ref(1, "Kertay 2025")}，${ref(2, "Klees 2026")}</span>：</p>
+<ol>
+<li><strong>初診防線：分流鑑別與安全設限</strong><br/>
+詳細詢問受傷機轉與既往史，全面篩查神經、血管、感染與骨折之紅旗徵兆。確認無嚴重潛在病變後，立即給予「本質良性、可望於數日至數週內康復」之正向衛教。嚴禁在無指徵下安排常規斷層或核磁共振掃描。</li>
+<li><strong>早期動態平衡：相對休息與一線用藥</strong><br/>
+避免絕對臥床與非必要制動。開立處方建議雇主暫時消除特定實質惡化之作業暴露（如避免蹲跪、限制深屈搬運）；疼痛管理以口服 NSAIDs 或乙醯胺酚為主，嚴禁常規開立鴉片類藥物或昂貴複方。</li>
+<li><strong>主動處方導入：量化目標與 4~6 次療程考核</strong><br/>
+導入針對該傷病之特異性主動有氧與肌力強化運動，減少無效被動電熱療依賴。以 4 至 6 次門診為一個處方區塊，設定量化之次要功能指標（如連續站立時間、抬舉重量）；每組區塊結束時嚴格評估功能進步幅度，無客觀功能增益時應停止無效處置並及時重組計畫。</li>
+<li><strong>延遲康復介入：ACT-UP 盤查與工作導向 CBT</strong><br/>
+若個案於 2 至 4 週內未依預期進展，啟動 ACT-UP 簡短評估，盤查恐懼逃避、災難化思考、憂鬱傾向與職場人際阻礙；及時引進結合工作情境之認知行為治療（Work-focused CBT），重構個案之痛覺信念與復工效能。</li>
+<li><strong>職場協同重返：過渡性職務調整與漸進復工</strong><br/>
+運用 CLRRT 能耐架構，向雇主具體回饋勞工的 Capacity、Risk 與客觀 Restriction，駁斥單純因 Tolerance 不足而全面退工之訴求。偕同人資、職業安全衛生人員推動參與式工站人因改善，自部分工時（如每日 4 小時）與輕量工作切入，穩健過渡至全職務常態工作。</li>
+</ol></section>
+<section aria-labelledby="taiwan-localization"><h2 id="taiwan-localization">實證限制與台灣臨床在地化：善用職能復健服務機構</h2>
+<p>在解讀與應用上述 ACOEM 指引時，必須謹慎考量其研究方法學邊界與跨國制度差異：</p>
+<ul>
+<li><strong>實證等級之保守性</strong>：本指引多數推薦項目（除 CBT 具 C 級實證、鴉片類藥物與非鴉片止痛劑比較具 A/B 級文獻外）在工作失能特定範疇中，多因缺乏大規模高品質隨機對照試驗（RCT），而被評定為<strong>「證據不足（Insufficient Evidence, I）」</strong>，其推薦意見本質上仰賴跨領域專家小組高度共識（100% 同意率）與基礎生理人因學理之推論<span class="citation-anchor">${ref(1, "Kertay 2025 證據評級說明")}</span>。臨床工作者不應過度誇大其具備「絕對定論」之證據位階。</li>
+<li><strong>法規與補償制度在地化</strong>：ACOEM 指引深度植根於美國之勞工保險補償（Workers' Compensation）體系、民事訴訟文化與特定的保險給付環境。台灣的醫療環境與法制架構截然不同——台灣擁有全民健康保險高覆蓋率、相對便捷之基層就醫體系，並已施行《勞工職業災害保險及保護法》。台灣在推動職業傷病勞工職能復健與復工協助時，設有法定的「職能復健服務機構」，提供工作分析、功能性能力評估、工作強化訓練及職務再設計輔導。因此，指引中針對美國商業保險核保摩擦、第三方給付審查延宕之論述，應批判性理解其背景，重點借鏡其「早期功能導向介入」、「主動運動優先」與「CLRRT 醫學限制評估」之科學實質，而非生搬硬套其行政流程。</li>
+</ul></section>
+""",
+    ),
     "VisualRehab_001": copy(
         "視覺復健何時開始？視力治療與生活功能可以同步進行",
         "眼疾治療與視覺功能復健不必先後對立。即使眼底在打針，只要閱讀、用藥或移位已受影響，結合光學輔具與職能治療就能及早守護生活獨立。",
