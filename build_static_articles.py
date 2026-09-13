@@ -1071,6 +1071,7 @@ ARTICLE_SITE_HEADER_HTML = """<header class="site-header">
           <a class="nav-link" href="/">首頁</a>
           <a class="nav-link" href="/projects">開源專案</a>
           <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
+          <a class="nav-link" href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
           <a class="nav-link" href="/contact">聯絡我</a>
           <a class="nav-link" href="/sponsor">贊助我</a>
         </nav>
@@ -1099,6 +1100,7 @@ ARTICLE_SITE_HEADER_HTML = """<header class="site-header">
         <a href="/">首頁</a>
         <a href="/projects">開源專案</a>
         <a href="/blog" aria-current="page">專業文章</a>
+        <a href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
         <a href="/contact">聯絡我</a>
         <a href="/sponsor">贊助我</a>
       </div>
@@ -1119,15 +1121,32 @@ ARTICLE_SITE_FOOTER_HTML = """<footer class="site-footer">
           <a href="/">首頁</a>
           <a href="/projects">專案</a>
           <a href="/blog">專業文章</a>
+          <a href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
           <a href="/contact">聯絡</a>
           <a href="/sponsor">贊助我</a>
         </div>
       </div>
-    </footer>
-    <script src="../../js/animate-icons.js"></script>
-    <script src="../../js/main.js"></script>"""
+    </footer>"""
 
-ARTICLE_BOTTOM_ACTIONS_HTML = """<div class="article-bottom-actions">
+ARTICLE_BOTTOM_ACTIONS_HTML = """<div class="article-trainerhub-cta">
+          <div class="trainerhub-cta-card">
+            <div class="trainerhub-cta-badge">
+              <span class="material-symbols-outlined" aria-hidden="true">neurology</span>
+              <span>居家自主復健實踐</span>
+            </div>
+            <h3 class="trainerhub-cta-title">將臨床復健實證融入日常生活：TrainerHub 居家訓練網</h3>
+            <p class="trainerhub-cta-desc">
+              專為神經動作、視覺注意力與認知功能設計的互動式數位復能工具。免安裝、隨開隨練，讓中風復健、視野訓練與日常認知練習在家也能持續進行。
+            </p>
+            <div class="trainerhub-cta-actions">
+              <a href="https://trainerhub.cc" class="button-primary trainerhub-cta-btn" target="_blank" rel="noopener" title="前往 TrainerHub 居家復健訓練網">
+                前往 TrainerHub 居家訓練網
+                <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="article-bottom-actions">
           <a href="/blog" class="button-secondary">
             <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
             返回所有專業專題列表
@@ -1551,6 +1570,14 @@ def update_article_head_and_styles(target_file: Path, art: dict = None, all_arti
             r'<body\1>\n    ' + ARTICLE_SITE_HEADER_HTML + '\n    <main class="page-main article-page-layout">\n      <div class="container">',
             content
         )
+    else:
+        # Synchronize header to include TrainerHub link
+        content = re.sub(
+            r'<header class="site-header">.*?</header>',
+            ARTICLE_SITE_HEADER_HTML,
+            content,
+            flags=re.DOTALL
+        )
 
     # 7. Top Bar: Back button ("返回上一頁") + Breadcrumb navigation
     title = ''
@@ -1594,12 +1621,18 @@ def update_article_head_and_styles(target_file: Path, art: dict = None, all_arti
             flags=re.DOTALL
         )
 
-    # 8. Bottom actions: Back to all articles button
-    if '<div class="article-bottom-actions">' in content:
-        # If it was placed inside </nav>, move it outside
+    # 8. Bottom actions: TrainerHub CTA + Back to all articles button
+    if '<div class="article-trainerhub-cta">' in content:
         content = re.sub(
-            r'<div class="article-bottom-actions">.*?</div>\s*(</nav>)',
-            r'\1\n        ' + ARTICLE_BOTTOM_ACTIONS_HTML,
+            r'<div class="article-trainerhub-cta">.*?</div>\s*<div class="article-bottom-actions">.*?</div>',
+            ARTICLE_BOTTOM_ACTIONS_HTML,
+            content,
+            flags=re.DOTALL
+        )
+    elif '<div class="article-bottom-actions">' in content:
+        content = re.sub(
+            r'<div class="article-bottom-actions">.*?</div>',
+            ARTICLE_BOTTOM_ACTIONS_HTML,
             content,
             flags=re.DOTALL
         )
@@ -1617,12 +1650,23 @@ def update_article_head_and_styles(target_file: Path, art: dict = None, all_arti
             r'\1      </div>\n    </main>\n    ' + ARTICLE_SITE_FOOTER_HTML + '\n',
             content
         )
-    elif 'main.js' not in content:
+    else:
         content = re.sub(
-            r'(?=</body>)',
-            r'    <script src="../../js/animate-icons.js"></script>\n    <script src="../../js/main.js"></script>\n  ',
-            content
+            r'<footer class="site-footer">.*?</footer>',
+            ARTICLE_SITE_FOOTER_HTML,
+            content,
+            flags=re.DOTALL
         )
+    # Clean all script tags for animate-icons and main.js, then add single clean pair
+    bs_clean = BeautifulSoup(content, 'html.parser')
+    for sc in bs_clean.find_all('script', src=lambda s: s and ('animate-icons' in s or 'main.js' in s)):
+        sc.decompose()
+    content = str(bs_clean)
+    content = re.sub(
+        r'\s*</body>',
+        r'\n    <script src="../../js/animate-icons.js"></script>\n    <script src="../../js/main.js"></script>\n  </body>',
+        content
+    )
 
     if content != orig_content:
         target_file.write_text(content, encoding='utf-8')
@@ -2355,6 +2399,7 @@ def build_article_html(art, all_articles):
           <a class="nav-link" href="/">首頁</a>
           <a class="nav-link" href="/projects">開源專案</a>
           <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
+          <a class="nav-link" href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
           <a class="nav-link" href="/contact">聯絡我</a>
           <a class="nav-link" href="/sponsor">贊助我</a>
         </nav>
@@ -2383,6 +2428,7 @@ def build_article_html(art, all_articles):
         <a href="/">首頁</a>
         <a href="/projects">開源專案</a>
         <a href="/blog" aria-current="page">專業文章</a>
+        <a href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
         <a href="/contact">聯絡我</a>
         <a href="/sponsor">贊助我</a>
       </div>
@@ -2471,7 +2517,26 @@ def build_article_html(art, all_articles):
             {next_html}
           </div>
 
-          <!-- Back to Blog Navigation -->
+          <!-- TrainerHub CTA & Back to Blog Navigation -->
+          <div class="article-trainerhub-cta">
+            <div class="trainerhub-cta-card">
+              <div class="trainerhub-cta-badge">
+                <span class="material-symbols-outlined" aria-hidden="true">neurology</span>
+                <span>居家自主復健實踐</span>
+              </div>
+              <h3 class="trainerhub-cta-title">將臨床復健實證融入日常生活：TrainerHub 居家訓練網</h3>
+              <p class="trainerhub-cta-desc">
+                專為神經動作、視覺注意力與認知功能設計的互動式數位復能工具。免安裝、隨開隨練，讓中風復健、視野訓練與日常認知練習在家也能持續進行。
+              </p>
+              <div class="trainerhub-cta-actions">
+                <a href="https://trainerhub.cc" class="button-primary trainerhub-cta-btn" target="_blank" rel="noopener" title="前往 TrainerHub 居家復健訓練網">
+                  前往 TrainerHub 居家訓練網
+                  <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
           <div class="article-bottom-actions">
             <a href="/blog" class="button-secondary">
               <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
@@ -2497,6 +2562,7 @@ def build_article_html(art, all_articles):
           <a href="/">首頁</a>
           <a href="/projects">專案</a>
           <a href="/blog">專業文章</a>
+          <a href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
           <a href="/contact">聯絡</a>
           <a href="/sponsor">贊助我</a>
         </div>
@@ -2706,7 +2772,7 @@ def validate_generated_site(all_articles):
                 if not target_path.is_file():
                     raise RuntimeError(f"Broken relative link in {article_file.name}: {href} (target {target_path} not found)")
 
-    print('Validation passed: 30 articles have CSS, JSON-LD, navbar, back-link, verified internal links, and zero broken links/conflict files.')
+    print(f'Validation passed: {len(additional_articles)} articles have CSS, JSON-LD, navbar, back-link, verified internal links, and zero broken links/conflict files.')
 
 def main():
     print('1. Updating CSS tokens and article classes in style.css...')

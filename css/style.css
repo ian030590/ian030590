@@ -3878,3 +3878,231 @@ a.contact-channel:hover {
 .ot-blog-article .article-references li {
   font-weight: 500;
 }
+
+/* ==========================================================================
+   TrainerHub Feature & SEO Components
+   ========================================================================== */
+
+/* Homepage Platform Highlight Section */
+.section-platform-highlight {
+  padding: 64px 0;
+  background: var(--surface-soft);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.platform-highlight-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.platform-highlight-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 8px 0 12px;
+  color: var(--ink);
+}
+
+.platform-highlight-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 800px;
+}
+
+.platform-highlight-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.platform-feature-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.platform-feature-item .material-symbols-outlined {
+  font-size: 28px;
+  color: var(--primary);
+}
+
+.platform-feature-item strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.platform-feature-item span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.platform-highlight-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Projects Page Featured Banner */
+.featured-platform-banner {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow);
+}
+
+.featured-platform-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: var(--accent-soft);
+  color: var(--primary-strong);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.featured-platform-body h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.featured-platform-body p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.featured-platform-body .tags {
+  margin-bottom: 22px;
+}
+
+/* Blog Sidebar Feature Platform Widget */
+.feature-platform-widget {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+.feature-platform-widget .widget-header {
+  margin-bottom: 12px;
+}
+
+.feature-platform-widget .widget-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.feature-platform-widget .widget-title .material-symbols-outlined {
+  color: var(--primary);
+}
+
+.feature-platform-widget .widget-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.feature-platform-widget .widget-button {
+  width: 100%;
+  text-decoration: none;
+}
+
+/* Article Contextual TrainerHub CTA Banner */
+.article-trainerhub-cta {
+  margin: 40px 0 24px;
+}
+
+.trainerhub-cta-card {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 26px 28px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.trainerhub-cta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 4px 10px;
+  background: var(--accent-soft);
+  color: var(--primary-strong);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.trainerhub-cta-badge .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.trainerhub-cta-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.trainerhub-cta-desc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+  font-weight: 500;
+}
+
+.trainerhub-cta-actions {
+  margin-top: 6px;
+}
+
+.trainerhub-cta-btn {
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .platform-highlight-card {
+    padding: 24px 18px;
+  }
+  .featured-platform-banner {
+    padding: 22px 16px;
+  }
+  .trainerhub-cta-card {
+    padding: 20px 18px;
+  }
+}
+
