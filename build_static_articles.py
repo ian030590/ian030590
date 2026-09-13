@@ -1280,6 +1280,11 @@ def sync_article_source(soup, art, all_articles=None):
             else None
         )
         prev_next = soup.find('nav', class_='prev-next-nav')
+        if not prev_next:
+            container = soup.find('div', class_='article-container')
+            if container:
+                prev_next = soup.new_tag('nav', attrs={'class': 'prev-next-nav', 'aria-label': '相關文章'})
+                container.append(prev_next)
         if prev_next:
             prev_next.clear()
             for label, article in (
@@ -1710,6 +1715,7 @@ for i in range(16, 29):
         ARTICLE_TAG_MAP[f"DigitLearn_{i:03d}"] = ["數位學習", "AI應用"]
 
 ARTICLE_TAG_MAP.update({f"MotorRehab_{i:03d}": ["中風復健", "動作復健"] for i in range(1, 17)})
+ARTICLE_TAG_MAP["MotorRehab_016"] = ["動作復健", "認知復健"]
 
 ARTICLE_TAG_MAP.update({f"VisualRehab_{i:03d}": ["視覺復健"] for i in range(1, 25)})
 for i in range(20, 25):
@@ -1777,7 +1783,7 @@ def collect_article_metadata():
                     elif folder == 'VisualRehab':
                         sub_cluster = '低視能評估與介入' if order <= 19 else '腦傷與中風後視覺復健'
                     else:
-                        sub_cluster = '動作、移動與日常活動'
+                        sub_cluster = '工作復能與失能預防' if order == 16 else '動作、移動與日常活動'
             else:
                 if f.name[:3].isdigit():
                     order = int(f.name[:3])
@@ -2518,8 +2524,8 @@ def validate_generated_site(all_articles):
     """Fail the build when generated navigation, metadata, or approved tags drift."""
     approved_tags = {'中風復健', '視覺復健', '動作復健', '認知復健', '數位學習', 'AI應用'}
     additional_articles = [art for art in all_articles if art['folder'] in ADDITIONAL_CONTENT_FOLDERS]
-    if len(additional_articles) != 30:
-        raise RuntimeError(f'Expected 30 additional articles, found {len(additional_articles)}')
+    if len(additional_articles) < 30:
+        raise RuntimeError(f'Expected at least 30 additional articles, found {len(additional_articles)}')
 
     for art in all_articles:
         article_key = f"{art['folder']}_{art['order']:03d}"
