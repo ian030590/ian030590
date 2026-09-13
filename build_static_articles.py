@@ -430,7 +430,7 @@ ARTICLE_CSS = """
 }
 
 .article-container {
-  max-width: 880px;
+  max-width: 100dvw;
   margin: 0 auto;
   background: var(--surface);
   border: 1px solid var(--line);
@@ -1487,6 +1487,13 @@ def update_article_head_and_styles(target_file: Path, art: dict = None, all_arti
     content = re.sub(
         r'\.ot-blog-article\s+\.breadcrumb-trail,\s*\.ot-blog-article\s+\.prev-next-nav\s*\{\s*display:\s*none;\s*\}',
         '.ot-blog-article .breadcrumb-trail, .ot-blog-article .prev-next-nav { display: flex; }',
+        content
+    )
+
+    # 3b. Update article-container max-width to 100dvw
+    content = re.sub(
+        r'(\.article-container\s*\{[^}]*?max-width:\s*)880px',
+        r'\g<1>100dvw',
         content
     )
 

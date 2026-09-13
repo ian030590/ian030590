@@ -2220,7 +2220,7 @@ button {
 }
 
 .article-container {
-  max-width: 880px;
+  max-width: 100dvw;
   margin: 0 auto;
   background: var(--surface);
   border: 1px solid var(--line);
