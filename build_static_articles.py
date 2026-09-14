@@ -1071,7 +1071,6 @@ ARTICLE_SITE_HEADER_HTML = """<header class="site-header">
           <a class="nav-link" href="/">首頁</a>
           <a class="nav-link" href="/projects">開源專案</a>
           <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
-          <a class="nav-link" href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
           <a class="nav-link" href="/contact">聯絡我</a>
           <a class="nav-link" href="/sponsor">贊助我</a>
         </nav>
@@ -1100,7 +1099,6 @@ ARTICLE_SITE_HEADER_HTML = """<header class="site-header">
         <a href="/">首頁</a>
         <a href="/projects">開源專案</a>
         <a href="/blog" aria-current="page">專業文章</a>
-        <a href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
         <a href="/contact">聯絡我</a>
         <a href="/sponsor">贊助我</a>
       </div>
@@ -2399,7 +2397,6 @@ def build_article_html(art, all_articles):
           <a class="nav-link" href="/">首頁</a>
           <a class="nav-link" href="/projects">開源專案</a>
           <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
-          <a class="nav-link" href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
           <a class="nav-link" href="/contact">聯絡我</a>
           <a class="nav-link" href="/sponsor">贊助我</a>
         </nav>
@@ -2428,7 +2425,6 @@ def build_article_html(art, all_articles):
         <a href="/">首頁</a>
         <a href="/projects">開源專案</a>
         <a href="/blog" aria-current="page">專業文章</a>
-        <a href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
         <a href="/contact">聯絡我</a>
         <a href="/sponsor">贊助我</a>
       </div>

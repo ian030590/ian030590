@@ -4087,11 +4087,81 @@ a.contact-channel:hover {
 }
 
 .trainerhub-cta-actions {
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
-.trainerhub-cta-btn {
-  text-decoration: none;
+/* ==========================================================================
+   TrainerHub CTA & Button Accessibility Enhancements
+   WCAG 2.1 AAA / AA Compliant Contrast & Non-Text Contrast
+   ========================================================================== */
+.button-primary,
+.trainerhub-cta-btn,
+.ot-blog-article a.button-primary,
+.ot-blog-article a.trainerhub-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--blue-700, #064c86);
+  color: #ffffff !important;
+  border: 1.5px solid transparent;
+  padding: 11px 22px;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: 15.5px;
+  line-height: 1.4;
+  min-height: 46px;
+  text-decoration: none !important;
+  box-shadow: 0 2px 6px rgba(0, 56, 100, 0.2);
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.button-primary:hover,
+.trainerhub-cta-btn:hover,
+.ot-blog-article a.button-primary:hover,
+.ot-blog-article a.trainerhub-cta-btn:hover {
+  background: var(--blue-900, #002646);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 38, 70, 0.35);
+}
+
+.button-primary:focus-visible,
+.trainerhub-cta-btn:focus-visible,
+.ot-blog-article a.button-primary:focus-visible,
+.ot-blog-article a.trainerhub-cta-btn:focus-visible {
+  outline: 3px solid var(--blue-400, #529deb) !important;
+  outline-offset: 3px !important;
+}
+
+.button-primary .material-symbols-outlined,
+.trainerhub-cta-btn .material-symbols-outlined,
+.ot-blog-article a.button-primary .material-symbols-outlined,
+.ot-blog-article a.trainerhub-cta-btn .material-symbols-outlined {
+  color: #ffffff !important;
+  font-size: 18px;
+}
+
+/* Dark Mode High-Contrast Accessibility Overrides (WCAG AAA >= 7:1) */
+:root[data-theme="dark"] .button-primary,
+:root[data-theme="dark"] .trainerhub-cta-btn,
+:root[data-theme="dark"] .ot-blog-article a.button-primary,
+:root[data-theme="dark"] .ot-blog-article a.trainerhub-cta-btn {
+  background: var(--blue-700, #064c86);
+  color: #ffffff !important;
+  border: 1.5px solid var(--blue-300, #8ebff6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme="dark"] .button-primary:hover,
+:root[data-theme="dark"] .trainerhub-cta-btn:hover,
+:root[data-theme="dark"] .ot-blog-article a.button-primary:hover,
+:root[data-theme="dark"] .ot-blog-article a.trainerhub-cta-btn:hover {
+  background: var(--blue-800, #003864);
+  color: #ffffff !important;
+  border-color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
 }
 
 @media (max-width: 640px) {
