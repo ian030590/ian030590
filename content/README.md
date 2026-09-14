@@ -303,17 +303,22 @@ ARTICLE_TAG_MAP = {
 - **文獻收錄**：在 `citation` 陣列中列出所有參考文獻文字。
 - **麵包屑導航**：在 `BreadcrumbList` 節點中建立完整的層級路徑。
 
+### 4. 實際撰寫日期發布規範 (Real Authorship Date Requirement)
+- **嚴格按真實撰寫日期標註**：所有新發布、重構或大幅修訂之文章，HTML 中繼標籤（`article:published_time`、`article:modified_time`）、JSON-LD 結構化資料（`datePublished`、`dateModified`）與內文標題欄 `<time datetime="...">` 必須填寫**文章實際撰寫完成當日的真實日期**（格式統一為 `YYYY-MM-DDT08:00:00+08:00`）。
+- **嚴禁使用過期模板日期**：禁止拷貝舊批次模板的預設日期（如 `2026-09-12`）。全站部落格（`blog.html` 與動態文章目錄）係依 `datePublished` 降冪排序自動判定第一篇（Index 0）作為「最新專題」推薦卡片；若未更新為實際撰寫日期，會導致最新完成的文章無法順利輪替成為「最新專題」。
+
 ---
 
 ## 七、 撰寫與發布標準作業程序 (SOP)
 
-每當新增或修改文章時，請遵循以下 5 步驟標準流程：
+每當新增或修改文章時，請遵循以下 6 步驟標準流程：
 
 1. **查閱規範**：每次撰寫前必先閱讀本規範 `content/README.md`（包含標籤、命名與專有名詞對照表）。
 2. **原文核對與撰寫**：先閱讀 `content/References/` 中適用的原文；依本文件的寫作原則撰寫。已登錄的文章更新 `article_editorial_copy.py` 對應編輯稿，其餘文章在 `content/` 對應子目錄維護符合命名規則的 HTML。
 3. **圖床與 DOI 查核**：確認首圖為 Unsplash 高清圖，且參考文獻內所有 DOI 均經即時驗證為可訪問有效連結。
-4. **登記標籤**：在 `build_static_articles.py` 的 `ARTICLE_TAG_MAP` 中新增該篇之標準標籤（限 6 大合法標籤）。
-5. **執行靜態建置與斷鏈檢驗**：
+4. **填寫真實發布日期**：確認 HTML meta、JSON-LD 與內文 `<time>` 均採用實際撰寫當日之真實日期（如 `2026-09-14T08:00:00+08:00`），確保站點自動將其判定為「最新專題」。
+5. **登記標籤**：在 `build_static_articles.py` 的 `ARTICLE_TAG_MAP` 中新增該篇之標準標籤（限 6 大合法標籤）。
+6. **執行靜態建置與斷鏈檢驗**：
    ```powershell
    python build_static_articles.py
    ```

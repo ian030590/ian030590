@@ -35,6 +35,9 @@
    - Every internal link in `blog.html`, `js/articles-data.js`, `sitemap.xml`, and within each article (breadcrumbs, prev/next navigation, cluster links) MUST point to an existing, valid static file on disk (0 tolerance for 404 broken links).
    - Filenames must NEVER contain cloud-sync conflict suffixes (e.g., `[conflicted]`, `[conflicted 2]`) or spaces.
    - The build script `build_static_articles.py` automatically validates all generated links and cleans/fails on broken links or conflict files.
+9. **Publish Date & Chronological Sorting（實際撰寫日期發布）**:
+   - All newly created, added, or revised articles MUST use the real, actual date of authorship as their publish date (`datePublished`, `article:published_time`, `dateModified`, `article:modified_time`, formatted as `YYYY-MM-DDT08:00:00+08:00`).
+   - NEVER reuse or copy obsolete placeholder dates from batch templates (e.g., `2026-09-12`). The blog and home feed dynamically sort articles descending by publish date to identify and feature the latest article as "最新專題" (Index 0). Accurately dating new articles is mandatory.
 
 ## 文章寫作原則：人性化科普與忠實呈現研究
 
@@ -46,6 +49,7 @@
 - **忠實還原**：保留研究族群、介入與對照條件、追蹤時間、測量結果及重要限制。區分指引建議、原始試驗、回顧與作者應用；透過指引得知的研究，須標明為指引整理，不假裝已讀該試驗全文。
 - **避免誇大**：不使用「保證恢復」「全面有效」「突破性治癒」等超出證據的用詞；保留「可能」「可考慮」「證據有限」等原意。相關性不寫成因果、無顯著差異不寫成完全等效、測驗進步不直接寫成生活功能恢復。
 - **可追溯與在地化**：引用應緊鄰支持的主張，頁碼、章節與文獻編號須對應正確來源；不把其他國家的照護制度直接當成台灣規範。假設情境須明確標示，不冒充真實個案或研究結果。
+- **真實發布日期**：文章 metadata（HTML meta 標籤、JSON-LD 與內文 `<time>`）必須按實際撰寫完成之當日日期發布，嚴禁沿用舊模板日期導致「最新專題」無法正常輪替更新。
 - **維護與驗證**：遵循 [完整文章規範](content/README.md)。若文章已登錄於 `article_editorial_copy.py` 的 `HUMANIZED_ARTICLE_COPY`，須修改對應編輯稿，避免只改 HTML 而被建置覆蓋。文章更新後執行 `python build_static_articles.py`，確認內文、標題、摘要、OG／Twitter、JSON-LD 與導覽一致。
 
 ## 學術與科普寫作邏輯框架（杜絕突兀感、鬆散感與語感薄弱）

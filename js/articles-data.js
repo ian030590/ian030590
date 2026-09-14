@@ -521,11 +521,11 @@ window.__STATIC_ARTICLES__ = [
     "id": "VisualRehab_008",
     "title": "偏心注視與穩視策略成效如何？系統性文獻回顧與實證界限",
     "lead": "中心暗點破壞中心凹注視，大腦需依賴偏心注視（EV）與穩視策略（SES）代償。系統性文獻回顧納入 34 篇研究指出：訓練對近距離視力、閱讀速度與自理日常活動具中等品質實證改善，且與放大輔具並用更能長期維持成效；但在遠距離視力與生活品質上實證有限，臨床處方應謹慎設定預期，切勿誇大療效。",
-    "imageUrl": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1200&q=80",
+    "imageUrl": "https://images.unsplash.com/photo-1758656321519-02fb5f48dc7e?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "視覺復健"
     ],
-    "dateString": "2026-09-12",
+    "dateString": "2026-09-14",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualRehab/008_視覺復健_偏心注視與穩視策略實證回顧.html",
     "sourceName": "視覺復健",
