@@ -616,14 +616,14 @@ window.__STATIC_ARTICLES__ = [
   },
   {
     "id": "VisualRehab_022",
-    "title": "視野少了一半怎麼辦？同向偏盲的代償掃視與日常安全",
-    "lead": "視交叉後視放射線受損抹去雙眼同一側視野。同向偏盲注意力網絡完整；代償性掃視訓練（Compensatory Saccadic Training）教導大腦主動向盲側轉頭搜尋，重建移動安全。",
+    "title": "視野少了一半怎麼辦？中風後視野缺損的實證介入、代償掃視技巧與生活適應",
+    "lead": "中風後約兩成至五成患者面臨視野缺損。Cochrane 系統性回顧指出，光學稜鏡與恢復性光刺激對功能恢復證據有限且可能誘發頭痛；經實證支持的「代償性掃視訓練」能顯著提升視覺生活品質，配合閱讀定位線與動態轉頭防護，重獲日常安全與自主。",
     "imageUrl": "https://images.unsplash.com/photo-1517948430535-1e2469d314fe?auto=format&fit=crop&w=1200&q=80",
     "tags": [
       "中風復健",
       "視覺復健"
     ],
-    "dateString": "2026-09-12",
+    "dateString": "2026-09-15",
     "readTime": "約 5 分鐘閱讀",
     "link": "/content/VisualRehab/022_視覺復健_中風後視野缺損.html",
     "sourceName": "視覺復健",
