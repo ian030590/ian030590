@@ -1,0 +1,38 @@
+#!/bin/sh
+# Pre-push hook: Runs static build and YAEO SEO/AEO audit before pushing
+
+echo "========================================================"
+echo "🚀 [Git Hook] 正在執行 push 前自動檢查流程..."
+echo "========================================================"
+
+# 1. 執行文章與網站靜態建置與校驗
+echo "📦 步驟 1/2：執行 build_static_articles.py 建置與連結校驗..."
+if command -v python3 >/dev/null 2>&1; then
+  python3 build_static_articles.py
+elif command -v python >/dev/null 2>&1; then
+  python build_static_articles.py
+elif command -v py >/dev/null 2>&1; then
+  py build_static_articles.py
+else
+  echo "⚠️ 找不到 Python 環境，略過 build_static_articles.py"
+fi
+
+BUILD_STATUS=$?
+if [ $BUILD_STATUS -ne 0 ]; then
+  echo "❌ 靜態建置校驗失敗，已中止 git push！請檢查文章格式與內部連結後重試。" >&2
+  exit 1
+fi
+
+# 2. 執行 YAEO SEO / AEO 審計
+echo "🔍 步驟 2/2：執行 YAEO SEO/AEO 檢核..."
+node ./scripts/seo-check.mjs --dir . --site https://ian030590.trainerhub.cc --fail-on error
+SEO_STATUS=$?
+if [ $SEO_STATUS -ne 0 ]; then
+  echo "❌ YAEO SEO 檢核發現嚴重錯誤 (Error)，已中止 git push！請修復後再推送到遠端。" >&2
+  exit 1
+fi
+
+echo "========================================================"
+echo "✅ 所有檢查均順利通過（0 Error）！繼續推送至遠端儲存庫..."
+echo "========================================================"
+exit 0

@@ -1,0 +1,23 @@
+# 蔡泓恩 | 職能治療師 (Ian Tsai, OT)
+
+> 蔡泓恩職能治療師的官方個人網站與臨床實證知識庫。專注於神經復健、視覺復健評估、認知知覺訓練、動作復健與開源數位醫療科技工具開發。
+
+## 核心領域與導覽
+
+- [首頁](https://ian030590.trainerhub.cc/): 蔡泓恩個人簡介、核心專業與研究方向
+- [專業文章與專題](https://ian030590.trainerhub.cc/blog): 涵蓋中風復健、視覺復健、動作復健、認知復健、數位學習與 AI 應用的臨床證據與指引解讀
+- [開源專案與工具](https://ian030590.trainerhub.cc/projects): 結合職能治療臨床需求與現代軟體架構的開源專案
+- [聯絡我](https://ian030590.trainerhub.cc/contact): 臨床交流、學術演講與開源合作洽詢
+- [贊助我](https://ian030590.trainerhub.cc/sponsor): 支持獨立臨床研究與開源工具開發
+
+## 臨床實證專題文章庫
+
+- [視覺復健專題](https://ian030590.trainerhub.cc/blog?tag=%E8%A6%96%E8%A6%BA%E5%BE%A9%E5%81%A5): 低視能評估、偏心注視（EV）、穩視策略（SES）、微視野、光學輔具適配與腦傷後視覺障礙代償
+- [中風與動作復健專題](https://ian030590.trainerhub.cc/blog?tag=%E4%B8%AD%E9%A2%A8%E5%BE%A9%E5%81%A5): 急性期早期動員、偏癱肩痛半脫位預防、跌倒預防、上肢動作任務導向訓練與吞嚥營養
+- [認知復健專題](https://ian030590.trainerhub.cc/blog?tag=%E8%AA%8D%E7%9F%A5%E5%BE%A9%E5%81%A5): 認知知覺評估、單側空間忽略（USN）、失語症支持性溝通與中風後心理健康
+- [數位學習與 AI 應用專題](https://ian030590.trainerhub.cc/blog?tag=AI%E6%87%89%E7%94%A8): 醫療 AI 評測規範（TRIPOD-LLM / NIST AI RMF）、心智模型與臨床軟體架構思維
+
+## 核心開源專案
+
+- [TrainerHub 居家復健訓練網](https://trainerhub.cc): 結合職能治療臨床指引的 PWA 跨裝置居家復能平台，具備嚴格沙盒隔離架構
+- [GitHub 原始碼庫](https://github.com/ian030590): 視覺復健評估工具、實驗範式與醫療自動化腳本

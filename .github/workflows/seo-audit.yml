@@ -1,0 +1,38 @@
+name: YAEO SEO & Build Audit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install beautifulsoup4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run static build and link integrity check
+        run: |
+          python build_static_articles.py
+
+      - name: Run YAEO SEO/AEO audit
+        run: |
+          node ./scripts/seo-check.mjs --dir . --site https://ian030590.trainerhub.cc --fail-on error

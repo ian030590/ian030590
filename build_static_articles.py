@@ -2344,7 +2344,7 @@ def build_article_html(art, all_articles):
     ])
 
     full_html = f"""<!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -2594,6 +2594,47 @@ def generate_sitemap(all_articles):
     SITEMAP_FILE.write_text(sitemap_content, encoding='utf-8')
     print(f'Sitemap written to {SITEMAP_FILE} ({len(all_articles) + 5} URLs)')
 
+def generate_rss(all_articles):
+    sorted_articles = sorted(all_articles, key=lambda art: art['date_published'], reverse=True)
+    rss_items = []
+    for art in sorted_articles:
+        folder = art['folder']
+        filename = art['new_filename']
+        encoded_url = f"{SITE_BASE_URL}/content/{folder}/{quote(filename)}"
+        try:
+            dt = datetime.fromisoformat(art['date_published'])
+            pub_date_str = dt.strftime('%a, %d %b %Y %H:%M:%S +0800')
+        except Exception:
+            pub_date_str = art['date_published']
+        title_esc = escape(art['title'])
+        summary_esc = escape(art['summary'])
+        categories = '\n'.join([f'        <category>{escape(t)}</category>' for t in art['tags']])
+        rss_items.append(f"""    <item>
+      <title>{title_esc}</title>
+      <link>{encoded_url}</link>
+      <guid isPermaLink="true">{encoded_url}</guid>
+      <pubDate>{pub_date_str}</pubDate>
+      <description>{summary_esc}</description>
+      <author>rainbowh9490@gmail.com (蔡泓恩 職能治療師)</author>
+{categories}
+    </item>""")
+
+    rss_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>蔡泓恩 | 職能治療師 - 專業文章與專題</title>
+    <link>{SITE_BASE_URL}/blog</link>
+    <description>蔡泓恩職能治療師的個人專業知識庫與專題文章，專注於中風神經復健、視覺復健、認知與動作復健、AI與數位醫療應用。</description>
+    <language>zh-TW</language>
+    <atom:link href="{SITE_BASE_URL}/rss.xml" rel="self" type="application/rss+xml" />
+{chr(10).join(rss_items)}
+  </channel>
+</rss>
+"""
+    rss_file = BASE_DIR / 'rss.xml'
+    rss_file.write_text(rss_content, encoding='utf-8')
+    print(f'RSS feed written to {rss_file} ({len(sorted_articles)} items)')
+
 def generate_articles_data(all_articles):
     catalog = []
     for art in all_articles:
@@ -2800,6 +2841,9 @@ def main():
     
     print('6. Generating sitemap.xml...')
     generate_sitemap(all_articles)
+
+    print('6.5. Generating rss.xml...')
+    generate_rss(all_articles)
 
     print('7. Writing static article links into blog.html...')
     generate_blog_static_links(all_articles)
