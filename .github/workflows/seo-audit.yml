@@ -22,7 +22,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install beautifulsoup4
+          pip install -r requirements.txt
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
