@@ -571,12 +571,12 @@ HUMANIZED_ARTICLE_COPY = {
 <section aria-labelledby="pathology-matching"><h2 id="pathology-matching">三大眼科病變的視野特徵與光學代償</h2>
 <p>低視能處方絕不能單看視力表缺幾行就補幾倍鏡片，必須將病變視野特徵納入考量<span class="citation-anchor">${ref(4)}</span>：</p>
 <ul>
-<li><strong>年齡相關性黃斑部病變（AMD）</strong>：破壞黃斑凹形成中心暗點（Central Scotoma），周邊視野完好。處方切忌使用過小視場的鏡片以免文字被盲區吞噬；需結合微視野偏心注視（PRL），優先採用大視場距離放大（高加光眼鏡）或電子擴視機跨越暗點。<span class="citation-anchor">${ref(1, "Ch 4")}</span></li>
-<li><strong>青光眼（Glaucoma）</strong>：周邊視野向心性狹窄形成管狀視野，中心視力初期尚存。<strong>禁止過度放大</strong>，過大字體會超出狹窄管狀視野；應專注於照明對比增強與環境搜尋掃視訓練。<span class="citation-anchor">${ref(1, "pp 55-58")}</span></li>
+<li><strong>年齡相關性黃斑部病變（AMD）</strong>：破壞黃斑凹形成中心暗點（Central Scotoma），周邊視野完好。處方建議避免使用過小視場的鏡片以免文字被盲區吞噬；需結合微視野偏心注視（PRL），優先採用大視場距離放大（高加光眼鏡）或電子擴視機跨越暗點。<span class="citation-anchor">${ref(1, "Ch 4")}</span></li>
+<li><strong>青光眼（Glaucoma）</strong>：周邊視野向心性狹窄形成管狀視野，中心視力初期尚存。<strong>建議避免過度放大</strong>，過大字體會超出狹窄管狀視野；應專注於照明對比增強與環境搜尋掃視訓練。<span class="citation-anchor">${ref(1, "pp 55-58")}</span></li>
 <li><strong>糖尿病視網膜病變（DR）</strong>：散在性暗點伴隨嚴重對比敏感度受損。<strong>對比增強優先於單純倍率放大</strong>；處方高照度無眩光側光源，或使用電子擴視機切換為黃底黑字、黑底白字高對比模式並搭配醫療濾光眼鏡。<span class="citation-anchor">${ref(1, "Ch 4")}</span></li>
 </ul></section>
 <section aria-labelledby="ot-decision"><h2 id="ot-decision">職能治療師的臨床處方與試用決策</h2>
-<p>臨床評估應遵循三大步驟：先測臨界字級（CPS）建立 2 到 3 倍以上視力儲備量（Acuity Reserve）；優先從尺寸放大與距離放大起步；評估手部震顫與關節耐力，若震顫明顯則禁用高倍率手持鏡，轉向固定焦點立式鏡或電子擴視機。精準媒合光學物理與生活任務，才能助個案重獲自主尊嚴。<span class="citation-anchor">${ref(1, "Ch 15")}</span></p></section>
+<p>臨床評估應遵循三大步驟：先測臨界字級（CPS）建立 2 到 3 倍以上視力儲備量（Acuity Reserve）；優先從尺寸放大與距離放大起步；評估手部震顫與關節耐力，若震顫明顯則建議避免使用高倍率手持鏡，優先考慮固定焦點立式鏡或電子擴視機。精準媒合光學物理與生活任務，才能助個案重獲自主尊嚴。<span class="citation-anchor">${ref(1, "Ch 15")}</span></p></section>
 """,
     ),
     "VisualRehab_003": copy(

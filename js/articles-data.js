@@ -638,7 +638,7 @@ window.__STATIC_ARTICLES__ = [
     "id": "VisualRehab_023",
     "title": "為什麼單純放大常看不清？四大光學放大原理與眼科病變之視覺代償",
     "lead": "放大不只是把字體變大。低視能復健依賴四大放大途徑：尺寸放大、距離放大、透鏡角度放大與投影放大。搞懂屈光度、焦距與視場（Field of View）的物理消長，並結合黃斑部病變、青光眼與糖尿病視網膜病變的視野特徵，才能找出最省力、不疲勞的光學代償方案。",
-    "imageUrl": "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&w=1200&q=80",
+    "imageUrl": "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&w=1200&h=800&q=80",
     "tags": [
       "視覺復健"
     ],
