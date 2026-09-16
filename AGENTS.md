@@ -13,9 +13,11 @@
 2. **File Naming**:
    - Must follow: `{3位數序號}_{核心簡稱}_{完整主標題或關鍵字描述}.html`.
    - No colons, slashes, quotation marks, or spaces in filenames.
-3. **Hero Images**:
+3. **Hero Images & Visual Formatting**:
    - NEVER use `files.catbox.moe` (blocked by hospital/academic networks).
-   - Use high-quality, verified Unsplash CDN URLs.
+   - Use high-quality, verified Unsplash CDN URLs with explicit landscape dimensions & crop parameters (`&fit=crop&w=1200&h=800&q=80` or `&w=1200&h=675`).
+   - Always use standard classes `<figure class="article-featured-figure">`, `<img ... class="article-featured-img" />`, and `<figcaption class="article-figcaption">`. Never write bare, unclassed, or hardcoded-width `<img>` tags that burst container boundaries.
+   - Featured cards on `blog.html` must have image heights decoupled via CSS so that images are properly cropped and never stretch the card vertically.
 4. **Citations & DOIs**:
    - Every scientific reference must have a working, verified, clickable official DOI (`<a href="https://doi.org/..." target="_blank" rel="noopener noreferrer">`).
    - Zero tolerance for fake DOIs, outdated draft suffixes (e.g. pub4 before publication), or double-protocol typos (`https://doi.org/https://`).

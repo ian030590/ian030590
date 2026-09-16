@@ -199,11 +199,14 @@ ARTICLE_TAG_MAP = {
 
 ### 3. 首圖與圖說 (Featured Figure & Figcaption)
 > [!CAUTION]
-> **圖床禁令**：**嚴格禁止使用 `files.catbox.moe`**。該網域會觸發院內網路（NTUH/TANet）防火牆之 TCP Reset 封鎖破圖。必須使用經全球 CDN 驗證之 Unsplash 高解析度醫療/科技攝影照片，並附帶優化參數 `?auto=format&fit=crop&w=1200&q=80`。
+> **圖床禁令與圖片規範**：
+> 1. **嚴格禁止使用 `files.catbox.moe`**：該網域會觸發院內網路（NTUH/TANet）防火牆之 TCP Reset 封鎖破圖。必須使用經全球 CDN 驗證之 Unsplash 高解析度醫療/科技攝影照片。
+> 2. **嚴格帶入寬高與橫幅裁切參數**：Unsplash 圖片網址必須帶有寬高與裁切優化參數 `?auto=format&fit=crop&w=1200&h=800&q=80`（或 16:9 之 `&w=1200&h=675`）。若未指定 `h` 參數，直式照片（Portrait）會直接回傳原始長寬比，導致最新專題卡片被上下推寬變形。
+> 3. **嚴格使用標準元件與容器防溢出 Class**：嚴禁撰寫未帶 class 之裸露 `<img>` 或在 HTML 寫死絕對像素寬度；必須使用標準 `<figure class="article-featured-figure">`，內部圖片必須標記 `class="article-featured-img"`，圖說必須標記 `class="article-figcaption"`，確保任何螢幕尺寸下 100% 自適應容器邊界，零破圖溢出。
 
 ```html
 <figure class="article-featured-figure">
-  <img src="https://images.unsplash.com/photo-...?auto=format&fit=crop&w=1200&q=80" alt="{圖片替代文字}" class="article-featured-img" loading="lazy" />
+  <img src="https://images.unsplash.com/photo-...?auto=format&fit=crop&w=1200&h=800&q=80" alt="{圖片替代文字}" class="article-featured-img" loading="lazy" />
   <figcaption class="article-figcaption">{精準圖說與實證臨床圖解說明}</figcaption>
 </figure>
 ```

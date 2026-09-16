@@ -13,9 +13,10 @@
 2. **檔案命名規範（Naming）**：
    - 格式：`{3位數序號}_{核心簡稱}_{完整主標題或關鍵字描述}.html`（如 `001_二十年中風復健典範轉移_從經驗主義到高強度神經重塑與急性期下床黃金律.html`）。
    - 嚴禁在檔名中使用冒號 `:`、`：`、斜線、引號、問號或空格。
-3. **圖片圖床規範（Images）**：
+3. **圖片圖床與版型容器約束規範（Images & Container Layout）**：
    - **嚴禁使用 `files.catbox.moe`**（會觸發醫院與學術網路防火牆封鎖破圖）。
-   - 必須使用經全球 CDN 驗證之 Unsplash 高解析度專業圖檔。
+   - 必須使用經全球 CDN 驗證之 Unsplash 高解析度專業圖檔，且網址務必帶有具體橫幅長寬與裁切參數（如 `?auto=format&fit=crop&w=1200&h=800&q=80` 或 `&w=1200&h=675`），避免直式照片未裁切導致「最新專題」卡片被上下推寬。
+   - 文章首圖與內文圖片必須依循標準結構與 class（`<figure class="article-featured-figure">`、`class="article-featured-img"`、`class="article-figcaption"`），嚴禁撰寫未指定 class 或寫死像素寬度之裸露圖片，確保在任何螢幕解析度下 100% 限制於容器內部，零破圖溢出。
 4. **參考文獻與 DOI 規範（Citations）**：
    - 醫學與科技文章必須附有真實實證參考文獻。
    - 所有 DOI 必須使用標準格式 `<a href="https://doi.org/..." target="_blank" rel="noopener noreferrer">`，且必須經 Crossref/PubMed 檢驗為可正常訪問之官方永久連結（100% 拒絕 404 與假 DOI 佔位符）。
