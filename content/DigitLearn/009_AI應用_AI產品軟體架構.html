@@ -480,7 +480,7 @@ font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:
 <p>針對間接提示詞注入（Indirect Prompt Injection）的資安研究進一步證實，被檢索到的外部不受信任資料可以輕易劫持 Agent 的控制流程、迫使其調用非預期的工具。單純在架構中多加一層「AI 審查 Agent」，絕無法構成真正可靠的防護線，因為兩個模型可能讀取到相同的污染資料或陷入相同的邏輯盲區。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-4">4，Greshake 等人</a>]</sup></span></p></section>
 <section aria-labelledby="agent-controls"><h2 id="agent-controls">把每個工具的行動範圍列出來</h2>
 <ul><li>白紙黑字明確規範每項工具的讀取範圍、寫入權限、調用所使用的憑證身分，以及遭遇網路連線失敗時的重試退避演算法。</li><li>對於發送衛教信件、修改病歷排程或扣款等具備外部影響的高風險操作，系統必須強制彈出確認視窗，將收件人與內容完整呈現並由合格醫事人員點擊確認（HITL）。</li><li>一旦發生 API 逾時未回應、傳回資料格式衝突或權限校驗失敗，Agent 必須立刻終止自走循環並將控制權安全歸還給人類工作人員。</li></ul>
-<p>在網路環境中，請求逾時往往只代表「回覆尚未抵達」，背後的寫入操作極可能早已在伺服器端完成；缺乏冪等性設計的盲目自動重試，極易造成多重預約或資料覆蓋事故。在正式導入任何 Agent 流程前，工程團隊必須完成嚴密的冪等性（Idempotency）與狀態回滾測試。</p></section>
+<p>在網路環境中，請求逾時往往只代表「回覆尚未抵達」，背後的寫入操作可能早已在伺服器端完成；缺乏冪等性設計的盲目自動重試，容易造成多重預約或資料覆蓋事故。在正式導入任何 Agent 流程前，工程團隊必須完成嚴密的冪等性（Idempotency）與狀態回滾測試。</p></section>
 </div>
 <section aria-labelledby="references" class="article-references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://modelcontextprotocol.io/docs/2025-11-25/tutorials/security/security_best_practices" rel="noopener noreferrer" target="_blank">Model Context Protocol. Security Best Practices. 2025-11-25 規格對應文件；查閱 2026-09-12。</a></li>
 <li id="ref-2"><a href="https://doi.org/10.6028/NIST.SP.800-218" rel="noopener noreferrer" target="_blank">Souppaya M, Scarfone K, Dodson D. Secure Software Development Framework (SSDF) Version 1.1. NIST SP 800-218. 2022. 技術框架，非臨床指引。</a></li>

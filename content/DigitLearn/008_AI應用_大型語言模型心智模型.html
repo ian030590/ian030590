@@ -470,7 +470,7 @@ font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:
 <div class="article-body-content">
 <section aria-labelledby="rag-question"><h2 id="rag-question">看似專業的醫學引述：大語言模型幻覺與 RAG 的本質</h2>
 <p>大型語言模型在醫學問答中常展現令人驚豔的流暢度，但其底層機制是基於機率預測下一個字詞，天生具備生成虛構文獻或事實錯誤的「幻覺（Hallucination）」傾向。為了解決這個問題，工程界發展出「檢索增強生成（Retrieval-Augmented Generation, RAG）」，透過外部專業文獻庫先檢索出真實段落，再由模型據以生成回答。</p>
-<p>許多臨床醫療人員因此產生新的盲信：以為「只要系統標註了 RAG、列出了正式的文獻出處與章節編號，給出的臨床指引就一定正確無誤」。在實際應用中，檢索模組極可能抓取了「動物實驗而非人體試驗」的段落、混淆了不同世代的指引版本，或是模型在生成時將指引中的「證據等級低、僅供個別考慮（Class 2b）」擅自改寫為「強烈推薦必須常規執行（Class 1）」。</p>
+<p>許多臨床醫療人員因此產生新的盲信：以為「只要系統標註了 RAG、列出了正式的文獻出處與章節編號，給出的臨床指引就一定正確無誤」。在實際應用中，檢索模組可能抓取了「動物實驗而非人體試驗」的段落、混淆了不同世代的指引版本，或是模型在生成時將指引中的「證據等級低、僅供個別考慮（Class 2b）」擅自改寫為「強烈推薦必須常規執行（Class 1）」。</p>
 <p>RAG 是一套「檢索（Retrieval）」與「生成（Generation）」串聯的兩階段工程系統，它增加了外部事實錨點，但絕非醫學真理的保證者。任何一個階段的資訊遺漏、切片斷章取義或語義漂移，都會導致生成的臨床建議產生顯著偏差。臨床核對的真諦，是「逐一檢視原文檢索片段（Chunks），比對證據等級與適用族群」，而非盲信系統的自信言論。</p></section>
 <section aria-labelledby="rag-flow"><h2 id="rag-flow">RAG 是兩個階段，不是一個保證</h2>
 <p>RAG 系統通常會先將長篇臨床指引或文獻切分為數百字的文本片段（Chunks），透過向量語義比對檢索出相似度居前的片段，再將這些片段作為上下文輸入給模型生成回答。若分塊過程把關鍵的否定句切斷、檢索到過時版本，或是抓取了不同年齡層的治療標準，這些錯誤都會被模型流暢地編織進生成的結論中。NIST AI RMF 亦將「自信但事實錯誤的生成內容」列為必須嚴加管控的核心風險。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-1">1，NIST AI RMF 生成式 AI Profile</a>]</sup></span></p>
@@ -480,7 +480,7 @@ font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:
 <p>Liu 等人（2024）發表於 ACL 的長文本研究（Lost in the Middle）更揭露了驚人現象：當相關關鍵資訊位於檢索上下文的中段位置時，大語言模型提取該資訊並正確推理的成功率會發生顯著雪崩。這項研究結果深刻支持臨床工程人員在測試 RAG 時，必須嚴密評估文本切片長度與檢索排序對臨床決策產生的潛在干擾。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-3">3，Liu 等人</a>]</sup></span></p></section>
 <section aria-labelledby="rag-check"><h2 id="rag-check">保留原文片段，才知道錯在哪一段</h2>
 <ul><li>在向系統發出臨床提問時，詳細寫明目標病患的病程分期、核心功能障礙、待比較的治療方案以及預期改善的具體生活活動。</li><li>檢驗系統回答時，要求系統後台同步保存並展示檢索到的原文切片（Source Chunks），親自核對結論中的每一句話是否真正有引文支持。</li><li>若發現檢索引文斷章取義、疾病族群明顯不符或結論與指引相悖，應立即在系統中標記為待查並點入原始論文連結進行人工審查。</li></ul>
-<p>即使 AI 輸出的格式無比工整、條理分明，其內容依然必須經過專業人員的嚴謹批判。經過嚴格人工核對的文獻摘要可以作為跨專業團隊討論的有效輔助，但絕不能直接未經審閱就複製貼上成為個別病患的臨床復健處方。</p></section>
+<p>即使 AI 輸出的格式工整、條理分明，其內容依然必須經過專業人員的嚴謹批判。經過嚴格人工核對的文獻摘要可以作為跨專業團隊討論的有效輔助，但絕不能直接未經審閱就複製貼上成為個別病患的臨床復健處方。</p></section>
 </div>
 <section aria-labelledby="references" class="article-references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.6028/NIST.AI.600-1" rel="noopener noreferrer" target="_blank">Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。</a></li>
 <li id="ref-2"><a href="https://doi.org/10.48550/arXiv.2005.11401" rel="noopener noreferrer" target="_blank">Lewis P, Perez E, Piktus A, et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS. 2020;33:9459–9474.</a></li>
