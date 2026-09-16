@@ -470,14 +470,14 @@ font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:
 <div class="article-body-content">
 <section aria-labelledby="agent-need"><h2 id="agent-need">當 AI 長出手腳：從對話框走向自主行動的系統風險</h2>
 <p>人工智慧正從單純的「文本問答」迅速演進為具備工具呼叫（Tool Calling）與環境互動能力的「自主代理人（AI Agent）」。透過「模型上下文協議（Model Context Protocol, MCP）」等標準化通訊介面，AI 系統能夠串接資料庫、發送電子郵件、調度感測器，甚至向外部醫療系統發送請求。</p>
-<p>許多臨床專案開發者熱衷於追求「全自動化」，希望打造出一個「能自主閱讀病歷、自主下達醫囑、自動給病患寄送復健排程」的超級 Agent。開發者在未建立嚴密授權防護的情況下，賦予 AI 系統過高的操作權限；一旦遭遇提示詞注入、網路逾時或解析錯誤，Agent 便可能在後台引發排程重複洗版、將錯誤病患資料寄出，甚至對正式病歷庫產生不可逆的破壞。</p>
-<p>「工具調用能力」絕不等於「臨床執業資格與法律責任能力」。Agent 與 MCP 擴展的是系統間通訊的靈活性，但責任的錨點永遠在於人類。在醫療健康領域，系統架構必須遵循「人機協同（Human-in-the-Loop, HITL）」與「最小權限原則」，將讀取查詢、生成待審草稿與正式寫入權限嚴格分離，絕不能讓 AI 在缺乏人類監督下直接執行具備外部影響的敏感動作。</p></section>
+<p>許多臨床專案開發者熱衷於追求「全自動化」，希望打造出一個「能自主閱讀病歷、自主下達醫囑、自動給病患寄送復健排程」的自主代理人（Autonomous Agent）。開發者在未建立嚴密授權防護的情況下，賦予 AI 系統過高的操作權限；一旦遭遇提示詞注入、網路逾時或解析錯誤，Agent 便可能在後台引發排程重複洗版、將錯誤病患資料寄出，甚至對正式病歷庫產生難以回復的破壞。</p>
+<p>「工具調用能力」絕不等於「臨床執業資格與法律責任能力」。Agent 與 MCP 擴展的是系統間通訊的靈活性，但責任的錨點永遠在於人類。在醫療健康領域，系統架構必須遵循「人機協同（Human-in-the-Loop, HITL）」與「權限限縮原則（Least Privilege）」，將讀取查詢、生成待審草稿與正式寫入權限嚴格分離，絕不能讓 AI 在缺乏人類監督下直接執行具備外部影響的敏感動作。</p></section>
 <section aria-labelledby="agent-definitions"><h2 id="agent-definitions">Agent 和 MCP 各自做什麼？</h2>
 <p>AI Agent 是能夠根據複雜任務目標，自主將任務拆解為子步驟、動態選擇適當外部工具執行並依據工具回傳結果調整後續行動的軟體實體；而 MCP 則是由產業開源推動的標準協議，旨在建立大語言模型與本地檔案、外部資料庫或專用 API 之間的一致通訊規範。必須認清：MCP 本身是一套通訊協議，並不會自動為系統建立身分驗證或存取權限控管機制。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-1">1，MCP Security Best Practices</a>]</sup></span></p>
-<p>權限管理必須由伺服器端底層硬性實施，絕不可寄託於模型會乖乖遵守提示詞的道德說教。系統應強制將「只讀查詢」、「生成待審草稿」與「正式寫入資料庫」切分為獨立的權限金鑰，且任何敏感金鑰絕不可暴露於前端瀏覽器代碼中。NIST SSDF 框架同樣要求在開發初期便確立明確的安全邊界與漏洞處置計畫。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-2">2，NIST SSDF</a>]</sup></span></p></section>
+<p>權限管理必須由伺服器端底層硬性實施，建議避免寄託於模型會遵守提示詞的引導。系統應強制將「只讀查詢」、「生成待審草稿」與「正式寫入資料庫」切分為獨立的權限金鑰，且任何敏感金鑰不應暴露於前端瀏覽器代碼中。NIST SSDF 框架同樣要求在開發初期便確立明確的安全邊界與漏洞處置計畫。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-2">2，NIST SSDF</a>]</sup></span></p></section>
 <section aria-labelledby="agent-evidence"><h2 id="agent-evidence">工具使用研究，不等於醫療自主性</h2>
-<p>Yao 等人（2023）發表的 ReAct 框架研究，在多項問答、事實驗證與文字冒險遊戲等基準測試中，證實了結合「推理（Reasoning）」與「行動（Acting）」能顯著提升模型解決多步驟複雜問題的成功率；然而該研究僅在受控的虛擬模擬環境中進行，完全未涉及病歷寫入、臨床醫療責任或病患人身安全，絕不能將學術基準的成功率直接等同於臨床操作的自主權。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-3">3，ReAct</a>]</sup></span></p>
-<p>針對間接提示詞注入（Indirect Prompt Injection）的資安研究進一步證實，被檢索到的外部不受信任資料可以輕易劫持 Agent 的控制流程、迫使其調用非預期的工具。單純在架構中多加一層「AI 審查 Agent」，絕無法構成真正可靠的防護線，因為兩個模型完全可能讀取到相同的污染資料或陷入相同的邏輯盲區。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-4">4，Greshake 等人</a>]</sup></span></p></section>
+<p>Yao 等人（2023）發表的 ReAct 框架研究，在多項問答、事實驗證與文字冒險遊戲等基準測試中，證實了結合「推理（Reasoning）」與「行動（Acting）」能顯著提升模型解決多步驟複雜問題的成功率；然而該研究僅在受控的虛擬模擬環境中進行，並未涉及病歷寫入、臨床醫療責任或病患人身安全，絕不能將學術基準的成功率直接等同於臨床操作的自主權。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-3">3，ReAct</a>]</sup></span></p>
+<p>針對間接提示詞注入（Indirect Prompt Injection）的資安研究進一步證實，被檢索到的外部不受信任資料可以輕易劫持 Agent 的控制流程、迫使其調用非預期的工具。單純在架構中多加一層「AI 審查 Agent」，絕無法構成真正可靠的防護線，因為兩個模型可能讀取到相同的污染資料或陷入相同的邏輯盲區。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-4">4，Greshake 等人</a>]</sup></span></p></section>
 <section aria-labelledby="agent-controls"><h2 id="agent-controls">把每個工具的行動範圍列出來</h2>
 <ul><li>白紙黑字明確規範每項工具的讀取範圍、寫入權限、調用所使用的憑證身分，以及遭遇網路連線失敗時的重試退避演算法。</li><li>對於發送衛教信件、修改病歷排程或扣款等具備外部影響的高風險操作，系統必須強制彈出確認視窗，將收件人與內容完整呈現並由合格醫事人員點擊確認（HITL）。</li><li>一旦發生 API 逾時未回應、傳回資料格式衝突或權限校驗失敗，Agent 必須立刻終止自走循環並將控制權安全歸還給人類工作人員。</li></ul>
 <p>在網路環境中，請求逾時往往只代表「回覆尚未抵達」，背後的寫入操作極可能早已在伺服器端完成；缺乏冪等性設計的盲目自動重試，極易造成多重預約或資料覆蓋事故。在正式導入任何 Agent 流程前，工程團隊必須完成嚴密的冪等性（Idempotency）與狀態回滾測試。</p></section>

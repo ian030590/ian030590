@@ -471,16 +471,16 @@ font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:
 <section aria-labelledby="prototype-gap"><h2 id="prototype-gap">畫面會動，不代表數據具備臨床效度</h2>
 <p>大型語言模型與程式生成工具的爆發，讓非工程背景的治療師也能在幾分鐘內用自然語言指令「搓出」一個具備按鈕、動畫與計時功能的網頁互動遊戲。這種低代碼門檻為臨床創意提供了前所未有的試驗土壤。</p>
 <p>許多臨床人員看到網頁跳出「測驗完成，反應時間 250 毫秒」的漂亮圖表，便迫不及待地想要拿來給個案施測，甚至當成評估進步的客觀指標。臨床人員忽略了瀏覽器事件循環延遲、螢幕更新率落差、觸控螢幕誤觸，以及個案中途退出或重複點擊時的資料異常。</p>
-<p>「功能測試（Functional Testing）」與「測量效度（Measurement Validity）」是完全不同的兩個世界。按鈕點擊能跳轉畫面，只證明了程式邏輯沒有崩潰；但這個數字是否真正反映了個案的認知或動作能力、多次測量是否穩定可靠（信度），必須經過嚴謹的心理計量與實證驗證。沒有經過驗證的原型，只能作為休閒練習，絕不可宣稱為臨床診斷或療效工具。</p></section>
+<p>「功能測試（Functional Testing）」與「測量效度（Measurement Validity）」是兩個不同範疇的議題。按鈕點擊能跳轉畫面，只證明了程式邏輯沒有崩潰；但這個數字是否真正反映了個案的認知或動作能力、多次測量是否穩定可靠（信度），必須經過嚴謹的心理計量與實證驗證。沒有經過驗證的原型，只能作為休閒練習，不應宣稱為臨床診斷或療效工具。</p></section>
 <section aria-labelledby="prototype-process"><h2 id="prototype-process">把需求寫成能被測試的行為</h2>
 <p>NIST SSDF 框架支持在開發生命週期中常規納入需求定義、程式代碼同行審查、自動化測試與漏洞處置；但它不提供任何特定復健小工具的測量心理計量效度，更絕不能取代醫療機構的人體試驗或倫理審查。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-1">1，NIST SSDF</a>]</sup></span></p>
 <p>OSSU 體系的軟體工程原則能幫助臨床人員將模糊的構想轉化為可測試的邊界行為：在撰寫程式前，必須白紙黑字寫清楚「輸入資料格式為何、預期輸出為何、在何種異常情況下系統必須立刻拒絕計算」。例如一個反應時間測驗工具，在代碼層級至少必須精準區分有效試次、超時未作答、連擊誤觸與中途離開，絕不能簡單粗暴地吐出一個平均值。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-2">2，OSSU 課程</a>]</sup></span></p>
-<p>Git 等版本控制系統能夠清楚比對代碼歷史並安全回復至穩定版本，但版本控制絕不會自動保證最新的代碼修改具備臨床正確性，更不可被誤當作病歷資料庫的備份工具。</p></section>
-<section aria-labelledby="prototype-evidence"><h2 id="prototype-evidence">功能正確和測量有效，是兩個完全不同的檢查</h2>
+<p>Git 等版本控制系統能夠清楚比對代碼歷史並安全回復至穩定版本，但版本控制不會保證近期的代碼修改具備臨床正確性，更不宜被誤當作病歷資料庫的備份工具。</p></section>
+<section aria-labelledby="prototype-evidence"><h2 id="prototype-evidence">功能正確和測量有效，是兩個不同層次的檢核</h2>
 <p>Perry 等人（2023）的研究證實，由 AI 輔助生成的程式碼必須被嚴格視為「未經信任、待審查的產物」，其表面的流暢運行常遮蔽了底層的安全與計算缺陷。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-3">3，Perry 等人</a>]</sup></span></p>
-<p>網頁按鈕能順利發送請求，屬於最基礎的工程功能測試；這個工具能否精準測出目標認知功能、是否能區分病患與常人，屬於效度驗證；在完全相同條件下重複測試三次的數值漂移量，則屬於測量信度與標準誤差。在欠缺信度與效度的實證數據支持前，該工具僅能被明確定位為趣味性活動練習或探索性紀錄，嚴禁對外宣稱具備臨床診斷、量化篩檢或療效評估功能。</p></section>
+<p>網頁按鈕能順利發送請求，屬於初步的工程功能測試；這個工具能否精準測出目標認知功能、是否能區分病患與常人，屬於效度驗證；在相同條件下重複測試三次的數值漂移量，則屬於測量信度與標準誤差。在欠缺信度與效度的實證數據支持前，該工具僅能被明確定位為趣味性活動練習或探索性紀錄，嚴禁對外宣稱具備臨床診斷、量化篩檢或療效評估功能。</p></section>
 <section aria-labelledby="prototype-release"><h2 id="prototype-release">上線前，讓別人用虛構資料找錯</h2>
-<ul><li>先以人工完全可筆算驗證的小型測試集，逐一核對計分演算法、匯出 CSV 欄位、日期格式轉換與錯誤告警訊息。</li><li>將「網路中斷、手抖重複快速點擊、螢幕中途鎖定休眠」等極端情境，列入上線前的破壞性測試清單。</li><li>在正式受控試用前，於代碼首頁詳細記錄當前軟體版本號、專案維護負責人、緊急停用閥值與資料庫還原 SOP。</li></ul>
+<ul><li>先以人工可筆算驗證的小型測試集，逐一核對計分演算法、匯出 CSV 欄位、日期格式轉換與錯誤告警訊息。</li><li>將「網路中斷、手抖重複快速點擊、螢幕中途鎖定休眠」等異常邊界情境，列入上線前的破壞性測試清單。</li><li>在正式受控試用前，於代碼首頁詳細記錄當前軟體版本號、專案維護負責人、緊急停用閥值與資料庫還原 SOP。</li></ul>
 <p>如果後台的計分規則在某次更新中發生了微調，舊版本所測得的歷史資料與新版本資料絕不能在未經校正的情況下直接串成同一條進步趨勢線。每一次重要的代碼迭代，都必須重新確認其用途嚴格鎖定在經核准的臨床邊界之內。</p></section>
 </div>
 <section aria-labelledby="references" class="article-references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.6028/NIST.SP.800-218" rel="noopener noreferrer" target="_blank">Souppaya M, Scarfone K, Dodson D. Secure Software Development Framework (SSDF) Version 1.1. NIST SP 800-218. 2022. 技術框架，非臨床指引。</a></li>

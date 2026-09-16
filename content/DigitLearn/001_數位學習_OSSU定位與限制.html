@@ -470,16 +470,16 @@ font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:
 <div class="article-body-content">
 <section aria-labelledby="ossu-start"><h2 id="ossu-start">從臨床痛點到程式碼：非工程師自學的架構迷宮</h2>
 <p>在醫療數位化、AI 輔具與遠距復健蓬勃發展的今日，越來越多職能治療師、物理治療師與臨床人員希望自學程式設計，以打造真正貼合臨床痛點的數位工具。開源社群知名的「OSSU（Open Source Society University）」整理了完整的電腦科學大學課程藍圖，涵蓋計算機導論、資料結構、演算法到軟體工程。</p>
-<p>然而許多臨床人員興沖沖打開課程清單後，常陷入兩種困境：一種是盲目刷完幾堂 Python 語法課或死背 LeetCode 演算法，卻發現自己依然不知道如何把一個表單資料安全存進資料庫；另一種則是被巨量的數學與底層理論嚇退，或是過度依賴 AI 助手生成程式碼，看到畫面能跑就以為大功告成，完全不知程式內部存在嚴重的資料型態與邏輯漏洞。</p>
+<p>然而許多臨床人員興沖沖打開課程清單後，常陷入兩種困境：一種是盲目刷完幾堂 Python 語法課或死背 LeetCode 演算法，卻發現自己依然不知道如何把一個表單資料安全存進資料庫；另一種則是被巨量的數學與底層理論嚇退，或是過度依賴 AI 助手生成程式碼，看到畫面能跑就以為大功告成，未察覺程式內部存在明顯的資料型態與邏輯漏洞。</p>
 <p>學習電腦科學的核心價值，不在於拿到幾張線上課程證書，也不在於死記語法細節，而在於建立起「系統性軟體架構思維（Computational Thinking）」。理解輸入、狀態變更、資料邊界與安全生命週期，是非工程師在運用 AI 工具開發臨床輔具時，確保系統不翻車的基石。</p></section>
 <section aria-labelledby="ossu-framework"><h2 id="ossu-framework">借鏡體系化架構，融入安全開發生命週期</h2>
 <p>NIST SSDF（安全軟體開發框架）1.1 版將軟體安全貫徹在整個開發生命週期中，涵蓋準備組織機制、保護軟體架構、安全生成軟體與及時處置漏洞四大支柱；對於臨床小型專案，這套框架可具體轉化為三項基本紀律：寫出明確需求規格、設計可自動重做的單元測試，以及建立清晰的代碼維護責任歸屬。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-2">2，NIST SSDF</a>]</sup></span></p>
-<p>這套思維特別適合希望自主開發評估輔助工具、表單自動化流程或臨床數據清洗的醫療專業從業者。OSSU 體系提供了理解資料庫範式、網路請求協定與物件導向設計的知識地圖；但在醫療場域中，不能盲信任何單一開源課程的完整性，必須時刻將病患資料安全與系統防禦置於最優先級。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-1">1，OSSU 課程</a>]</sup></span></p></section>
+<p>這套思維特別適合希望自主開發評估輔助工具、表單自動化流程或臨床數據清洗的醫療專業從業者。OSSU 體系提供了理解資料庫範式、網路請求協定與物件導向設計的知識地圖；但在醫療場域中，不能盲信任何單一開源課程的完整性，必須時刻將病患資料安全與系統防禦置於優先考量。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-1">1，OSSU 課程</a>]</sup></span></p></section>
 <section aria-labelledby="ossu-evidence"><h2 id="ossu-evidence">研究提醒：信心不能代替代碼審查</h2>
-<p>目前尚無任何臨床對照研究直接比較「完成 OSSU 課程之治療師」與「傳統開發人員」所開發的醫療軟體之臨床效度。然而，Perry 等人（2023）發表於資安頂會的高品質使用者研究發現：在特定安全程式設計任務中，獲得 AI 代碼助手輔助的受試者，其生成的代碼整體上產生了顯著更多的安全漏洞，但他們對自己代碼「絕對安全」的主觀信心卻顯著高於未用 AI 的對照組。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-3">3，Perry 等人</a>]</sup></span></p>
-<p>這項嚴謹的實證研究深刻警示：在運用 AI 輔助編寫臨床小工具時，能清晰解釋每行輸入邏輯、預先設計極端邊界測試並勇於接受他人審查，遠比「在線上平台刷了多少題」更能反映開發者是否真正具備交付可靠工具的資格。</p></section>
+<p>目前尚無任何臨床對照研究直接比較「完成 OSSU 課程之治療師」與「傳統開發人員」所開發的醫療軟體之臨床效度。然而，Perry 等人（2023）發表於資安頂會的高品質使用者研究發現：在特定安全程式設計任務中，獲得 AI 代碼助手輔助的受試者，其生成的代碼整體上產生了顯著更多的安全漏洞，但他們對自己代碼「高度安全」的主觀信心卻顯著高於未用 AI 的對照組。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-3">3，Perry 等人</a>]</sup></span></p>
+<p>這項嚴謹的實證研究深刻警示：在運用 AI 輔助編寫臨床小工具時，能清晰解釋每行輸入邏輯、預先設計邊界條件測試（Edge Cases）並勇於接受他人審查，遠比「在線上平台刷了多少題」更能反映開發者是否真正具備交付可靠工具的資格。</p></section>
 <section aria-labelledby="ossu-project"><h2 id="ossu-project">用小作品確認自己真的懂了</h2>
-<ul><li>在開發初期，嚴格使用完全虛構的測試資料集，專注於處理單一且明確的資料輸入。</li><li>在動手寫代碼前，先用紙筆列出所有邊界情境：如果使用者輸入空白、重複送出或點擊取消，系統應當如何正確攔截與計算？用人工答案交叉核對輸出。</li><li>主動將完成的小工具交給完全沒有參與開發的臨床同事試用，觀察系統是否能準確拒絕非法格式資料並給出友善的防呆提示。</li></ul>
+<ul><li>在開發初期，嚴格使用虛構的測試資料集，專注於處理單一且明確的資料輸入。</li><li>在動手寫代碼前，先用紙筆列出所有邊界情境：如果使用者輸入空白、重複送出或點擊取消，系統應當如何正確攔截與計算？用人工答案交叉核對輸出。</li><li>主動將完成的小工具交給未曾參與開發的臨床同事試用，觀察系統是否能準確拒絕非法格式資料並給出友善的防呆提示。</li></ul>
 <p>如果自己無法清楚說明使用者上傳的資料究竟流向何方、一旦發生邏輯錯誤該如何回滾回復，就應嚴格將作品限制在個人教學或概念示範範疇。當工具涉及真實病患的持續服務時，必須依法與機構的資訊工程及資安治理團隊共同進行安全性審查。</p></section>
 </div>
 <section aria-labelledby="references" class="article-references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://github.com/ossu/computer-science" rel="noopener noreferrer" target="_blank">Open Source Society University. Computer Science curriculum. 官方課程 repository；查閱 2026-09-12。</a></li>

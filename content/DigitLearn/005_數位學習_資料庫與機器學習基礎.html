@@ -469,18 +469,18 @@ font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; color:
 <div class="article-lead-box"><div class="article-lead-box-title">本篇要回答的決策</div><p>去掉姓名不等於匿名化，提示詞寫不得洩密更不是權限防火牆。先釐清資料傳輸通道、向量儲存位置與伺服器日誌，才能築起合規的醫療資料防護網。</p></div>
 <div class="article-body-content">
 <section aria-labelledby="data-before-upload"><h2 id="data-before-upload">去掉姓名就安全了嗎？醫療資料隱私的隱形陷阱</h2>
-<p>醫療病歷紀錄包含了極高密度的敏感個人健康資訊（PHI）。近年來臨床人員常希望藉由大語言模型（LLM）強大的文本摘要能力，來快速生成出院準備摘要、轉介單或病程紀錄，大幅減輕繁重的臨床文書負擔。</p>
-<p>許多人在使用時往往存在致命的隱私認知盲點：以為「只要把病患的名字和身分證字號刪除，直接貼進公有雲端 AI 聊天視窗就合規了」；甚至以為只要在提示詞（Prompt）裡加上一句「請遵守病患隱私、不得外洩資料」，就能當作資安防線。臨床人員不知道的是，罕見病史、精確手術日期、特殊職業與地理位置交織在一起，就能輕易透過外部資料庫交叉重新識別出病患身分；而提示詞對於底層網路傳輸與伺服器日誌儲存完全沒有任何防禦能力。</p>
-<p>提示詞（Prompt）是自然語言指令，絕非資安存取控制系統（Access Control）。公有模型服務通常會將使用者輸入作為訓練資料或保留在伺服器快取中。病患資料能否導入 AI，關鍵不在於提示詞寫得多嚴格，而在於系統架構層面是否有嚴密的「資料流向邊界（Data Lineage）」、合規的專屬企業通道、最小權限控管與端對端加密。</p></section>
+<p>醫療病歷紀錄包含了高度密集的個人健康資訊（PHI）。近年來臨床人員常希望藉由大語言模型（LLM）強大的文本摘要能力，來快速生成出院準備摘要、轉介單或病程紀錄，減輕繁重的臨床文書負擔。</p>
+<p>許多人在使用時往往存在關鍵的隱私認知盲點：以為「只要把病患的名字和身分證字號刪除，直接貼進公有雲端 AI 聊天視窗就合規了」；甚至以為只要在提示詞（Prompt）裡加上一句「請遵守病患隱私、不得外洩資料」，就能當作資安防線。臨床人員不知道的是，罕見病史、精確手術日期、特殊職業與地理位置交織在一起，就能輕易透過外部資料庫交叉重新識別出病患身分；而提示詞對於底層網路傳輸與伺服器日誌儲存缺乏防禦能力。</p>
+<p>提示詞（Prompt）是自然語言指令，絕非資安存取控制系統（Access Control）。公有模型服務通常會將使用者輸入作為訓練資料或保留在伺服器快取中。病患資料能否導入 AI，關鍵不在於提示詞寫得多嚴格，而在於系統架構層面是否有嚴密的「資料流向邊界（Data Lineage）」、合規的專屬企業通道、權限限縮配置（Least Privilege）與端對端加密。</p></section>
 <section aria-labelledby="data-governance"><h2 id="data-governance">提示詞不是權限系統，架構才是防線</h2>
 <p>NIST 發布的《人工智慧風險管理框架（AI RMF）生成式 AI 設定檔》涵蓋了資料隱私外洩、資訊安全漏洞與有害內容輸出等多維度風險；該框架提供的是跨生命週期的治理方向，絕非特定雲端廠商或商業產品的免責保證。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-1">1，NIST AI RMF 生成式 AI Profile</a>]</sup></span></p>
 <p>OWASP Top 10 for LLM 列為首要威脅的「提示詞注入攻擊（Prompt Injection）」，不僅可能來自惡意使用者的直接輸入，更常暗藏於外部檢索的 PDF 文獻或未經清洗的病歷網頁中。在提示詞中使用分隔標籤或告誡指令雖能微幅改善對齊，但絕無法構成可靠的資安沙箱隔離；系統依然必須在後端實施身分驗證、限制資料庫存取權限並進行輸出內容過濾。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-2">2，OWASP LLM01</a>]</sup></span></p>
 <p>將文字轉換為向量（Vector Embeddings）存入向量資料庫，絕不等於完成了自動匿名化處理；高維度向量同樣可以被逆向還原出語義資訊。機構資訊團隊必須能精確交代病歷原文、摘要切片、向量索引與伺服器日誌的具體地理存放節點、授權讀取名冊與強制保留天數。</p></section>
 <section aria-labelledby="data-evidence"><h2 id="data-evidence">研究說明風險怎麼累積，沒有通用的零風險保證</h2>
-<p>Sambasivan 等人（2021）深度訪談 53 位高風險人工智慧領域的工程與領域專家，生動揭示了上游資料在收集、標註與處理時的隱形缺陷，如何沿著工程管線層層累積，最終在上線階段引發災難性的系統故障；這是一項質性實證研究，提醒我們必須重視資料治理的源頭品質，但不能草率換算成所有醫療機構通用的固定事故比例。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-3">3，Sambasivan 等人</a>]</sup></span></p>
-<p>Greshake 等人（2023）的研究則實證展示了間接提示詞注入如何誘騙整合型 LLM 應用程式自動執行未授權的外部工具呼叫與資料外洩。這項研究證實了安全威脅的客觀存在，但並未提供針對醫療特定產品的通用攻擊成功率，更證明了世界上沒有任何一種「完美提示詞範本」能徹底免疫於資安風險。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-4">4，Greshake 等人</a>]</sup></span></p></section>
+<p>Sambasivan 等人（2021）深度訪談 53 位高風險人工智慧領域的工程與領域專家，生動揭示了上游資料在收集、標註與處理時的隱形缺陷，如何沿著工程管線層層累積，進而在上線階段引發系統異常故障；這是一項質性實證研究，提醒我們必須重視資料治理的源頭品質，但不能草率換算成所有醫療機構通用的固定事故比例。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-3">3，Sambasivan 等人</a>]</sup></span></p>
+<p>Greshake 等人（2023）的研究則實證展示了間接提示詞注入如何誘騙整合型 LLM 應用程式自動執行未授權的外部工具呼叫與資料外洩。這項研究證實了安全威脅的客觀存在，但並未提供針對醫療特定產品的通用攻擊成功率，更證明了世界上沒有任何一種「單一提示詞範本」能免除所有資安風險。<span class="citation-anchor"><sup class="source-citation">[<a href="#ref-4">4，Greshake 等人</a>]</sup></span></p></section>
 <section aria-labelledby="data-test"><h2 id="data-test">先用虛構資料測試「會不會說不知道」</h2>
-<ul><li>在測試階段，刻意構造包含遺漏值、前後互相矛盾的就醫日期，以及完全無害的注入測試語句，檢視系統是否能如實拒絕作答並主動指出資料異常。</li><li>貫徹最小權限原則：僅向模型提供完成當前摘要任務所絕對必需的文字欄位，嚴格遮蔽住址、電話與非關病況的個人資訊。</li><li>若在系統運作中發現疑似資料外洩或異常連線，必須立即依循機構資安應變 SOP 阻斷 API 傳輸，並在第一時間通報專案資安負責人。</li></ul>
+<ul><li>在測試階段，刻意構造包含遺漏值、前後互相矛盾的就醫日期，以及無害的注入測試語句，檢視系統是否能如實拒絕作答並主動指出資料異常。</li><li>貫徹權限限縮原則（Least Privilege）：僅向模型提供完成當前摘要任務所切實必需的文字欄位，嚴格遮蔽住址、電話與非關病況的個人資訊。</li><li>若在系統運作中發現疑似資料外洩或異常連線，必須立即依循機構資安應變 SOP 阻斷 API 傳輸，並在第一時間通報專案資安負責人。</li></ul>
 <p>在資安架構獲得驗證後，臨床團隊仍必須獨立核驗生成的病歷摘要是否漏掉了關鍵的藥物過敏或重要診斷。撰寫一段更嚴厲的提示詞，永遠無法替代扎實的系統權限控管與資安事件處理機制。</p></section>
 </div>
 <section aria-labelledby="references" class="article-references"><h2 id="references">參考文獻</h2><ol><li id="ref-1"><a href="https://doi.org/10.6028/NIST.AI.600-1" rel="noopener noreferrer" target="_blank">Autio C, Schwartz R, Dunietz J, et al. Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile. NIST AI 600-1. 2024. 跨領域風險管理文件。</a></li>
