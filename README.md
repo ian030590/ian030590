@@ -59,4 +59,11 @@ Keywords: occupational therapy · clinical assessment · digital health · teler
 
 ---
 
+## 專案內容維護與準則 ／ Content Maintenance & Guidelines
+
+- 本站專業文章撰寫與建置遵循嚴格之 [文章撰寫技術規範指南](content/README.md)、`AGENTS.md` 與 `GEMINI.md`。
+- **不覆蓋舊文章準則（Zero Overwrite Principle）**：所有新主題、臨床研究指引或文獻撰寫均採增量擴充模式，以全新獨立序號建檔，嚴禁覆蓋、改寫或破壞既有舊文章，確保臨床實證與歷史版本之完整追溯性。
+
+---
+
 Taipei, Taiwan · National Taiwan University · [trainerhub.cc](https://trainerhub.cc) · [rainbowh9490@gmail.com](mailto:rainbowh9490@gmail.com)

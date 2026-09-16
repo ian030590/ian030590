@@ -548,6 +548,37 @@ HUMANIZED_ARTICLE_COPY = {
 <p>如果在接受輔具與訓練後生活功能依然沒有起色，應優先檢視輔具倍率是否配對正確、手部穩定度是否不足、家中照明照度是否達標，或是交通往返過於艱難，絕不可在第一時間將沒有改善草率歸咎於長者缺乏動機。</p></section>
 """,
     ),
+    "VisualRehab_023": copy(
+        "為什麼單純放大常看不清？四大光學放大原理與眼科病變之視覺代償",
+        "放大不只是把字體變大。低視能復健依賴四大放大途徑：尺寸放大、距離放大、透鏡角度放大與投影放大。搞懂屈光度、焦距與視場（Field of View）的物理消長，並結合黃斑部病變、青光眼與糖尿病視網膜病變的視野特徵，才能找出最省力、不疲勞的光學代償方案。",
+        """
+<section aria-labelledby="optics-dilemma"><h2 id="optics-dilemma">買了最強的放大鏡，為什麼反而看不下去？</h2>
+<p>在低視能復健臨床中，治療師最常看見的無奈場景是：家屬為了孝敬視力退化的長輩，跑到藥局或賣場挑選標榜「20 倍超強放大」的手持放大鏡。然而長輩試用不到三分鐘就眉頭深鎖、抱怨「字變得扭曲變形、鏡子晃一下字就跑掉、頭好暈」，最後那支昂貴的放大鏡只能長年被收在抽屜底層。</p>
+<p>家屬常誤以為是長輩「鬧脾氣、不想配合或意志消沉」，但從眼科光學與神經生理學的角度來看，問題往往出在<strong>違反了光學物理定律與眼病變的病理特徵</strong>。光學透鏡並不是萬能的神奇玻璃，光學成像的物理限制是不可逆的：當透鏡屈光度（Diopter）越高、放大倍率越大時，鏡片的有效直徑必然縮小、焦距急遽縮短，一次能看見的視野範圍（視場，Field of View）更會呈現幾何級數的崩跌。<span class="citation-anchor">${ref(1, "Ch 5")}</span></p>
+<p>若缺乏系統性的光學評估，只盲目追求「倍率最大化」，個案看到的往往不是清晰的文字，而是被嚴重局部放大、邊緣扭曲且隨手震劇烈晃動的局部筆畫。要打破這個惡性循環，必須先回到 Whittaker 等學者所奠定的低視能復健光學基石——四大放大原理。</p></section>
+<section aria-labelledby="four-magnification-types"><h2 id="four-magnification-types">低視能復健的四大放大途徑</h2>
+<p>低視能職能治療中的「放大（Magnification）」，本質是<strong>增加目標物體在視網膜上成像的視角大小（Subtended Visual Angle）</strong>，使影像跨越視網膜受損的感光細胞死區，投射到周邊尚存且健康的視網膜組織上。在實務上，達成放大的途徑共有四種，各有其不可取代的臨床優勢與物理限制：<span class="citation-anchor">${ref(1, "pp 73-77")}</span></p>
+<h3>1. 尺寸放大（Relative Size Magnification, RSM）</h3>
+<p>尺寸放大是直接將物體本身的物理尺寸放大，而<strong>不改變觀看距離</strong>。例如：購買大字版聖經或書籍、將手機字體調大、使用大按鍵電話、大數字指甲剪與大刻度量尺。其放大倍率計算公式為：<strong>RSM 放大倍率 = 放大後的新尺寸 ÷ 原始尺寸</strong>。例如：原本藥袋文字為 10 點字（約 2.5 mm），印製成 30 點字（約 7.5 mm）時，即獲得了 3 倍（3×）的尺寸放大。其最大優勢是完全沒有光學畸變、不需改變頭部姿勢與工作距離、不會縮小周邊視場；缺點是實體攜帶性受限，且長篇排版換行過度頻繁增加跳視負擔。</p>
+<h3>2. 距離放大（Relative Distance Magnification, RDM）</h3>
+<p>距離放大是保持物體物理大小不變，<strong>將物體移近眼睛觀看</strong>。物體距離眼睛越近，在視網膜上的投影視角就越大。Lovie-Kitchin 與 Whittaker 的經典研究指出，距離放大是人類最直覺、最本能的視覺代償策略。<span class="citation-anchor">${ref(3)}</span>其倍率公式為：<strong>RDM 放大倍率 = 原始觀看距離 ÷ 新觀看距離</strong>。例如：平時在 40 公分距離閱讀報紙，長輩將報紙拉近到 10 公分處閱讀，即達成了 40 ÷ 10 = 4 倍（4×）的距離放大！然而，看清 10 公分物體需 +10.00 D 調節力，老花眼長輩必須配合配戴相應屈光度的高加光老花眼鏡（High-Add Reading Glasses）。</p>
+<h3>3. 角度／透鏡放大（Angular Magnification）</h3>
+<p>透過光學透鏡系統（凸透鏡手持鏡、立式放大鏡、單/雙目望遠鏡），折射光線以放大入射至眼睛的視角。在視光學標準中，以 25 公分（對應 +4.00 D 標準明視距離）為參考點：<strong>標稱放大倍率 M = 屈光度（D） ÷ 4</strong>。例如一個 +20.00 D 的手持凸透鏡，標稱光學放大倍率為 20 ÷ 4 = 5 倍（5×）。能提供 2× 到 12× 以上倍率，但光學鏡片存在不可避免的球差與色差，且倍率越高鏡片越重、視野越小。<span class="citation-anchor">${ref(1, "p 74")}</span></p>
+<h3>4. 電子／投影放大（Electronic / Projection Magnification）</h3>
+<p>利用電子攝影鏡頭擷取影像，投射在液晶螢幕或顯示器上（例如桌上型或可攜式電子擴視機 CCTV）。其放大倍率取決於螢幕寬度與感光晶片物理寬度之比。能提供 2× 至 60× 以上連續縮放，打破光學透鏡的景深與像差枷鎖，並提供色彩對比反轉。<span class="citation-anchor">${ref(1, "p 76")}</span></p></section>
+<section aria-labelledby="focal-and-fov"><h2 id="focal-and-fov">屈光度、焦距與視場的物理消長法則</h2>
+<p>光學物理鐵律指出：<strong>屈光度（Diopter, D）與焦距（Focal Distance, f）成嚴格反比：f（公分） = 100 ÷ D</strong>。<span class="citation-anchor">${ref(2)}</span>+4.00 D 透鏡焦距為 25 公分；+10.00 D 透鏡焦距為 10 公分；+20.00 D 焦距僅剩 5 公分；+32.00 D 焦距更僅有 3.1 公分！手部微小震顫即失焦。同時，視場（FOV）隨度數急劇萎縮；眼睛離透鏡越遠，視場窗口越小；眼睛越貼近透鏡，視場才越大。</p></section>
+<section aria-labelledby="pathology-matching"><h2 id="pathology-matching">三大眼科病變的視野特徵與光學代償</h2>
+<p>低視能處方絕不能單看視力表缺幾行就補幾倍鏡片，必須將病變視野特徵納入考量<span class="citation-anchor">${ref(4)}</span>：</p>
+<ul>
+<li><strong>年齡相關性黃斑部病變（AMD）</strong>：破壞黃斑凹形成中心暗點（Central Scotoma），周邊視野完好。處方切忌使用過小視場的鏡片以免文字被盲區吞噬；需結合微視野偏心注視（PRL），優先採用大視場距離放大（高加光眼鏡）或電子擴視機跨越暗點。<span class="citation-anchor">${ref(1, "Ch 4")}</span></li>
+<li><strong>青光眼（Glaucoma）</strong>：周邊視野向心性狹窄形成管狀視野，中心視力初期尚存。<strong>禁止過度放大</strong>，過大字體會超出狹窄管狀視野；應專注於照明對比增強與環境搜尋掃視訓練。<span class="citation-anchor">${ref(1, "pp 55-58")}</span></li>
+<li><strong>糖尿病視網膜病變（DR）</strong>：散在性暗點伴隨嚴重對比敏感度受損。<strong>對比增強優先於單純倍率放大</strong>；處方高照度無眩光側光源，或使用電子擴視機切換為黃底黑字、黑底白字高對比模式並搭配醫療濾光眼鏡。<span class="citation-anchor">${ref(1, "Ch 4")}</span></li>
+</ul></section>
+<section aria-labelledby="ot-decision"><h2 id="ot-decision">職能治療師的臨床處方與試用決策</h2>
+<p>臨床評估應遵循三大步驟：先測臨界字級（CPS）建立 2 到 3 倍以上視力儲備量（Acuity Reserve）；優先從尺寸放大與距離放大起步；評估手部震顫與關節耐力，若震顫明顯則禁用高倍率手持鏡，轉向固定焦點立式鏡或電子擴視機。精準媒合光學物理與生活任務，才能助個案重獲自主尊嚴。<span class="citation-anchor">${ref(1, "Ch 15")}</span></p></section>
+""",
+    ),
     "VisualRehab_003": copy(
         "視力不差卻看不清楚：低視能評估不只看視力表",
         "高對比黑白視力表只反映眼睛最佳光學極限。對比敏感度、視野暗點與閱讀速度放在一起看，才能精準找出真實生活中看不清的癥結。",
@@ -565,6 +596,60 @@ HUMANIZED_ARTICLE_COPY = {
 <section aria-labelledby="vision-trial"><h2 id="vision-trial">一次只改一個條件，才知道什麼有用</h2>
 <ul><li>在評估時嚴格遵守變數控制：先固定測試材料與字級大小，專門比較冷暖不同色溫照明；或是固定環境照度，逐步測試不同放大倍率鏡片的辨識流暢度。</li><li>詳細記錄每一項閱讀條件下的文字正確率、每分鐘閱讀字數、漏看文字是在行首還是行尾，以及個案主觀的眼睛酸澀感。</li><li>如果在評估過程中發現個案在特定視野區域出現新發的暗點遮蔽，或短時間內視力驟降，必須立即轉介眼科醫師進行眼底視網膜斷層掃描（OCT）。</li></ul>
 <p>若個案在高對比黑白藥袋上看得很順、遇到反光光面藥盒卻無法辨識，解決策略應是調整光源角度消除眩光或使用消光護套，而非盲目跳級更換更高倍率的放大鏡。從細緻的條件測試出發，才能為個案量身打造最合身的光學與環境處方。</p></section>
+""",
+    ),
+    "VisualRehab_024": copy(
+        "放大鏡買了卻不會用？手持、立式、眼鏡型與望遠鏡處方與操作訓練",
+        "許多視障長輩抽屜裡塞滿看不清的放大鏡。手持式需精準手動焦距；立式鏡成虛像需搭配閱讀加光；眼鏡型鏡片解放雙手卻需靠得極近；望遠鏡則需系統化定位搜尋。職能治療師透過光學特性分析與排除錯誤檢核表，助個案找回生活自主。",
+        """
+<section aria-labelledby="devices-gap"><h2 id="devices-gap">「抽屜裡的五支放大鏡」：輔具發放後的臨床斷層</h2>
+<p>在居家職能治療訪視中，長輩常從抽屜掏出好幾支嶄新的放大鏡嘆氣說：「每支都看不清，拿在手上晃來晃去頭好暈！」LOVIT 大型隨機對照試驗證實：單純發放輔具成效有限，必須結合治療師的系統化使用訓練，閱讀速度與生活品質才能產生顯著躍進。<span class="citation-anchor">${ref(2)}</span>放大鏡難用，是因為每種光學結構都有其不可妥協的操作物理條件。<span class="citation-anchor">${ref(1, "Ch 13")}</span></p></section>
+<section aria-labelledby="four-optical-devices"><h2 id="four-optical-devices">四大核心光學輔具之機制與臨床適應症</h2>
+<p>Whittaker 等人將光學輔具分為四大支柱，必須依據肌力、震顫、認知耐受與任務精準適配<span class="citation-anchor">${ref(1, "pp 226-233")}</span>：</p>
+<h3>1. 手持式放大鏡（Hand-Held Magnifiers）</h3>
+<p>物體必須置於焦點上（物距等於焦距 f = 100/D）。適合「點讀」，如超市標價、看藥袋劑量、水電費金額。但手部需懸空維持毫米級焦距，度數超過 +12.00 D 時手部震顫者難以維持。使用關鍵是<strong>「鏡片貼近眼睛看」</strong>以最大化視場。</p>
+<h3>2. 立式放大鏡（Stand Magnifiers）</h3>
+<p>直接平貼紙面滑動，底座高度略小於焦距，在紙面下方形成<strong>發散虛像</strong>。<span class="citation-anchor">${ref(1, "p 230")}</span>適合長段落閱讀，底座支撐解決懸空疲勞，是關節炎與巴金森氏症震顫首選。但<strong>使用者必須配戴老花閱讀眼鏡才能看清該虛像</strong>！移動時平貼「滑行」而非「抬起」。</p>
+<h3>3. 眼鏡型高屈光度鏡片（Spectacle-Mounted Readers）</h3>
+<p>度數通常在 +4.00 D 至 +20.00 D，提供最強的距離放大（RDM）。<span class="citation-anchor">${ref(1, "p 227")}</span><strong>徹底解放雙手</strong>，適合修指甲、刺繡、打毛線，且視野最寬廣。但工作距離極短（+8.00 D 僅 12.5 cm；+16.00 D 僅 6.2 cm），雙眼超過 +8.00 D 時<strong>必須加入基底向內（Base-In）稜鏡代償內聚</strong>或改採單眼配戴以防複視。</p>
+<h3>4. 單目與雙目望遠鏡（Telescopes）</h3>
+<p>唯一提供遠距角放大的光學輔具（2.5× 至 6.0×），用於看站牌、路標與紅綠燈。<span class="citation-anchor">${ref(1, "pp 231-233")}</span>景深淺且視野窄，<strong>嚴禁在走動中使用（跌倒風險極高）</strong>。需落實三步定位搜尋法（肉眼鎖定 ➔ 頭部不動 ➔ 舉鏡切入）。</p></section>
+<section aria-labelledby="solution-checklist"><h2 id="solution-checklist">臨床排除錯誤檢核表：為什麼個案用不好？</h2>
+<p>個案抱怨看不好時，依據 Whittaker 檢核表除錯<span class="citation-anchor">${ref(1, "Table 13-1")}</span>：立式鏡模糊需確認是否戴老花眼鏡；手持鏡視野太窄需將鏡片貼近眼睛；字面反光需更換環形 LED 光源並將燈光調至側後方 45 度；手抖震顫應全面換用立式鏡或電子擴視機；戴高度數閱讀鏡眼窩痛需加裝基底向內三稜鏡。</p></section>
+<section aria-labelledby="success-instruction"><h2 id="success-instruction">以成功為導向的逐步訓練程序</h2>
+<p>光學輔具訓練必須落實三原則：先由治療師固定最佳照明與距離確保首次體驗 100% 成功；隨後一次只釋放一個控制變數讓個案自主練習；最後轉移至真實生活藥袋與帳單中操作。<span class="citation-anchor">${ref(1, "pp 224-226")}</span></p></section>
+""",
+    ),
+    "VisualRehab_025": copy(
+        "光學放大鏡極限後的科技解答：電子擴視機、螢幕報讀與AI視覺無障礙",
+        "當光學透鏡因高倍率而造成視場狹窄與嚴重畸變時，電子擴視機（CCTV）與數位科技帶來了無障礙轉機。高對比反轉、連續無段縮放、導引遮線，配合智慧型手機內建旁白報讀與多模態 AI 視覺辨識，為中重度低視能者重建數位生活與獨立自理。",
+        """
+<section aria-labelledby="tech-limit"><h2 id="tech-limit">當光學鏡片走入死胡同：中重度低視能的困局</h2>
+<p>當個案視力低於 0.05 或伴隨廣泛黃斑部地圖狀萎縮時，所需透鏡度數高達 +24.00 D 以上。此時鏡片直徑僅剩 25 毫米，工作深度幾毫米即失焦，長輩整張臉貼在紙上痛苦拼讀。數位輔助科技打破了玻璃透鏡的物理折射極限，能在充裕工作距離下將文字放大數十倍並重塑對比度。<span class="citation-anchor">${ref(1, "Ch 14")}</span></p></section>
+<section aria-labelledby="electronic-magnifiers"><h2 id="electronic-magnifiers">電子擴視機（CCTV）：光學無可比擬的四大數位優勢</h2>
+<p>隨機臨床試驗證實電子擴視機在長文閱讀耐力與速度上顯著超越高倍光學鏡片<span class="citation-anchor">${ref(2)}</span>：高倍率下依然維持寬廣視場；黑底白字高對比反轉徹底消除視網膜眩光；鏡頭懸高 20~30 公分提供充裕的手部書寫與分藥空間；具備水平導引遮線防止跳行。<span class="citation-anchor">${ref(1, "pp 254-263")}</span></p></section>
+<section aria-labelledby="computer-accessibility"><h2 id="computer-accessibility">電腦無障礙環境：放大軟體與螢幕報讀系統</h2>
+<p>電腦無障礙具備雙軌架構：螢幕放大軟體（Windows 放大鏡、ZoomText）提供平滑放大與游標高亮；螢幕語音報讀軟體（NVDA、JAWS）則將螢幕文字轉為語音，支援全鍵盤快捷鍵無障礙操作。<span class="citation-anchor">${ref(1, "pp 268-271")}，${ref(4)}</span></p></section>
+<section aria-labelledby="mobile-and-ai"><h2 id="mobile-and-ai">智慧型手機與多模態 AI 視覺辨識的臨床革命</h2>
+<p>智慧型手機是具備尊嚴的無障礙載體。iOS 與 Android 內建強大報讀與縮放工具；而導入多模態大型語言模型的 AI 視覺辨識 App（Seeing AI、Be My Eyes），能即時語音朗讀藥袋仿單、辨識新台幣紙鈔面額、解讀無物理按鍵的觸控微波爐面板，並提供周遭環境場景描述。<span class="citation-anchor">${ref(3)}</span></p></section>
+<section aria-labelledby="training-steps"><h2 id="training-steps">職能治療師的電子輔具逐步教學程序</h2>
+<p>高齡長輩學習電子輔具需落實四階進程：治療師預先設定最佳對比讓個案體驗成功；學習在 XY 平台上移動材料掌握空間導航；每次只教單一實體按鈕；最後達成獨立開機使用並類化至日常生活中。<span class="citation-anchor">${ref(1, "Table 14-1")}</span></p></section>
+""",
+    ),
+    "VisualRehab_026": copy(
+        "看不到字不是只能靠別人唸：點讀、長文連讀與書寫輔助重建指南",
+        "閱讀是維持獨立生活的最高職能需求。低視能長輩看藥袋、簽名與看書的視覺機制完全不同。Whittaker 提出「視力餘裕度」與「對比餘裕度」法則，區分「點讀」與「連讀」目標，結合穩視技巧（Steady-Eye）、閱讀引導遮板與簽名框，讓視障者重新找回閱讀與書寫尊嚴。",
+        """
+<section aria-labelledby="reading-loss"><h2 id="reading-loss">失去文字的痛：閱讀障礙不等於全盤放棄</h2>
+<p>閱讀是低視能個案轉介復健排名第一的核心目標（佔 85% 以上）。無法閱讀藥袋與簽名常讓長輩陷入極深無力感。閱讀需要眼動跳煞、注視解碼與認知回溯協同運作。要重建閱讀，必須依任務分流並保留足夠的神經解碼儲備。<span class="citation-anchor">${ref(1, "Ch 15")}，${ref(2)}</span></p></section>
+<section aria-labelledby="two-reading-tasks"><h2 id="two-reading-tasks">點讀（Spot Reading）vs. 連續長文閱讀</h2>
+<p>點讀指看藥袋劑量、標價、帳單等少於 10 字的短暫任務，依賴便攜手持放大鏡或手機拍照放大；長文閱讀需維持 15 分鐘以上段落閱讀，高度依賴視場大小、大工作空間、連續照明與立式鏡或電子擴視機。<span class="citation-anchor">${ref(1, "pp 284-286")}</span></p></section>
+<section aria-labelledby="reserves-physics"><h2 id="reserves-physics">Whittaker 核心理論：視力餘裕度與對比餘裕度</h2>
+<p>流暢閱讀絕不能只給臨界字級（CPS）：文字等於臨界字級時閱讀速度暴跌 50%；<strong>文字放大至臨界字級 3 到 5 倍（視力餘裕度 3:1~5:1）</strong>，才能恢復 90% 以上流暢度並維持持久耐力。<span class="citation-anchor">${ref(1, "p 288")}，${ref(3)}</span>同時，對比餘裕度需維持 3:1 至 10:1 以上，不足時單純放大字體仍顯灰斑。</p></section>
+<section aria-labelledby="steady-eye-technique"><h2 id="steady-eye-technique">實證閱讀技巧：穩視策略（Steady-Eye Technique）</h2>
+<p>中心暗點個案若移動眼球跳煞，暗點會隨視線跳動反覆遮蔽文字。穩視策略指導個案<strong>眼球凝視最佳偏心注視點不動，雙手由右向左水平平移紙張或滑動螢幕</strong>，用手動取代眼動，消除暗點干擾，大幅降低漏字率。<span class="citation-anchor">${ref(1, "Ch 10")}</span></p></section>
+<section aria-labelledby="writing-and-nonoptical"><h2 id="writing-and-nonoptical">書寫適應與非光學輔助工具包</h2>
+<p>非光學輔具包含：卡片大小的<strong>簽名導引框</strong>（鏤空視窗引導簽名絕對不超出界線）、<strong>粗黑線筆</strong>與黑粗線紙（強化手寫對比）、<strong>閱讀引導遮板（Typoscope）</strong>（遮蔽雜訊與反光、終結跳行），以及<strong>傾斜閱讀書架</strong>（保護頸椎並發揮距離放大效應）。<span class="citation-anchor">${ref(1, "pp 291-294")}</span></p></section>
 """,
     ),
     "VisualRehab_007": copy(
@@ -683,6 +768,130 @@ HUMANIZED_ARTICLE_COPY = {
   <li><strong>控制單次訓練時數並追蹤長期留存</strong>：知覺學習極易造成大腦與眼外肌疲勞，建議採每次 15–20 分鐘之短時間高頻練習，無須盲目追求高時數；並於訓練結束後 3 至 6 個月安排回診，評估居家使用與成效維持狀況。</li>
 </ul>
 <p>偏心注視與穩視策略不是逆轉眼疾的奇蹟，而是一套尊重神經可塑性、在生理受損現實下爭取最大生活獨立的代償技術。用保守誠實的實證界限引導個案，復健的步伐才能走得扎實而有尊嚴。</p></section>
+""",
+    ),
+    "VisualRehab_027": copy(
+        "看不清楚如何安全煮飯與自理？職能治療 EPIC 居家改造實務架構",
+        "低視能長輩在廚房倒開水燙傷、分不清洗頭乳與沐浴乳、在走廊撞到障礙物，常讓家人陷入送安養院的焦慮。Whittaker 與 Scheiman 提出 EPIC 介入架構：環境改造、流程調適、輔具導入與任務簡化，從雙色對比砧板、凸點觸覺貼到收納三角動線，打造零盲區的安心居家。",
+        """
+<section aria-labelledby="epic-dilemma"><h2 id="epic-dilemma">過度保護的陷阱：剝奪自理如何加速失能？</h2>
+<p>「自從媽媽得黃斑部病變後，我把廚房鎖起來不准她碰，什麼都幫她做。但她越來越消沉，整天躺著嘆氣……」家屬的全面代勞出於孝心，卻常造成「人為習得性無助」。大腦動機與肢體平衡高度依賴日常參與。全盲者尚且能獨立自理，低視能者絕不需要放棄生活！<span class="citation-anchor">${ref(1, "p 301")}，${ref(2)}</span></p></section>
+<section aria-labelledby="epic-framework"><h2 id="epic-framework">職能治療 EPIC 介入架構詳解</h2>
+<p>Whittaker 等人提出專為視障自理設計的 EPIC 架構<span class="citation-anchor">${ref(1, "Table 16-1")}</span>：</p>
+<ul>
+<li><strong>E - Environmental Modification（環境改造）</strong>：提升對比與消除眩光。例如白盤裝深色肉類、深盤裝白米飯；水槽裝設高照度工作燈。</li>
+<li><strong>P - Process Adaptation（流程調適）</strong>：轉向觸覺與本體覺。例如「時鐘方位進食法」（12點肉類、4點青菜、8點米飯）；倒水時手指扣在杯緣感知液面上升。</li>
+<li><strong>I - Introduction of Equipment（輔具導入）</strong>：引進高邊防溢餐盤、水滿防溢警報器（嗶嗶聲提示）。</li>
+<li><strong>C - Change of End-Product（任務簡化）</strong>：由家人預先將大塊肉排切丁；改用按壓式保溫熱水瓶取代手提沸水鍋。</li>
+</ul></section>
+<section aria-labelledby="kitchen-safety"><h2 id="kitchen-safety">廚房備餐與飲食安全：零盲區改造實務</h2>
+<p>環境對比與技巧訓練能顯著降低居家意外<span class="citation-anchor">${ref(3)}</span>：準備<strong>一黑一白雙色切菜板</strong>（切洋蔥豆腐用黑砧板，切深色蔬果用白砧板）；切菜落實<strong>貓爪手勢（指尖向內蜷縮）</strong>保護手指；觸控微波爐<strong>僅標記開始與取消兩個觸覺凸點貼片</strong>，秉持「少即是多」原則。<span class="citation-anchor">${ref(1, "p 315")}</span></p></section>
+<section aria-labelledby="bathroom-and-dressing"><h2 id="bathroom-and-dressing">衛浴自理與更衣安全：防跌與防混淆</h2>
+<p>衛浴防跌關鍵在深度知覺代償與防呆<span class="citation-anchor">${ref(4)}</span>：<strong>洗髮精瓶身套 3 條橡皮筋、沐浴乳保持光滑</strong>，觸覺秒辨；更換<strong>深色馬桶座圈</strong>打破全白迷茫深度錯覺；衣櫃加裝感應 LED 燈條與分區隔板。<span class="citation-anchor">${ref(1, "pp 305-307")}</span></p></section>
+<section aria-labelledby="ot-home-management"><h2 id="ot-home-management">家務收納與財務自理：空間三角與紙鈔摺疊</h2>
+<p>廚房確保水槽、冰箱與爐台之工作三角動線零雜物，落實物歸原位。出門日常購物教導<strong>紙鈔觸覺摺疊系統</strong>（百元平放、五百元縱折、千元橫折成小方塊），手指一摸即知面額，尊嚴付款。<span class="citation-anchor">${ref(1, "p 312")}</span></p></section>
+""",
+    ),
+    "VisualRehab_028": copy(
+        "視力模糊如何安全打胰島素？糖尿病視網膜病變者的自我管理與藥物安全",
+        "糖尿病視網膜病變常導致視力驟降與散在性暗點，此時精準施打胰島素與辨識多重慢性病藥物成了生死攸關的挑戰。專科職能治療師結合理論與糖尿病衛教，運用聽覺喀嗒計數、針筒放大定位套夾、語音血糖機與足部檢視鏡，預防嚴重低血糖與失明截肢雙重悲劇。",
+        """
+<section aria-labelledby="diabetes-dilemma"><h2 id="diabetes-dilemma">雙重感覺剝奪：糖尿病視障者的生死懸崖</h2>
+<p>糖尿病視網膜病變常伴隨周邊感覺神經病變：<strong>個案既看不清針筒微小刻度，指尖也麻木摸不出針頭阻力</strong>。轉錯一個刻度引發致命低血糖昏迷，少打則導致酮酸中毒。職能治療師必須運用聽覺與機械防呆，將精密視覺操作轉譯為安全直覺的常規。<span class="citation-anchor">${ref(1, "Ch 20")}，${ref(2)}</span></p></section>
+<section aria-labelledby="insulin-safety"><h2 id="insulin-safety">胰島素安全施打：聽覺喀嗒聲與機械限位器</h2>
+<p>指引推薦精準注射代償策略<span class="citation-anchor">${ref(3)}</span>：</p>
+<ul>
+<li><strong>胰島素筆「喀嗒計數法」</strong>：每轉動 1 單位發出清脆機械喀嗒聲與頓挫反饋，靠近耳邊旋轉並同步口頭大聲數出劑量。<span class="citation-anchor">${ref(1, "p 352")}</span></li>
+<li><strong>針筒卡入式放大鏡與機械劑量擋板</strong>：傳統針筒加裝專用放大鏡管；或預先卡入機械劑量擋板（Dose Stop），拉到擋片位置即卡死，100% 杜絕過量抽取。<span class="citation-anchor">${ref(1, "p 354")}</span></li>
+<li><strong>瓶塞導針器</strong>：卡槽導引針頭垂直插入橡皮塞正中央，防針頭彎折與扎手。</li>
+</ul></section>
+<section aria-labelledby="glucose-and-feet"><h2 id="glucose-and-feet">血糖監測與足部病變防護：聲音提示與鏡像檢視</h2>
+<p>全中文<strong>語音血糖機</strong>全程用語音引導插試紙並朗讀血糖數值；<strong>連續血糖監測（CGM）</strong>具備低血糖高分貝警報。<span class="citation-anchor">${ref(3)}</span>足部神經病變易造成不自知潰瘍，指導長輩使用<strong>長柄伸縮附燈放大檢視鏡</strong>照視腳底，並以手背觸撫感知局部發燙或滲液。<span class="citation-anchor">${ref(1, "p 357")}</span></p></section>
+<section aria-labelledby="medication-sorting"><h2 id="medication-sorting">多重慢性病藥盒管理：建立多感官防錯體系</h2>
+<p>慢性病藥物防呆分類策略<span class="citation-anchor">${ref(1, "pp 361-364")}，${ref(4)}</span>：藥瓶套 <strong>1 條橡皮筋代表晨起服、2 條代表早晚服</strong>；用立體塗料在瓶蓋擠出立體點字符號；引進 PenFriend 點讀錄音標籤碰觸即播服藥醫囑；每週日在高照度檯燈與電子擴視機下一次性分裝整週 7 天大藥盒。</p></section>
+<section aria-labelledby="diabetes-ot-role"><h2 id="diabetes-ot-role">職能治療師的賦能使命：守護生活與生命的最後防線</h2>
+<p>長輩最恐慌的是害怕自己吃錯藥做錯處置。職能治療將醫囑化為在家摸得到、聽得清、做得到的日常，聽見胰島素筆清脆喀嗒聲與平穩血糖報讀，就是守護生命與尊嚴的最強抗體。</p></section>
+""",
+    ),
+    "VisualRehab_029": copy(
+        "看不到字中心？時鐘面定位法（Clock Face Technique）評估中心暗點與偏心注視實務",
+        "黃斑部病變導致中心凹感光細胞受損，但大腦知覺填補常使長輩誤以為自己沒盲點。Wright 與 Whittaker 發展之時鐘面定位法（Clock Face Technique）僅需一張紙、黑筆與觀察小孔，就能在 5 分鐘內於床邊精準鑑別中心注視、習慣性偏心注視（EV）與暗點方位，阻斷跌倒與閱讀障礙風險。",
+        """
+<section aria-labelledby="clock-dilemma"><h2 id="clock-dilemma">大腦的自動修圖陷阱：為什麼長輩不知道自己有「中心盲點」？</h2>
+<p>在老年性黃斑部病變（AMD）等眼底病變中，黃斑部中心凹（Fovea）的感光錐細胞常因地圖狀萎縮或新生血管滲漏受損，在視野正中央形成實質性的「中心暗點（Central Scotoma）」。然而在臨床訪視中，長輩常困惑地向治療師反映：「我眼前沒有黑洞啊，但看人臉就是一片模糊，看書時字的中間老是缺一塊，是不是我老花了？」<span class="citation-anchor">${ref(1, "Ch 4")}</span></p>
+<p>家屬常以為長輩消極或藉故不看，但神經生理學研究揭示了一項殘酷機轉：大腦視覺皮質擁有強大的<strong>「知覺填補效應（Perceptual Completion）」</strong>。當黃斑部無法傳送中心訊號時，大腦會自動利用盲區周邊的背景顏色與質地「把破洞補齊」<span class="citation-anchor">${ref(1, "p 129")}，${ref(4)}</span>。個案主觀看不見黑點，因而無法自覺盲區的存在，更不知道該如何調適眼位。</p>
+<p>傳統阿姆斯勒方格表（Amsler grid）因知覺填補常出現極高偽陰性；而眼科黃金標準微視野計（Microperimeter）雖然精準，但設備動輒百萬台幣且操作繁瑣，基層居家訪視與長照社區根本無法普及。為了打破評估困境，Wright、Watson 與 Whittaker 等學者發展了兼具高便利性與高信度的床邊工具——<strong>時鐘面定位法（Clock Face Technique）</strong>。<span class="citation-anchor">${ref(1, "pp 129-131")}，${ref(2)}</span></p></section>
+<section aria-labelledby="clock-mechanism"><h2 id="clock-mechanism">時鐘面定位法原理：一張紙與窺視孔的極致臨床設計</h2>
+<p>時鐘面定位法本質是<strong>利用日常生活最熟悉的 12 顆鐘點空間座標，將無形的中心暗點實體化</strong>。其精妙之處在於極簡且高度標準化的硬體設計：<span class="citation-anchor">${ref(1, "p 129")}</span></p>
+<ul>
+<li><strong>測試紙板製作</strong>：在 8.5 × 11 吋（或 A4）無反光白卡紙上，以粗黑簽字筆繪製標準時鐘（標示 1 到 12 的阿拉伯數字），鐘面正中央繪製一顆清晰的五角星（或 1 個大寫字母）。</li>
+<li><strong>靈魂設計——中心窺視孔（Peephole）</strong>：在中央固定視標（星星）正上方，<strong>剪出一個直徑約 5 毫米的小孔</strong>。</li>
+</ul>
+<p>這個看似微小的窺視孔，解決了低視能評估最大的臨床痛點：<strong>施測者無法肉眼確認個案的眼球是否穩定注視</strong>。當卡紙置於個案眼前 40 至 50 公分處時，治療師從卡紙背面透過窺視孔，能以 1 到 2 度的極高精準度直接平視並監控個案的注視眼動（媲美微視野計的即時眼動追蹤功能），徹底杜絕個案「偷瞄或眼球亂飄」導致的評估誤差。<span class="citation-anchor">${ref(1, "p 129")}</span></p></section>
+<section aria-labelledby="clock-protocol"><h2 id="clock-protocol">標準化床邊四步施測流程（Step-by-Step Protocol）</h2>
+<p>施測時個案應佩戴常規近用眼鏡，室內維持均勻漫射照明，遵循標準四步階梯：<span class="citation-anchor">${ref(1, "pp 129-130")}</span></p>
+<h3>步驟一：中心注視傾向檢驗（Central Fixation Tendency）</h3>
+<p>將鐘面置於眼前 40–50 公分處，請個案直視正中央的星星。<strong>若個案尚未發展出代償策略（習慣以中心凹直視）</strong>，中央盲點會直接覆蓋星星，個案會回報：「中間的星星看不見或一片模糊，但周圍 1 到 12 的數字反而看得清楚。」此時確立個案具備中心暗點且仍有中心注視慣性。<span class="citation-anchor">${ref(1, "Figure 8-8[B]")}</span></p>
+<h3>步驟二：習慣性偏心注視與暗點方位鑑別</h3>
+<p>指導個案微微轉動眼球，直到能看清中央星星為止。一旦個案確認看見星星，治療師立刻追問關鍵問題：<strong>「現在時鐘上有哪些數字消失或看不清了？」</strong><span class="citation-anchor">${ref(1, "p 130")}</span><br>
+<strong>核心判讀鐵律：消失的鐘點數字方位，就是中心暗點的所在位置！</strong>例如：個案回報看清星星時，2、3、4 點鐘的數字消失了，代表中心暗點正落在視線右側，個案眼球正在向右偏心注視（Rightward Eccentric Viewing）。</p>
+<h3>步驟三：透過窺視孔交叉驗證眼球轉向</h3>
+<p>治療師立即透過紙板窺視孔檢視個案眼球：若個案回報 2、3、4 點消失，眼球確實明顯偏向右側，即可證實為中心暗點並確立習慣性注視位點；若眼球並未偏轉卻出現數字消失，則高度懷疑為「旁中心暗點（Paracentral Scotoma）」合併中心視力尚存，常見於萎縮型乾性黃斑部病變早期。<span class="citation-anchor">${ref(1, "p 130")}</span></p>
+<h3>步驟四：排除偽陰性與誘發相對性暗點</h3>
+<p>若個案回報「星星與 12 個數字全都看得見」，切勿草率判定視野正常，應依序排除三大干擾：<span class="citation-anchor">${ref(1, "p 130")}</span></p>
+<ul>
+<li><strong>眼球游移搜尋</strong>：透過窺視孔檢視個案是否眼球不斷跳動。若眼球持續微跳，代表個案正用動態跳煞填補盲區，需指導其維持凝視。</li>
+<li><strong>暗點範圍極小</strong>：將時鐘面移遠至 1 公尺以上，利用「距離縮小效應（Distance Minification）」使暗點跨越數字，暗點隨即顯形。</li>
+<li><strong>相對性暗點（Relative Scotoma）</strong>：乾性黃斑部病變常為相對性暗點（強光高對比下尚能看清，但敏感度受損）。此時<strong>調暗室內燈光</strong>，或改用低對比數字表，暗點即會顯現。<span class="citation-anchor">${ref(1, "p 130")}</span></li>
+</ul></section>
+<section aria-labelledby="clock-interpretation"><h2 id="clock-interpretation">方位判讀與功能風險矩陣：暗點落在哪顆鐘點最危險？</h2>
+<p>暗點的鐘點方位直接決定了個案日常生活的代償難度與安全風險<span class="citation-anchor">${ref(1, "p 130")}，${ref(3)}</span>：</p>
+<div class="table-wrapper">
+<table class="article-table">
+  <thead>
+    <tr>
+      <th>消失的鐘點方位</th>
+      <th>眼球偏心注視方向</th>
+      <th>日常生活功能衝擊與潛在風險</th>
+      <th>職能治療介入建議</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>11、12、1 點鐘消失</strong></td>
+      <td>向上偏心注視（Upward EV）</td>
+      <td><strong>最佳適應型態</strong>。暗點位在上方，水平閱讀與腳下行走視野完全保留，極少發生碰撞或跳行。</td>
+      <td>屬於良好代償，<strong>切勿刻意改變</strong>，直接鞏固其穩視耐力即可。</td>
+    </tr>
+    <tr>
+      <td><strong>5、6、7 點鐘消失</strong></td>
+      <td>向下偏心注視（Downward EV）</td>
+      <td><strong>極度危險型態！</strong>暗點落在正下方，正好遮蔽下樓梯階緣、門檻與路面坑洞，<strong>跌倒骨折風險倍增</strong>；閱讀時極易漏跳行。</td>
+      <td><strong>列為最高優先矯正目標！</strong>必須打破此下視習慣，重新訓練眼球轉向左右或上方。</td>
+    </tr>
+    <tr>
+      <td><strong>2、3、4 點鐘消失</strong></td>
+      <td>向右偏心注視（Rightward EV）</td>
+      <td><strong>閱讀重度障礙</strong>。橫向由左向右閱讀時，暗點覆蓋即將閱讀的後續字詞（中央凹旁預視視窗受阻），閱讀斷斷續續。</td>
+      <td>閱讀速度極慢；需訓練穩視技巧（Steady-Eye，手移紙張）或改用垂直縱讀策略。</td>
+    </tr>
+    <tr>
+      <td><strong>8、9、10 點鐘消失</strong></td>
+      <td>向左偏心注視（Leftward EV）</td>
+      <td><strong>換行障礙</strong>。由上一行句尾跳至下一行行首時，暗點遮蔽左側起始字，常發生找不到行首或重複讀同一行。</td>
+      <td>處方粗黑行首引導標記、讀書導引板（Reading Slit）輔助行首定位。</td>
+    </tr>
+  </tbody>
+</table>
+</div></section>
+<section aria-labelledby="clock-to-training"><h2 id="clock-to-training">從床邊評估無縫轉譯為訓練：最佳視網膜位點（PRL）探索</h2>
+<p>時鐘面定位法不僅是評估工具，更是最具備自主賦能效益的復健訓練媒介<span class="citation-anchor">${ref(1, "pp 172-174")}，${ref(2)}</span>：</p>
+<ul>
+<li><strong>建立暗點覺察（Scotoma Awareness）</strong>：家屬與個案常因看不見盲點而焦慮。治療師引導個案看著星星並觀察數字消失，親自示範「轉動眼球就能把盲點搬走」，破除失明恐慌。</li>
+<li><strong>尋找最佳視網膜位點（PRL, Preferred Retinal Locus）</strong>：若個案習慣性位點不良（如 6 點鐘方向易跌倒），指導個案眼神依序望向 1 點鐘、2 點鐘……順時針繞行一圈，找出「中心星星最清晰、且最不費力」的黃金鐘點，確立為新型 PRL。<span class="citation-anchor">${ref(1, "p 174")}</span></li>
+<li><strong>回家作業與眼動固化訓練</strong>：影印一份時鐘面交給個案帶回家，標註正確測試距離。指派自主訓練任務：「請看著中心，當我說出 3 點鐘時，在 1 秒內轉動眼睛讓 3 點鐘數字消失；說出 9 點鐘時，讓 9 點鐘消失。」每天練習 3 次、每次 5 分鐘，重新建立大腦對眼外肌的自主偏心導航神經迴路。<span class="citation-anchor">${ref(1, "p 174")}</span></li>
+</ul>
+<p>從一張白紙與一個窺視孔出發，時鐘面定位法以零設備成本打破了知覺填補的迷障，將無形的暗點轉化為具體的幾何指引，為每一位低視能長輩指引出安全行走與流暢閱讀的全新視界。<span class="citation-anchor">${ref(1, "Ch 10")}</span></p></section>
 """,
     ),
     "VisualRehab_011": copy(

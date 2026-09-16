@@ -38,10 +38,16 @@
 9. **Publish Date & Chronological Sorting（實際撰寫日期發布）**:
    - All newly created, added, or revised articles MUST use the real, actual date of authorship as their publish date (`datePublished`, `article:published_time`, `dateModified`, `article:modified_time`, formatted as `YYYY-MM-DDT08:00:00+08:00`).
    - NEVER reuse or copy obsolete placeholder dates from batch templates (e.g., `2026-09-12`). The blog and home feed dynamically sort articles descending by publish date to identify and feature the latest article as "最新專題" (Index 0). Accurately dating new articles is mandatory.
+10. **Zero Overwrite & Non-Destructive Addition（嚴禁覆蓋既有舊文章，一律撰寫新篇章）**:
+   - 嚴禁修改、改寫、重構或覆蓋磁碟與 Git 上既有的舊文章（Zero Overwrite）。
+   - 凡是根據新需求、新文獻（如教科書新章節）或新專題撰寫文章，**一律必須使用全站未曾使用之全新序號撰寫獨立的新檔案**（接續於當前目錄最大序號之後，如 `029_...`）。
+   - 嚴禁插入舊文章序號區間（避免重新計算前後篇導覽而連帶竄改舊文章內容，進而引發雲端同步衝突或破壞歷史版本）。
+   - 新增專題時，若有系列導覽需求，應在 `build_static_articles.py` 中劃分獨立的主題叢集（Cluster），確保既有舊文章之導覽鏈與內文 100% 保持乾淨零變更（Git 零 Diff）。
 
 ## 文章寫作原則：人性化科普與忠實呈現研究
 
-- **文件位置**：根目錄 README.md 是 GitHub Profile，禁止在其中新增或修改文章撰寫規範；文章規範維護於本文件、GEMINI.md 與 content/README.md。
+- **文件位置**：專案開發與維護規範以本文件、GEMINI.md 與 content/README.md 為準；根目錄 README.md 亦同步揭示「不覆蓋舊文章」之核心維護原則。
+- **嚴禁改動舊文章**：任何新專題或文獻整理皆為增量擴充，絕對不可修改或覆蓋既有舊文章。所有新文章必須使用新序號獨立發布，保持既有舊文章 100% 完整不變。
 - **讀者與語氣**：醫療文章以科普衛教為主，用自然、尊重且容易理解的繁體中文，從讀者的生活困難或疑問切入；專業名詞首次出現時簡要解釋。數位學習文章採易懂的科技解說，不硬套醫療敘事。
 - **獨立標題與結構**：每篇依實際主題撰寫主標題、段落標題與摘要，不使用共用句型或固定的「臨床問題／指引／研究／四個重點」模板。段落數、結尾、表格與圖解由內容需要決定；共用 HTML 樣式不代表共用文章敘事。
 - **五大核心提問聚焦**：撰寫或重構文章時，必須在思維與論述上向內容提出五個問題，並確認文章有確實回答：(1) 目前有什麼臨床困境（或實務痛點）、(2) 研究建議如何處理、(3) 處理後可以預期的效果是什麼、(4) 這個處理適合誰使用、(5) 具體應該做什麼。**嚴禁將這五個問題直接變成段落標題**，標題必須依實際主題獨立命名，但內文必須自然且明確地回答這五個核心問題。

@@ -1841,10 +1841,12 @@ for i in range(16, 29):
 ARTICLE_TAG_MAP.update({f"MotorRehab_{i:03d}": ["中風復健", "動作復健"] for i in range(1, 17)})
 ARTICLE_TAG_MAP["MotorRehab_016"] = ["動作復健", "認知復健"]
 
-ARTICLE_TAG_MAP.update({f"VisualRehab_{i:03d}": ["視覺復健"] for i in range(1, 25)})
-for i in range(20, 25):
+ARTICLE_TAG_MAP.update({f"VisualRehab_{i:03d}": ["視覺復健"] for i in range(1, 30)})
+for i in range(20, 23):
     ARTICLE_TAG_MAP[f"VisualRehab_{i:03d}"].insert(0, "中風復健")
 ARTICLE_TAG_MAP["VisualRehab_013"] = ["視覺復健", "動作復健"]
+ARTICLE_TAG_MAP["VisualRehab_025"] = ["視覺復健", "AI應用"]
+ARTICLE_TAG_MAP["VisualRehab_028"] = ["視覺復健", "動作復健"]
 
 def collect_article_metadata():
     folders = [
@@ -1857,8 +1859,8 @@ def collect_article_metadata():
     for folder, cat_name, cat_badge, cat_slug in folders:
         folder_path = CONTENT_DIR / folder
         # Auto-resolve or remove any cloud sync conflict files
-        for cf in folder_path.glob('*[conflicted*'):
-            clean_cf_name = re.sub(r'\s*\[conflicted.*?\]', '', cf.name)
+        for cf in list(folder_path.glob('*conflicted*')):
+            clean_cf_name = re.sub(r'\s*[\(\[]conflicted.*?[\)\]]', '', cf.name)
             target = folder_path / clean_cf_name
             if not target.exists():
                 print(f"Auto-resolving conflicted file: {cf.name} -> {clean_cf_name}")
@@ -1905,7 +1907,11 @@ def collect_article_metadata():
                     if folder == 'CognitRehab':
                         sub_cluster = '認知與溝通' if order <= 6 else '心理、轉銜與社會參與'
                     elif folder == 'VisualRehab':
-                        sub_cluster = '低視能評估與介入' if order <= 19 else '腦傷與中風後視覺復健'
+                        if order >= 23:
+                            cluster = '低視能復健指引與實踐專題'
+                            sub_cluster = 'Whittaker 臨床指引與實踐'
+                        else:
+                            sub_cluster = '低視能評估與介入' if order <= 19 else '腦傷與中風後視覺復健'
                     else:
                         sub_cluster = '工作復能與失能預防' if order == 16 else '動作、移動與日常活動'
             else:

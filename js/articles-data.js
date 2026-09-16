@@ -633,5 +633,140 @@ window.__STATIC_ARTICLES__ = [
     "order": 22,
     "folder": "VisualRehab",
     "filename": "022_視覺復健_中風後視野缺損.html"
+  },
+  {
+    "id": "VisualRehab_023",
+    "title": "為什麼單純放大常看不清？四大光學放大原理與眼科病變之視覺代償",
+    "lead": "放大不只是把字體變大。低視能復健依賴四大放大途徑：尺寸放大、距離放大、透鏡角度放大與投影放大。搞懂屈光度、焦距與視場（Field of View）的物理消長，並結合黃斑部病變、青光眼與糖尿病視網膜病變的視野特徵，才能找出最省力、不疲勞的光學代償方案。",
+    "imageUrl": "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&w=1200&q=80",
+    "tags": [
+      "視覺復健"
+    ],
+    "dateString": "2026-09-16",
+    "readTime": "約 5 分鐘閱讀",
+    "link": "/content/VisualRehab/023_視覺復健_四大光學放大原理與眼病變代償.html",
+    "sourceName": "視覺復健",
+    "category": "視覺復健",
+    "cluster": "低視能復健指引與實踐專題",
+    "subCluster": "Whittaker 臨床指引與實踐",
+    "order": 23,
+    "folder": "VisualRehab",
+    "filename": "023_視覺復健_四大光學放大原理與眼病變代償.html"
+  },
+  {
+    "id": "VisualRehab_024",
+    "title": "放大鏡買了卻不會用？手持、立式、眼鏡型與望遠鏡處方與操作訓練",
+    "lead": "許多視障長輩抽屜裡塞滿看不清的放大鏡。手持式需精準手動焦距；立式鏡成虛像需搭配閱讀加光；眼鏡型鏡片解放雙手卻需靠得極近；望遠鏡則需系統化定位搜尋。職能治療師透過光學特性分析與排除錯誤檢核表，助個案找回生活自主。",
+    "imageUrl": "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=1200&q=80",
+    "tags": [
+      "視覺復健"
+    ],
+    "dateString": "2026-09-16",
+    "readTime": "約 5 分鐘閱讀",
+    "link": "/content/VisualRehab/024_視覺復健_光學放大輔具處方與使用訓練.html",
+    "sourceName": "視覺復健",
+    "category": "視覺復健",
+    "cluster": "低視能復健指引與實踐專題",
+    "subCluster": "Whittaker 臨床指引與實踐",
+    "order": 24,
+    "folder": "VisualRehab",
+    "filename": "024_視覺復健_光學放大輔具處方與使用訓練.html"
+  },
+  {
+    "id": "VisualRehab_025",
+    "title": "光學放大鏡極限後的科技解答：電子擴視機、螢幕報讀與AI視覺無障礙",
+    "lead": "當光學透鏡因高倍率而造成視場狹窄與嚴重畸變時，電子擴視機（CCTV）與數位科技帶來了無障礙轉機。高對比反轉、連續無段縮放、導引遮線，配合智慧型手機內建旁白報讀與多模態 AI 視覺辨識，為中重度低視能者重建數位生活與獨立自理。",
+    "imageUrl": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
+    "tags": [
+      "視覺復健",
+      "AI應用"
+    ],
+    "dateString": "2026-09-16",
+    "readTime": "約 5 分鐘閱讀",
+    "link": "/content/VisualRehab/025_視覺復健_電子擴視科技與智慧輔助無障礙.html",
+    "sourceName": "視覺復健",
+    "category": "視覺復健",
+    "cluster": "低視能復健指引與實踐專題",
+    "subCluster": "Whittaker 臨床指引與實踐",
+    "order": 25,
+    "folder": "VisualRehab",
+    "filename": "025_視覺復健_電子擴視科技與智慧輔助無障礙.html"
+  },
+  {
+    "id": "VisualRehab_026",
+    "title": "看不到字不是只能靠別人唸：點讀、長文連讀與書寫輔助重建指南",
+    "lead": "閱讀是維持獨立生活的最高職能需求。低視能長輩看藥袋、簽名與看書的視覺機制完全不同。Whittaker 提出「視力餘裕度」與「對比餘裕度」法則，區分「點讀」與「連讀」目標，結合穩視技巧（Steady-Eye）、閱讀引導遮板與簽名框，讓視障者重新找回閱讀與書寫尊嚴。",
+    "imageUrl": "https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=1200&q=80",
+    "tags": [
+      "視覺復健"
+    ],
+    "dateString": "2026-09-16",
+    "readTime": "約 5 分鐘閱讀",
+    "link": "/content/VisualRehab/026_視覺復健_閱讀與書寫功能重建技巧.html",
+    "sourceName": "視覺復健",
+    "category": "視覺復健",
+    "cluster": "低視能復健指引與實踐專題",
+    "subCluster": "Whittaker 臨床指引與實踐",
+    "order": 26,
+    "folder": "VisualRehab",
+    "filename": "026_視覺復健_閱讀與書寫功能重建技巧.html"
+  },
+  {
+    "id": "VisualRehab_027",
+    "title": "看不清楚如何安全煮飯與自理？職能治療 EPIC 居家改造實務架構",
+    "lead": "低視能長輩在廚房倒開水燙傷、分不清洗頭乳與沐浴乳、在走廊撞到障礙物，常讓家人陷入送安養院的焦慮。Whittaker 與 Scheiman 提出 EPIC 介入架構：環境改造、流程調適、輔具導入與任務簡化，從雙色對比砧板、凸點觸覺貼到收納三角動線，打造零盲區的安心居家。",
+    "imageUrl": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80",
+    "tags": [
+      "視覺復健"
+    ],
+    "dateString": "2026-09-16",
+    "readTime": "約 5 分鐘閱讀",
+    "link": "/content/VisualRehab/027_視覺復健_居家環境改造與日常自理EPIC架構.html",
+    "sourceName": "視覺復健",
+    "category": "視覺復健",
+    "cluster": "低視能復健指引與實踐專題",
+    "subCluster": "Whittaker 臨床指引與實踐",
+    "order": 27,
+    "folder": "VisualRehab",
+    "filename": "027_視覺復健_居家環境改造與日常自理EPIC架構.html"
+  },
+  {
+    "id": "VisualRehab_028",
+    "title": "視力模糊如何安全打胰島素？糖尿病視網膜病變者的自我管理與藥物安全",
+    "lead": "糖尿病視網膜病變常導致視力驟降與散在性暗點，此時精準施打胰島素與辨識多重慢性病藥物成了生死攸關的挑戰。專科職能治療師結合理論與糖尿病衛教，運用聽覺喀嗒計數、針筒放大定位套夾、語音血糖機與足部檢視鏡，預防嚴重低血糖與失明截肢雙重悲劇。",
+    "imageUrl": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80",
+    "tags": [
+      "視覺復健",
+      "動作復健"
+    ],
+    "dateString": "2026-09-16",
+    "readTime": "約 5 分鐘閱讀",
+    "link": "/content/VisualRehab/028_視覺復健_糖尿病自我管理與藥物安全指南.html",
+    "sourceName": "視覺復健",
+    "category": "視覺復健",
+    "cluster": "低視能復健指引與實踐專題",
+    "subCluster": "Whittaker 臨床指引與實踐",
+    "order": 28,
+    "folder": "VisualRehab",
+    "filename": "028_視覺復健_糖尿病自我管理與藥物安全指南.html"
+  },
+  {
+    "id": "VisualRehab_029",
+    "title": "看不到字中心？時鐘面定位法（Clock Face Technique）評估中心暗點與偏心注視實務",
+    "lead": "黃斑部病變導致中心凹感光細胞受損，但大腦知覺填補常使長輩誤以為自己沒盲點。Wright 與 Whittaker 發展之時鐘面定位法（Clock Face Technique）僅需一張紙、黑筆與觀察小孔，就能在 5 分鐘內於床邊精準鑑別中心注視、習慣性偏心注視（EV）與暗點方位，阻斷跌倒與閱讀障礙風險。",
+    "imageUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    "tags": [
+      "視覺復健"
+    ],
+    "dateString": "2026-09-16",
+    "readTime": "約 5 分鐘閱讀",
+    "link": "/content/VisualRehab/029_視覺復健_時鐘面定位法評估中心暗點與偏心注視.html",
+    "sourceName": "視覺復健",
+    "category": "視覺復健",
+    "cluster": "低視能復健指引與實踐專題",
+    "subCluster": "Whittaker 臨床指引與實踐",
+    "order": 29,
+    "folder": "VisualRehab",
+    "filename": "029_視覺復健_時鐘面定位法評估中心暗點與偏心注視.html"
   }
 ];
