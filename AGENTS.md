@@ -32,6 +32,7 @@
      - `智慧頭顯` (❌) -> `頭戴式顯示器` (⭕)
      - `低視力` (❌) -> `低視能` (⭕)
      - `黃斑旁預覽視窗` (❌) -> `中央凹旁預視視窗` (⭕)
+     - `應激` (❌) -> `壓力` (⭕)
    - Adhere strictly to Taiwanese medical and assistive technology clinical standards.
 8. **Link Integrity & Conflict Prevention（連結完整性與檔名防衝突檢驗）**:
    - Every internal link in `blog.html`, `js/articles-data.js`, `sitemap.xml`, and within each article (breadcrumbs, prev/next navigation, cluster links) MUST point to an existing, valid static file on disk (0 tolerance for 404 broken links).
