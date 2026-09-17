@@ -461,6 +461,25 @@ window.__STATIC_ARTICLES__ = [
     "filename": "016_動作復健_工作失能預防與初期處置_ACOEM職業傷病實證指引.html"
   },
   {
+    "id": "MotorRehab_017",
+    "title": "手術後一定要躺床休養嗎？從 ERAS 實證指引看術前、術中與術後全期加速康復策略",
+    "lead": "手術後長期臥床、嚴格禁食與常規插管已非現代醫學標準。ERAS 術後加速康復流程透過術前營養優化與縮短禁食、術中體溫與體液衡定，以及術後早期下床活動與多模式止痛，有效減輕外科壓力反應，加速功能康復。",
+    "imageUrl": "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1200&h=800&q=80",
+    "tags": [
+      "動作復健"
+    ],
+    "dateString": "2026-09-17",
+    "readTime": "約 5 分鐘閱讀",
+    "link": "/content/MotorRehab/017_動作復健_術後加速康復ERAS全期照護實證指引_打破傳統常規的手術前後與術中關鍵處置.html",
+    "sourceName": "動作復健",
+    "category": "動作復健",
+    "cluster": "圍手術期與術後加速康復專題",
+    "subCluster": "術後加速康復 ERAS 實證指引",
+    "order": 17,
+    "folder": "MotorRehab",
+    "filename": "017_動作復健_術後加速康復ERAS全期照護實證指引_打破傳統常規的手術前後與術中關鍵處置.html"
+  },
+  {
     "id": "VisualRehab_001",
     "title": "視覺復健何時開始？視力治療與生活功能可以同步進行",
     "lead": "眼疾治療與視覺功能復健不必先後對立。即使眼底在打針，只要閱讀、用藥或移位已受影響，結合光學輔具與職能治療就能及早守護生活獨立。",

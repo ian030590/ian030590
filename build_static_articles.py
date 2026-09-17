@@ -1840,6 +1840,7 @@ for i in range(16, 29):
 
 ARTICLE_TAG_MAP.update({f"MotorRehab_{i:03d}": ["中風復健", "動作復健"] for i in range(1, 17)})
 ARTICLE_TAG_MAP["MotorRehab_016"] = ["動作復健", "認知復健"]
+ARTICLE_TAG_MAP["MotorRehab_017"] = ["動作復健"]
 
 ARTICLE_TAG_MAP.update({f"VisualRehab_{i:03d}": ["視覺復健"] for i in range(1, 30)})
 for i in range(20, 23):
@@ -1913,7 +1914,11 @@ def collect_article_metadata():
                         else:
                             sub_cluster = '低視能評估與介入' if order <= 19 else '腦傷與中風後視覺復健'
                     else:
-                        sub_cluster = '工作復能與失能預防' if order == 16 else '動作、移動與日常活動'
+                        if order >= 17:
+                            cluster = '圍手術期與術後加速康復專題'
+                            sub_cluster = '術後加速康復 ERAS 實證指引'
+                        else:
+                            sub_cluster = '工作復能與失能預防' if order == 16 else '動作、移動與日常活動'
             else:
                 if f.name[:3].isdigit():
                     order = int(f.name[:3])
@@ -2340,6 +2345,10 @@ def build_article_html(art, all_articles):
         evidence_note = '2023 AAO PPP 臨床指引實證'
     elif folder in ('DigitalLearning', 'DigitLearn'):
         evidence_note = 'AI 系統架構與工程實踐'
+    elif folder == 'MotorRehab' and art['order'] == 16:
+        evidence_note = '2026 ACOEM 臨床實證指引'
+    elif folder == 'MotorRehab' and art['order'] >= 17:
+        evidence_note = '2019 ERAS 國際實證指引'
     else:
         evidence_note = '2026 AHA/ASA 臨床指引實證'
 
