@@ -13,7 +13,9 @@
 2. **File Naming**:
    - Must follow: `{3位數序號}_{核心簡稱}_{完整主標題或關鍵字描述}.html`.
    - No colons, slashes, quotation marks, or spaces in filenames.
-3. **Hero Images & Visual Formatting**:
+3. **Hero Images & Visual Formatting（配圖親眼查驗與全站唯一性鐵律）**:
+   - **實體下載與親眼查驗原則（Mandatory Visual Verification via `view_file`）**：嚴禁僅憑 Unsplash 搜尋關鍵字或 Photo ID 盲猜配圖！凡新增或修改文章配圖，**必須先以腳本下載至本機（如 `scratch/`），並「必須」使用 `view_file` 親自檢視畫面**，確認畫面元素與文章臨床/科技大意 100% 嚴密對應，杜絕任何荒謬誤導（如中風配音樂廳、放大鏡配採血試管、視幻覺配遊戲手把）。
+   - **全站圖片零重複（Zero Duplicate Across Entire Site）**：全站所有文章的圖片（Unsplash Photo ID）必須 100% 各自獨立唯一，**嚴禁任何兩篇文章使用相同圖片**。建置腳本 `build_static_articles.py` 已內建全站唯一性自動阻斷斷言。
    - NEVER use `files.catbox.moe` (blocked by hospital/academic networks).
    - Use high-quality, verified Unsplash CDN URLs with explicit landscape dimensions & crop parameters (`&fit=crop&w=1200&h=800&q=80` or `&w=1200&h=675`).
    - Always use standard classes `<figure class="article-featured-figure">`, `<img ... class="article-featured-img" />`, and `<figcaption class="article-figcaption">`. Never write bare, unclassed, or hardcoded-width `<img>` tags that burst container boundaries.

@@ -2823,8 +2823,21 @@ def validate_generated_site(all_articles):
                 target_path = article_file.parent / path_part
                 if not target_path.is_file():
                     raise RuntimeError(f"Broken relative link in {article_file.name}: {href} (target {target_path} not found)")
+    # 6. Article featured image uniqueness check (Zero duplicate images across the site)
+    photo_ids = {}
+    for art in additional_articles:
+        img_url = art.get('img_src', '')
+        m = re.search(r'photo-([a-zA-Z0-9_-]+)', img_url)
+        pid = m.group(1) if m else img_url
+        if pid in photo_ids:
+            raise RuntimeError(
+                f"Duplicate article image detected! Photo ID '{pid}' is used in both "
+                f"'{photo_ids[pid]}' and '{art['folder']}/{art['new_filename']}'. "
+                f"All articles must have unique, verified images."
+            )
+        photo_ids[pid] = f"{art['folder']}/{art['new_filename']}"
 
-    print(f'Validation passed: {len(additional_articles)} articles have CSS, JSON-LD, navbar, back-link, verified internal links, and zero broken links/conflict files.')
+    print(f'Validation passed: {len(additional_articles)} articles have CSS, JSON-LD, navbar, back-link, verified internal links, unique verified images, and zero broken links/conflict files.')
 
 def main():
     print('1. Updating CSS tokens and article classes in style.css...')

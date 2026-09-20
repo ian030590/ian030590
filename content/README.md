@@ -218,10 +218,12 @@ ARTICLE_TAG_MAP = {
 
 ### 3. 首圖與圖說 (Featured Figure & Figcaption)
 > [!CAUTION]
-> **圖床禁令與圖片規範**：
-> 1. **嚴格禁止使用 `files.catbox.moe`**：該網域會觸發院內網路（NTUH/TANet）防火牆之 TCP Reset 封鎖破圖。必須使用經全球 CDN 驗證之 Unsplash 高解析度醫療/科技攝影照片。
-> 2. **嚴格帶入寬高與橫幅裁切參數**：Unsplash 圖片網址必須帶有寬高與裁切優化參數 `?auto=format&fit=crop&w=1200&h=800&q=80`（或 16:9 之 `&w=1200&h=675`）。若未指定 `h` 參數，直式照片（Portrait）會直接回傳原始長寬比，導致最新專題卡片被上下推寬變形。
-> 3. **嚴格使用標準元件與容器防溢出 Class**：嚴禁撰寫未帶 class 之裸露 `<img>` 或在 HTML 寫死絕對像素寬度；必須使用標準 `<figure class="article-featured-figure">`，內部圖片必須標記 `class="article-featured-img"`，圖說必須標記 `class="article-figcaption"`，確保任何螢幕尺寸下 100% 自適應容器邊界，零破圖溢出。
+> **配圖親眼查驗與全站唯一性鐵律（Mandatory Visual Verification & Zero Duplicate Images）**：
+> 1. **實體下載與親眼查驗原則（Mandatory Visual Verification via `view_file`）**：嚴禁僅憑 Unsplash 搜尋關鍵字或 Photo ID 盲猜配圖！凡新增、修改或翻譯任何文章配圖，**必須先以腳本將候選圖片下載至本機（如 `scratch/`），並「必須」使用 `view_file` 親自檢視畫面元素**，確認圖片畫面與文章核心大意 100% 嚴格吻合，杜絕任何荒謬誤導（如中風配音樂廳、放大鏡配採血試管、夏爾博內配遊戲手把）。
+> 2. **全站配圖唯一性（Zero Duplicate Across Entire Site）**：全站所有文章的圖片（Unsplash Photo ID）必須 100% 各自獨立唯一，**嚴禁任何兩篇文章使用相同圖片**。建置腳本 `build_static_articles.py` 已內建全站唯一性自動阻斷斷言，凡有重複建置立刻失敗。
+> 3. **嚴格禁止使用 `files.catbox.moe`**：該網域會觸發院內網路（NTUH/TANet）防火牆之 TCP Reset 封鎖破圖。必須使用經全球 CDN 驗證之 Unsplash 高解析度醫療/科技攝影照片。
+> 4. **嚴格帶入寬高與橫幅裁切參數**：Unsplash 圖片網址必須帶有寬高與裁切優化參數 `?auto=format&fit=crop&w=1200&h=800&q=80`（或 16:9 之 `&w=1200&h=675`）。若未指定 `h` 參數，直式照片（Portrait）會直接回傳原始長寬比，導致最新專題卡片被上下推寬變形。
+> 5. **嚴格使用標準元件與容器防溢出 Class**：嚴禁撰寫未帶 class 之裸露 `<img>` 或在 HTML 寫死絕對像素寬度；必須使用標準 `<figure class="article-featured-figure">`，內部圖片必須標記 `class="article-featured-img"`，圖說必須標記 `class="article-figcaption"`，確保任何螢幕尺寸下 100% 自適應容器邊界，零破圖溢出。
 
 ```html
 <figure class="article-featured-figure">
