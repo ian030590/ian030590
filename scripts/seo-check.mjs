@@ -78,11 +78,9 @@ const TIER_TEXT = {
   'no-single-shot': '重跑本腳本只證明訊號補上了。**效果無法用單次量測驗證**：實測 AI 搜尋的來源每天約 65% 會換掉（arXiv 2604.07585），要看效果至少 7 次/日、觀測 2–4 週。這幾條本來就只報 info、不給目標數字，理由相同。',
 };
 
-const IGNORE_DIRS = new Set(['.git', '.githooks', 'node_modules', 'scratch', 'tmp', 'coverage', '.gemini', '.vscode']);
-
+// ── 收集檔案 ────────────────────────────────────────────
 function walk(dir, out = []) {
   for (const name of readdirSync(dir)) {
-    if (IGNORE_DIRS.has(name) || name.startsWith('.')) continue;
     const p = join(dir, name);
     const st = statSync(p);
     if (st.isDirectory()) walk(p, out);
