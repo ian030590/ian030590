@@ -2005,7 +2005,7 @@ def collect_article_metadata():
                 img_src = img['src'] if img and img.has_attr('src') else ''
                 if 'files.catbox.moe' in img_src:
                     img_src = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80'
-            if folder in ADDITIONAL_CONTENT_FOLDERS and not img_src.startswith('https://images.unsplash.com/'):
+            if folder in ADDITIONAL_CONTENT_FOLDERS and not (img_src.startswith('https://images.unsplash.com/') or img_src.startswith('https://plus.unsplash.com/')):
                 if folder == 'DigitLearn':
                     img_src = DL_IMAGES[(order - 1) % len(DL_IMAGES)]
                 elif folder == 'VisualRehab':

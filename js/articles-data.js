@@ -85,7 +85,7 @@ window.__STATIC_ARTICLES__ = [
     "id": "CognitRehab_007",
     "title": "不是懶得動：中風後情緒、疲勞與睡眠問題怎麼分辨",
     "lead": "中風破壞大腦神經網絡與能量調節機制。參與下降不宜直接解讀為「意志消沉」；器質性憂鬱、神經性疲勞與睡眠障礙在生理上緊密交織，系統性鑑別才能找到真正的介入起點。",
-    "imageUrl": "https://images.unsplash.com/photo-1555697752-da25a4b1025b?auto=format&fit=crop&w=1200&h=800&q=80",
+    "imageUrl": "https://plus.unsplash.com/premium_photo-1726876924815-97539190ea3a?auto=format&fit=crop&w=1200&h=800&q=80",
     "tags": [
       "中風復健",
       "認知復健"
