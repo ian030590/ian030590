@@ -2725,6 +2725,13 @@ def validate_internal_link(source_file, href, page_soups):
 
 def validate_generated_site(all_articles):
     """Fail the build when generated navigation, metadata, or approved tags drift."""
+    not_found = BASE_DIR / '404.html'
+    if not not_found.is_file():
+        raise RuntimeError('Cloudflare Pages needs 404.html to avoid serving the home page for missing URLs')
+    not_found_soup = BeautifulSoup(not_found.read_text(encoding='utf-8'), 'html.parser')
+    robots = not_found_soup.find('meta', attrs={'name': 'robots'})
+    if not robots or 'noindex' not in {value.strip().lower() for value in robots.get('content', '').split(',')}:
+        raise RuntimeError('The 404 page must be excluded from search indexing')
     approved_tags = {'中風復健', '視覺復健', '動作復健', '認知復健', '數位學習', 'AI應用'}
     additional_articles = [art for art in all_articles if art['folder'] in ADDITIONAL_CONTENT_FOLDERS]
     if len(additional_articles) < 30:
