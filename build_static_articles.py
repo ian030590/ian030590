@@ -1604,20 +1604,21 @@ def update_article_head_and_styles(target_file: Path, art: dict = None, all_arti
           </nav>
         </div>"""
 
-    if '<div class="article-top-nav">' in content:
-        content = re.sub(
-            r'<div class="article-top-nav">.*?</div>\s*(?=<header)',
-            top_nav + '\n        ',
-            content,
-            flags=re.DOTALL
-        )
+    nav_soup = BeautifulSoup(content, 'html.parser')
+    existing_top_nav = nav_soup.find('div', class_='article-top-nav')
+    new_top_nav = BeautifulSoup(top_nav, 'html.parser').div
+    if existing_top_nav:
+        existing_top_nav.replace_with(new_top_nav)
     else:
-        content = re.sub(
-            r'<nav class="breadcrumb-trail"[^>]*>.*?</nav>',
-            top_nav,
-            content,
-            flags=re.DOTALL
-        )
+        article_header = nav_soup.find('header', class_='article-detail-header')
+        breadcrumb = nav_soup.find('nav', class_='breadcrumb-trail')
+        if article_header:
+            if breadcrumb:
+                breadcrumb.decompose()
+            for back_link in nav_soup.select('a.article-back-link'):
+                back_link.decompose()
+            article_header.insert_before(new_top_nav)
+    content = str(nav_soup)
 
     # 8. Bottom actions: TrainerHub CTA + Back to all articles button
     if '<div class="article-trainerhub-cta">' in content:
