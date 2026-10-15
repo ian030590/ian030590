@@ -2115,7 +2115,7 @@ button {
 /* Responsive Overrides */
 @media (max-width: 960px) {
   .blog-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 36px;
   }
 

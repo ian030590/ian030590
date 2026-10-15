@@ -153,5 +153,53 @@ class InternalLinkTests(unittest.TestCase):
                 self.assertIsNone(build.validate_internal_link(self.source, href, {}))
 
 
+class AstroAssetsTests(unittest.TestCase):
+    def test_staging_preserves_article_bytes_and_excludes_private_sources(self):
+        with tempfile.TemporaryDirectory(prefix='astro-assets-tests-') as temporary:
+            root = Path(temporary)
+            for directory in ('assets', 'css', 'icons', 'js'):
+                (root / directory).mkdir()
+                (root / directory / 'asset.txt').write_text('public asset', encoding='utf-8')
+            for filename in ('favicon.ico', 'robots.txt', 'llms.txt', '_headers', '_redirects'):
+                (root / filename).write_text('public asset', encoding='utf-8')
+            (root / 'js' / 'articles-data.js').write_text('stale catalog', encoding='utf-8')
+            references = root / 'content' / 'References'
+            references.mkdir(parents=True)
+            (references / 'private.pdf').write_bytes(b'private reference')
+            source = root / 'content' / 'VisualRehab' / '001_article.html'
+            source.parent.mkdir()
+            original = '<!doctype html>\r\n<p>保留原始文章 &amp; 日期</p>\r\n'.encode('utf-8')
+            source.write_bytes(original)
+            current = dict(article(1), old_filename=source.name, new_filename=source.name,
+                           summary='摘要', img_src='', tags=['視覺復健'], read_time='約 1 分鐘閱讀',
+                           date_published='2026-10-15T08:00:00+08:00',
+                           date_modified='2026-10-15T08:00:00+08:00', cat_name='視覺復健', sub_cluster='測試')
+            with patch.object(build, 'BASE_DIR', root):
+                build.prepare_astro_assets([current])
+                public = root / '.generated' / 'public'
+                stale = public / 'stale.html'
+                stale.write_text('must disappear on the next build', encoding='utf-8')
+                build.prepare_astro_assets([current])
+            self.assertEqual(source.read_bytes(), original)
+            self.assertEqual((public / source.relative_to(root)).read_bytes(), original)
+            self.assertFalse((public / 'content' / 'References').exists())
+            self.assertFalse(stale.exists())
+            self.assertIn('window.__STATIC_ARTICLES__', (public / 'js' / 'articles-data.js').read_text(encoding='utf-8'))
+            for filename in ('sitemap.xml', 'rss.xml', '_headers', '_redirects'):
+                self.assertTrue((public / filename).is_file())
+
+    def test_conflict_files_fail_without_deleting_or_renaming_sources(self):
+        with tempfile.TemporaryDirectory(prefix='astro-conflict-tests-') as temporary:
+            root = Path(temporary)
+            folder = next(iter(build.ADDITIONAL_CONTENT_FOLDERS))
+            target = root / folder / '001_article[conflicted].html'
+            target.parent.mkdir()
+            target.write_text('keep me', encoding='utf-8')
+            with patch.object(build, 'CONTENT_DIR', root):
+                with self.assertRaisesRegex(RuntimeError, 'manual resolution'):
+                    build.collect_article_metadata()
+            self.assertEqual(target.read_text(encoding='utf-8'), 'keep me')
+
+
 if __name__ == '__main__':
     unittest.main()

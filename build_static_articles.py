@@ -2,6 +2,8 @@ import os
 import sys
 import re
 import json
+import argparse
+import shutil
 from html import escape
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -1873,16 +1875,9 @@ def collect_article_metadata():
 
     for folder, cat_name, cat_badge, cat_slug in folders:
         folder_path = CONTENT_DIR / folder
-        # Auto-resolve or remove any cloud sync conflict files
-        for cf in list(folder_path.glob('*conflicted*')):
-            clean_cf_name = re.sub(r'\s*[\(\[]conflicted.*?[\)\]]', '', cf.name)
-            target = folder_path / clean_cf_name
-            if not target.exists():
-                print(f"Auto-resolving conflicted file: {cf.name} -> {clean_cf_name}")
-                cf.rename(target)
-            else:
-                print(f"Removing redundant conflicted file: {cf.name}")
-                cf.unlink()
+        conflicted = list(folder_path.glob('*conflicted*'))
+        if conflicted:
+            raise RuntimeError(f'Cloud sync conflict files require manual resolution: {conflicted}')
 
         files = sorted([f for f in folder_path.glob('*.html') if '[conflicted' not in f.name])
         for f in files:
@@ -2560,7 +2555,7 @@ def build_article_html(art, all_articles):
 </html>"""
     return full_html
 
-def generate_sitemap(all_articles):
+def generate_sitemap(all_articles, output_dir=None):
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -2580,10 +2575,11 @@ def generate_sitemap(all_articles):
         
     lines.append('</urlset>\n')
     sitemap_content = '\n'.join(lines)
-    SITEMAP_FILE.write_text(sitemap_content, encoding='utf-8')
-    print(f'Sitemap written to {SITEMAP_FILE} ({len(all_articles) + 5} URLs)')
+    target = Path(output_dir) / 'sitemap.xml' if output_dir else SITEMAP_FILE
+    target.write_text(sitemap_content, encoding='utf-8')
+    print(f'Sitemap written to {target} ({len(all_articles) + 5} URLs)')
 
-def generate_rss(all_articles):
+def generate_rss(all_articles, output_dir=None):
     sorted_articles = sorted(all_articles, key=lambda art: art['date_published'], reverse=True)
     rss_items = []
     for art in sorted_articles:
@@ -2620,11 +2616,11 @@ def generate_rss(all_articles):
   </channel>
 </rss>
 """
-    rss_file = BASE_DIR / 'rss.xml'
+    rss_file = Path(output_dir or BASE_DIR) / 'rss.xml'
     rss_file.write_text(rss_content, encoding='utf-8')
     print(f'RSS feed written to {rss_file} ({len(sorted_articles)} items)')
 
-def generate_articles_data(all_articles):
+def generate_articles_data(all_articles, output_dir=None):
     catalog = []
     for art in all_articles:
         catalog.append({
@@ -2648,8 +2644,10 @@ def generate_articles_data(all_articles):
     js_code = f"""// Generated static articles catalog (No Blogger dependencies)
 window.__STATIC_ARTICLES__ = {json.dumps(catalog, ensure_ascii=False, indent=2)};
 """
-    ARTICLES_DATA_FILE.write_text(js_code, encoding='utf-8')
-    print(f'Articles data written to {ARTICLES_DATA_FILE} ({len(catalog)} articles)')
+    target = Path(output_dir) / 'js' / 'articles-data.js' if output_dir else ARTICLES_DATA_FILE
+    target.write_text(js_code, encoding='utf-8')
+    print(f'Articles data written to {target} ({len(catalog)} articles)')
+    return catalog
 
 def generate_blog_static_links(all_articles):
     """Put real article links in blog.html; main.js enhances this list with filtering."""
@@ -2795,8 +2793,9 @@ def validate_generated_site(all_articles):
     for page in sorted(BASE_DIR.glob('*.html')) + sorted(CONTENT_DIR.rglob('*.html')):
         if page not in page_soups:
             page_soups[page] = BeautifulSoup(page.read_text(encoding='utf-8'), 'html.parser')
-        for link in page_soups[page].select('a[href]'):
-            if validate_internal_link(page, link['href'], page_soups) is not None:
+        for link in page_soups[page].select('a[href], link[href], script[src], img[src]'):
+            href = link.get('href') if link.has_attr('href') else link['src']
+            if validate_internal_link(page, href, page_soups) is not None:
                 internal_link_count += 1
 
     # 4. articles-data.js link integrity check
@@ -2839,47 +2838,59 @@ def validate_generated_site(all_articles):
 
     print(f'Validation passed: {len(additional_articles)} articles have consistent series navigation, CSS, JSON-LD, navbar, back-link, unique images and zero conflict files. Checked {internal_link_count} internal HTML links, {len(catalog_links)} catalog links and {len(sitemap_links)} sitemap URLs, including fragment targets.')
 
+def prepare_astro_assets(all_articles):
+    """Stage only public assets; published article source files are immutable."""
+    generated = BASE_DIR / '.generated'
+    public = generated / 'public'
+    if generated.resolve() != BASE_DIR.resolve() / '.generated' or public.is_symlink():
+        raise RuntimeError('Generated asset directories must not redirect outside the project')
+    if public.exists():
+        if public.resolve() != BASE_DIR.resolve() / '.generated' / 'public':
+            raise RuntimeError('Refusing to clean assets outside the generated directory')
+        shutil.rmtree(public)
+    public.mkdir(parents=True)
+
+    for directory in ('assets', 'css', 'icons', 'js'):
+        shutil.copytree(BASE_DIR / directory, public / directory,
+                        ignore=shutil.ignore_patterns('articles-data.js', '__pycache__', '*.pyc'))
+    for filename in ('favicon.ico', 'robots.txt', 'llms.txt', '_headers', '_redirects'):
+        shutil.copy2(BASE_DIR / filename, public / filename)
+
+    for art in all_articles:
+        if art['old_filename'] != art['new_filename']:
+            raise RuntimeError(f"Article filename requires manual correction: {art['old_filename']}")
+        relative = Path('content') / art['folder'] / art['new_filename']
+        target = public / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(BASE_DIR / relative, target)
+
+    catalog = generate_articles_data(all_articles, public)
+    (generated / 'articles.json').write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding='utf-8')
+    generate_sitemap(all_articles, public)
+    generate_rss(all_articles, public)
+    print(f'Astro assets prepared: {len(all_articles)} articles copied without modification.')
+
+
 def main():
-    print('1. Updating CSS tokens and article classes in style.css...')
-    update_css()
-    
-    print('2. Collecting metadata and content for all articles...')
+    parser = argparse.ArgumentParser(description='Prepare immutable article assets for Astro, or validate its output.')
+    parser.add_argument('--validate', type=Path, metavar='SITE_DIR', help='Validate the completed Astro build')
+    args = parser.parse_args()
     all_articles = collect_article_metadata()
-    print(f'Collected {len(all_articles)} articles across 4 categories.')
-    
-    print('3. Updating static HTML pages stylesheet, EEAT, and reference styles...')
-    for art in all_articles:
-        folder = art['folder']
-        old_file = CONTENT_DIR / folder / art['old_filename']
-        target_file = CONTENT_DIR / folder / art['new_filename']
-        if old_file != target_file and old_file.exists() and not target_file.exists():
-            old_file.rename(target_file)
-        update_article_head_and_styles(target_file, art, all_articles)
-        
-    print('4. Removing old unrenamed files...')
-    for art in all_articles:
-        folder = art['folder']
-        old_file = CONTENT_DIR / folder / art['old_filename']
-        target_file = CONTENT_DIR / folder / art['new_filename']
-        if old_file != target_file and old_file.exists():
-            old_file.unlink()
-            
-    print('5. Generating articles-data.js for instant static blog rendering...')
-    generate_articles_data(all_articles)
-    
-    print('6. Generating sitemap.xml...')
-    generate_sitemap(all_articles)
-
-    print('6.5. Generating rss.xml...')
-    generate_rss(all_articles)
-
-    print('7. Writing static article links into blog.html...')
-    generate_blog_static_links(all_articles)
-
-    print('8. Validating generated metadata and navigation...')
-    validate_generated_site(all_articles)
-    
-    print('Build completed successfully!')
+    if args.validate:
+        global BASE_DIR, CONTENT_DIR, ARTICLES_DATA_FILE, BLOG_HTML_FILE, SITEMAP_FILE
+        source_root = BASE_DIR
+        BASE_DIR = args.validate.resolve()
+        CONTENT_DIR = BASE_DIR / 'content'
+        ARTICLES_DATA_FILE = BASE_DIR / 'js' / 'articles-data.js'
+        BLOG_HTML_FILE = BASE_DIR / 'blog.html'
+        SITEMAP_FILE = BASE_DIR / 'sitemap.xml'
+        for art in all_articles:
+            relative = Path('content') / art['folder'] / art['new_filename']
+            if (source_root / relative).read_bytes() != (BASE_DIR / relative).read_bytes():
+                raise RuntimeError(f'Published article was modified during the build: {relative}')
+        validate_generated_site(all_articles)
+    else:
+        prepare_astro_assets(all_articles)
 
 if __name__ == '__main__':
     main()

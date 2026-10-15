@@ -2,3 +2,10 @@
 __pycache__/
 *.pyc
 scratch/
+node_modules/
+.astro/
+.generated/
+.wrangler/
+dist/
+.env
+.env.*

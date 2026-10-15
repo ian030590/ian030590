@@ -1,39 +1,101 @@
-name: YAEO SEO & Build Audit
+name: Astro Build & Cloudflare Pages
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  ASTRO_TELEMETRY_DISABLED: '1'
+  PYTHONDONTWRITEBYTECODE: '1'
 
 jobs:
-  audit:
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: 'pip'
 
       - name: Install Python dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install -r requirements.txt
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version: '24'
+          cache: 'npm'
 
-      - name: Test article navigation, build and check link integrity
-        run: |
-          python -m unittest discover -s scripts -p test_static_articles.py
-          python build_static_articles.py
+      - name: Install locked dependencies
+        run: npm ci
 
-      - name: Run YAEO SEO/AEO audit
+      - name: Run regression tests
+        run: npm test
+
+      - name: Check Astro components
+        run: npm run check
+
+      - name: Build Astro and validate published articles and links
+        run: npm run build
+
+      - name: Run YAEO SEO/AEO audit on the deployment output
+        run: npm run audit:seo
+
+      - name: Upload the verified site
+        uses: actions/upload-artifact@v7
+        with:
+          name: astro-dist
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: cloudflare-pages-production
+      cancel-in-progress: false
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT || 'ian030590' }}
+    steps:
+      - name: Verify deployment credentials
         run: |
-          node ./scripts/seo-check.mjs --dir . --site https://ian030590.trainerhub.cc --fail-on error
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo '::error::Set the CLOUDFLARE_API_TOKEN repository secret'; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo '::error::Set the CLOUDFLARE_ACCOUNT_ID repository secret'; exit 1; }
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Download the verified site
+        uses: actions/download-artifact@v8
+        with:
+          name: astro-dist
+          path: dist/
+
+      - name: Deploy artifact to Cloudflare Pages
+        run: npx --no-install wrangler pages deploy dist --project-name "$CLOUDFLARE_PAGES_PROJECT" --branch main

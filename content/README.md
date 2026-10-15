@@ -48,9 +48,9 @@
 
 ### 編輯稿與建置同步
 
-- 已登錄於根目錄 `article_editorial_copy.py` 的 `HUMANIZED_ARTICLE_COPY` 之文章，其標題、摘要與正文由該編輯稿提供。修改時須更新對應項目，不能只修改會被建置覆寫的 HTML。
-- 未登錄的文章仍依對應 HTML 維護；不要為了新增文章而複製固定的敘事模板。
-- 文章內容變更後執行 `python build_static_articles.py`，確認可見標題、摘要、正文、引用、OG／Twitter、JSON-LD、文章列表與前後篇導覽一致。
+- `article_editorial_copy.py` 的 `HUMANIZED_ARTICLE_COPY` 保留作為寫作核對資料；正式發布來源為 `content/` 的 HTML。新增文章如有對應編輯稿，須確認新 HTML 的標題、摘要與正文一致，不能以編輯稿覆寫既有舊文章。
+- 新文章以新序號建立獨立 HTML；不要為了新增文章而複製固定的敘事模板。
+- 執行 `python build_static_articles.py` 準備 `.generated/public/` 的文章副本、RSS、Sitemap 與文章目錄，再執行 `npm run build`、`npm run audit:seo` 檢查 Astro 的 `dist/` 產物。建置會原樣複製舊文章並比對位元組，不再自動改寫文章、導覽、日期或 CSS。
 - 結構檢查通過不代表研究原意或所有外部連結都已驗證。來源無法取得或網站拒絕自動存取時，應如實記錄核對範圍，不宣稱全部驗證成功。
 
 ### 嚴禁覆蓋既有舊文章準則（Zero Overwrite & Non-Destructive Addition）
@@ -107,7 +107,7 @@ content/
 - ❌ **標籤文字長度嚴禁超過 10 個字元**。
 
 ### 4. 靜態編譯對應表同步維護
-每當新增文章時，必須同步在專案根目錄的 [build_static_articles.py](file:///P:/3_WebSite/ian030590/build_static_articles.py) 的 `ARTICLE_TAG_MAP` 字典中登記：
+每當新增文章時，必須同步在專案根目錄的 [build_static_articles.py](../build_static_articles.py) 的 `ARTICLE_TAG_MAP` 字典中登記：
 ```python
 ARTICLE_TAG_MAP = {
     # 範例：目錄名_3位數序號
@@ -288,7 +288,7 @@ ARTICLE_TAG_MAP = {
 ```
 
 ### 7. 主題叢集與前後篇導覽 (Topic Cluster & Prev/Next Navigation)
-由 `build_static_articles.py` 自動注入：
+新文章須在 HTML 中建立以下導覽；`build_static_articles.py` 只驗證導覽，不再改寫既有文章。可參照該腳本的 `render_prev_next_navigation` 計算同叢集順序，再將導覽寫入新文章：
 - `<nav class="topic-cluster-nav" aria-label="同系列主題專題叢集">`：顯示該叢集所有篇章，並標註「目前閱讀中」。
 - `<div class="prev-next-nav">`：上一篇與下一篇之專屬導航按鈕卡片。
 
@@ -345,12 +345,14 @@ ARTICLE_TAG_MAP = {
 每當新增或修改文章時，請遵循以下 6 步驟標準流程：
 
 1. **查閱規範**：每次撰寫前必先閱讀本規範 `content/README.md`（包含標籤、命名與專有名詞對照表）。
-2. **原文核對與撰寫**：先閱讀 `content/References/` 中適用的原文；依本文件的寫作原則撰寫。已登錄的文章更新 `article_editorial_copy.py` 對應編輯稿，其餘文章在 `content/` 對應子目錄維護符合命名規則的 HTML。
+2. **原文核對與撰寫**：先閱讀 `content/References/` 中適用的原文；依本文件的寫作原則以新序號建立 HTML，如有編輯稿則同步核對。禁止藉由新增專題覆寫舊文章。
 3. **圖床與 DOI 查核**：確認首圖為 Unsplash 高清圖，且參考文獻內所有 DOI 均經即時驗證為可訪問有效連結。
 4. **填寫真實發布日期**：確認 HTML meta、JSON-LD 與內文 `<time>` 均採用實際撰寫當日之真實日期（如 `2026-09-14T08:00:00+08:00`），確保站點自動將其判定為「最新專題」。
 5. **登記標籤**：在 `build_static_articles.py` 的 `ARTICLE_TAG_MAP` 中新增該篇之標準標籤（限 6 大合法標籤）。
-6. **執行靜態建置與斷鏈檢驗**：
+6. **執行文章準備、Astro 建置與斷鏈檢驗**：
    ```powershell
    python build_static_articles.py
+   npm run build
+   npm run audit:seo
    ```
-   建置腳本已內建自動死連結與衝突檔防禦機制，會自動檢驗 `blog.html`、`js/articles-data.js` 與文章內部連結是否 100% 存在且有效。確認終端顯示 `Validation passed` 且無任何 broken link。
+   建置腳本會對 `dist/` 中的 `blog.html`、`js/articles-data.js`、Sitemap 及文章連結執行存在性檢查，並比對來源文章位元組。衝突檔只會中斷建置，不會自動刪除或更名。確認終端顯示 `Validation passed` 且無任何 broken link；操作環境與部署說明見 [docs/DEVELOPMENT.md](../docs/DEVELOPMENT.md)。

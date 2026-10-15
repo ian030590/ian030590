@@ -1,0 +1,65 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  socialTitle?: string;
+  schema: Record<string, unknown>;
+  articles?: boolean;
+  projects?: boolean;
+}
+
+const { title, description, path, socialTitle = title, schema, articles, projects } = Astro.props;
+const canonical = new URL(path, Astro.site);
+const image = new URL('/assets/ian-tsai.jpg', Astro.site);
+---
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title="蔡泓恩 職能治療師" href={new URL('/rss.xml', Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:site_name" content="蔡泓恩 | 職能治療師" />
+    <meta property="og:title" content={socialTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={socialTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
+    <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script is:inline>
+      (function () {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === 'light') {
+          document.documentElement.setAttribute('data-theme', theme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <SiteHeader path={path} />
+    <slot />
+    <SiteFooter />
+    {articles && <script is:inline src="/js/articles-data.js"></script>}
+    <script is:inline src="/js/animate-icons.js"></script>
+    {projects && <script is:inline src="/js/projects-data.js"></script>}
+    <script is:inline src="/js/main.js"></script>
+  </body>
+</html>

@@ -1,72 +1,48 @@
 # 蔡泓恩 Hung-En (Ian) Tsai
 
-**職能治療背景 · 數位復能與辦公自動化工具開發者 — 把臨床評估需求與工作流痛點，轉化為開源、流暢且易用的軟體工具。**  
-**Occupational therapy background · Digital health & workflow automation developer — turning clinical assessment needs and daily workflow bottlenecks into open-source, usable tools.**
+**職能治療背景，關注視覺復健、數位練習工具與臨床研究工作流。**
 
-Keywords: occupational therapy · clinical assessment · digital health · telerehabilitation · cognitive & visual training · office automation · workflow tools · Python · TypeScript · React · Electron · Cloudflare
+I build digital practice tools and workflow utilities informed by occupational therapy, clinical research, and everyday work.
 
-- **臨床與數位復能** — 職能治療背景，開發涵蓋動作、視覺、認知與口腔訓練之全方位數位復能平台與臨床收案系統
-- **辦公與研究自動化** — 開發醫學文獻自動化追蹤（PubMed / Zotero AI）、文件批次處理（PDF / 影像多格式轉換）與門診叫號即時推播
-- **全端與跨平台開發** — 從 Chrome 擴充功能、Electron 桌面應用到 Cloudflare 無伺服器架構
+[個人網站](https://ian030590.trainerhub.cc) · [居家訓練網](https://trainerhub.cc) · [Email](mailto:rainbowh9490@gmail.com)
 
-[![Platform](https://img.shields.io/badge/Platform-trainerhub.cc-005eb8?style=flat-square&logo=cloudflare&logoColor=white)](https://trainerhub.cc)
-[![GitHub](https://img.shields.io/badge/GitHub-ian030590-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ian030590)
-[![Email](https://img.shields.io/badge/Email-rainbowh9490%40gmail.com-1c1917?style=flat-square&logo=gmail&logoColor=white)](mailto:rainbowh9490@gmail.com)
+## 我在做什麼
 
----
+- **數位復能與視覺練習**：開發居家動作、視覺、認知與口腔練習工具，探索眼動追蹤設備與互動式活動的整合。
+- **臨床與研究工作流**：把門診叫號追蹤、PubMed 文獻搜尋與 Zotero 論文整理等重複工作做成工具。
+- **文件與日常自動化**：以 Python 處理 PDF 合併、分割、密碼移除，以及影像與 PDF 格式轉換。
 
-## 我在做什麼 ／ What I build
+## 數位復能與眼動工具
 
-工具皆從臨床實務、研究流程與辦公日常痛點出發——評估繁瑣、資料重複輸入、文獻整理耗時或流程卡住，就寫工具把它打通。
+| 公開專案 | 內容 |
+| --- | --- |
+| [**RehabTrainerHub**](https://github.com/ian030590/RehabTrainerHub) | [居家訓練網](https://trainerhub.cc)：整合動作、視覺、認知與口腔練習、衛教資訊及開發者遊戲庫。支援練習參數設定、成績 CSV 匯出，並讓審核通過的 jsPsych 遊戲在獨立網域執行。 |
+| [**OcuTrain**](https://github.com/ian030590/OcuTrain) | Windows 數位眼球動作訓練工具，以 C#／.NET、WebView2 與 Tobii Eye Tracker 5 Bridge 串接眼動設備及網頁練習介面。 |
 
-- **數位復能與自主訓練** — 動作（塔防/手勢/追蹤）、視覺（蓋伯斑塊/RSVP閱讀/哈特圖/眼動）、認知訓練（UFOV/反應抑制/高階推理）、口腔訓練平台與 Steam 式隔離遊戲執行架構
-- **臨床醫療與照護工作流** — 臺大醫院低視能門診收案與復能追蹤、門診即時叫號通知系統（Chrome 擴充功能 & Electron 桌面版）
-- **醫學研究與文獻工作流** — PubMed 定期自動檢索、Zotero 論文 AI 結構化摘要
-- **辦公與效率自動化工具** — PDF 批次合併/解密/單頁分割、多格式檔案萬用轉換（HEIC/PNG/JPG/PDF）
+## 臨床研究與工作流工具
 
-## 工具與作品 ／ Projects
+| 公開專案 | 內容 |
+| --- | --- |
+| [**ResearchAssistant**](https://github.com/ian030590/ResearchAssistant) | 以 n8n 串接 PubMed、Zotero 與語言模型，提供文獻定期搜尋與論文結構化整理工作流。 |
+| [**NTUHNotifier**](https://github.com/ian030590/NTUHNotifier) | 門診叫號通知工具，在目標號碼接近或到號時提醒，供研究收案等工作使用。 |
+| [**NTUHNotifier2**](https://github.com/ian030590/NTUHNotifier2) | 以 Electron 與 React 開發的臺大醫院門診叫號桌面通知器。 |
 
-### 數位復能與臨床系統 / Occupational Therapy & Clinical Systems
+## 文件處理與日常工具
 
-| 專案 | 做什麼 |
-|---|---|
-| [**RehabTrainerHub**](https://github.com/ian030590/RehabTrainerHub) | **居家訓練網 ([trainerhub.cc](https://trainerhub.cc))** — 整合動作（塔防/手勢/追蹤）、視覺（蓋伯斑塊/RSVP閱讀/哈特圖/眼動）、認知（UFOV/反應時間/高階推理）、口腔訓練的數位復能平台；具備 5 重安全隔離（獨立網域、嚴格 Iframe 沙盒、CSP 阻斷外連、MessageChannel 通訊、人工審核）與單一遊戲 PWA 安裝的 Steam 式 jsPsych 遊戲發布環境。 |
+| 公開專案 | 內容 |
+| --- | --- |
+| [**FormatConverter**](https://github.com/ian030590/FormatConverter) | 影像、HEIC 與 PDF 的批次格式轉換工具。 |
+| [**PDFCombiner**](https://github.com/ian030590/PDFCombiner) | 批次合併 PDF 文件。 |
+| [**PDFSeparater**](https://github.com/ian030590/PDFSeparater) | 將多頁 PDF 分割為獨立頁面。 |
+| [**PDFDecrypter**](https://github.com/ian030590/PDFDecrypter) | PDF 密碼移除工具。 |
+| [**ZhBible**](https://github.com/ian030590/ZhBible) | 使用原生 HTML 製作、支援關鍵字搜尋的聖經閱讀工具。 |
 
-### 臨床工作流與研究助理 / Clinical Workflow & Research Utilities
+## 早期作品
 
-| 專案 | 做什麼 |
-|---|---|
-| [**NTUHNotifier**](https://github.com/ian030590/NTUHNotifier) | **臺大醫院門診看診進度通知 (Chrome 擴充功能)** — 背景定期查詢門診即時叫號，在目標號碼接近時發出瀏覽器桌面推播提醒。 |
-| [**NTUHNotifier2**](https://github.com/ian030590/NTUHNotifier2) | **臺大醫院門診叫號桌面通知器** — 基於 Electron + React 19 + TypeScript 打造的桌面應用，常駐系統工具列即時監控看診進度。 |
-| [**ResearchAssistant**](https://github.com/ian030590/ResearchAssistant) | **醫學文獻自動化研究助理** — 包含 PubMed 定時自動檢索推播（PubmedSeeker）與 Zotero 書目庫 + LLM 論文核心結構化摘要（PaperReviewer）之 n8n 工作流。 |
+[**StrokeTrainer**](https://github.com/ian030590/StrokeTrainer) 與 [**VisionTrainer**](https://github.com/ian030590/VisionTrainer) 分別是神經復健與視覺練習的早期網頁專案，兩者均已封存，保留供查閱。
 
-### 辦公自動化與效率工具 / Office & Productivity Utilities
+## 常用技術
 
-| 專案 | 做什麼 |
-|---|---|
-| [**FormatConverter**](https://github.com/ian030590/FormatConverter) | **萬用多格式批次檔案轉換工具箱** — 支援 HEIC、PNG、JPG、BMP、WEBP、TIFF、PDF 互相轉換之整合終端 CLI 與獨立轉換模組。 |
-| [**PDFCombiner**](https://github.com/ian030590/PDFCombiner) | **PDF 批次合併工具** — 自動掃描目錄內所有 PDF 檔案，按自然檔名順序合併輸出為單一文件。 |
-| [**PDFDecrypter**](https://github.com/ian030590/PDFDecrypter) | **PDF 密碼移除與解鎖工具** — 快速解除受密碼保護之 PDF 文件列印、複製與修改限制，純本機離線處理保證資料安全。 |
-| [**PDFSeparater**](https://github.com/ian030590/PDFSeparater) | **PDF 單頁批次分割工具** — 自動將多頁 PDF 拆解為一頁一個獨立檔案並依序命名歸檔。 |
+Python · JavaScript / TypeScript · C# / .NET · React · Electron · WebView2 · Astro · jsPsych · n8n · Cloudflare Pages
 
-## 專業領域與技術架構 ／ Tech Stack & Engineering
-
-| 領域 | 核心技術與應用 |
-|---|---|
-| **復健科技與臨床評估** | 職能治療（OT）、動作訓練、視覺功能（Gabor Patch / RSVP / Hart Chart）、認知評估（UFOV / Reaction Time / Executive Function）、jsPsych 8.x SDK、臨床收案評估流程 |
-| **應用與跨平台開發** | Python（PyPDF / Pandas / CLI）、TypeScript、React 19、Electron、Vite、Tailwind CSS、Chrome Extension (Manifest V3)、n8n |
-| **雲端與無伺服器架構** | Cloudflare Pages / Workers / Functions、D1 (SQLite)、R2 (Object Storage)、KV、Turborepo / npm workspaces、Google Apps Script |
-
----
-
-## 專案內容維護與準則 ／ Content Maintenance & Guidelines
-
-- 本站專業文章撰寫與建置遵循嚴格之 [文章撰寫技術規範指南](content/README.md)、`AGENTS.md` 與 `GEMINI.md`。
-- **不覆蓋舊文章準則（Zero Overwrite Principle）**：所有新主題、臨床研究指引或文獻撰寫均採增量擴充模式，以全新獨立序號建檔，嚴禁覆蓋、改寫或破壞既有舊文章，確保臨床實證與歷史版本之完整追溯性。
-- **實證忠實與避免誇大原則（Evidence-Based & No Exaggeration）**：文章必須忠於科學實證，不得使用「保證恢復」、「全面有效」、「突破性治癒」等超出文獻證據的誇大療效承諾；保留「可能」、「可考慮」、「證據有限」等原意。取消對程度描述方法（如嚴重度、重度、顯著、大幅等名詞與形容詞）的機械性詞彙限制，回歸實證客觀陳述。除非指引或文獻證據確切列為 Harm 級危害之明確醫療禁忌，否則建議優先使用「建議避免」、「不建議」或「建議優先考慮」等客觀審慎臨床用語。
-- **現代寫作理論：禁止不必要副詞準則（Prohibition of Unnecessary Adverbs）**：秉持 Stephen King（《On Writing》）「通往地獄的路是由副詞鋪成的」、William Zinsser（《On Writing Well》）「剔除雜質贅字」與 Steven Pinker（《The Sense of Style》）破除清嗓贅語理論。全站文章統一全面禁止使用不必要的副詞與空洞修飾語（如「非常」、「極其」、「相當」、「十分」、「無比」、「很」、「特別重要」等程度副詞，以及「本質上」、「其實」、「基本上」、「真的」、「根本」等口語填絮詞），落實刪除測試、強動詞名詞替換與客觀量化／生理因果機制描述。
-- **圖片容器防溢出與橫幅裁切規範（Responsive Images & Hero Cropping）**：所有文章圖片必須使用標準元件結構與自適應 class，嚴禁寫死未受限制之寬度以防破圖溢出容器；最新專題卡片圖檔必須帶有具體橫幅裁切參數（如 `&w=1200&h=800`），並在 CSS 上解耦高度，杜絕直式照片上下推寬卡片。
-
----
-
-Taipei, Taiwan · National Taiwan University · [trainerhub.cc](https://trainerhub.cc) · [rainbowh9490@gmail.com](mailto:rainbowh9490@gmail.com)
+Taipei, Taiwan · National Taiwan University
