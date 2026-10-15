@@ -149,96 +149,115 @@
 
   const projectsGrid = document.getElementById("projects-grid");
   if (projectsGrid) {
+    const projectsStatus = document.getElementById("projects-status");
+    const snapshot = window.GITHUB_PROJECTS || { repositories: [] };
+    const renderProjects = (repositories) => {
+      if (!Array.isArray(repositories)) throw new Error("Invalid project list");
+      // 排除特殊個人 Profile README 儲存庫、本作品集網站自身以及 Fork 專案
+      const excludedRepos = [githubUser.toLowerCase(), "myportfolio"];
+      const targetList = repositories.filter(
+        (repo) =>
+          !excludedRepos.includes(repo.name.toLowerCase()) && !repo.fork && !repo.private,
+      );
+
+      if (!targetList.length) {
+        projectsGrid.innerHTML =
+          '<div class="empty-state"><p>尚無公開開源專案。</p></div>';
+        return;
+      }
+
+      projectsGrid.innerHTML = targetList
+        .map((repo) => {
+          const topics = Array.isArray(repo.topics) ? repo.topics : [];
+          const labels = [repo.archived ? "已封存" : null, repo.language, ...topics]
+            .filter(Boolean)
+            .slice(0, 4)
+            .join(", ");
+          const description =
+            repo.description || `由 ${githubUser} 開發的開源專案。`;
+          const previewUrl = getProjectPreview(repo);
+          const updatedDate = new Date(repo.updated_at).toLocaleDateString(
+            "zh-TW",
+            {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            },
+          );
+
+          return `
+            <article class="project-card">
+              <a class="card-link" href="${escapeHtml(repo.html_url)}" target="_blank" rel="noopener">
+                <div class="project-visual">
+                  <img
+                    src="${escapeHtml(previewUrl)}"
+                    alt="${escapeHtml(repo.name)} 專案預覽圖"
+                    loading="lazy"
+                    onerror="this.parentElement.classList.add('no-image'); this.remove();"
+                  />
+                  <div class="project-visual-placeholder">
+                    <div class="github-mark">
+                      <span class="material-symbols-outlined">code</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-content">
+                  <div class="tags">${renderTags(labels)}</div>
+                  <h2>${escapeHtml(repo.name)}</h2>
+                  <p>${escapeHtml(description)}</p>
+                  <div class="project-footer">
+                    <span class="section-kicker">更新於 ${escapeHtml(updatedDate)}</span>
+                    <div class="project-footer-right">
+                      ${
+                        repo.stargazers_count > 0
+                          ? `<span class="project-stars" title="${repo.stargazers_count} 個星標">
+                              <span class="material-symbols-outlined star-icon" aria-hidden="true">star</span>
+                              ${repo.stargazers_count}
+                            </span>`
+                          : ""
+                      }
+                      <span class="text-link">
+                        View on GitHub
+                        <span class="material-symbols-outlined">open_in_new</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </article>
+          `;
+        })
+        .join("");
+    };
+
+    if (snapshot.repositories.length) {
+      renderProjects(snapshot.repositories);
+      if (projectsStatus) {
+        projectsStatus.textContent = `目前顯示 ${snapshot.synced_at} 整理的公開專案，正在取得最新清單。`;
+      }
+    }
+
     fetch(
-      `https://api.github.com/users/${githubUser}/repos?sort=updated&direction=desc&per_page=100`,
+      `https://api.github.com/users/${githubUser}/repos?type=owner&sort=updated&direction=desc&per_page=100`,
     )
       .then((response) => {
         if (!response.ok) throw new Error("GitHub API request failed");
         return response.json();
       })
       .then((repositories) => {
-        // 排除特殊個人 Profile README 儲存庫、本作品集網站自身以及 Fork 專案
-        const excludedRepos = [githubUser.toLowerCase(), "myportfolio"];
-        const displayRepos = repositories.filter(
-          (repo) =>
-            !excludedRepos.includes(repo.name.toLowerCase()) && !repo.fork,
-        );
-        const targetList = displayRepos.length ? displayRepos : repositories;
-
-        if (!targetList.length) {
-          projectsGrid.innerHTML =
-            '<div class="empty-state"><p>尚無公開開源專案。</p></div>';
-          return;
-        }
-
-        projectsGrid.innerHTML = targetList
-          .map((repo) => {
-            const topics = Array.isArray(repo.topics) ? repo.topics : [];
-            const labels = [repo.language, ...topics]
-              .filter(Boolean)
-              .slice(0, 4)
-              .join(", ");
-            const description =
-              repo.description || `由 ${githubUser} 開發的開源專案。`;
-            const previewUrl = getProjectPreview(repo);
-            const updatedDate = new Date(repo.updated_at).toLocaleDateString(
-              "zh-TW",
-              {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-              },
-            );
-
-            return `
-              <article class="project-card">
-                <a class="card-link" href="${escapeHtml(repo.html_url)}" target="_blank" rel="noopener">
-                  <div class="project-visual">
-                    <img
-                      src="${escapeHtml(previewUrl)}"
-                      alt="${escapeHtml(repo.name)} 專案預覽圖"
-                      loading="lazy"
-                      onerror="this.parentElement.classList.add('no-image'); this.remove();"
-                    />
-                    <div class="project-visual-placeholder">
-                      <div class="github-mark">
-                        <span class="material-symbols-outlined">code</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="project-content">
-                    <div class="tags">${renderTags(labels)}</div>
-                    <h2>${escapeHtml(repo.name)}</h2>
-                    <p>${escapeHtml(description)}</p>
-                    <div class="project-footer">
-                      <span class="section-kicker">更新於 ${escapeHtml(updatedDate)}</span>
-                      <div class="project-footer-right">
-                        ${
-                          repo.stargazers_count > 0
-                            ? `<span class="project-stars" title="${repo.stargazers_count} 個星標">
-                                <span class="material-symbols-outlined star-icon" aria-hidden="true">star</span>
-                                ${repo.stargazers_count}
-                              </span>`
-                            : ""
-                        }
-                        <span class="text-link">
-                          View on GitHub
-                          <span class="material-symbols-outlined">open_in_new</span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </article>
-            `;
-          })
-          .join("");
+        renderProjects(repositories);
+        if (projectsStatus) projectsStatus.textContent = "已同步 GitHub 最新公開專案；已封存作品以標籤註明。";
       })
       .catch(() => {
+        if (snapshot.repositories.length) {
+          if (projectsStatus) projectsStatus.textContent = `目前顯示 ${snapshot.synced_at} 整理的公開專案；最新動態請見各專案的 GitHub 頁面。`;
+          return;
+        }
+        if (projectsStatus) projectsStatus.textContent = "專案清單暫時無法更新。";
         projectsGrid.innerHTML = `
           <div class="empty-state">
             <span class="material-symbols-outlined" style="font-size: 38px; color: var(--muted); margin-bottom: 8px;">cloud_off</span>
-            <p>暫時無法載入 GitHub 專案列表，請稍候再試。</p>
+            <p>暫時無法載入專案列表，請<a href="https://github.com/${githubUser}?tab=repositories" target="_blank" rel="noopener noreferrer">前往 GitHub 查看公開專案</a>。</p>
           </div>
         `;
       });

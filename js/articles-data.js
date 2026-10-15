@@ -787,5 +787,25 @@ window.__STATIC_ARTICLES__ = [
     "order": 29,
     "folder": "VisualRehab",
     "filename": "029_視覺復健_時鐘面定位法評估中心暗點與偏心注視.html"
+  },
+  {
+    "id": "VisualRehab_030",
+    "title": "凝視穩定運動怎麼開立：治療師的 GSE 評估與處方",
+    "lead": "周邊前庭低功能可能使頭動時的影像模糊。依 2022 年指引，說明治療師如何評估、帶練 VOR ×1／×2、安排每日 GSE 劑量，並依視標辨識、症狀與功能目標調整處方。",
+    "imageUrl": "https://images.unsplash.com/photo-1758206524001-56b1b1ec72cf?auto=format&fit=crop&w=1200&h=800&q=80",
+    "tags": [
+      "視覺復健",
+      "動作復健"
+    ],
+    "dateString": "2026-10-15",
+    "readTime": "約 5 分鐘閱讀",
+    "link": "/content/VisualRehab/030_凝視穩定運動_治療師的GSE評估與處方.html",
+    "sourceName": "視覺復健",
+    "category": "視覺復健",
+    "cluster": "周邊前庭低功能與凝視穩定訓練",
+    "subCluster": "2022 ANPT 前庭復健臨床實務指引",
+    "order": 30,
+    "folder": "VisualRehab",
+    "filename": "030_凝視穩定運動_治療師的GSE評估與處方.html"
   }
 ];

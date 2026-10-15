@@ -1848,6 +1848,7 @@ for i in range(20, 23):
 ARTICLE_TAG_MAP["VisualRehab_013"] = ["視覺復健", "動作復健"]
 ARTICLE_TAG_MAP["VisualRehab_025"] = ["視覺復健", "AI應用"]
 ARTICLE_TAG_MAP["VisualRehab_028"] = ["視覺復健", "動作復健"]
+ARTICLE_TAG_MAP["VisualRehab_030"] = ["視覺復健", "動作復健"]
 
 def collect_article_metadata():
     folders = [
@@ -1908,7 +1909,10 @@ def collect_article_metadata():
                     if folder == 'CognitRehab':
                         sub_cluster = '認知與溝通' if order <= 6 else '心理、轉銜與社會參與'
                     elif folder == 'VisualRehab':
-                        if order >= 23:
+                        if order >= 30:
+                            cluster = '周邊前庭低功能與凝視穩定訓練'
+                            sub_cluster = '2022 ANPT 前庭復健臨床實務指引'
+                        elif order >= 23:
                             cluster = '低視能復健指引與實踐專題'
                             sub_cluster = 'Whittaker 臨床指引與實踐'
                         else:
@@ -2341,6 +2345,8 @@ def build_article_html(art, all_articles):
     # Evidence badge
     if folder == 'OccupationalTherapy':
         evidence_note = '2026 AHA/ASA 臨床指引實證'
+    elif folder == 'VisualRehab' and art['order'] >= 30:
+        evidence_note = '2022 ANPT 前庭復健臨床實務指引'
     elif folder == 'VisualTherapy' or (folder == 'VisualRehab' and art['order'] <= 19):
         evidence_note = '2023 AAO PPP 臨床指引實證'
     elif folder in ('DigitalLearning', 'DigitLearn'):
