@@ -29,8 +29,9 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Run static build and link integrity check
+      - name: Test article navigation, build and check link integrity
         run: |
+          python -m unittest discover -s scripts -p test_static_articles.py
           python build_static_articles.py
 
       - name: Run YAEO SEO/AEO audit

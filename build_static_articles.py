@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from urllib.parse import quote, unquote
 import urllib.parse
+import xml.etree.ElementTree as ET
 
 from article_editorial_copy import HUMANIZED_ARTICLE_COPY
 
@@ -1152,6 +1153,47 @@ ARTICLE_BOTTOM_ACTIONS_HTML = """<div class="article-trainerhub-cta">
         </div>"""
 
 
+def get_cluster_articles(art, all_articles):
+    return sorted(
+        [candidate for candidate in all_articles
+         if candidate['folder'] == art['folder'] and candidate['cluster'] == art['cluster']],
+        key=lambda candidate: candidate['order'],
+    )
+
+
+def render_prev_next_navigation(art, all_articles):
+    cluster_articles = get_cluster_articles(art, all_articles)
+    current_index = next(
+        index for index, candidate in enumerate(cluster_articles)
+        if candidate['new_filename'] == art['new_filename']
+    )
+    neighbors = (
+        ('prev', '上一篇', 'arrow_back', cluster_articles[current_index - 1] if current_index > 0 else None,
+         '已是本系列首篇'),
+        ('next', '下一篇', 'arrow_forward',
+         cluster_articles[current_index + 1] if current_index + 1 < len(cluster_articles) else None,
+         '已是本系列末篇'),
+    )
+    cards = []
+    for direction, label, icon, article, boundary in neighbors:
+        card_class = f'prev-next-card prev-next-card--{direction}'
+        if article:
+            href = f"/content/{article['folder']}/{quote(article['new_filename'])}"
+            opening = f'<a class="{card_class}" href="{href}" rel="{direction}">'
+            title = article['title']
+            closing = '</a>'
+        else:
+            opening = f'<div class="{card_class} is-disabled" aria-disabled="true">'
+            title = boundary
+            closing = '</div>'
+        cards.append(
+            f'{opening}<span class="prev-next-label">'
+            f'<span class="material-symbols-outlined" aria-hidden="true">{icon}</span>{label}</span>'
+            f'<span class="prev-next-title">{escape(title)}</span>{closing}'
+        )
+    return '<nav class="prev-next-nav" aria-label="系列文章導覽">' + ''.join(cards) + '</nav>'
+
+
 def sync_article_source(soup, art, all_articles=None):
     """Keep the published article, metadata, and navigation in sync."""
     if not art:
@@ -1315,50 +1357,20 @@ def sync_article_source(soup, art, all_articles=None):
         script.string = json.dumps(data, ensure_ascii=False)
 
     if all_articles:
-        cluster_articles = sorted(
-            [
-                candidate
-                for candidate in all_articles
-                if candidate['folder'] == art['folder']
-                and candidate['cluster'] == art['cluster']
-            ],
-            key=lambda candidate: candidate['order'],
-        )
-        current_index = next(
-            (
-                index
-                for index, candidate in enumerate(cluster_articles)
-                if candidate['new_filename'] == art['new_filename']
-            ),
-            -1,
-        )
-        prev_article = (
-            cluster_articles[current_index - 1] if current_index > 0 else None
-        )
-        next_article = (
-            cluster_articles[current_index + 1]
-            if current_index >= 0 and current_index < len(cluster_articles) - 1
-            else None
-        )
-        prev_next = soup.find('nav', class_='prev-next-nav')
-        if not prev_next:
-            container = soup.find('div', class_='article-container')
+        navigation = BeautifulSoup(render_prev_next_navigation(art, all_articles), 'html.parser').nav
+        existing = soup.select('.prev-next-nav')
+        if existing:
+            existing[0].replace_with(navigation)
+            for duplicate in existing[1:]:
+                duplicate.decompose()
+        else:
+            container = soup.find(class_='article-container')
             if container:
-                prev_next = soup.new_tag('nav', attrs={'class': 'prev-next-nav', 'aria-label': '相關文章'})
-                container.append(prev_next)
-        if prev_next:
-            prev_next.clear()
-            for label, article in (
-                (f"上一篇：", prev_article),
-                (f"下一篇：", next_article),
-            ):
-                if article:
-                    link = soup.new_tag(
-                        'a',
-                        href=f"{SITE_BASE_URL}/content/{article['folder']}/{quote(article['new_filename'])}",
-                    )
-                    link.string = label + article['title']
-                    prev_next.append(link)
+                bottom_actions = container.select_one('.article-trainerhub-cta, .article-bottom-actions')
+                if bottom_actions:
+                    bottom_actions.insert_before(navigation)
+                else:
+                    container.append(navigation)
 
 
 def update_article_head_and_styles(target_file: Path, art: dict = None, all_articles=None):
@@ -2169,18 +2181,7 @@ def build_article_html(art, all_articles):
     web_page_path = f"/content/{folder}/{new_filename}"
     
     # Filter articles in same cluster for cluster navigation
-    cluster_articles = [a for a in all_articles if a['folder'] == folder and a['cluster'] == cluster_name]
-    cluster_articles.sort(key=lambda x: x['order'])
-    
-    # Current index in cluster
-    curr_idx = -1
-    for idx, ca in enumerate(cluster_articles):
-        if ca['new_filename'] == new_filename:
-            curr_idx = idx
-            break
-            
-    prev_article = cluster_articles[curr_idx - 1] if curr_idx > 0 else None
-    next_article = cluster_articles[curr_idx + 1] if curr_idx < len(cluster_articles) - 1 else None
+    cluster_articles = get_cluster_articles(art, all_articles)
     
     # Schema.org JSON-LD
     schema_type = "TechArticle" if folder in ("DigitalLearning", "DigitLearn") else "MedicalScholarlyArticle"
@@ -2275,38 +2276,7 @@ def build_article_html(art, all_articles):
         
     cluster_list_rendered = '\n'.join(cluster_items_html)
     
-    # Prev Next Navigation
-    prev_html = ""
-    if prev_article:
-        prev_html = f"""
-        <a href="./{prev_article['new_filename']}" class="prev-next-card">
-          <span class="prev-next-label">
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-            上一篇（第 {prev_article['order']:03d} 講）
-          </span>
-          <span class="prev-next-title">{prev_article['title']}</span>
-        </a>"""
-    else:
-        prev_html = """<div class="prev-next-card" style="opacity: 0.5; cursor: default;">
-          <span class="prev-next-label">已是專題首篇</span>
-          <span class="prev-next-title">沒有上一篇了</span>
-        </div>"""
-        
-    next_html = ""
-    if next_article:
-        next_html = f"""
-        <a href="./{next_article['new_filename']}" class="prev-next-card" style="text-align: right; align-items: flex-end;">
-          <span class="prev-next-label">
-            下一篇（第 {next_article['order']:03d} 講）
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-          </span>
-          <span class="prev-next-title">{next_article['title']}</span>
-        </a>"""
-    else:
-        next_html = """<div class="prev-next-card" style="opacity: 0.5; cursor: default; text-align: right; align-items: flex-end;">
-          <span class="prev-next-label">已是專題最新篇</span>
-          <span class="prev-next-title">敬請期待後續更新</span>
-        </div>"""
+    prev_next_html = render_prev_next_navigation(art, all_articles)
 
     # References HTML
     refs_html = ""
@@ -2530,10 +2500,7 @@ def build_article_html(art, all_articles):
           </nav>
 
           <!-- Prev & Next Article Navigation -->
-          <div class="prev-next-nav">
-            {prev_html}
-            {next_html}
-          </div>
+          {prev_next_html}
 
           <!-- TrainerHub CTA & Back to Blog Navigation -->
           <div class="article-trainerhub-cta">
@@ -2727,6 +2694,37 @@ def generate_blog_static_links(all_articles):
     BLOG_HTML_FILE.write_text(html, encoding='utf-8')
     print(f'Blog fallback written to {BLOG_HTML_FILE} ({len(cards)} direct article links)')
 
+def validate_article_navigation(soup, art, all_articles):
+    navigation = soup.select('.prev-next-nav')
+    expected = BeautifulSoup(render_prev_next_navigation(art, all_articles), 'html.parser').nav
+    if len(navigation) != 1 or navigation[0] != expected:
+        raise RuntimeError(f"Inconsistent series navigation: {art['folder']}/{art['new_filename']}")
+
+
+def validate_internal_link(source_file, href, page_soups):
+    source_url = f"{SITE_BASE_URL}/{source_file.relative_to(BASE_DIR).as_posix()}"
+    url = urllib.parse.urlsplit(urllib.parse.urljoin(source_url, href))
+    if url.scheme not in ('http', 'https') or url.netloc != urllib.parse.urlsplit(SITE_BASE_URL).netloc:
+        return None
+
+    target = BASE_DIR / unquote(url.path).lstrip('/')
+    if target.is_dir():
+        target /= 'index.html'
+    elif not target.suffix:
+        target = target.with_suffix('.html')
+    if not target.is_file():
+        raise RuntimeError(f'Broken internal link in {source_file.relative_to(BASE_DIR)}: {href}')
+
+    if url.fragment and target.suffix == '.html':
+        if target not in page_soups:
+            page_soups[target] = BeautifulSoup(target.read_text(encoding='utf-8'), 'html.parser')
+        target_soup = page_soups[target]
+        fragment = unquote(url.fragment)
+        if not (target_soup.find(id=fragment) or target_soup.find('a', attrs={'name': fragment})):
+            raise RuntimeError(f'Broken internal fragment in {source_file.relative_to(BASE_DIR)}: {href}')
+    return target
+
+
 def validate_generated_site(all_articles):
     """Fail the build when generated navigation, metadata, or approved tags drift."""
     approved_tags = {'中風復健', '視覺復健', '動作復健', '認知復健', '數位學習', 'AI應用'}
@@ -2743,6 +2741,7 @@ def validate_generated_site(all_articles):
 
         article_file = CONTENT_DIR / art['folder'] / art['new_filename']
         soup = BeautifulSoup(article_file.read_text(encoding='utf-8'), 'html.parser')
+        validate_article_navigation(soup, art, all_articles)
         stylesheet = soup.find('link', rel=lambda value: value and 'stylesheet' in value)
         schema = extract_article_schema(soup)
         if not stylesheet or stylesheet.get('href') != '../../css/style.css':
@@ -2790,15 +2789,15 @@ def validate_generated_site(all_articles):
         if not article_file.is_file():
             raise RuntimeError(f"Article file does not exist on disk: {article_file}")
 
-    # 3. blog.html internal link integrity check (all links must resolve to files on disk)
-    blog_soup = BeautifulSoup(BLOG_HTML_FILE.read_text(encoding='utf-8'), 'html.parser')
-    for a in blog_soup.find_all('a', href=True):
-        href = a['href']
-        if href.startswith('/content/'):
-            path_part = urllib.parse.unquote(href.split('?')[0].split('#')[0])
-            target_path = BASE_DIR / path_part.lstrip('/')
-            if not target_path.is_file():
-                raise RuntimeError(f"Broken internal link in blog.html: {href} (target {target_path} not found)")
+    # 3. Validate all HTML links, including relative paths, clean routes and fragments.
+    page_soups = {}
+    internal_link_count = 0
+    for page in sorted(BASE_DIR.glob('*.html')) + sorted(CONTENT_DIR.rglob('*.html')):
+        if page not in page_soups:
+            page_soups[page] = BeautifulSoup(page.read_text(encoding='utf-8'), 'html.parser')
+        for link in page_soups[page].select('a[href]'):
+            if validate_internal_link(page, link['href'], page_soups) is not None:
+                internal_link_count += 1
 
     # 4. articles-data.js link integrity check
     data_content = ARTICLES_DATA_FILE.read_text(encoding='utf-8')
@@ -2806,30 +2805,24 @@ def validate_generated_site(all_articles):
     if not json_match:
         raise RuntimeError("Failed to parse window.__STATIC_ARTICLES__ in articles-data.js")
     articles_data = json.loads(json_match.group(1))
+    expected_links = {f"/content/{art['folder']}/{art['new_filename']}" for art in all_articles}
+    catalog_links = [item.get('link', '') for item in articles_data]
+    if len(catalog_links) != len(expected_links) or set(catalog_links) != expected_links:
+        raise RuntimeError('Article catalog has missing, duplicate or unexpected links')
     for item in articles_data:
-        link = item.get('link', '')
-        if link.startswith('/content/'):
-            path_part = urllib.parse.unquote(link.split('?')[0].split('#')[0])
-            target_path = BASE_DIR / path_part.lstrip('/')
-            if not target_path.is_file():
-                raise RuntimeError(f"Broken link in articles-data.js: {link} (target {target_path} not found)")
+        validate_internal_link(ARTICLES_DATA_FILE, item['link'], page_soups)
+    blog_links = {link['href'] for link in page_soups[BLOG_HTML_FILE].select('.card-link[href]')}
+    if blog_links != expected_links:
+        raise RuntimeError('Blog article links do not match the article catalog')
 
-    # 5. Every article page internal link integrity check
-    for art in additional_articles:
-        article_file = CONTENT_DIR / art['folder'] / art['new_filename']
-        soup = BeautifulSoup(article_file.read_text(encoding='utf-8'), 'html.parser')
-        for a in soup.find_all('a', href=True):
-            href = a['href']
-            if href.startswith('/content/'):
-                path_part = urllib.parse.unquote(href.split('?')[0].split('#')[0])
-                target_path = BASE_DIR / path_part.lstrip('/')
-                if not target_path.is_file():
-                    raise RuntimeError(f"Broken link in {article_file.name}: {href} (target {target_path} not found)")
-            elif href.startswith('./'):
-                path_part = urllib.parse.unquote(href[2:].split('?')[0].split('#')[0])
-                target_path = article_file.parent / path_part
-                if not target_path.is_file():
-                    raise RuntimeError(f"Broken relative link in {article_file.name}: {href} (target {target_path} not found)")
+    # 5. Sitemap URLs must resolve to real files and include every article.
+    sitemap_links = [node.text for node in ET.parse(SITEMAP_FILE).iterfind('.//{*}loc')]
+    for link in sitemap_links:
+        if validate_internal_link(SITEMAP_FILE, link, page_soups) is None:
+            raise RuntimeError(f'Unexpected external URL in sitemap.xml: {link}')
+    sitemap_paths = {unquote(urllib.parse.urlsplit(link).path) for link in sitemap_links}
+    if not expected_links.issubset(sitemap_paths):
+        raise RuntimeError('Sitemap is missing article URLs')
     # 6. Article featured image uniqueness check (Zero duplicate images across the site)
     photo_ids = {}
     for art in additional_articles:
@@ -2844,7 +2837,7 @@ def validate_generated_site(all_articles):
             )
         photo_ids[pid] = f"{art['folder']}/{art['new_filename']}"
 
-    print(f'Validation passed: {len(additional_articles)} articles have CSS, JSON-LD, navbar, back-link, verified internal links, unique verified images, and zero broken links/conflict files.')
+    print(f'Validation passed: {len(additional_articles)} articles have consistent series navigation, CSS, JSON-LD, navbar, back-link, unique images and zero conflict files. Checked {internal_link_count} internal HTML links, {len(catalog_links)} catalog links and {len(sitemap_links)} sitemap URLs, including fragment targets.')
 
 def main():
     print('1. Updating CSS tokens and article classes in style.css...')
