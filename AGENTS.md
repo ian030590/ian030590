@@ -1,5 +1,10 @@
 # Agent Instructions & Content Generation Rules
 
+## 暫存檔案清理
+
+- 任務完成前一律刪除產生的暫存檔案，包括下載候選圖、檢查報告、測試備份、截圖、瀏覽器測試設定檔及 Python 快取；不得留在工作區。
+- 清理前確認路徑位於工作區或該次建立的暫存目錄，且不包含版本控制中的正式檔案；完成後確認沒有殘留。
+
 ## 📌 MANDATORY INSTRUCTION FOR CONTENT CREATION & EDITING
 
 **Whenever you are tasked with creating, modifying, editing, translating, or reviewing ANY article under the `content/` directory, you MUST first read [content/README.md](file:///P:/3_WebSite/ian030590/content/README.md) using the `view_file` tool and strictly follow all of its guidelines.**

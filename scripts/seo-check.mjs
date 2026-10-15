@@ -79,8 +79,10 @@ const TIER_TEXT = {
 };
 
 // ── 收集檔案 ────────────────────────────────────────────
+const EXCLUDED_DIRECTORIES = new Set(['.git', 'node_modules', 'scratch', '__pycache__']);
 function walk(dir, out = []) {
   for (const name of readdirSync(dir)) {
+    if (EXCLUDED_DIRECTORIES.has(name)) continue;
     const p = join(dir, name);
     const st = statSync(p);
     if (st.isDirectory()) walk(p, out);
