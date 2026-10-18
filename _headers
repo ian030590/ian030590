@@ -3,3 +3,10 @@
 
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
+
+# The pages.dev hostnames duplicate the site; keep them out of search results.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex

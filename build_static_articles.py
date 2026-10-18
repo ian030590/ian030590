@@ -2555,6 +2555,16 @@ def build_article_html(art, all_articles):
 </html>"""
     return full_html
 
+def article_public_url(art):
+    """Return the URL Cloudflare Pages serves with 200.
+
+    Pages answers `/x.html` with a 308 to `/x`, and search engines skip
+    redirecting URLs in sitemaps and feeds, so these list the final URL.
+    """
+    stem = art['new_filename'].removesuffix('.html')
+    return f"{SITE_BASE_URL}/content/{art['folder']}/{quote(stem)}"
+
+
 def generate_sitemap(all_articles, output_dir=None):
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
@@ -2567,9 +2577,7 @@ def generate_sitemap(all_articles, output_dir=None):
     ]
     
     for art in all_articles:
-        folder = art['folder']
-        filename = art['new_filename']
-        encoded_url = f"{SITE_BASE_URL}/content/{folder}/{quote(filename)}"
+        encoded_url = article_public_url(art)
         lastmod = art['date_modified'][:10]
         lines.append(f'  <url><loc>{encoded_url}</loc><lastmod>{lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>')
         
@@ -2583,9 +2591,7 @@ def generate_rss(all_articles, output_dir=None):
     sorted_articles = sorted(all_articles, key=lambda art: art['date_published'], reverse=True)
     rss_items = []
     for art in sorted_articles:
-        folder = art['folder']
-        filename = art['new_filename']
-        encoded_url = f"{SITE_BASE_URL}/content/{folder}/{quote(filename)}"
+        encoded_url = article_public_url(art)
         try:
             dt = datetime.fromisoformat(art['date_published'])
             pub_date_str = dt.strftime('%a, %d %b %Y %H:%M:%S +0800')
@@ -2827,7 +2833,9 @@ def validate_generated_site(all_articles):
         if validate_internal_link(SITEMAP_FILE, link, page_soups) is None:
             raise RuntimeError(f'Unexpected external URL in sitemap.xml: {link}')
     sitemap_paths = {unquote(urllib.parse.urlsplit(link).path) for link in sitemap_links}
-    if not expected_links.issubset(sitemap_paths):
+    if any(path.endswith('.html') for path in sitemap_paths):
+        raise RuntimeError('Sitemap lists .html URLs that Cloudflare Pages redirects')
+    if not {link.removesuffix('.html') for link in expected_links}.issubset(sitemap_paths):
         raise RuntimeError('Sitemap is missing article URLs')
     # 6. Article featured image uniqueness check (Zero duplicate images across the site)
     photo_ids = {}

@@ -153,6 +153,14 @@ class InternalLinkTests(unittest.TestCase):
                 self.assertIsNone(build.validate_internal_link(self.source, href, {}))
 
 
+class PublicUrlTests(unittest.TestCase):
+    def test_sitemap_and_feed_urls_skip_the_pages_html_redirect(self):
+        art = {'folder': 'VisualRehab', 'new_filename': '030_凝視穩定運動_GSE.html'}
+        url = build.article_public_url(art)
+        self.assertEqual(url, f"{build.SITE_BASE_URL}/content/VisualRehab/{quote('030_凝視穩定運動_GSE')}")
+        self.assertFalse(url.endswith('.html'))
+
+
 class AstroAssetsTests(unittest.TestCase):
     def test_staging_preserves_article_bytes_and_excludes_private_sources(self):
         with tempfile.TemporaryDirectory(prefix='astro-assets-tests-') as temporary:
