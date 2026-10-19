@@ -8,13 +8,13 @@ const sorted = [...articles].sort((a, b) => b.dateString.localeCompare(a.dateStr
       <a class="card-link" href={article.link}>
         {article.imageUrl && (
           <div class="article-visual">
-            <img src={article.imageUrl} alt={article.title} loading="lazy" />
+            <img src={article.imageUrl} alt="" loading="lazy" />
             {index === 0 && <span class="featured-badge">最新專題</span>}
           </div>
         )}
         <div class="article-content">
           <div class="card-tags-row">
-            {article.tags.map((tag, tagIndex) => <span class:list={['card-tag-pill', { blue: tagIndex % 2 === 1 }]}>{tag}</span>)}
+            {article.tags.map((tag) => <span class="card-tag-pill">{tag}</span>)}
           </div>
           <h2 class="article-title">{article.title}</h2>
           <div class="article-meta"><time datetime={article.dateString}>{article.dateString}</time></div>

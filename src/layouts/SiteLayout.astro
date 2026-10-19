@@ -46,7 +46,9 @@ const image = new URL('/assets/ian-tsai.jpg', Astro.site);
     <link rel="stylesheet" href="/css/style.css" />
     <script is:inline>
       (function () {
-        var theme = localStorage.getItem('theme');
+        document.documentElement.classList.add('js');
+        var theme = null;
+        try { theme = localStorage.getItem('theme'); } catch (error) {}
         if (theme === 'dark' || theme === 'light') {
           document.documentElement.setAttribute('data-theme', theme);
         } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {

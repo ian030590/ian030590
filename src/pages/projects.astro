@@ -62,46 +62,34 @@ const metadata = {
     <main class="page-main">
       <div class="container">
         <header class="page-intro-header">
-          <div class="section-kicker">Open source work</div>
           <h1 class="page-title">開源專案與工具</h1>
           <p class="page-intro">
-            從眼動訓練與居家練習，到研究流程與文件處理，這裡整理我目前公開的 GitHub 專案。已封存的早期作品亦保留供查閱；各專案的用途、授權與使用方式請見儲存庫說明。
+            從眼動訓練與居家練習，到研究流程與文件處理，這裡整理我目前公開的 GitHub 專案。已封存的早期作品也保留供查閱；各專案的用途、授權與使用方式請見儲存庫說明。
           </p>
         </header>
 
-        <div class="featured-platform-banner">
-          <div class="featured-platform-badge">
-            <span class="material-symbols-outlined" aria-hidden="true">devices</span>
-            線上復健工具平台
+        <section class="featured-platform-banner" aria-labelledby="trainerhub-title">
+          <h2 id="trainerhub-title">TrainerHub 居家復健訓練網</h2>
+          <p>
+            居家練習工具與衛教資訊的整合入口，提供動作、視覺、認知與口腔練習模組，以及經審核的開發者遊戲庫。支援練習參數設定、成績 CSV 匯出與 PWA 安裝；開發者遊戲於獨立網域的沙盒中執行。
+          </p>
+          <div class="tags">
+            <span class="tag">動作與視覺練習</span>
+            <span class="tag">認知與口腔練習</span>
+            <span class="tag">開發者遊戲庫</span>
+            <span class="tag">PWA</span>
+            <span class="tag">成績 CSV 匯出</span>
           </div>
-          <div class="featured-platform-body">
-            <h2>TrainerHub 居家復健訓練網 (trainerhub.cc)</h2>
-            <p>
-              居家練習工具與衛教資訊的整合入口，提供動作、視覺、認知與口腔練習模組，以及經審核的開發者遊戲庫。支援練習參數設定、成績 CSV 匯出與 PWA 安裝；開發者遊戲於獨立網域的沙盒中執行。
-            </p>
-            <div class="tags">
-              <span class="tag">動作與視覺練習</span>
-              <span class="tag blue">認知與口腔練習</span>
-              <span class="tag">開發者遊戲庫</span>
-              <span class="tag blue">PWA</span>
-              <span class="tag">成績 CSV 匯出</span>
-            </div>
-            <div class="featured-platform-action">
-              <a class="button-primary" href="https://trainerhub.cc" target="_blank" rel="noopener" title="前往 TrainerHub 居家復健訓練網">
-                前往 TrainerHub 居家訓練網
-                <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
-              </a>
-            </div>
-          </div>
-        </div>
+          <a class="button-primary" href="https://trainerhub.cc" target="_blank" rel="noopener">
+            開啟 TrainerHub
+            <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+          </a>
+        </section>
 
-        <p id="projects-status" class="page-intro" role="status" aria-live="polite">正在載入公開專案…</p>
-        <noscript><p>請開啟 JavaScript 瀏覽專案卡片，或<a href="https://github.com/ian030590?tab=repositories" target="_blank" rel="noopener noreferrer">前往 GitHub 查看所有公開專案</a>。</p></noscript>
+        <p id="projects-status" class="projects-status" role="status" aria-live="polite"></p>
+        <noscript><p class="projects-status">請開啟 JavaScript 瀏覽專案卡片，或<a href="https://github.com/ian030590?tab=repositories" target="_blank" rel="noopener noreferrer">前往 GitHub 查看所有公開專案</a>。</p></noscript>
         <div id="projects-grid" class="projects-grid">
-          <div class="empty-state">
-            <span class="material-symbols-outlined spin-icon" aria-hidden="true">progress_activity</span>
-            <p>連線同步最新開源專案清單...</p>
-          </div>
+          <p class="empty-state js-only">正在載入公開專案…</p>
         </div>
       </div>
     </main>

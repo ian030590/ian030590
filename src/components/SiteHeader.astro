@@ -20,18 +20,17 @@ const links = [
         <a class:list={['nav-link', { active: path === href }]} href={href} aria-current={path === href ? 'page' : undefined}>{label}</a>
       ))}
     </nav>
-    <button class="theme-toggle" aria-label="切換深色模式" title="切換深色模式">
+    <button class="theme-toggle" type="button" aria-label="切換深色模式" title="切換深色模式">
       <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
       <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
     </button>
-    <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
-    <button class="menu-button" aria-label="開啟選單" aria-expanded="false">
+    <button class="menu-button" type="button" aria-label="開啟選單" aria-expanded="false" aria-controls="mobile-panel">
       <span class="animate-icon animate-icon--menu" data-animate-icon="menu" aria-hidden="true"></span>
     </button>
   </div>
-  <div class="mobile-panel">
+  <nav id="mobile-panel" class="mobile-panel" aria-label="行動版導覽">
     {links.map(({ href, label }) => (
       <a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a>
     ))}
-  </div>
+  </nav>
 </header>

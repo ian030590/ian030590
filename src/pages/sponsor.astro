@@ -2,7 +2,7 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 const metadata = {
   "title": "贊助我 | 蔡泓恩 | 職能治療師",
-  "description": "支持蔡泓恩持續開發視覺復健與數位健康工具。",
+  "description": "透過 Buy Me a Coffee 支持蔡泓恩職能治療師維護 TrainerHub 居家復健訓練網，並持續開發視覺復健與數位健康的開源工具。",
   "socialTitle": "贊助我｜蔡泓恩 職能治療師",
   "path": "/sponsor",
   "schema": {
@@ -49,72 +49,41 @@ const metadata = {
     <main class="page-main sponsor-page">
       <div class="container">
         <section class="sponsor-hero" aria-labelledby="sponsor-title">
-          <div class="sponsor-hero-copy">
-            <p class="section-kicker">支持獨立實作 · SUPPORT OPEN-SOURCE CLINICAL TECH / VER. 2025.REHAB</p>
-            <h1 id="sponsor-title" class="page-title">贊助我的開源工作</h1>
-            <p class="page-intro">
-              你的支持會幫助我持續維護居家練習網，並開發更容易取得的視覺復健與數位健康工具。
-            </p>
-            <div class="sponsor-hero-actions">
-              <a class="button-primary has-animated-icon" href="https://buymeacoffee.com/ian030590" target="_blank" rel="noopener">
-                一杯咖啡支持 (Buy Me a Coffee)
-                <span class="animate-icon animate-icon--external-link" data-animate-icon="external-link" aria-hidden="true"></span>
-              </a>
-              <a class="button-secondary has-animated-icon" href="#donation-support">
-                <span class="material-symbols-outlined" aria-hidden="true">volunteer_activism</span>贊助方式說明
-              </a>
-            </div>
+          <h1 id="sponsor-title" class="page-title">贊助我的開源工作</h1>
+          <p class="page-intro">
+            你的支持會幫助我持續維護居家練習網，並開發更容易取得的視覺復健與數位健康工具。
+          </p>
+          <div class="sponsor-hero-actions">
+            <a class="button-primary has-animated-icon" href="https://buymeacoffee.com/ian030590" target="_blank" rel="noopener">
+              在 Buy Me a Coffee 贊助
+              <span class="animate-icon animate-icon--external-link" data-animate-icon="external-link" aria-hidden="true"></span>
+            </a>
           </div>
+          <p class="sponsor-handle">帳號：<strong>ian030590</strong></p>
         </section>
 
-        <section class="sponsor-stats" aria-label="開源工作指標">
-          <article class="sponsor-stat"><span class="material-symbols-outlined" aria-hidden="true">vital_signs</span><div><strong>4+</strong><b>核心復能訓練向度</b><small>涵蓋動作、視覺、認知與口腔模組</small></div></article>
-          <article class="sponsor-stat"><span class="material-symbols-outlined" aria-hidden="true">lock</span><div><strong>100%</strong><b>本機隱私防護</b><small>純本地檔案解鎖與無後門架構</small></div></article>
-          <article class="sponsor-stat"><span class="material-symbols-outlined" aria-hidden="true">shield</span><div><strong>5 重</strong><b>安全沙盒隔離</b><small>獨立網域與 MessageChannel 防護</small></div></article>
-          <article class="sponsor-stat"><span class="material-symbols-outlined" aria-hidden="true">code</span><div><strong>Free</strong><b>開源回饋社群</b><small>GPL/MIT 開放授權，臨床與研究零障礙</small></div></article>
-        </section>
-
-        <section id="donation-support" class="sponsor-channels sponsor-panel" aria-labelledby="channels-title">
-          <header class="sponsor-section-heading">
-            <p class="section-kicker">SUPPORT CHANNELS</p>
-            <h2 id="channels-title">贊助管道</h2>
-            <p>目前僅開放 Buy Me a Coffee 單筆隨喜贊助，更多在地金流籌備中。</p>
-          </header>
-          <div class="sponsor-channel-grid">
-            <article class="sponsor-channel sponsor-channel-primary">
-              <span class="sponsor-channel-icon material-symbols-outlined" aria-hidden="true">coffee</span>
-              <span class="sponsor-channel-label">主要開放管道</span>
-              <h3>Buy Me a Coffee (一杯咖啡)</h3>
-              <p>無需註冊繁複帳號，支援信用卡、Apple Pay、Google Pay 單筆自由贊助，小額隨喜無負擔，給予開發者最直接的溫暖支持。</p>
-              <a class="button-primary has-animated-icon" href="https://buymeacoffee.com/ian030590" target="_blank" rel="noopener">前往 Buy Me a Coffee<span class="animate-icon animate-icon--external-link" data-animate-icon="external-link" aria-hidden="true"></span></a>
-              <p class="sponsor-handle">帳號：<strong>ian030590</strong></p>
-            </article>
-            <article class="sponsor-channel sponsor-channel-disabled">
-              <span class="sponsor-channel-icon material-symbols-outlined" aria-hidden="true">credit_card</span>
-              <div class="sponsor-channel-title"><h3>綠界科技 ECPay</h3><span>籌備中</span></div>
-              <p>台灣在地金流服務（支援本島信用卡、ATM 虛擬帳號與超商代碼繳費）。團隊正在辦理合規手續，即將開放啟用。</p>
-              <span class="sponsor-coming-soon"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>即將開放 (Coming Soon)</span>
-            </article>
-          </div>
-          <aside class="sponsor-transparency"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span><div><strong>開源初衷與獨立研究聲明</strong><p>本站所有開源工具與文章皆為臨床治療師業餘獨立研究產出，不涉及任何商業授權綁定或個人病歷隱私（PHI）存取。所有小額贊助純屬對自由軟體開發之支持與鼓勵，誠摯感謝您的信任！</p></div></aside>
-          <aside class="sponsor-current-context" aria-label="贊助用途">
-            <p class="section-kicker">這份支持會延續</p>
-            <ul class="sponsor-list"><li>以臨床觀點整理可被實際使用的健康內容。</li><li>將研究與工作現場的問題轉化為小型工具與原型。</li><li>維護公開的專案、文章與知識分享。</li></ul>
+        <div class="sponsor-details">
+          <section class="sponsor-use" aria-labelledby="use-title">
+            <h2 id="use-title">贊助會用在</h2>
+            <ul class="sponsor-list">
+              <li>以臨床觀點整理可被實際使用的健康內容。</li>
+              <li>將研究與工作現場的問題轉化為小型工具與原型。</li>
+              <li>維護公開的專案、文章與知識分享。</li>
+            </ul>
             <a class="text-link has-animated-icon" href="/projects">查看公開專案<span class="animate-icon animate-icon--arrow-right" data-animate-icon="arrow-right" aria-hidden="true"></span></a>
-          </aside>
-        </section>
+          </section>
 
-        <section class="sponsor-wall" aria-labelledby="wall-title">
-          <header class="sponsor-section-heading">
-            <p class="section-kicker">COMMUNITY WALL OF APPRECIATION</p>
-            <h2 id="wall-title">感謝支持者名錄 (Wall of Thanks)</h2>
-            <p>深深感謝所有為開放醫療科技投注信任與熱忱的同儕、前輩與社群夥伴。</p>
-          </header>
-          <div class="sponsor-wall-card">
-            <p class="sponsor-wall-note">贊助後約 24-48 小時內會同步更新至開源名錄。若希望保持完全匿名或指定代稱，請於備註欄註記。</p>
-            <a class="text-link has-animated-icon" href="mailto:rainbowh9490@gmail.com?subject=Sponsor%20Name%20Update"><span class="material-symbols-outlined" aria-hidden="true">edit_note</span>更新您的贊助者稱號或顯示偏好<span class="animate-icon animate-icon--arrow-right" data-animate-icon="arrow-right" aria-hidden="true"></span></a>
+          <div class="sponsor-notes">
+            <section aria-labelledby="about-title">
+              <h2 id="about-title">關於這些工作</h2>
+              <p>網站上的工具與文章是我在工作之外獨立完成的，沒有商業授權綁定，也不會存取個人病歷資料。</p>
+            </section>
+            <section aria-labelledby="payment-title">
+              <h2 id="payment-title">付款方式</h2>
+              <p>目前只開放 Buy Me a Coffee 單筆贊助，可用信用卡、Apple Pay 或 Google Pay，不需註冊帳號。台灣在地金流（綠界 ECPay）尚未開放。</p>
+            </section>
           </div>
-        </section>
+        </div>
       </div>
     </main>
 </SiteLayout>

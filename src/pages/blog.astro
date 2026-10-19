@@ -3,7 +3,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import ArticleList from '../components/ArticleList.astro';
 const metadata = {
   "title": "專業文章與專題 | 蔡泓恩 | 職能治療師",
-  "description": "分享 AI 產品架構思維、視覺復健、職能治療與數位健康工具開發的深度臨床觀察與實務筆記。",
+  "description": "蔡泓恩職能治療師整理的中風、視覺、動作與認知復健研究與臨床指引，以及數位學習與 AI 應用筆記，每篇附上原始文獻連結。",
   "socialTitle": "專業文章與專題｜蔡泓恩 職能治療師",
   "path": "/blog",
   "schema": {
@@ -71,23 +71,21 @@ const metadata = {
     <main class="page-main">
       <div class="container">
         <header class="blog-header">
-          <div class="section-kicker">Clinical & Tech Insights</div>
-          <h1 class="page-title">專業文章與技術洞察</h1>
+          <h1 class="page-title">專業文章</h1>
           <p class="page-intro">
-            結合職能治療臨床觀察、AI 產品架構思維與數位健康工具開發的深度實務筆記。
+            整理中風、視覺、動作與認知復健的研究與臨床指引，也記錄數位學習與 AI 應用的筆記。
           </p>
         </header>
 
         <div class="blog-layout">
-          <!-- Main Content: Articles Feed -->
           <div class="blog-main-content">
-            <div id="filter-status-bar" class="filter-status-bar" style="display: none;">
-              <div class="filter-status-info">
+            <div id="filter-status-bar" class="filter-status-bar" hidden>
+              <p class="filter-status-info">
                 <span class="filter-status-label">目前篩選：</span>
                 <span id="active-filter-name" class="filter-status-value">全部文章</span>
                 <span id="active-filter-count" class="filter-status-count"></span>
-              </div>
-              <button id="clear-filter-btn" class="clear-filter-btn" type="button" aria-label="清除篩選">
+              </p>
+              <button id="clear-filter-btn" class="clear-filter-btn" type="button">
                 <span class="material-symbols-outlined" aria-hidden="true">close</span>
                 清除篩選
               </button>
@@ -98,9 +96,7 @@ const metadata = {
             </div>
           </div>
 
-          <!-- Right Sidebar: Search, Tags Filter & Subscriptions -->
-          <aside class="blog-sidebar" aria-label="文章分類與篩選">
-            <!-- Search Widget -->
+          <aside class="blog-sidebar" aria-label="文章搜尋與篩選">
             <div class="sidebar-widget search-widget">
               <label for="blog-search" class="widget-title">
                 <span class="material-symbols-outlined" aria-hidden="true">search</span>
@@ -110,111 +106,36 @@ const metadata = {
                 <input
                   type="search"
                   id="blog-search"
-                  placeholder="搜尋標題、內容或關鍵字..."
-                  aria-label="搜尋文章"
+                  placeholder="搜尋標題、摘要或標籤"
                   autocomplete="off"
                 />
-                <button id="clear-search-btn" class="clear-search-btn" type="button" aria-label="清除搜尋" style="display: none;">
+                <button id="clear-search-btn" class="clear-search-btn" type="button" aria-label="清除搜尋" hidden>
                   <span class="material-symbols-outlined" aria-hidden="true">close</span>
                 </button>
               </div>
             </div>
 
-            <!-- Categories / Tags Filter Widget -->
             <div class="sidebar-widget tags-widget">
-              <div class="widget-header">
-                <h2 class="widget-title">
-                  <span class="material-symbols-outlined" aria-hidden="true">label</span>
-                  主題標籤分類
-                </h2>
-                <span id="tags-count-badge" class="widget-badge">6 個主題</span>
-              </div>
-              <div id="tags-filter-list" class="tags-filter-list">
-                <!-- Tag buttons populated dynamically -->
-              </div>
-            </div>
-
-            <!-- Core Categories & Series Widget -->
-            <div class="sidebar-widget info-widget">
               <h2 class="widget-title">
-                <span class="material-symbols-outlined" aria-hidden="true">category</span>
-                推薦主題分類
+                <span class="material-symbols-outlined" aria-hidden="true">label</span>
+                依主題篩選
               </h2>
-              <p class="widget-description">
-                點擊快速篩選精選復健與科技主題文章：
-              </p>
-              <div class="widget-actions">
-                <button
-                  type="button"
-                  class="button-secondary widget-button tag-filter-quick-btn"
-                  data-quick-tag="中風復健"
-                >
-                  <span class="material-symbols-outlined" aria-hidden="true">health_and_safety</span>
-                  中風復健
-                </button>
-                <button
-                  type="button"
-                  class="button-secondary widget-button tag-filter-quick-btn"
-                  data-quick-tag="視覺復健"
-                >
-                  <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
-                  視覺復健
-                </button>
-                <button
-                  type="button"
-                  class="button-secondary widget-button tag-filter-quick-btn"
-                  data-quick-tag="動作復健"
-                >
-                  <span class="material-symbols-outlined" aria-hidden="true">accessibility_new</span>
-                  動作復健
-                </button>
-                <button
-                  type="button"
-                  class="button-secondary widget-button tag-filter-quick-btn"
-                  data-quick-tag="認知復健"
-                >
-                  <span class="material-symbols-outlined" aria-hidden="true">psychology</span>
-                  認知復健
-                </button>
-                <button
-                  type="button"
-                  class="button-secondary widget-button tag-filter-quick-btn"
-                  data-quick-tag="數位學習"
-                >
-                  <span class="material-symbols-outlined" aria-hidden="true">school</span>
-                  數位學習
-                </button>
-                <button
-                  type="button"
-                  class="button-secondary widget-button tag-filter-quick-btn"
-                  data-quick-tag="AI應用"
-                >
-                  <span class="material-symbols-outlined" aria-hidden="true">smart_toy</span>
-                  AI應用
-                </button>
-              </div>
+              <div id="tags-filter-list" class="tags-filter-list"></div>
             </div>
 
-            <!-- TrainerHub Feature Widget -->
             <div class="sidebar-widget feature-platform-widget">
-              <div class="widget-header">
-                <h2 class="widget-title">
-                  <span class="material-symbols-outlined" aria-hidden="true">neurology</span>
-                  居家復健訓練網
-                </h2>
-              </div>
+              <h2 class="widget-title">居家復健訓練網</h2>
               <p class="widget-description">
-                將實證醫學指引落實於日常練習。<strong>TrainerHub (trainerhub.cc)</strong> 提供動作、視覺掃描與認知復能的線上互動式工具。
+                TrainerHub 提供動作、視覺、認知與口腔的居家練習工具，可在瀏覽器直接使用。
               </p>
               <a
                 href="https://trainerhub.cc"
                 target="_blank"
                 rel="noopener"
                 class="button-primary widget-button"
-                title="前往 TrainerHub 居家復健訓練網"
               >
+                開啟 TrainerHub
                 <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
-                前往 TrainerHub 居家訓練網
               </a>
             </div>
           </aside>

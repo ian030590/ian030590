@@ -16,7 +16,7 @@
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
-// ── 參數 ────────────────────────────────────────────────
+// 參數
 const argv = process.argv.slice(2);
 const getArg = (name, fallback = null) => {
   const i = argv.indexOf(`--${name}`);
@@ -34,7 +34,7 @@ if (!DIR || !existsSync(DIR)) {
   process.exit(2);
 }
 
-// ── 門檻 ────────────────────────────────────────────────
+// 門檻
 // SERP 截斷看的是像素寬度不是字元數。CJK 字元約佔兩倍寬、但資訊密度也高，
 // 所以中文為主的字串要用不同門檻——直接套英文門檻會把正常的中文描述誤判為過短。
 // CJK 門檻放寬到 40／90：中文標題慣用「核心資訊｜系列名 · 站名」，
@@ -47,7 +47,7 @@ const MIN_INTERNAL_LINKS = 1; // 出站內部連結為 0 ＝ 孤島頁
 const cjkRatio = (s) => (s.match(/[㐀-鿿豈-﫿]/g) || []).length / Math.max(s.length, 1);
 const limitsFor = (s) => (cjkRatio(s) > 0.3 ? LIMITS_CJK : LIMITS_EN);
 
-// ── 修完怎麼確認 ────────────────────────────────────────
+// 修完怎麼確認
 /*
  * 這份報告原本只回答「哪裡不對」，不回答「修了怎麼知道有效」。
  * 使用者實際會做的事是重跑腳本、看訊息消失——**然後把那當成有效果**。
@@ -78,7 +78,7 @@ const TIER_TEXT = {
   'no-single-shot': '重跑本腳本只證明訊號補上了。**效果無法用單次量測驗證**：實測 AI 搜尋的來源每天約 65% 會換掉（arXiv 2604.07585），要看效果至少 7 次/日、觀測 2–4 週。這幾條本來就只報 info、不給目標數字，理由相同。',
 };
 
-// ── 收集檔案 ────────────────────────────────────────────
+// 收集檔案
 const EXCLUDED_DIRECTORIES = new Set(['.git', 'node_modules', 'scratch', '__pycache__']);
 function walk(dir, out = []) {
   for (const name of readdirSync(dir)) {
@@ -91,7 +91,7 @@ function walk(dir, out = []) {
   return out;
 }
 
-// ── 正則工具 ────────────────────────────────────────────
+// 正則工具
 // 先去標籤再解 entity（順序反了會把 &lt;script&gt; 解成真標籤）。
 // 不解 entity 就算長度會虛報——實測 `&amp;` 讓某頁 title 從 62 被算成 66 字元。
 const decodeEntities = (s) =>
@@ -125,7 +125,7 @@ const metaContent = (html, key, prop = 'name') => {
 const stripScripts = (html) =>
   html.replace(/<script\b[\s\S]*?<\/script>/gi, '').replace(/<style\b[\s\S]*?<\/style>/gi, '');
 
-// ── 單頁檢核 ────────────────────────────────────────────
+// 單頁檢核
 function auditPage(rawHtml, page) {
   const f = [];
   const add = (level, code, msg, hits = 1) => f.push({ level, code, page, msg, hits });
@@ -145,7 +145,7 @@ function auditPage(rawHtml, page) {
   const robotsMeta = metaContent(html, 'robots');
   const isNoindex = Boolean(robotsMeta && /noindex/i.test(robotsMeta));
 
-  // ---- L1 技術基礎 ----
+  // L1 技術基礎
   const titleM = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
   const title = titleM ? stripTags(titleM[1]) : null;
   if (!title) add('error', 'L1-TITLE-MISSING', '<title> 缺失或為空');
@@ -259,7 +259,7 @@ function auditPage(rawHtml, page) {
     add('info', 'L3-AI-SNIPPET-PARTIAL', `有 ${dataNosnippet} 處 data-nosnippet——這些區塊不會被摘錄，確認沒有蓋到想被引用的正文`, dataNosnippet);
   }
 
-  // ---- L2 內容結構 ----
+  // L2 內容結構
   const headings = [...dom.matchAll(/<(h[1-6])\b([^>]*)>([\s\S]*?)<\/\1>/gi)]
     .map((m) => ({ tag: m[1].toLowerCase(), level: +m[1][1], inner: m[3], text: stripTags(m[3]) }));
 
@@ -304,7 +304,7 @@ function auditPage(rawHtml, page) {
     add('info', 'L2-TITLE-NOT-HEADING', `卡片/列表標題不是 heading（class="${cls}" 等，例：「${weakFake[0].text.slice(0, 20)}」）—— 包進 <h3> 可讓清單對爬蟲有結構；量大時挑重要清單改即可`, weakFake.length);
   }
 
-  // ---- 正文可見量：最重要也最常被漏掉的一項 ----
+  // 正文可見量：最重要也最常被漏掉的一項
   // 結構檢核全過、但正文根本不在 HTML 裡，是 client-side fetch 網站的典型死角。
   // 判準組合拳：正文量少 ＋ 有「載入中」佔位 ＝ 高信心（單看字數會誤傷本來就短的頁）
   const chrome = /<(nav|header|footer|aside)\b[\s\S]*?<\/\1>/gi;
@@ -908,7 +908,7 @@ function isBlocked(groups, agent) {
   return disallowAll && !allowAll;
 }
 
-// ── 站層級檢核 ──────────────────────────────────────────
+// 站層級檢核
 function auditSite(pages, root) {
   const f = [];
   const add = (level, code, msg, page = '(site)') => f.push({ level, code, page, msg });
@@ -1110,7 +1110,7 @@ function auditSite(pages, root) {
   return f;
 }
 
-// ── 執行 ────────────────────────────────────────────────
+// 執行
 const htmlFiles = walk(DIR);
 if (!htmlFiles.length) {
   console.error(`在 ${DIR} 找不到任何 .html —— 是不是還沒 build？`);
@@ -1128,7 +1128,7 @@ for (const file of htmlFiles) {
 }
 allFindings = allFindings.concat(auditSite(pageResults, DIR));
 
-// ── 輸出 ────────────────────────────────────────────────
+// 輸出
 const rank = { error: 0, warn: 1, info: 2 };
 allFindings.sort((a, b) => rank[a.level] - rank[b.level] || a.code.localeCompare(b.code) || a.page.localeCompare(b.page));
 const counts = { error: 0, warn: 0, info: 0 };

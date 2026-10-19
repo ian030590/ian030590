@@ -1,4 +1,3 @@
-import os
 import sys
 import re
 import json
@@ -18,11 +17,9 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 BASE_DIR = Path(__file__).resolve().parent
 CONTENT_DIR = BASE_DIR / 'content'
-CSS_FILE = BASE_DIR / 'css' / 'style.css'
 SITEMAP_FILE = BASE_DIR / 'sitemap.xml'
 ARTICLES_DATA_FILE = BASE_DIR / 'js' / 'articles-data.js'
 BLOG_HTML_FILE = BASE_DIR / 'blog.html'
-MAIN_JS_FILE = BASE_DIR / 'js' / 'main.js'
 
 SITE_BASE_URL = 'https://ian030590.trainerhub.cc'
 
@@ -101,7 +98,7 @@ def generate_publish_schedule():
 
 ARTICLE_PUBLISH_SCHEDULE = generate_publish_schedule()
 
-# 1. DigitalLearning File Mapping: (old_filename, new_filename, short_topic, cluster, order)
+# DigitalLearning file mapping: (old_filename, new_filename, short_topic, cluster, order)
 DL_MAPPING = {
     '00_Blogger_Series_Introduction.html': (
         '001_AI產品架構思維系列總覽_非工程師的12講導讀總綱.html',
@@ -386,775 +383,6 @@ VT_DOI_CACHE = {
 
 
 
-# 2. Add Article CSS to style.css if not present
-ARTICLE_CSS = """
-/* ==========================================================================
-   Article Detail & Reading Experience System (EEAT & Topic Clusters)
-   ========================================================================== */
-
-.article-page-layout {
-  padding-top: 32px;
-  padding-bottom: 80px;
-}
-
-.breadcrumb-trail {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 28px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.breadcrumb-trail a {
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-.breadcrumb-trail a:hover {
-  color: var(--primary);
-}
-
-.breadcrumb-separator {
-  color: var(--color-border-strong);
-  font-size: 12px;
-  user-select: none;
-}
-
-.breadcrumb-current {
-  color: var(--ink);
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 320px;
-}
-
-.article-container {
-  max-width: 100dvw;
-  margin: 0 auto;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 44px 40px 36px 40px;
-  box-shadow: var(--shadow);
-}
-
-@media (max-width: 768px) {
-  .article-container {
-    padding: 24px 18px 24px 18px;
-    border-radius: 10px;
-  }
-  .breadcrumb-current {
-    max-width: 180px;
-  }
-}
-
-.article-detail-header {
-  margin-bottom: 32px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 24px;
-}
-
-.article-tag-badges {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.article-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--accent-soft);
-  color: var(--color-badge-text);
-  font-size: 13.5px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 20px;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-a.article-badge {
-  cursor: pointer;
-}
-
-a.article-badge:hover {
-  background: var(--accent);
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-.article-title {
-  font-size: 32px;
-  line-height: 1.35;
-  color: var(--ink);
-  margin: 0 0 16px 0;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-}
-
-@media (max-width: 768px) {
-  .article-title {
-    font-size: 24px;
-  }
-}
-
-.article-meta-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.article-meta-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.article-meta-item .material-symbols-outlined {
-  font-size: 16px;
-}
-
-.article-featured-figure {
-  margin: 0 0 32px 0;
-  text-align: center;
-}
-
-.article-featured-img {
-  width: 100%;
-  max-height: 480px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-}
-
-.article-figcaption {
-  font-size: 13.5px;
-  color: var(--muted);
-  margin-top: 10px;
-  line-height: 1.6;
-  text-align: center;
-}
-
-.article-lead-box {
-  background-color: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-left: 5px solid var(--primary);
-  padding: 22px 26px;
-  margin-bottom: 36px;
-  border-radius: 0 10px 10px 0;
-}
-
-.article-lead-box-title {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--primary-strong);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.article-lead-box p {
-  margin: 0;
-  font-size: 17px;
-  line-height: 1.85;
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.article-lead-box ul {
-  margin: 0;
-  padding-left: 20px;
-  font-size: 16.5px;
-  line-height: 1.8;
-  color: var(--ink);
-}
-
-.article-body-content {
-  font-size: 18px;
-  line-height: 1.85;
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.article-body-content p {
-  margin: 0 0 22px 0;
-  line-height: 1.85;
-  font-weight: 500;
-}
-
-.article-body-content h2 {
-  font-size: 24px;
-  line-height: 1.4;
-  color: var(--ink);
-  border-left: 5px solid var(--primary);
-  padding-left: 14px;
-  margin-top: 48px;
-  margin-bottom: 20px;
-  font-weight: 800;
-}
-
-.article-body-content h3 {
-  font-size: 20px;
-  line-height: 1.4;
-  color: var(--ink);
-  margin-top: 32px;
-  margin-bottom: 14px;
-  font-weight: 700;
-}
-
-.article-body-content ul,
-.article-body-content ol {
-  margin: 0 0 24px 0;
-  padding-left: 26px;
-  line-height: 1.8;
-}
-
-.article-body-content li {
-  margin-bottom: 10px;
-  font-weight: 500;
-}
-
-.article-body-content strong,
-.article-body-content b {
-  color: var(--ink);
-  font-weight: 800;
-}
-
-/* Callout blocks inside body */
-.callout-box {
-  background: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-left: 5px solid var(--primary);
-  border-radius: 0 8px 8px 0;
-  padding: 20px 24px;
-  margin: 28px 0;
-}
-
-.callout-box.warning {
-  border-left-color: #e53e3e;
-  background: rgba(229, 62, 62, 0.06);
-}
-
-.callout-box.amber {
-  border-left-color: #dd6b20;
-  background: rgba(221, 107, 32, 0.06);
-}
-
-.callout-box.success {
-  border-left-color: #137333;
-  background: rgba(19, 115, 51, 0.06);
-}
-
-.table-wrapper {
-  overflow-x: auto;
-  margin: 28px 0;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-}
-
-.article-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 15.5px;
-  background: var(--surface);
-}
-
-.article-table th {
-  background: var(--surface-soft);
-  color: var(--ink);
-  padding: 13px 16px;
-  font-weight: 700;
-  border-bottom: 2px solid var(--line);
-}
-
-.article-table td {
-  padding: 13px 16px;
-  border-bottom: 1px solid var(--line);
-  color: var(--ink);
-}
-
-.code-terminal-block {
-  background: var(--slate-950);
-  color: var(--slate-50);
-  padding: 18px 20px;
-  border-radius: 8px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 15px;
-  line-height: 1.65;
-  margin: 28px 0;
-  overflow-x: auto;
-  border: 1px solid var(--line);
-}
-
-/* References */
-.article-references {
-  margin-top: 48px;
-  border-top: 2px solid var(--line);
-  padding-top: 28px;
-}
-
-.article-references h2 {
-  font-size: 20px;
-  color: var(--ink);
-  margin-bottom: 18px;
-  border-left: 5px solid var(--muted);
-  padding-left: 12px;
-}
-
-.article-references ol {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--muted);
-  padding-left: 24px;
-  margin: 0;
-}
-
-.article-references li {
-  margin-bottom: 14px;
-}
-
-.article-references a {
-  color: var(--primary);
-  text-decoration: none;
-  word-break: break-all;
-}
-
-.article-references a:hover {
-  text-decoration: none;
-  color: var(--primary-strong);
-}
-
-/* Author EEAT Card */
-.author-eeat-card {
-  margin-top: 48px;
-  background: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 28px 30px;
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-}
-
-@media (max-width: 640px) {
-  .author-eeat-card {
-    flex-direction: column;
-    padding: 20px;
-  }
-}
-
-.author-avatar-wrap {
-  flex-shrink: 0;
-}
-
-.author-avatar-circle {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  border: 2px solid var(--line);
-}
-
-.author-eeat-info {
-  flex: 1;
-}
-
-.author-eeat-name {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.author-credential-badge {
-  font-size: 12px;
-  background: var(--accent-soft);
-  color: var(--color-badge-text);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.author-eeat-title {
-  font-size: 14px;
-  color: var(--primary);
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.author-eeat-bio {
-  font-size: 14.5px;
-  color: var(--muted);
-  line-height: 1.65;
-  margin-bottom: 14px;
-}
-
-.author-eeat-statement {
-  font-size: 13px;
-  color: var(--muted);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 10px 14px;
-  margin-bottom: 16px;
-  line-height: 1.6;
-}
-
-.author-eeat-links {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.author-link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-  text-decoration: none;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  padding: 5px 12px;
-  border-radius: 6px;
-  transition: all 0.15s ease;
-}
-
-.author-link-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-/* Topic Cluster / Series Navigation */
-.topic-cluster-nav {
-  margin-top: 40px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.topic-cluster-header {
-  background: var(--surface-soft);
-  padding: 16px 22px;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.topic-cluster-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.topic-cluster-progress {
-  font-size: 13px;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-.topic-cluster-list {
-  list-style: none;
-  margin: 0;
-  padding: 12px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  max-height: 380px;
-  overflow-y: auto;
-}
-
-.topic-cluster-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 14.5px;
-  text-decoration: none;
-  color: var(--muted);
-  transition: all 0.15s ease;
-}
-
-.topic-cluster-item:hover {
-  background: var(--surface-soft);
-  color: var(--primary);
-}
-
-.topic-cluster-item.active {
-  background: var(--accent-soft);
-  color: var(--color-badge-text);
-  font-weight: 700;
-}
-
-.topic-cluster-item-num {
-  font-family: ui-monospace, SFMono-Regular, monospace;
-  font-weight: 700;
-  font-size: 13px;
-  opacity: 0.8;
-}
-
-.topic-cluster-item-title {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.topic-cluster-item-current {
-  font-size: 11px;
-  background: var(--primary);
-  color: #fff;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-/* Prev Next Navigation */
-.prev-next-nav {
-  margin-top: 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-@media (max-width: 600px) {
-  .prev-next-nav {
-    grid-template-columns: 1fr;
-  }
-}
-
-.prev-next-card {
-  display: flex;
-  flex-direction: column;
-  padding: 16px 18px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--ink);
-  transition: all 0.2s ease;
-}
-
-.prev-next-card:hover {
-  border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-
-.prev-next-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.prev-next-title {
-  font-size: 14.5px;
-  font-weight: 600;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.article-bottom-actions {
-  margin-top: 36px;
-  text-align: center;
-}
-"""
-
-EVIDENCE_ARTICLE_CSS = """
-/* Evidence Article Extensions */
-.evidence-figure {
-  margin: 32px 0;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
-}
-
-.evidence-figure svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.evidence-figure svg > path,
-.evidence-figure svg g path {
-  fill: none;
-  stroke: var(--primary);
-  stroke-width: 3;
-}
-
-.evidence-figure svg g rect {
-  fill: var(--surface-2, var(--surface));
-  stroke: var(--line);
-  stroke-width: 2;
-}
-
-.evidence-figure svg text {
-  fill: var(--ink);
-  font-size: 14px;
-  text-anchor: middle;
-}
-
-.evidence-figure figcaption {
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 14px;
-  text-align: center;
-}
-
-.clinical-safety-note {
-  margin-top: 32px !important;
-  padding: 16px 18px;
-  border-left: 4px solid var(--warning, #b7791f);
-  background: var(--surface-2, var(--surface));
-}
-"""
-
-def update_css():
-    css_content = CSS_FILE.read_text(encoding='utf-8')
-    additions = []
-    if 'Article Detail & Reading Experience System' not in css_content:
-        print('Appending article CSS to style.css...')
-        additions.append(ARTICLE_CSS)
-    if 'Evidence Article Extensions' not in css_content:
-        print('Appending evidence article CSS to style.css...')
-        additions.append(EVIDENCE_ARTICLE_CSS)
-    if additions:
-        CSS_FILE.write_text(css_content + '\n' + '\n'.join(additions), encoding='utf-8')
-    else:
-        print('Article CSS already exists in style.css.')
-
-
-ARTICLE_SITE_HEADER_HTML = """<header class="site-header">
-      <div class="container nav">
-        <a class="brand" href="/">
-          <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo" width="36" height="36" />
-          <span>蔡泓恩 | 職能治療師</span>
-        </a>
-        <nav class="nav-links" aria-label="主要導覽">
-          <a class="nav-link" href="/">首頁</a>
-          <a class="nav-link" href="/projects">開源專案</a>
-          <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
-          <a class="nav-link" href="/contact">聯絡我</a>
-          <a class="nav-link" href="/sponsor">贊助我</a>
-        </nav>
-        <button
-          class="theme-toggle"
-          aria-label="切換深色模式"
-          title="切換深色模式"
-        >
-          <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
-          <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
-        </button>
-        <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
-        <button
-          class="menu-button"
-          aria-label="開啟選單"
-          aria-expanded="false"
-        >
-          <span
-            class="animate-icon animate-icon--menu"
-            data-animate-icon="menu"
-            aria-hidden="true"
-          ></span>
-        </button>
-      </div>
-      <div class="mobile-panel">
-        <a href="/">首頁</a>
-        <a href="/projects">開源專案</a>
-        <a href="/blog" aria-current="page">專業文章</a>
-        <a href="/contact">聯絡我</a>
-        <a href="/sponsor">贊助我</a>
-      </div>
-    </header>"""
-
-ARTICLE_SITE_FOOTER_HTML = """<footer class="site-footer">
-      <div class="container footer-grid">
-        <div>
-          <div class="footer-brand">
-            <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo footer-logo" width="26" height="26" />
-            <span>蔡泓恩 | 職能治療師</span>
-          </div>
-          <div class="footer-copy">
-            © <span data-year></span> Ian Tsai. 保留所有權利。
-          </div>
-        </div>
-        <div class="footer-links">
-          <a href="/">首頁</a>
-          <a href="/projects">專案</a>
-          <a href="/blog">專業文章</a>
-          <a href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
-          <a href="/contact">聯絡</a>
-          <a href="/sponsor">贊助我</a>
-        </div>
-      </div>
-    </footer>"""
-
-ARTICLE_BOTTOM_ACTIONS_HTML = """<div class="article-trainerhub-cta">
-          <div class="trainerhub-cta-card">
-            <div class="trainerhub-cta-badge">
-              <span class="material-symbols-outlined" aria-hidden="true">neurology</span>
-              <span>居家自主復健實踐</span>
-            </div>
-            <h3 class="trainerhub-cta-title">將臨床復健實證融入日常生活：TrainerHub 居家訓練網</h3>
-            <p class="trainerhub-cta-desc">
-              專為神經動作、視覺注意力與認知功能設計的互動式數位復能工具。免安裝、隨開隨練，讓中風復健、視野訓練與日常認知練習在家也能持續進行。
-            </p>
-            <div class="trainerhub-cta-actions">
-              <a href="https://trainerhub.cc" class="button-primary trainerhub-cta-btn" target="_blank" rel="noopener" title="前往 TrainerHub 居家復健訓練網">
-                前往 TrainerHub 居家訓練網
-                <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="article-bottom-actions">
-          <a href="/blog" class="button-secondary">
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-            返回所有專業專題列表
-          </a>
-        </div>"""
-
-
 def get_cluster_articles(art, all_articles):
     return sorted(
         [candidate for candidate in all_articles
@@ -1375,329 +603,14 @@ def sync_article_source(soup, art, all_articles=None):
                     container.append(navigation)
 
 
-def update_article_head_and_styles(target_file: Path, art: dict = None, all_articles=None):
-    content = target_file.read_text(encoding='utf-8')
-    orig_content = content
-    
-    # Ensure Blogger inline style block is present
-    if '<style>.ot-blog-article' not in content:
-        ref_file = CONTENT_DIR / 'MotorRehab' / '015_動作復健_吞嚥與營養.html'
-        if ref_file.exists():
-            ref_content = ref_file.read_text(encoding='utf-8')
-            m = re.search(r'(<!-- Blogger.*?<\/style>)', ref_content, re.DOTALL)
-            if m:
-                blogger_style = m.group(1)
-                content = content.replace('<article class="ot-blog-article"', blogger_style + '\n<article class="ot-blog-article"', 1)
-
-    # 1. Stylesheet link: href="../style.css" -> href="../../css/style.css"
-    content = re.sub(
-        r'<link\s+rel="stylesheet"\s+href="\.\./style\.css">',
-        r'<link rel="stylesheet" href="../../css/style.css">',
-        content
-    )
-    content = re.sub(
-        r'<link\s+href="\.\./style\.css"\s+rel="stylesheet">',
-        r'<link rel="stylesheet" href="../../css/style.css">',
-        content
-    )
-
-    # Favicons in <head>
-    if 'rel="icon"' not in content:
-        favicons = """<link rel="icon" type="image/svg+xml" href="../../icons/icon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
-"""
-        content = content.replace('<link rel="stylesheet"', favicons + '<link rel="stylesheet"', 1)
-
-    # Early theme bootstrap script in <head> to prevent theme flickering
-    if 'prefers-color-scheme' not in content:
-        theme_init_script = """<script>
-(function(){
-  var t = localStorage.getItem("theme");
-  if (t === "dark" || t === "light") {
-    document.documentElement.setAttribute("data-theme", t);
-  } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }
-})();
-</script>
-"""
-        content = content.replace('</head>', theme_init_script + '</head>', 1)
-    
-    # 2. Reference links in <style> - remove underline
-    old_css_rule = """.ot-blog-article .article-references a {
-  color: var(--primary);
-  text-decoration: underline;
-  word-break: break-all;
-}"""
-    new_css_rule = """.ot-blog-article .article-references a {
-  color: var(--primary);
-  text-decoration: none;
-  word-break: break-all;
-}
-.ot-blog-article .article-references a:hover {
-  text-decoration: none;
-  color: var(--primary-strong);
-}"""
-    if old_css_rule in content:
-        content = content.replace(old_css_rule, new_css_rule)
-    else:
-        content = re.sub(
-            r'\.ot-blog-article\s+\.article-references\s+a\s*\{[^}]*text-decoration:\s*underline;[^}]*\}',
-            new_css_rule,
-            content
-        )
-
-    # In-text superscript citation links - remove underline if any
-    old_cite = ".ot-blog-article .source-citation {font-size:0.73em;line-height:1.6;vertical-align:baseline;}"
-    new_cite = ".ot-blog-article .source-citation {font-size:0.73em;line-height:1.6;vertical-align:baseline;}\n.ot-blog-article .source-citation a {text-decoration:none;}"
-    if old_cite in content and new_cite not in content:
-        content = content.replace(old_cite, new_cite)
-
-    # 3. Font and typography enhancements in <style>
-    # Replace Lexend with "Noto Sans TC"
-    content = content.replace('Lexend, "Noto Sans TC", sans-serif;', '"Noto Sans TC", sans-serif;')
-    content = content.replace('Lexend, sans-serif;', '"Noto Sans TC", sans-serif;')
-    content = content.replace('Lexend;', '"Noto Sans TC", sans-serif;')
-    content = re.sub(r'\bLexend\b', '"Noto Sans TC"', content)
-
-    # Enhance font-weight of article body to 500
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-body-content\s*\{[^}]*?color:\s*var\(--ink\);)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-body-content\s+p\s*\{[^}]*?line-height:\s*1\.85;)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-body-content\s+li\s*\{[^}]*?margin-bottom:\s*10px;)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-body-content\s+ul,\s*\.ot-blog-article\s+\.article-body-content\s+ol\s*\{[^}]*?line-height:\s*1\.8;)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-    # Enhance strong/b to 800
-    content = re.sub(
-        r'\.ot-blog-article\s+\.article-body-content\s+strong\s*\{\s*color:\s*var\(--ink\);\s*\}',
-        '.ot-blog-article .article-body-content strong,\n.ot-blog-article .article-body-content b {\n  color: var(--ink);\n  font-weight: 800;\n}',
-        content
-    )
-    # Lead box p to font-weight: 600
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-lead-box\s+p\s*\{[^}]*?color:\s*var\(--ink\);)\s*font-weight:\s*500;',
-        r'\1\n  font-weight: 600;',
-        content
-    )
-    # Lead box title to font-weight: 800
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-lead-box-title\s*\{[^}]*?)font-weight:\s*700;',
-        r'\1font-weight: 800;',
-        content
-    )
-    # Table th/td font-weight
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-table\s+td\s*\{[^}]*?color:\s*var\(--ink\);)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-    # References ol/li font-weight
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-references\s+ol\s*\{[^}]*?color:\s*var\(--muted\);)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-
-    # 3. Unhide breadcrumbs and prev-next navigation in <style>
-    content = re.sub(
-        r'\.ot-blog-article\s+\.breadcrumb-trail,\s*\.ot-blog-article\s+\.prev-next-nav\s*\{\s*display:\s*none;\s*\}',
-        '.ot-blog-article .breadcrumb-trail, .ot-blog-article .prev-next-nav { display: flex; }',
-        content
-    )
-
-    # 3b. Update article-container max-width to 100dvw
-    content = re.sub(
-        r'(\.article-container\s*\{[^}]*?max-width:\s*)880px',
-        r'\g<1>100dvw',
-        content
-    )
-
-    # 4. Synchronize editorial copy and all page metadata before adding E-E-A-T signals.
-    soup = BeautifulSoup(content, 'html.parser')
-    sync_article_source(soup, art, all_articles)
-    content = str(soup)
-    soup = BeautifulSoup(content, 'html.parser')
-
-    # 5. JSON-LD E-E-A-T signals
-    s = soup.find('script', type='application/ld+json')
-    if s and s.string:
-        data = json.loads(s.string)
-        graph = data.get('@graph', [data])
-        for node in graph:
-            types = node.get('@type', [])
-            if isinstance(types, str):
-                types = [types]
-            if 'Article' in types:
-                if 'publisher' not in node:
-                    node['publisher'] = {
-                        "@type": "Person",
-                        "name": "蔡泓恩",
-                        "url": "https://ian030590.trainerhub.cc/"
-                    }
-                author = node.get('author')
-                if isinstance(author, dict):
-                    if 'sameAs' not in author:
-                        author['sameAs'] = [
-                            "https://github.com/ian030590",
-                            "https://trainerhub.cc"
-                        ]
-                    if 'knowsAbout' not in author:
-                        author['knowsAbout'] = [
-                            "職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"
-                        ]
-                    if 'alumniOf' not in author:
-                        author['alumniOf'] = {
-                            "@type": "CollegeOrUniversity",
-                            "name": "國立臺灣大學"
-                        }
-        
-        formatted_json = json.dumps(data, ensure_ascii=False)
-        content = re.sub(
-            r'<script type="application/ld\+json">.*?</script>',
-            f'<script type="application/ld+json">{formatted_json}</script>',
-            content,
-            flags=re.DOTALL
-        )
-
-    # 6. Navbar (<header class="site-header">) and main layout wrapper
-    if '<header class="site-header">' not in content:
-        content = re.sub(
-            r'<body([^>]*)>',
-            r'<body\1>\n    ' + ARTICLE_SITE_HEADER_HTML + '\n    <main class="page-main article-page-layout">\n      <div class="container">',
-            content
-        )
-    else:
-        # Synchronize header to include TrainerHub link
-        content = re.sub(
-            r'<header class="site-header">.*?</header>',
-            ARTICLE_SITE_HEADER_HTML,
-            content,
-            flags=re.DOTALL
-        )
-
-    # 7. Top Bar: Back button ("返回上一頁") + Breadcrumb navigation
-    title = ''
-    cat_name = '專業文章'
-    if art:
-        title = art.get('title', '')
-        cat_name = art.get('cat_name', '專業文章')
-    if not title:
-        h1 = soup.find('h1', class_='article-title') or soup.find('h1')
-        title = h1.get_text().strip() if h1 else ''
-
-    encoded_cat = quote(cat_name)
-    top_nav = f"""<div class="article-top-nav">
-          <a href="/blog" class="article-back-link" onclick="if(history.length>1){{history.back();return false;}}" aria-label="返回上一頁">
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-            <span>返回上一頁</span>
-          </a>
-          <nav class="breadcrumb-trail" aria-label="文章路徑導覽">
-            <a href="/">首頁</a>
-            <span class="breadcrumb-separator" aria-hidden="true">/</span>
-            <a href="/blog">專業文章</a>
-            <span class="breadcrumb-separator" aria-hidden="true">/</span>
-            <a href="/blog?tag={encoded_cat}">{cat_name}</a>
-            <span class="breadcrumb-separator" aria-hidden="true">/</span>
-            <span class="breadcrumb-current" aria-current="page">{title}</span>
-          </nav>
-        </div>"""
-
-    nav_soup = BeautifulSoup(content, 'html.parser')
-    existing_top_nav = nav_soup.find('div', class_='article-top-nav')
-    new_top_nav = BeautifulSoup(top_nav, 'html.parser').div
-    if existing_top_nav:
-        existing_top_nav.replace_with(new_top_nav)
-    else:
-        article_header = nav_soup.find('header', class_='article-detail-header')
-        breadcrumb = nav_soup.find('nav', class_='breadcrumb-trail')
-        if article_header:
-            if breadcrumb:
-                breadcrumb.decompose()
-            for back_link in nav_soup.select('a.article-back-link'):
-                back_link.decompose()
-            article_header.insert_before(new_top_nav)
-    content = str(nav_soup)
-
-    # 8. Bottom actions: TrainerHub CTA + Back to all articles button
-    if '<div class="article-trainerhub-cta">' in content:
-        content = re.sub(
-            r'<div class="article-trainerhub-cta">.*?</div>\s*<div class="article-bottom-actions">.*?</div>',
-            ARTICLE_BOTTOM_ACTIONS_HTML,
-            content,
-            flags=re.DOTALL
-        )
-    elif '<div class="article-bottom-actions">' in content:
-        content = re.sub(
-            r'<div class="article-bottom-actions">.*?</div>',
-            ARTICLE_BOTTOM_ACTIONS_HTML,
-            content,
-            flags=re.DOTALL
-        )
-    else:
-        content = re.sub(
-            r'(</nav>)(\s*</div>\s*</article>)',
-            r'\1\n        ' + ARTICLE_BOTTOM_ACTIONS_HTML + r'\2',
-            content
-        )
-
-    # 9. Close main layout and insert footer + scripts
-    if '<footer class="site-footer">' not in content:
-        content = re.sub(
-            r'(</article>\s*)(?=</body>)',
-            r'\1      </div>\n    </main>\n    ' + ARTICLE_SITE_FOOTER_HTML + '\n',
-            content
-        )
-    else:
-        content = re.sub(
-            r'<footer class="site-footer">.*?</footer>',
-            ARTICLE_SITE_FOOTER_HTML,
-            content,
-            flags=re.DOTALL
-        )
-    # Clean all script tags for animate-icons and main.js, then add single clean pair
-    bs_clean = BeautifulSoup(content, 'html.parser')
-    for sc in bs_clean.find_all('script', src=lambda s: s and ('animate-icons' in s or 'main.js' in s)):
-        sc.decompose()
-    content = str(bs_clean)
-    content = re.sub(
-        r'\s*</body>',
-        r'\n    <script src="../../js/animate-icons.js"></script>\n    <script src="../../js/main.js"></script>\n  </body>',
-        content
-    )
-
-    if content != orig_content:
-        target_file.write_text(content, encoding='utf-8')
-        return True
-    return False
-
 def normalize_terminology(text):
     """Normalize clinical and assistive technology terminology according to content/README.md."""
     if not text:
         return text
-    # 1. 電子助視器 -> 電子擴視機
     text = text.replace('電子助視器', '電子擴視機')
-    # 2. 智慧頭顯 / 頭顯 -> 頭戴式顯示器
     text = text.replace('智慧頭顯', '頭戴式顯示器')
     text = text.replace('頭顯', '頭戴式顯示器')
-    # 3. 低視力 -> 低視能
     text = text.replace('低視力', '低視能')
-    # 4. 黃斑旁預覽視窗 -> 中央凹旁預視視窗
     text = text.replace('黃斑旁預覽視窗', '中央凹旁預視視窗')
     return text
 
@@ -1720,11 +633,9 @@ def extract_article_schema(soup):
 
 def clean_inner_body(soup_body):
     """Clean up inline styles from body elements to make them adapt to light/dark themes."""
-    # Convert tables
     for table in soup_body.find_all('table'):
         table['class'] = ['article-table']
         table.attrs.pop('style', None)
-        # Wrap table in table-wrapper if not already wrapped
         if not table.parent or 'table-wrapper' not in table.parent.get('class', []):
             wrapper = soup_body.new_tag('div', **{'class': 'table-wrapper'})
             table.wrap(wrapper)
@@ -1736,17 +647,14 @@ def clean_inner_body(soup_body):
     for tr in soup_body.find_all('tr'):
         tr.attrs.pop('style', None)
         
-    # Convert headings
     for h in soup_body.find_all(['h1', 'h2', 'h3', 'h4']):
         h.attrs.pop('style', None)
         
-    # Convert paragraphs and lists
     for p in soup_body.find_all('p'):
         p.attrs.pop('style', None)
     for ul in soup_body.find_all(['ul', 'ol', 'li']):
         ul.attrs.pop('style', None)
         
-    # Convert callouts
     for div in soup_body.find_all('div'):
         style = div.get('style', '').lower()
         if 'fff5f5' in style or 'e53e3e' in style: # warning
@@ -1765,7 +673,6 @@ def clean_inner_body(soup_body):
             div['class'] = ['code-terminal-block']
             div.attrs.pop('style', None)
             
-    # Clean up spans with hardcoded color
     for span in soup_body.find_all('span'):
         style = span.get('style', '').lower()
         if 'background' in style:
@@ -1885,7 +792,6 @@ def collect_article_metadata():
             soup = BeautifulSoup(content, 'html.parser')
             source_schema = extract_article_schema(soup)
             
-            # Identify mapping
             if folder == 'DigitalLearning':
                 if f.name in DL_MAPPING:
                     new_filename, short_topic, cluster, order, sub_cluster = DL_MAPPING[f.name]
@@ -1968,7 +874,6 @@ def collect_article_metadata():
             art_key = f"{folder}_{order:03d}"
             editorial_copy = HUMANIZED_ARTICLE_COPY.get(art_key)
 
-            # 1. Title
             h1 = soup.find('h1')
             title = h1.get_text().strip() if h1 else ''
             if not title and soup.title:
@@ -1977,7 +882,7 @@ def collect_article_metadata():
             if editorial_copy:
                 title = normalize_terminology(editorial_copy['title'])
                 
-            # 2. Precise Tags & Publish Date (Interleaved, monotonic, latest is VT_020)
+            # Publish dates interleave the series; VT_020 stays the latest.
             header = soup.find('header')
             spans = [s.get_text().strip() for s in header.find_all('span')] if header else []
             
@@ -1993,7 +898,6 @@ def collect_article_metadata():
             if len(date_modified) == 10:
                 date_modified += 'T08:00:00+08:00'
                 
-            # 3. Read time
             read_time = '約 5 分鐘閱讀'
             for s in spans:
                 m = re.search(r'([0-9]+)\s*分鐘', s)
@@ -2001,7 +905,6 @@ def collect_article_metadata():
                     read_time = f'約 {m.group(1)} 分鐘閱讀'
                     break
                     
-            # 4. Image
             fig = soup.find('figure')
             img = fig.find('img') if fig else soup.find('img')
             caption = fig.find('figcaption').get_text().strip() if fig and fig.find('figcaption') else ''
@@ -2025,7 +928,6 @@ def collect_article_metadata():
                 else:
                     img_src = OT_IMAGES[(order - 1) % len(OT_IMAGES) + 1]
 
-            # 5. Executive Summary
             summary = ''
             lead_box = soup.find('div', class_='article-lead-box')
             if lead_box and lead_box.find('p'):
@@ -2052,7 +954,6 @@ def collect_article_metadata():
             if editorial_copy:
                 summary = normalize_terminology(editorial_copy['summary'])
                 
-            # 6. References
             ref_sec = soup.find(['section', 'footer'], class_=lambda c: c and 'reference' in c) or soup.find('footer') or soup.find('section', {'aria-label': lambda x: x and '參考' in x})
             citations = []
             if ref_sec:
@@ -2067,7 +968,6 @@ def collect_article_metadata():
                         cit_url = ''
                         cit_text = cit_text.removeprefix('本資料夾收錄之 ')
                     
-                    # Apply broken DOI fixes
                     for old_doi, (new_doi, new_text) in BROKEN_DOI_FIXES.items():
                         if old_doi in cit_url or old_doi in cit_text:
                             cit_url = new_doi
@@ -2084,7 +984,6 @@ def collect_article_metadata():
                     if citation not in citations:
                         citations.append(citation)
                     
-            # 7. Raw body content
             if folder == 'DigitalLearning':
                 news_article = soup.find('div', class_='news-article')
                 if news_article:
@@ -2175,10 +1074,8 @@ def build_article_html(art, all_articles):
     canonical_url = f"{SITE_BASE_URL}/content/{folder}/{quote(new_filename)}"
     web_page_path = f"/content/{folder}/{new_filename}"
     
-    # Filter articles in same cluster for cluster navigation
     cluster_articles = get_cluster_articles(art, all_articles)
     
-    # Schema.org JSON-LD
     schema_type = "TechArticle" if folder in ("DigitalLearning", "DigitLearn") else "MedicalScholarlyArticle"
     citations_json = [c['text'] for c in art['citations'] if c['text']]
     
@@ -2253,7 +1150,6 @@ def build_article_html(art, all_articles):
         ]
     }
     
-    # Render Cluster items
     cluster_items_html = []
     for ca in cluster_articles:
         is_active = (ca['new_filename'] == new_filename)
@@ -2273,7 +1169,6 @@ def build_article_html(art, all_articles):
     
     prev_next_html = render_prev_next_navigation(art, all_articles)
 
-    # References HTML
     refs_html = ""
     if art['citations']:
         ref_items = []
@@ -2291,10 +1186,8 @@ def build_article_html(art, all_articles):
         </section>
         """
 
-    # Clean body
     cleaned_body = clean_inner_body(BeautifulSoup(art['raw_body'], 'html.parser'))
     
-    # Featured image
     figure_html = ""
     if art['img_src']:
         figure_html = f"""
@@ -2304,11 +1197,9 @@ def build_article_html(art, all_articles):
         </figure>
         """
 
-    # Published date formatted
     date_str = art['date_published'][:10]
     date_html = f'<time datetime="{art["date_published"]}">{date_str}</time>' if folder in ADDITIONAL_CONTENT_FOLDERS else date_str
     
-    # Evidence badge
     if folder == 'OccupationalTherapy':
         evidence_note = '2026 AHA/ASA 臨床指引實證'
     elif folder == 'VisualRehab' and art['order'] >= 30:
@@ -2324,7 +1215,6 @@ def build_article_html(art, all_articles):
     else:
         evidence_note = '2026 AHA/ASA 臨床指引實證'
 
-    # Tag badges HTML
     tag_badges_html = '\n'.join([
         f'              <a href="/blog?tag={quote(t)}" class="article-badge" title="查看「{t}」相關文章">{t}</a>'
         for t in art['tags']
@@ -2655,49 +1545,6 @@ window.__STATIC_ARTICLES__ = {json.dumps(catalog, ensure_ascii=False, indent=2)}
     print(f'Articles data written to {target} ({len(catalog)} articles)')
     return catalog
 
-def generate_blog_static_links(all_articles):
-    """Put real article links in blog.html; main.js enhances this list with filtering."""
-    sorted_articles = sorted(all_articles, key=lambda art: art['date_published'], reverse=True)
-    cards = []
-    for index, art in enumerate(sorted_articles):
-        featured = index == 0
-        tags = ''.join(
-            f'<span class="card-tag-pill{ " blue" if tag_index % 2 else "" }">{escape(tag)}</span>'
-            for tag_index, tag in enumerate(art['tags'])
-        )
-        image = ''
-        if art['img_src']:
-            badge = '                  <span class="featured-badge">最新專題</span>\n' if featured else ''
-            image = f'''                <div class="article-visual">
-                  <img src="{escape(art['img_src'])}" alt="{escape(art['title'])}" loading="lazy" />
-{badge}                </div>
-'''
-        cards.append(f'''              <article class="article-card{' article-card--featured' if featured else ''}">
-                <a class="card-link" href="/content/{escape(art['folder'])}/{escape(art['new_filename'])}">
-{image}                  <div class="article-content">
-                    <div class="card-tags-row">{tags}</div>
-                    <h2 class="article-title">{escape(art['title'])}</h2>
-                    <div class="article-meta"><time datetime="{escape(art['date_published'])}">{escape(art['date_published'][:10])}</time></div>
-                    <p class="article-excerpt">{escape(art['summary'][:160])}</p>
-                    <div class="article-footer"><span class="source-kicker">{escape(art['cat_name'])}</span><span class="read-more-link">閱讀全文</span></div>
-                  </div>
-                </a>
-              </article>''')
-
-    html = BLOG_HTML_FILE.read_text(encoding='utf-8')
-    start = '<!-- STATIC_ARTICLE_LIST_START -->'
-    end = '<!-- STATIC_ARTICLE_LIST_END -->'
-    replacement = f'''{start}
-              <div class="articles-grid">
-{chr(10).join(cards)}
-              </div>
-              {end}'''
-    html, replacements = re.subn(f'{re.escape(start)}.*?{re.escape(end)}', replacement, html, flags=re.DOTALL)
-    if replacements != 1:
-        raise RuntimeError('blog.html static article markers are missing or duplicated')
-    BLOG_HTML_FILE.write_text(html, encoding='utf-8')
-    print(f'Blog fallback written to {BLOG_HTML_FILE} ({len(cards)} direct article links)')
-
 def validate_article_navigation(soup, art, all_articles):
     navigation = soup.select('.prev-next-nav')
     expected = BeautifulSoup(render_prev_next_navigation(art, all_articles), 'html.parser').nav
@@ -2786,12 +1633,11 @@ def validate_generated_site(all_articles):
         if soup.find('a', href=lambda href: href and '../OriginalSources/' in href):
             raise RuntimeError(f'Dead OriginalSources link remains: {article_file}')
 
-    # 1. Zero tolerance for cloud sync conflict files in content/
+    # Cloud-sync conflict copies must never reach the build.
     conflicted_files = list(CONTENT_DIR.rglob('*conflicted*'))
     if conflicted_files:
         raise RuntimeError(f"Cloud sync conflict files detected in content/: {[f.name for f in conflicted_files]}")
 
-    # 2. Strict file existence and filename validity check
     for art in additional_articles:
         fname = art['new_filename']
         if ' ' in fname or '[' in fname or ']' in fname:
@@ -2800,7 +1646,7 @@ def validate_generated_site(all_articles):
         if not article_file.is_file():
             raise RuntimeError(f"Article file does not exist on disk: {article_file}")
 
-    # 3. Validate all HTML links, including relative paths, clean routes and fragments.
+    # Covers relative paths, clean routes and fragment targets.
     page_soups = {}
     internal_link_count = 0
     for page in sorted(BASE_DIR.glob('*.html')) + sorted(CONTENT_DIR.rglob('*.html')):
@@ -2811,7 +1657,6 @@ def validate_generated_site(all_articles):
             if validate_internal_link(page, href, page_soups) is not None:
                 internal_link_count += 1
 
-    # 4. articles-data.js link integrity check
     data_content = ARTICLES_DATA_FILE.read_text(encoding='utf-8')
     json_match = re.search(r"window\.__STATIC_ARTICLES__\s*=\s*(\[.*?\]);", data_content, re.DOTALL)
     if not json_match:
@@ -2831,7 +1676,7 @@ def validate_generated_site(all_articles):
     if blog_links != first_page_links:
         raise RuntimeError('Blog must render the latest 15 articles in catalog order')
 
-    # 5. Sitemap URLs must resolve to real files and include every article.
+    # Sitemap URLs must resolve to real files and include every article.
     sitemap_links = [node.text for node in ET.parse(SITEMAP_FILE).iterfind('.//{*}loc')]
     for link in sitemap_links:
         if validate_internal_link(SITEMAP_FILE, link, page_soups) is None:
@@ -2841,7 +1686,7 @@ def validate_generated_site(all_articles):
         raise RuntimeError('Sitemap lists .html URLs that Cloudflare Workers redirect')
     if not {link.removesuffix('.html') for link in expected_links}.issubset(sitemap_paths):
         raise RuntimeError('Sitemap is missing article URLs')
-    # 6. Article featured image uniqueness check (Zero duplicate images across the site)
+    # No two articles may share an Unsplash photo.
     photo_ids = {}
     for art in additional_articles:
         img_url = art.get('img_src', '')
