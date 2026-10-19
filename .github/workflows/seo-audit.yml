@@ -1,4 +1,4 @@
-name: Astro Build & Cloudflare Pages
+name: Astro Build & Cloudflare Workers
 
 on:
   push:
@@ -67,12 +67,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     concurrency:
-      group: cloudflare-pages-production
+      group: cloudflare-workers-production
       cancel-in-progress: false
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT || 'ian030590' }}
     steps:
       - name: Verify deployment credentials
         run: |
@@ -97,5 +96,5 @@ jobs:
           name: astro-dist
           path: dist/
 
-      - name: Deploy artifact to Cloudflare Pages
-        run: npx --no-install wrangler pages deploy dist --project-name "$CLOUDFLARE_PAGES_PROJECT" --branch main
+      - name: Deploy artifact to Cloudflare Workers
+        run: npx --no-install wrangler deploy

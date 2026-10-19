@@ -17,7 +17,7 @@
     "preview": "astro preview",
     "test": "python -B -m unittest discover -s scripts -p test_static_articles.py && node scripts/test-projects.mjs && node scripts/test-seo-check.mjs",
     "audit:seo": "node scripts/seo-check.mjs --dir dist --site https://ian030590.trainerhub.cc --fail-on error",
-    "deploy": "wrangler pages deploy dist --project-name ian030590"
+    "deploy": "wrangler deploy"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",

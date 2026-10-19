@@ -4,10 +4,10 @@
 
 - 原根目錄與 `content/` 下 `GEMINI.md` 的維護規範已整併至本文件，兩個舊檔已刪除。本文件為所有代理人的共用規則來源，避免重複維護。
 - 根目錄 `README.md` 是 GitHub Profile，只呈現個人介紹、公開作品與技術方向。根據 GitHub 實際公開的 repository 與原始文件維護敘述，明確標註封存作品；不得放入專案維護規則、安裝步驟或部署設定。
-- 網站開發、建置及 Cloudflare Pages 部署操作統一記錄於 [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)。文章規範詳見 [content/README.md](content/README.md)。
+- 網站開發、建置及 Cloudflare Workers 部署操作統一記錄於 [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)。文章規範詳見 [content/README.md](content/README.md)。
 - 網站使用 Astro 靜態建置。主要頁面為 `src/pages/*.astro`，共用元件與版型位於 `src/components/`、`src/layouts/`；既有文章 HTML 保留在 `content/`，不得為框架遷移改寫舊文章。
 - `python build_static_articles.py` 只讀取文章，將原檔與公開資產準備到 `.generated/public/`，並產生 `.generated/articles.json`、文章 JavaScript 目錄、RSS 與 Sitemap；`npm run build` 由 Astro 輸出至 `dist/` 並檢查產物。不得手動維護 `dist/` 或 `.generated/` 內的生成檔。
-- 修改網站後執行 `npm test`、`npm run check`、`npm run build` 與 `npm run audit:seo`。GitHub Actions 先封裝驗證通過的 `dist/`，僅在 `main` 部署到 Cloudflare Pages 專案 `ian030590`；PR 不部署正式站。
+- 修改網站後執行 `npm test`、`npm run check`、`npm run build` 與 `npm run audit:seo`。GitHub Actions 先封裝驗證通過的 `dist/`，僅在 `main` 部署到 Cloudflare Workers 的 `ian`（設定見 `wrangler.jsonc`）；PR 不部署正式站。
 
 ## 暫存檔案清理
 

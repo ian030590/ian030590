@@ -2556,9 +2556,9 @@ def build_article_html(art, all_articles):
     return full_html
 
 def article_public_url(art):
-    """Return the URL Cloudflare Pages serves with 200.
+    """Return the URL Cloudflare Workers static assets serve with 200.
 
-    Pages answers `/x.html` with a 308 to `/x`, and search engines skip
+    Workers answer `/x.html` with a redirect to `/x`, and search engines skip
     redirecting URLs in sitemaps and feeds, so these list the final URL.
     """
     stem = art['new_filename'].removesuffix('.html')
@@ -2733,7 +2733,7 @@ def validate_generated_site(all_articles):
     """Fail the build when generated navigation, metadata, or approved tags drift."""
     not_found = BASE_DIR / '404.html'
     if not not_found.is_file():
-        raise RuntimeError('Cloudflare Pages needs 404.html to avoid serving the home page for missing URLs')
+        raise RuntimeError('Cloudflare Workers needs 404.html to avoid serving the home page for missing URLs')
     not_found_soup = BeautifulSoup(not_found.read_text(encoding='utf-8'), 'html.parser')
     robots = not_found_soup.find('meta', attrs={'name': 'robots'})
     if not robots or 'noindex' not in {value.strip().lower() for value in robots.get('content', '').split(',')}:
@@ -2838,7 +2838,7 @@ def validate_generated_site(all_articles):
             raise RuntimeError(f'Unexpected external URL in sitemap.xml: {link}')
     sitemap_paths = {unquote(urllib.parse.urlsplit(link).path) for link in sitemap_links}
     if any(path.endswith('.html') for path in sitemap_paths):
-        raise RuntimeError('Sitemap lists .html URLs that Cloudflare Pages redirects')
+        raise RuntimeError('Sitemap lists .html URLs that Cloudflare Workers redirect')
     if not {link.removesuffix('.html') for link in expected_links}.issubset(sitemap_paths):
         raise RuntimeError('Sitemap is missing article URLs')
     # 6. Article featured image uniqueness check (Zero duplicate images across the site)

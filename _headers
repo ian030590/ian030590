@@ -4,9 +4,7 @@
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 
-# The pages.dev hostnames duplicate the site; keep them out of search results.
-https://:project.pages.dev/*
-  X-Robots-Tag: noindex
-
-https://:version.:project.pages.dev/*
+# The workers.dev hostnames would duplicate the site; keep them out of search results
+# if they are ever turned on (wrangler.jsonc keeps them off).
+https://:worker.:subdomain.workers.dev/*
   X-Robots-Tag: noindex

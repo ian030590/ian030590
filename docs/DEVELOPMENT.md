@@ -26,25 +26,32 @@ npm run audit:seo
 npm run preview
 ```
 
-建置結束會比對每篇文章原始位元組，並檢查文章導覽、HTML 連結、CSS／JavaScript／圖片路徑、核准標籤、圖片唯一性與 Sitemap。SEO 檢查以 `dist/` 為範圍。原有 `/projects`、`/blog`、`/contact`、`/sponsor` 及 `/content/...html` 路徑保持可用；Cloudflare Pages 會將 `.html` 請求導向對應的簡潔網址。
+建置結束會比對每篇文章原始位元組，並檢查文章導覽、HTML 連結、CSS／JavaScript／圖片路徑、核准標籤、圖片唯一性與 Sitemap。SEO 檢查以 `dist/` 為範圍。原有 `/projects`、`/blog`、`/contact`、`/sponsor` 及 `/content/...html` 路徑保持可用；Cloudflare Workers 會將 `.html` 請求導向對應的簡潔網址。
 
-## GitHub Actions 與 Cloudflare Pages 部署
+## GitHub Actions 與 Cloudflare Workers 部署
 
-[部署工作流程](../.github/workflows/seo-audit.yml) 在 PR 與推送至 `main` 時安裝鎖定依賴、測試、檢查型別、建置並執行 SEO 檢查，成功後封裝 `dist/` 為 `astro-dist` artifact。只有 `main` 的推送或手動執行會下載同一份 artifact 並部署，PR 不會部署正式站。
+[部署工作流程](../.github/workflows/seo-audit.yml) 在 PR 與推送至 `main` 時安裝鎖定依賴、測試、檢查型別、建置並執行 SEO 檢查，成功後封裝 `dist/` 為 `astro-dist` artifact。只有 `main` 的推送或手動執行會下載同一份 artifact，以 `wrangler deploy` 部署到 Cloudflare Workers；PR 不會部署正式站。
 
-1. 在 Cloudflare Pages 準備名為 `ian030590` 的專案，正式分支設為 `main`。新建時使用 Direct Upload；既有 Git 整合專案請停用 Cloudflare 的自動分支部署，讓 GitHub Actions 成為部署來源，避免兩套流程同時上線。
-2. 在 [GitHub Actions Secrets](https://github.com/ian030590/ian030590/settings/secrets/actions) 設定 `CLOUDFLARE_API_TOKEN`（該帳戶的 **Account → Cloudflare Pages → Edit** 權限）及 `CLOUDFLARE_ACCOUNT_ID`。
-3. 若專案名稱不同，在同頁面的 Variables 設定 `CLOUDFLARE_PAGES_PROJECT`，預設為 `ian030590`。
-4. 推送至 `main`，或在 Actions 選擇 **Astro Build & Cloudflare Pages → Run workflow → main**。檢查 `build` 與 `deploy` 都成功後，再確認正式站。
-5. 在 Pages 的 Custom domains 維持 `ian030590.trainerhub.cc`；Astro canonical、RSS 與 Sitemap 皆使用此網址。
+網站以 [Workers 靜態資產](https://developers.cloudflare.com/workers/static-assets/) 提供，設定集中在 [`wrangler.jsonc`](../wrangler.jsonc)：
 
-Pages 只接收 `dist/`，不需要 Astro server adapter。`_headers` 與 `_redirects` 會隨 artifact 一起部署。首次建立專案、API Token 及 DNS／自訂網域綁定仍須在 Cloudflare 完成。設定細節見 [Cloudflare 官方 CI 部署文件](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/)。
+- Worker 名稱為 `ian`，只上傳 `dist/`，沒有 Worker 程式碼，也不需要 Astro server adapter。
+- `html_handling: auto-trailing-slash` 讓 `/projects` 提供 `projects.html`，`/projects.html` 轉址到 `/projects`，與原本 Pages 的簡潔網址相同（轉址狀態碼為 307）。
+- `not_found_handling: 404-page` 讓不存在的網址回傳 `404.html` 與 HTTP 404。
+- `workers_dev` 與 `preview_urls` 關閉，只有自訂網域 `ian030590.trainerhub.cc` 與 `ian.trainerhub.cc` 提供網站，避免重複內容被收錄。網域以 `custom_domain` 綁定，部署時一併確認。
 
-若需從本機手動部署，先執行 `npm run build` 與 `npm run audit:seo`，再於已登入 Wrangler 或設定相同 Cloudflare 環境變數的終端執行 `npm run deploy`。
+`_headers` 與 `_redirects` 隨 `dist/` 部署，由 Workers 讀取為設定，不會成為公開檔案。
+
+1. 在 [GitHub Actions Secrets](https://github.com/ian030590/ian030590/settings/secrets/actions) 設定 `CLOUDFLARE_API_TOKEN` 與 `CLOUDFLARE_ACCOUNT_ID`。API Token 使用 Cloudflare 的 **Edit Cloudflare Workers** 範本建立，Account Resources 選本帳戶，Zone Resources 選 `trainerhub.cc`，讓部署可以更新 Worker 與自訂網域。
+2. 推送至 `main`，或在 Actions 選擇 **Astro Build & Cloudflare Workers → Run workflow → main**。檢查 `build` 與 `deploy` 都成功後，再確認正式站。
+3. Astro canonical、RSS 與 Sitemap 皆使用 `https://ian030590.trainerhub.cc`。新增自訂網域時，該主機名稱不能已有其他 DNS 記錄；先在 Cloudflare DNS 刪除舊記錄，再加入 `wrangler.jsonc` 的 `routes` 並部署。
+
+不要在 Cloudflare 的 Workers Builds 連結這個 Git repository，讓 GitHub Actions 維持唯一部署來源，避免兩套流程同時上線。
+
+若需從本機手動部署，先執行 `npm run build` 與 `npm run audit:seo`，再於已登入 Wrangler（`npx wrangler login`）或設定相同 Cloudflare 環境變數的終端執行 `npm run deploy`。Windows 若開啟 Git `core.autocrlf`，本機建置的文章會帶 CRLF 換行，與 CI 產物位元組不同；正式部署以 GitHub Actions 為準。
 
 ## SEO 與 Google 索引檢查
 
-`npm run audit:seo` 檢查建置產物；通過代表網站結構符合檢查規則，不代表 Google 已收錄或特定關鍵字排名會提高。新增的 `404.html` 必須保留，讓 Cloudflare Pages 對不存在的網址回傳 404，避免回傳首頁與 HTTP 200；建置同時確認錯誤頁設有 `noindex`。
+`npm run audit:seo` 檢查建置產物；通過代表網站結構符合檢查規則，不代表 Google 已收錄或特定關鍵字排名會提高。新增的 `404.html` 必須保留，讓 Cloudflare Workers 對不存在的網址回傳 404，避免回傳首頁與 HTTP 200；建置同時確認錯誤頁設有 `noindex`。
 
 部署成功後，在已驗證的 Google Search Console 資源中：
 
@@ -57,4 +64,4 @@ Pages 只接收 `dist/`，不需要 Astro server adapter。`_headers` 與 `_redi
 
 若 Cloudflare 回傳 403／1010，先在 Security Events 查明被擋的用戶端；僅更換 User-Agent 的探測不能證明真正的 Googlebot 是否可存取。正式 Google 爬蟲的判定應參照 Search Console 實際測試或已驗證的爬蟲記錄。
 
-官方說明：[要求重新檢索](https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl)、[Search Console](https://developers.google.com/search/docs/monitor-debug/search-console-start)、[Cloudflare Pages 的 404 與 SPA 行為](https://developers.cloudflare.com/pages/configuration/serving-pages/)。
+官方說明：[要求重新檢索](https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl)、[Search Console](https://developers.google.com/search/docs/monitor-debug/search-console-start)、[Cloudflare Workers 靜態資產的 404 與 HTML 處理](https://developers.cloudflare.com/workers/static-assets/routing/)。
