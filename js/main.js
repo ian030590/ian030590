@@ -274,6 +274,7 @@
   const clearSearchBtn = document.getElementById("clear-search-btn");
 
   if (articleContent) {
+    const articlesPerPage = 15;
     let allPosts = [];
     let currentTag = "ALL";
     let searchQuery = "";
@@ -349,7 +350,7 @@
       window.history.replaceState({}, "", url.toString());
     };
 
-    const renderArticles = () => {
+    const renderArticles = (page = 1) => {
       const filtered = allPosts.filter((post) => {
         const matchesTag =
           currentTag === "ALL" || post.tags.includes(currentTag);
@@ -423,9 +424,14 @@
 
       // Determine if we should show featured layout for post 0
       const showFeatured =
-        currentTag === "ALL" && !searchQuery && filtered.length > 1;
+        currentTag === "ALL" && !searchQuery && page === 1 && filtered.length > 1;
 
-      const articlesHtml = filtered
+      const totalPages = Math.max(1, Math.ceil(filtered.length / articlesPerPage));
+      const currentPage = Math.max(1, Math.min(page, totalPages));
+      const startIndex = (currentPage - 1) * articlesPerPage;
+      const pagePosts = filtered.slice(startIndex, startIndex + articlesPerPage);
+
+      const articlesHtml = pagePosts
         .map((post, index) => {
           const isFeatured = showFeatured && index === 0;
 
@@ -481,7 +487,32 @@
         })
         .join("");
 
-      articleContent.innerHTML = `<div class="articles-grid">${articlesHtml}</div>`;
+      const paginationHtml = `
+        <nav class="article-pagination" aria-label="文章分頁">
+          <p class="article-page-status" role="status">第 ${startIndex + 1} 至 ${startIndex + pagePosts.length} 篇，共 ${filtered.length} 篇</p>
+          ${totalPages > 1 ? `
+            <div class="pagination-controls">
+              <button type="button" class="pagination-button" data-page="${currentPage - 1}" ${currentPage === 1 ? "disabled" : ""}>上一頁</button>
+              ${Array.from({ length: totalPages }, (_, index) => {
+                const number = index + 1;
+                return `<button type="button" class="pagination-button" data-page="${number}" aria-label="第 ${number} 頁" ${number === currentPage ? 'aria-current="page"' : ""}>${number}</button>`;
+              }).join("")}
+              <button type="button" class="pagination-button" data-page="${currentPage + 1}" ${currentPage === totalPages ? "disabled" : ""}>下一頁</button>
+            </div>
+          ` : ""}
+        </nav>
+      `;
+
+      articleContent.innerHTML = `<div class="articles-grid">${articlesHtml}</div>${paginationHtml}`;
+
+      articleContent.querySelectorAll("[data-page]").forEach((button) => {
+        button.addEventListener("click", () => {
+          renderArticles(Number(button.dataset.page));
+          articleContent.focus({ preventScroll: true });
+          const top = articleContent.getBoundingClientRect().top + window.scrollY - 90;
+          window.scrollTo({ top, behavior: "instant" });
+        });
+      });
 
       // Attach click listeners to tags on article cards
       articleContent.querySelectorAll("[data-card-tag]").forEach((tagBtn) => {

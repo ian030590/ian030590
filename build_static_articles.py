@@ -2823,9 +2823,13 @@ def validate_generated_site(all_articles):
         raise RuntimeError('Article catalog has missing, duplicate or unexpected links')
     for item in articles_data:
         validate_internal_link(ARTICLES_DATA_FILE, item['link'], page_soups)
-    blog_links = {link['href'] for link in page_soups[BLOG_HTML_FILE].select('.card-link[href]')}
-    if blog_links != expected_links:
-        raise RuntimeError('Blog article links do not match the article catalog')
+    blog_links = [link['href'] for link in page_soups[BLOG_HTML_FILE].select('.card-link[href]')]
+    first_page_links = [
+        item['link']
+        for item in sorted(articles_data, key=lambda item: item['dateString'], reverse=True)[:15]
+    ]
+    if blog_links != first_page_links:
+        raise RuntimeError('Blog must render the latest 15 articles in catalog order')
 
     # 5. Sitemap URLs must resolve to real files and include every article.
     sitemap_links = [node.text for node in ET.parse(SITEMAP_FILE).iterfind('.//{*}loc')]

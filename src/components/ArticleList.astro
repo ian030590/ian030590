@@ -3,7 +3,7 @@ import articles from '../../.generated/articles.json';
 const sorted = [...articles].sort((a, b) => b.dateString.localeCompare(a.dateString));
 ---
 <div class="articles-grid">
-  {sorted.map((article, index) => (
+  {sorted.slice(0, 15).map((article, index) => (
     <article class:list={['article-card', { 'article-card--featured': index === 0 }]}>
       <a class="card-link" href={article.link}>
         {article.imageUrl && (

@@ -1623,6 +1623,54 @@ button {
   gap: 28px;
 }
 
+.article-pagination {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.article-page-status {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.pagination-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pagination-button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-action-secondary-border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--color-action-secondary-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.pagination-button:hover:not(:disabled),
+.pagination-button[aria-current="page"] {
+  background: var(--color-action-primary-bg);
+  color: var(--color-action-primary-text);
+}
+
+.pagination-button:disabled {
+  color: var(--muted);
+  border-color: var(--line);
+  cursor: default;
+}
+
+.pagination-button:focus-visible,
+#article-content:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 4px;
+}
+
 /* Article Cards */
 .article-card {
   background: var(--surface);
