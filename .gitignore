@@ -9,4 +9,7 @@ node_modules/
 dist/
 .env
 .env.*
+<<<<<<< HEAD
 .dev.vars*
+=======
+>>>>>>> 0fb27403d877d5709ef65c142ca63b6d1e56b269

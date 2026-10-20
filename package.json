@@ -15,7 +15,11 @@
     "prebuild": "npm run prepare:content",
     "build": "astro build && python build_static_articles.py --validate dist",
     "preview": "astro preview",
+<<<<<<< HEAD
     "test": "python -B -m unittest discover -s scripts -p test_static_articles.py && node scripts/test-projects.mjs && node scripts/test-seo-check.mjs && node scripts/test-contact-worker.mjs",
+=======
+    "test": "python -B -m unittest discover -s scripts -p test_static_articles.py && node scripts/test-projects.mjs && node scripts/test-seo-check.mjs",
+>>>>>>> 0fb27403d877d5709ef65c142ca63b6d1e56b269
     "audit:seo": "node scripts/seo-check.mjs --dir dist --site https://ian030590.trainerhub.cc --fail-on error",
     "deploy": "wrangler deploy"
   },

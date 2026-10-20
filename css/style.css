@@ -2955,6 +2955,7 @@ a.contact-channel:hover {
 .contact-form-status:empty {
   display: none;
 }
+<<<<<<< HEAD
 .contact-form-status[data-state="success"] {
   color: var(--accent);
 }
@@ -2973,6 +2974,8 @@ a.contact-channel:hover {
   height: 1px;
   overflow: hidden;
 }
+=======
+>>>>>>> 0fb27403d877d5709ef65c142ca63b6d1e56b269
 
 /* Sponsor */
 .sponsor-hero {

@@ -2,6 +2,7 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "ian",
   "compatibility_date": "2026-10-19",
+<<<<<<< HEAD
   // Cloudflare serves dist/ directly; the Worker script only handles /api/*
   // (the contact form, emailed through Resend).
   "main": "./worker/index.js",
@@ -9,11 +10,17 @@
     "directory": "./dist",
     "binding": "ASSETS",
     "run_worker_first": ["/api/*"],
+=======
+  // Static site only: no Worker script, Cloudflare serves dist/ directly.
+  "assets": {
+    "directory": "./dist",
+>>>>>>> 0fb27403d877d5709ef65c142ca63b6d1e56b269
     // Same as Pages: /x.html redirects to /x, and /x serves x.html.
     "html_handling": "auto-trailing-slash",
     // Serve 404.html with a 404 status instead of the home page.
     "not_found_handling": "404-page"
   },
+<<<<<<< HEAD
   // Contact form email addresses. The sender must use a domain verified in
   // Resend; RESEND_API_KEY is a secret (npx wrangler secret put RESEND_API_KEY).
   "vars": {
@@ -24,6 +31,8 @@
   "ratelimits": [
     { "name": "CONTACT_RATE_LIMITER", "namespace_id": "1001", "simple": { "limit": 3, "period": 60 } }
   ],
+=======
+>>>>>>> 0fb27403d877d5709ef65c142ca63b6d1e56b269
   // Only the custom domains serve the site, so search engines see one copy.
   "workers_dev": false,
   "preview_urls": false,

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 const metadata = {
@@ -161,3 +162,165 @@ const metadata = {
       </div>
     </main>
 </SiteLayout>
+=======
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+const metadata = {
+  "title": "聯絡我 | 蔡泓恩 | 職能治療師",
+  "description": "聯絡蔡泓恩，討論職能治療、視覺復健、數位健康與專案合作。",
+  "socialTitle": "聯絡我｜蔡泓恩 職能治療師",
+  "path": "/contact",
+  "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://ian030590.trainerhub.cc/#person",
+        "name": "蔡泓恩",
+        "alternateName": [
+          "Hung-En (Ian) Tsai",
+          "Ian Tsai",
+          "蔡泓恩 職能治療師"
+        ],
+        "jobTitle": "職能治療師",
+        "url": "https://ian030590.trainerhub.cc/",
+        "image": "https://ian030590.trainerhub.cc/assets/ian-tsai.jpg",
+        "email": "rainbowh9490@gmail.com",
+        "sameAs": [
+          "https://github.com/ian030590",
+          "https://trainerhub.cc"
+        ],
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "國立臺灣大學"
+        },
+        "knowsAbout": [
+          "職能治療",
+          "視覺復健",
+          "數位健康",
+          "居家復能"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首頁",
+            "item": "/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "聯絡我",
+            "item": "/contact"
+          }
+        ]
+      }
+    ]
+  }
+};
+---
+<SiteLayout {...metadata}>
+    <main class="page-main contact-page">
+      <div class="container">
+        <section class="contact-hero" aria-labelledby="contact-title">
+          <div class="contact-hero-copy">
+            <h1 id="contact-title" class="page-title">聯絡蔡泓恩</h1>
+            <p class="page-intro">
+              如果你想討論職能治療、視覺復健、數位健康工具或研究合作，歡迎透過以下方式聯絡我。
+            </p>
+          </div>
+          <aside class="contact-availability" aria-label="最直接的聯絡方式">
+            <span class="contact-availability-label">最直接的方式</span>
+            <a href="mailto:rainbowh9490@gmail.com">rainbowh9490@gmail.com</a>
+            <p>適合合作邀請、研究交流與專案討論。</p>
+          </aside>
+        </section>
+
+        <div class="contact-workspace">
+          <div class="contact-sidebar">
+            <section class="contact-panel" aria-labelledby="contact-routes-title">
+              <h2 id="contact-routes-title" class="contact-panel-title">聯絡管道</h2>
+              <ul class="contact-channel-list">
+                <li><a class="contact-channel" href="mailto:rainbowh9490@gmail.com"><span class="contact-channel-icon"><span class="material-symbols-outlined" aria-hidden="true">mail</span></span><span><small>合作與研究交流</small><strong>rainbowh9490@gmail.com</strong><em>請說明你的背景、想討論的主題與方便聯繫的時間。</em></span><span class="contact-channel-action">寄信</span></a></li>
+                <li><a class="contact-channel" href="https://github.com/ian030590" target="_blank" rel="noopener"><span class="contact-channel-icon"><span class="material-symbols-outlined" aria-hidden="true">code</span></span><span><small>開源專案</small><strong>github.com/ian030590</strong></span><span class="contact-channel-action">前往 GitHub</span></a></li>
+                <li><a class="contact-channel" href="https://trainerhub.cc" target="_blank" rel="noopener"><span class="contact-channel-icon"><span class="material-symbols-outlined" aria-hidden="true">exercise</span></span><span><small>居家復健訓練網</small><strong>trainerhub.cc</strong></span><span class="contact-channel-action">開啟網站</span></a></li>
+                <li><a class="contact-channel" href="tel:0937809968"><span class="contact-channel-icon"><span class="material-symbols-outlined" aria-hidden="true">call</span></span><span><small>需要即時溝通時</small><strong>0937-809-968</strong></span><span class="contact-channel-action">撥打電話</span></a></li>
+                <li><div class="contact-channel"><span class="contact-channel-icon"><span class="material-symbols-outlined" aria-hidden="true">location_on</span></span><span><small>所在地</small><strong>台北市 · 國立臺灣大學</strong></span></div></li>
+              </ul>
+            </section>
+
+            <section class="contact-panel" aria-labelledby="scope-title">
+              <h2 id="scope-title" class="contact-panel-title">可以討論的主題</h2>
+              <dl class="contact-scope-list">
+                <div><dt>數位復能與認知訓練</dt><dd>jsPsych 實驗範式、可離線使用的 PWA 練習，以及動作、視覺與認知練習的量化分析。</dd></div>
+                <div><dt>臨床與研究自動化</dt><dd>以 n8n 串接 PubMed、Zotero 與語言模型的文獻搜尋與整理流程。</dd></div>
+                <div><dt>醫療小工具與桌面應用</dt><dd>Chrome 擴充功能、Electron + React 桌面應用與本機批次檔案處理。</dd></div>
+                <div><dt>演講與工作坊</dt><dd>職能治療實務中的數位工具應用，以及寫給醫療人員的入門程式設計分享。</dd></div>
+              </dl>
+            </section>
+
+            <aside class="contact-note" aria-labelledby="privacy-title">
+              <h2 id="privacy-title">隱私</h2>
+              <p>討論涉及的個案、機構資料或未公開的研究構想，我不會對外分享。來信前請先去除可辨識個案身分的資料。</p>
+            </aside>
+          </div>
+
+          <section class="contact-inquiry contact-panel" aria-labelledby="message-title">
+            <div class="contact-section-intro">
+              <h2 id="message-title">先簡單說說你的需求</h2>
+              <p>送出後會開啟你的郵件軟體，內容會預先帶入。</p>
+            </div>
+            <form id="contact-form" class="contact-form" aria-describedby="contact-form-note">
+              <div class="field">
+                <label for="sender-name">姓名／單位</label>
+                <input id="sender-name" name="name" autocomplete="name" placeholder="你的姓名或單位" required />
+              </div>
+              <div class="field">
+                <label for="sender-role">專業背景</label>
+                <select id="sender-role" name="role" required>
+                  <option value="" selected disabled>請選擇</option>
+                  <option>職能／物理／語言治療師</option>
+                  <option>臨床醫師／護理／醫事人員</option>
+                  <option>學術研究人員／大專院校教師</option>
+                  <option>軟體工程師／技術開發者</option>
+                  <option>數位健康產業</option>
+                  <option>其他</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="sender-email">電子郵件</label>
+                <input id="sender-email" name="email" type="email" autocomplete="email" placeholder="name@example.com" required />
+              </div>
+              <div class="field">
+                <label for="message-subject">主旨</label>
+                <select id="message-subject" name="subject" required>
+                  <option value="" selected disabled>請選擇</option>
+                  <option>數位復能系統建置（TrainerHub、評估工具）</option>
+                  <option>臨床研究自動化（PubMed、Zotero、n8n）</option>
+                  <option>開源專案技術交流</option>
+                  <option>演講或工作坊邀請</option>
+                  <option>其他合作</option>
+                </select>
+              </div>
+              <div class="field field-message">
+                <label for="message-body">訊息內容</label>
+                <textarea id="message-body" name="body" placeholder="想討論的需求、目前的做法，以及希望的合作方式" required></textarea>
+              </div>
+              <div class="contact-form-footer">
+                <p id="contact-form-note">訊息不會儲存在本網站。</p>
+                <button class="button-primary has-animated-icon" type="submit">
+                  開啟郵件軟體
+                  <span class="animate-icon animate-icon--send" data-animate-icon="send" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p id="contact-form-status" class="contact-form-status" role="status" aria-live="polite"></p>
+            </form>
+          </section>
+        </div>
+      </div>
+    </main>
+</SiteLayout>
+>>>>>>> 0fb27403d877d5709ef65c142ca63b6d1e56b269
