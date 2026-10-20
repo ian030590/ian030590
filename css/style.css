@@ -305,19 +305,36 @@ html:not(.js) .js-only {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 26px;
   margin-left: auto;
 }
-.nav-link {
-  padding: 9px 14px;
-  border-radius: 999px;
+.nav-link,
+.mobile-panel a {
+  position: relative;
+  width: fit-content;
+  padding: 9px 2px;
   color: var(--muted);
   font-weight: 500;
+  transition: color 0.2s;
 }
 .nav-link:hover,
-.nav-link.active {
-  background: var(--accent-soft);
-  color: var(--primary-strong);
+.nav-link:focus-visible,
+.nav-link.active,
+.mobile-panel a:hover,
+.mobile-panel a:focus-visible,
+.mobile-panel a[aria-current="page"] {
+  color: var(--accent);
+}
+.nav-link.active::after,
+.mobile-panel a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent);
+  border-radius: 999px;
 }
 /* Only the frozen article pages still render this duplicate mailto link. */
 .nav-cta {
@@ -2955,7 +2972,6 @@ a.contact-channel:hover {
 .contact-form-status:empty {
   display: none;
 }
-<<<<<<< HEAD
 .contact-form-status[data-state="success"] {
   color: var(--accent);
 }
@@ -2974,8 +2990,6 @@ a.contact-channel:hover {
   height: 1px;
   overflow: hidden;
 }
-=======
->>>>>>> 0fb27403d877d5709ef65c142ca63b6d1e56b269
 
 /* Sponsor */
 .sponsor-hero {
