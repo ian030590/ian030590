@@ -3,3 +3,8 @@
 
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
+
+# The workers.dev hostnames would duplicate the site; keep them out of search results
+# if they are ever turned on (wrangler.jsonc keeps them off).
+https://:worker.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex

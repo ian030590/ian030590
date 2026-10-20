@@ -1,0 +1,28 @@
+{
+  "name": "ian030590",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "prepare:content": "python build_static_articles.py",
+    "predev": "npm run prepare:content",
+    "dev": "astro dev",
+    "precheck": "npm run prepare:content",
+    "check": "astro check",
+    "prebuild": "npm run prepare:content",
+    "build": "astro build && python build_static_articles.py --validate dist",
+    "preview": "astro preview",
+    "test": "python -B -m unittest discover -s scripts -p test_static_articles.py && node scripts/test-projects.mjs && node scripts/test-seo-check.mjs && node scripts/test-contact-worker.mjs",
+    "audit:seo": "node scripts/seo-check.mjs --dir dist --site https://ian030590.trainerhub.cc --fail-on error",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "astro": "7.3.8",
+    "typescript": "6.0.3",
+    "wrangler": "4.151.0"
+  }
+}

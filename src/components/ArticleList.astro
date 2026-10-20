@@ -1,0 +1,27 @@
+---
+import articles from '../../.generated/articles.json';
+const sorted = [...articles].sort((a, b) => b.dateString.localeCompare(a.dateString));
+---
+<div class="articles-grid">
+  {sorted.slice(0, 15).map((article, index) => (
+    <article class:list={['article-card', { 'article-card--featured': index === 0 }]}>
+      <a class="card-link" href={article.link}>
+        {article.imageUrl && (
+          <div class="article-visual">
+            <img src={article.imageUrl} alt="" loading="lazy" />
+            {index === 0 && <span class="featured-badge">最新專題</span>}
+          </div>
+        )}
+        <div class="article-content">
+          <div class="card-tags-row">
+            {article.tags.map((tag) => <span class="card-tag-pill">{tag}</span>)}
+          </div>
+          <h2 class="article-title">{article.title}</h2>
+          <div class="article-meta"><time datetime={article.dateString}>{article.dateString}</time></div>
+          <p class="article-excerpt">{article.lead}</p>
+          <div class="article-footer"><span class="source-kicker">{article.category}</span><span class="read-more-link">閱讀全文</span></div>
+        </div>
+      </a>
+    </article>
+  ))}
+</div>

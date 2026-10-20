@@ -1,13 +1,15 @@
-import os
 import sys
 import re
 import json
+import argparse
+import shutil
 from html import escape
 from pathlib import Path
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from urllib.parse import quote, unquote
 import urllib.parse
+import xml.etree.ElementTree as ET
 
 from article_editorial_copy import HUMANIZED_ARTICLE_COPY
 
@@ -15,11 +17,9 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 BASE_DIR = Path(__file__).resolve().parent
 CONTENT_DIR = BASE_DIR / 'content'
-CSS_FILE = BASE_DIR / 'css' / 'style.css'
 SITEMAP_FILE = BASE_DIR / 'sitemap.xml'
 ARTICLES_DATA_FILE = BASE_DIR / 'js' / 'articles-data.js'
 BLOG_HTML_FILE = BASE_DIR / 'blog.html'
-MAIN_JS_FILE = BASE_DIR / 'js' / 'main.js'
 
 SITE_BASE_URL = 'https://ian030590.trainerhub.cc'
 
@@ -98,7 +98,7 @@ def generate_publish_schedule():
 
 ARTICLE_PUBLISH_SCHEDULE = generate_publish_schedule()
 
-# 1. DigitalLearning File Mapping: (old_filename, new_filename, short_topic, cluster, order)
+# DigitalLearning file mapping: (old_filename, new_filename, short_topic, cluster, order)
 DL_MAPPING = {
     '00_Blogger_Series_Introduction.html': (
         '001_AI產品架構思維系列總覽_非工程師的12講導讀總綱.html',
@@ -383,773 +383,45 @@ VT_DOI_CACHE = {
 
 
 
-# 2. Add Article CSS to style.css if not present
-ARTICLE_CSS = """
-/* ==========================================================================
-   Article Detail & Reading Experience System (EEAT & Topic Clusters)
-   ========================================================================== */
-
-.article-page-layout {
-  padding-top: 32px;
-  padding-bottom: 80px;
-}
-
-.breadcrumb-trail {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 28px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.breadcrumb-trail a {
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-.breadcrumb-trail a:hover {
-  color: var(--primary);
-}
-
-.breadcrumb-separator {
-  color: var(--color-border-strong);
-  font-size: 12px;
-  user-select: none;
-}
-
-.breadcrumb-current {
-  color: var(--ink);
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 320px;
-}
-
-.article-container {
-  max-width: 100dvw;
-  margin: 0 auto;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 44px 40px 36px 40px;
-  box-shadow: var(--shadow);
-}
-
-@media (max-width: 768px) {
-  .article-container {
-    padding: 24px 18px 24px 18px;
-    border-radius: 10px;
-  }
-  .breadcrumb-current {
-    max-width: 180px;
-  }
-}
-
-.article-detail-header {
-  margin-bottom: 32px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 24px;
-}
-
-.article-tag-badges {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.article-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--accent-soft);
-  color: var(--color-badge-text);
-  font-size: 13.5px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 20px;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-a.article-badge {
-  cursor: pointer;
-}
-
-a.article-badge:hover {
-  background: var(--accent);
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-.article-title {
-  font-size: 32px;
-  line-height: 1.35;
-  color: var(--ink);
-  margin: 0 0 16px 0;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-}
-
-@media (max-width: 768px) {
-  .article-title {
-    font-size: 24px;
-  }
-}
-
-.article-meta-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.article-meta-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.article-meta-item .material-symbols-outlined {
-  font-size: 16px;
-}
-
-.article-featured-figure {
-  margin: 0 0 32px 0;
-  text-align: center;
-}
-
-.article-featured-img {
-  width: 100%;
-  max-height: 480px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-}
-
-.article-figcaption {
-  font-size: 13.5px;
-  color: var(--muted);
-  margin-top: 10px;
-  line-height: 1.6;
-  text-align: center;
-}
-
-.article-lead-box {
-  background-color: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-left: 5px solid var(--primary);
-  padding: 22px 26px;
-  margin-bottom: 36px;
-  border-radius: 0 10px 10px 0;
-}
-
-.article-lead-box-title {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--primary-strong);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.article-lead-box p {
-  margin: 0;
-  font-size: 17px;
-  line-height: 1.85;
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.article-lead-box ul {
-  margin: 0;
-  padding-left: 20px;
-  font-size: 16.5px;
-  line-height: 1.8;
-  color: var(--ink);
-}
-
-.article-body-content {
-  font-size: 18px;
-  line-height: 1.85;
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.article-body-content p {
-  margin: 0 0 22px 0;
-  line-height: 1.85;
-  font-weight: 500;
-}
-
-.article-body-content h2 {
-  font-size: 24px;
-  line-height: 1.4;
-  color: var(--ink);
-  border-left: 5px solid var(--primary);
-  padding-left: 14px;
-  margin-top: 48px;
-  margin-bottom: 20px;
-  font-weight: 800;
-}
-
-.article-body-content h3 {
-  font-size: 20px;
-  line-height: 1.4;
-  color: var(--ink);
-  margin-top: 32px;
-  margin-bottom: 14px;
-  font-weight: 700;
-}
-
-.article-body-content ul,
-.article-body-content ol {
-  margin: 0 0 24px 0;
-  padding-left: 26px;
-  line-height: 1.8;
-}
-
-.article-body-content li {
-  margin-bottom: 10px;
-  font-weight: 500;
-}
-
-.article-body-content strong,
-.article-body-content b {
-  color: var(--ink);
-  font-weight: 800;
-}
-
-/* Callout blocks inside body */
-.callout-box {
-  background: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-left: 5px solid var(--primary);
-  border-radius: 0 8px 8px 0;
-  padding: 20px 24px;
-  margin: 28px 0;
-}
-
-.callout-box.warning {
-  border-left-color: #e53e3e;
-  background: rgba(229, 62, 62, 0.06);
-}
-
-.callout-box.amber {
-  border-left-color: #dd6b20;
-  background: rgba(221, 107, 32, 0.06);
-}
-
-.callout-box.success {
-  border-left-color: #137333;
-  background: rgba(19, 115, 51, 0.06);
-}
-
-.table-wrapper {
-  overflow-x: auto;
-  margin: 28px 0;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-}
-
-.article-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 15.5px;
-  background: var(--surface);
-}
-
-.article-table th {
-  background: var(--surface-soft);
-  color: var(--ink);
-  padding: 13px 16px;
-  font-weight: 700;
-  border-bottom: 2px solid var(--line);
-}
-
-.article-table td {
-  padding: 13px 16px;
-  border-bottom: 1px solid var(--line);
-  color: var(--ink);
-}
-
-.code-terminal-block {
-  background: var(--slate-950);
-  color: var(--slate-50);
-  padding: 18px 20px;
-  border-radius: 8px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 15px;
-  line-height: 1.65;
-  margin: 28px 0;
-  overflow-x: auto;
-  border: 1px solid var(--line);
-}
-
-/* References */
-.article-references {
-  margin-top: 48px;
-  border-top: 2px solid var(--line);
-  padding-top: 28px;
-}
-
-.article-references h2 {
-  font-size: 20px;
-  color: var(--ink);
-  margin-bottom: 18px;
-  border-left: 5px solid var(--muted);
-  padding-left: 12px;
-}
-
-.article-references ol {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--muted);
-  padding-left: 24px;
-  margin: 0;
-}
-
-.article-references li {
-  margin-bottom: 14px;
-}
-
-.article-references a {
-  color: var(--primary);
-  text-decoration: none;
-  word-break: break-all;
-}
-
-.article-references a:hover {
-  text-decoration: none;
-  color: var(--primary-strong);
-}
-
-/* Author EEAT Card */
-.author-eeat-card {
-  margin-top: 48px;
-  background: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 28px 30px;
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-}
-
-@media (max-width: 640px) {
-  .author-eeat-card {
-    flex-direction: column;
-    padding: 20px;
-  }
-}
-
-.author-avatar-wrap {
-  flex-shrink: 0;
-}
-
-.author-avatar-circle {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  border: 2px solid var(--line);
-}
-
-.author-eeat-info {
-  flex: 1;
-}
-
-.author-eeat-name {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.author-credential-badge {
-  font-size: 12px;
-  background: var(--accent-soft);
-  color: var(--color-badge-text);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.author-eeat-title {
-  font-size: 14px;
-  color: var(--primary);
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.author-eeat-bio {
-  font-size: 14.5px;
-  color: var(--muted);
-  line-height: 1.65;
-  margin-bottom: 14px;
-}
-
-.author-eeat-statement {
-  font-size: 13px;
-  color: var(--muted);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 10px 14px;
-  margin-bottom: 16px;
-  line-height: 1.6;
-}
-
-.author-eeat-links {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.author-link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-  text-decoration: none;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  padding: 5px 12px;
-  border-radius: 6px;
-  transition: all 0.15s ease;
-}
-
-.author-link-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-/* Topic Cluster / Series Navigation */
-.topic-cluster-nav {
-  margin-top: 40px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.topic-cluster-header {
-  background: var(--surface-soft);
-  padding: 16px 22px;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.topic-cluster-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.topic-cluster-progress {
-  font-size: 13px;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-.topic-cluster-list {
-  list-style: none;
-  margin: 0;
-  padding: 12px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  max-height: 380px;
-  overflow-y: auto;
-}
-
-.topic-cluster-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 14.5px;
-  text-decoration: none;
-  color: var(--muted);
-  transition: all 0.15s ease;
-}
-
-.topic-cluster-item:hover {
-  background: var(--surface-soft);
-  color: var(--primary);
-}
-
-.topic-cluster-item.active {
-  background: var(--accent-soft);
-  color: var(--color-badge-text);
-  font-weight: 700;
-}
-
-.topic-cluster-item-num {
-  font-family: ui-monospace, SFMono-Regular, monospace;
-  font-weight: 700;
-  font-size: 13px;
-  opacity: 0.8;
-}
-
-.topic-cluster-item-title {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.topic-cluster-item-current {
-  font-size: 11px;
-  background: var(--primary);
-  color: #fff;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-/* Prev Next Navigation */
-.prev-next-nav {
-  margin-top: 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-@media (max-width: 600px) {
-  .prev-next-nav {
-    grid-template-columns: 1fr;
-  }
-}
-
-.prev-next-card {
-  display: flex;
-  flex-direction: column;
-  padding: 16px 18px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--ink);
-  transition: all 0.2s ease;
-}
-
-.prev-next-card:hover {
-  border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-
-.prev-next-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.prev-next-title {
-  font-size: 14.5px;
-  font-weight: 600;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.article-bottom-actions {
-  margin-top: 36px;
-  text-align: center;
-}
-"""
-
-EVIDENCE_ARTICLE_CSS = """
-/* Evidence Article Extensions */
-.evidence-figure {
-  margin: 32px 0;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
-}
-
-.evidence-figure svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.evidence-figure svg > path,
-.evidence-figure svg g path {
-  fill: none;
-  stroke: var(--primary);
-  stroke-width: 3;
-}
-
-.evidence-figure svg g rect {
-  fill: var(--surface-2, var(--surface));
-  stroke: var(--line);
-  stroke-width: 2;
-}
-
-.evidence-figure svg text {
-  fill: var(--ink);
-  font-size: 14px;
-  text-anchor: middle;
-}
-
-.evidence-figure figcaption {
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 14px;
-  text-align: center;
-}
-
-.clinical-safety-note {
-  margin-top: 32px !important;
-  padding: 16px 18px;
-  border-left: 4px solid var(--warning, #b7791f);
-  background: var(--surface-2, var(--surface));
-}
-"""
-
-def update_css():
-    css_content = CSS_FILE.read_text(encoding='utf-8')
-    additions = []
-    if 'Article Detail & Reading Experience System' not in css_content:
-        print('Appending article CSS to style.css...')
-        additions.append(ARTICLE_CSS)
-    if 'Evidence Article Extensions' not in css_content:
-        print('Appending evidence article CSS to style.css...')
-        additions.append(EVIDENCE_ARTICLE_CSS)
-    if additions:
-        CSS_FILE.write_text(css_content + '\n' + '\n'.join(additions), encoding='utf-8')
-    else:
-        print('Article CSS already exists in style.css.')
-
-
-ARTICLE_SITE_HEADER_HTML = """<header class="site-header">
-      <div class="container nav">
-        <a class="brand" href="/">
-          <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo" width="36" height="36" />
-          <span>蔡泓恩 | 職能治療師</span>
-        </a>
-        <nav class="nav-links" aria-label="主要導覽">
-          <a class="nav-link" href="/">首頁</a>
-          <a class="nav-link" href="/projects">開源專案</a>
-          <a class="nav-link active" href="/blog" aria-current="page">專業文章</a>
-          <a class="nav-link" href="/contact">聯絡我</a>
-          <a class="nav-link" href="/sponsor">贊助我</a>
-        </nav>
-        <button
-          class="theme-toggle"
-          aria-label="切換深色模式"
-          title="切換深色模式"
-        >
-          <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
-          <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
-        </button>
-        <a class="nav-cta" href="mailto:rainbowh9490@gmail.com">聯絡我</a>
-        <button
-          class="menu-button"
-          aria-label="開啟選單"
-          aria-expanded="false"
-        >
-          <span
-            class="animate-icon animate-icon--menu"
-            data-animate-icon="menu"
-            aria-hidden="true"
-          ></span>
-        </button>
-      </div>
-      <div class="mobile-panel">
-        <a href="/">首頁</a>
-        <a href="/projects">開源專案</a>
-        <a href="/blog" aria-current="page">專業文章</a>
-        <a href="/contact">聯絡我</a>
-        <a href="/sponsor">贊助我</a>
-      </div>
-    </header>"""
-
-ARTICLE_SITE_FOOTER_HTML = """<footer class="site-footer">
-      <div class="container footer-grid">
-        <div>
-          <div class="footer-brand">
-            <img src="../../icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo footer-logo" width="26" height="26" />
-            <span>蔡泓恩 | 職能治療師</span>
-          </div>
-          <div class="footer-copy">
-            © <span data-year></span> Ian Tsai. 保留所有權利。
-          </div>
-        </div>
-        <div class="footer-links">
-          <a href="/">首頁</a>
-          <a href="/projects">專案</a>
-          <a href="/blog">專業文章</a>
-          <a href="https://trainerhub.cc" target="_blank" rel="noopener" title="TrainerHub 居家復健訓練網">居家訓練網</a>
-          <a href="/contact">聯絡</a>
-          <a href="/sponsor">贊助我</a>
-        </div>
-      </div>
-    </footer>"""
-
-ARTICLE_BOTTOM_ACTIONS_HTML = """<div class="article-trainerhub-cta">
-          <div class="trainerhub-cta-card">
-            <div class="trainerhub-cta-badge">
-              <span class="material-symbols-outlined" aria-hidden="true">neurology</span>
-              <span>居家自主復健實踐</span>
-            </div>
-            <h3 class="trainerhub-cta-title">將臨床復健實證融入日常生活：TrainerHub 居家訓練網</h3>
-            <p class="trainerhub-cta-desc">
-              專為神經動作、視覺注意力與認知功能設計的互動式數位復能工具。免安裝、隨開隨練，讓中風復健、視野訓練與日常認知練習在家也能持續進行。
-            </p>
-            <div class="trainerhub-cta-actions">
-              <a href="https://trainerhub.cc" class="button-primary trainerhub-cta-btn" target="_blank" rel="noopener" title="前往 TrainerHub 居家復健訓練網">
-                前往 TrainerHub 居家訓練網
-                <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="article-bottom-actions">
-          <a href="/blog" class="button-secondary">
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-            返回所有專業專題列表
-          </a>
-        </div>"""
+def get_cluster_articles(art, all_articles):
+    return sorted(
+        [candidate for candidate in all_articles
+         if candidate['folder'] == art['folder'] and candidate['cluster'] == art['cluster']],
+        key=lambda candidate: candidate['order'],
+    )
+
+
+def render_prev_next_navigation(art, all_articles):
+    cluster_articles = get_cluster_articles(art, all_articles)
+    current_index = next(
+        index for index, candidate in enumerate(cluster_articles)
+        if candidate['new_filename'] == art['new_filename']
+    )
+    neighbors = (
+        ('prev', '上一篇', 'arrow_back', cluster_articles[current_index - 1] if current_index > 0 else None,
+         '已是本系列首篇'),
+        ('next', '下一篇', 'arrow_forward',
+         cluster_articles[current_index + 1] if current_index + 1 < len(cluster_articles) else None,
+         '已是本系列末篇'),
+    )
+    cards = []
+    for direction, label, icon, article, boundary in neighbors:
+        card_class = f'prev-next-card prev-next-card--{direction}'
+        if article:
+            href = f"/content/{article['folder']}/{quote(article['new_filename'])}"
+            opening = f'<a class="{card_class}" href="{href}" rel="{direction}">'
+            title = article['title']
+            closing = '</a>'
+        else:
+            opening = f'<div class="{card_class} is-disabled" aria-disabled="true">'
+            title = boundary
+            closing = '</div>'
+        cards.append(
+            f'{opening}<span class="prev-next-label">'
+            f'<span class="material-symbols-outlined" aria-hidden="true">{icon}</span>{label}</span>'
+            f'<span class="prev-next-title">{escape(title)}</span>{closing}'
+        )
+    return '<nav class="prev-next-nav" aria-label="系列文章導覽">' + ''.join(cards) + '</nav>'
 
 
 def sync_article_source(soup, art, all_articles=None):
@@ -1315,374 +587,30 @@ def sync_article_source(soup, art, all_articles=None):
         script.string = json.dumps(data, ensure_ascii=False)
 
     if all_articles:
-        cluster_articles = sorted(
-            [
-                candidate
-                for candidate in all_articles
-                if candidate['folder'] == art['folder']
-                and candidate['cluster'] == art['cluster']
-            ],
-            key=lambda candidate: candidate['order'],
-        )
-        current_index = next(
-            (
-                index
-                for index, candidate in enumerate(cluster_articles)
-                if candidate['new_filename'] == art['new_filename']
-            ),
-            -1,
-        )
-        prev_article = (
-            cluster_articles[current_index - 1] if current_index > 0 else None
-        )
-        next_article = (
-            cluster_articles[current_index + 1]
-            if current_index >= 0 and current_index < len(cluster_articles) - 1
-            else None
-        )
-        prev_next = soup.find('nav', class_='prev-next-nav')
-        if not prev_next:
-            container = soup.find('div', class_='article-container')
+        navigation = BeautifulSoup(render_prev_next_navigation(art, all_articles), 'html.parser').nav
+        existing = soup.select('.prev-next-nav')
+        if existing:
+            existing[0].replace_with(navigation)
+            for duplicate in existing[1:]:
+                duplicate.decompose()
+        else:
+            container = soup.find(class_='article-container')
             if container:
-                prev_next = soup.new_tag('nav', attrs={'class': 'prev-next-nav', 'aria-label': '相關文章'})
-                container.append(prev_next)
-        if prev_next:
-            prev_next.clear()
-            for label, article in (
-                (f"上一篇：", prev_article),
-                (f"下一篇：", next_article),
-            ):
-                if article:
-                    link = soup.new_tag(
-                        'a',
-                        href=f"{SITE_BASE_URL}/content/{article['folder']}/{quote(article['new_filename'])}",
-                    )
-                    link.string = label + article['title']
-                    prev_next.append(link)
+                bottom_actions = container.select_one('.article-trainerhub-cta, .article-bottom-actions')
+                if bottom_actions:
+                    bottom_actions.insert_before(navigation)
+                else:
+                    container.append(navigation)
 
-
-def update_article_head_and_styles(target_file: Path, art: dict = None, all_articles=None):
-    content = target_file.read_text(encoding='utf-8')
-    orig_content = content
-    
-    # Ensure Blogger inline style block is present
-    if '<style>.ot-blog-article' not in content:
-        ref_file = CONTENT_DIR / 'MotorRehab' / '015_動作復健_吞嚥與營養.html'
-        if ref_file.exists():
-            ref_content = ref_file.read_text(encoding='utf-8')
-            m = re.search(r'(<!-- Blogger.*?<\/style>)', ref_content, re.DOTALL)
-            if m:
-                blogger_style = m.group(1)
-                content = content.replace('<article class="ot-blog-article"', blogger_style + '\n<article class="ot-blog-article"', 1)
-
-    # 1. Stylesheet link: href="../style.css" -> href="../../css/style.css"
-    content = re.sub(
-        r'<link\s+rel="stylesheet"\s+href="\.\./style\.css">',
-        r'<link rel="stylesheet" href="../../css/style.css">',
-        content
-    )
-    content = re.sub(
-        r'<link\s+href="\.\./style\.css"\s+rel="stylesheet">',
-        r'<link rel="stylesheet" href="../../css/style.css">',
-        content
-    )
-
-    # Favicons in <head>
-    if 'rel="icon"' not in content:
-        favicons = """<link rel="icon" type="image/svg+xml" href="../../icons/icon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
-"""
-        content = content.replace('<link rel="stylesheet"', favicons + '<link rel="stylesheet"', 1)
-
-    # Early theme bootstrap script in <head> to prevent theme flickering
-    if 'prefers-color-scheme' not in content:
-        theme_init_script = """<script>
-(function(){
-  var t = localStorage.getItem("theme");
-  if (t === "dark" || t === "light") {
-    document.documentElement.setAttribute("data-theme", t);
-  } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }
-})();
-</script>
-"""
-        content = content.replace('</head>', theme_init_script + '</head>', 1)
-    
-    # 2. Reference links in <style> - remove underline
-    old_css_rule = """.ot-blog-article .article-references a {
-  color: var(--primary);
-  text-decoration: underline;
-  word-break: break-all;
-}"""
-    new_css_rule = """.ot-blog-article .article-references a {
-  color: var(--primary);
-  text-decoration: none;
-  word-break: break-all;
-}
-.ot-blog-article .article-references a:hover {
-  text-decoration: none;
-  color: var(--primary-strong);
-}"""
-    if old_css_rule in content:
-        content = content.replace(old_css_rule, new_css_rule)
-    else:
-        content = re.sub(
-            r'\.ot-blog-article\s+\.article-references\s+a\s*\{[^}]*text-decoration:\s*underline;[^}]*\}',
-            new_css_rule,
-            content
-        )
-
-    # In-text superscript citation links - remove underline if any
-    old_cite = ".ot-blog-article .source-citation {font-size:0.73em;line-height:1.6;vertical-align:baseline;}"
-    new_cite = ".ot-blog-article .source-citation {font-size:0.73em;line-height:1.6;vertical-align:baseline;}\n.ot-blog-article .source-citation a {text-decoration:none;}"
-    if old_cite in content and new_cite not in content:
-        content = content.replace(old_cite, new_cite)
-
-    # 3. Font and typography enhancements in <style>
-    # Replace Lexend with "Noto Sans TC"
-    content = content.replace('Lexend, "Noto Sans TC", sans-serif;', '"Noto Sans TC", sans-serif;')
-    content = content.replace('Lexend, sans-serif;', '"Noto Sans TC", sans-serif;')
-    content = content.replace('Lexend;', '"Noto Sans TC", sans-serif;')
-    content = re.sub(r'\bLexend\b', '"Noto Sans TC"', content)
-
-    # Enhance font-weight of article body to 500
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-body-content\s*\{[^}]*?color:\s*var\(--ink\);)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-body-content\s+p\s*\{[^}]*?line-height:\s*1\.85;)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-body-content\s+li\s*\{[^}]*?margin-bottom:\s*10px;)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-body-content\s+ul,\s*\.ot-blog-article\s+\.article-body-content\s+ol\s*\{[^}]*?line-height:\s*1\.8;)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-    # Enhance strong/b to 800
-    content = re.sub(
-        r'\.ot-blog-article\s+\.article-body-content\s+strong\s*\{\s*color:\s*var\(--ink\);\s*\}',
-        '.ot-blog-article .article-body-content strong,\n.ot-blog-article .article-body-content b {\n  color: var(--ink);\n  font-weight: 800;\n}',
-        content
-    )
-    # Lead box p to font-weight: 600
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-lead-box\s+p\s*\{[^}]*?color:\s*var\(--ink\);)\s*font-weight:\s*500;',
-        r'\1\n  font-weight: 600;',
-        content
-    )
-    # Lead box title to font-weight: 800
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-lead-box-title\s*\{[^}]*?)font-weight:\s*700;',
-        r'\1font-weight: 800;',
-        content
-    )
-    # Table th/td font-weight
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-table\s+td\s*\{[^}]*?color:\s*var\(--ink\);)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-    # References ol/li font-weight
-    content = re.sub(
-        r'(\.ot-blog-article\s+\.article-references\s+ol\s*\{[^}]*?color:\s*var\(--muted\);)(?!\s*font-weight)',
-        r'\1\n  font-weight: 500;',
-        content
-    )
-
-    # 3. Unhide breadcrumbs and prev-next navigation in <style>
-    content = re.sub(
-        r'\.ot-blog-article\s+\.breadcrumb-trail,\s*\.ot-blog-article\s+\.prev-next-nav\s*\{\s*display:\s*none;\s*\}',
-        '.ot-blog-article .breadcrumb-trail, .ot-blog-article .prev-next-nav { display: flex; }',
-        content
-    )
-
-    # 3b. Update article-container max-width to 100dvw
-    content = re.sub(
-        r'(\.article-container\s*\{[^}]*?max-width:\s*)880px',
-        r'\g<1>100dvw',
-        content
-    )
-
-    # 4. Synchronize editorial copy and all page metadata before adding E-E-A-T signals.
-    soup = BeautifulSoup(content, 'html.parser')
-    sync_article_source(soup, art, all_articles)
-    content = str(soup)
-    soup = BeautifulSoup(content, 'html.parser')
-
-    # 5. JSON-LD E-E-A-T signals
-    s = soup.find('script', type='application/ld+json')
-    if s and s.string:
-        data = json.loads(s.string)
-        graph = data.get('@graph', [data])
-        for node in graph:
-            types = node.get('@type', [])
-            if isinstance(types, str):
-                types = [types]
-            if 'Article' in types:
-                if 'publisher' not in node:
-                    node['publisher'] = {
-                        "@type": "Person",
-                        "name": "蔡泓恩",
-                        "url": "https://ian030590.trainerhub.cc/"
-                    }
-                author = node.get('author')
-                if isinstance(author, dict):
-                    if 'sameAs' not in author:
-                        author['sameAs'] = [
-                            "https://github.com/ian030590",
-                            "https://trainerhub.cc"
-                        ]
-                    if 'knowsAbout' not in author:
-                        author['knowsAbout'] = [
-                            "職能治療", "神經復健", "視覺復健", "低視能評估", "數位醫療", "AI系統架構"
-                        ]
-                    if 'alumniOf' not in author:
-                        author['alumniOf'] = {
-                            "@type": "CollegeOrUniversity",
-                            "name": "國立臺灣大學"
-                        }
-        
-        formatted_json = json.dumps(data, ensure_ascii=False)
-        content = re.sub(
-            r'<script type="application/ld\+json">.*?</script>',
-            f'<script type="application/ld+json">{formatted_json}</script>',
-            content,
-            flags=re.DOTALL
-        )
-
-    # 6. Navbar (<header class="site-header">) and main layout wrapper
-    if '<header class="site-header">' not in content:
-        content = re.sub(
-            r'<body([^>]*)>',
-            r'<body\1>\n    ' + ARTICLE_SITE_HEADER_HTML + '\n    <main class="page-main article-page-layout">\n      <div class="container">',
-            content
-        )
-    else:
-        # Synchronize header to include TrainerHub link
-        content = re.sub(
-            r'<header class="site-header">.*?</header>',
-            ARTICLE_SITE_HEADER_HTML,
-            content,
-            flags=re.DOTALL
-        )
-
-    # 7. Top Bar: Back button ("返回上一頁") + Breadcrumb navigation
-    title = ''
-    cat_name = '專業文章'
-    if art:
-        title = art.get('title', '')
-        cat_name = art.get('cat_name', '專業文章')
-    if not title:
-        h1 = soup.find('h1', class_='article-title') or soup.find('h1')
-        title = h1.get_text().strip() if h1 else ''
-
-    encoded_cat = quote(cat_name)
-    top_nav = f"""<div class="article-top-nav">
-          <a href="/blog" class="article-back-link" onclick="if(history.length>1){{history.back();return false;}}" aria-label="返回上一頁">
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-            <span>返回上一頁</span>
-          </a>
-          <nav class="breadcrumb-trail" aria-label="文章路徑導覽">
-            <a href="/">首頁</a>
-            <span class="breadcrumb-separator" aria-hidden="true">/</span>
-            <a href="/blog">專業文章</a>
-            <span class="breadcrumb-separator" aria-hidden="true">/</span>
-            <a href="/blog?tag={encoded_cat}">{cat_name}</a>
-            <span class="breadcrumb-separator" aria-hidden="true">/</span>
-            <span class="breadcrumb-current" aria-current="page">{title}</span>
-          </nav>
-        </div>"""
-
-    if '<div class="article-top-nav">' in content:
-        content = re.sub(
-            r'<div class="article-top-nav">.*?</div>\s*(?=<header)',
-            top_nav + '\n        ',
-            content,
-            flags=re.DOTALL
-        )
-    else:
-        content = re.sub(
-            r'<nav class="breadcrumb-trail"[^>]*>.*?</nav>',
-            top_nav,
-            content,
-            flags=re.DOTALL
-        )
-
-    # 8. Bottom actions: TrainerHub CTA + Back to all articles button
-    if '<div class="article-trainerhub-cta">' in content:
-        content = re.sub(
-            r'<div class="article-trainerhub-cta">.*?</div>\s*<div class="article-bottom-actions">.*?</div>',
-            ARTICLE_BOTTOM_ACTIONS_HTML,
-            content,
-            flags=re.DOTALL
-        )
-    elif '<div class="article-bottom-actions">' in content:
-        content = re.sub(
-            r'<div class="article-bottom-actions">.*?</div>',
-            ARTICLE_BOTTOM_ACTIONS_HTML,
-            content,
-            flags=re.DOTALL
-        )
-    else:
-        content = re.sub(
-            r'(</nav>)(\s*</div>\s*</article>)',
-            r'\1\n        ' + ARTICLE_BOTTOM_ACTIONS_HTML + r'\2',
-            content
-        )
-
-    # 9. Close main layout and insert footer + scripts
-    if '<footer class="site-footer">' not in content:
-        content = re.sub(
-            r'(</article>\s*)(?=</body>)',
-            r'\1      </div>\n    </main>\n    ' + ARTICLE_SITE_FOOTER_HTML + '\n',
-            content
-        )
-    else:
-        content = re.sub(
-            r'<footer class="site-footer">.*?</footer>',
-            ARTICLE_SITE_FOOTER_HTML,
-            content,
-            flags=re.DOTALL
-        )
-    # Clean all script tags for animate-icons and main.js, then add single clean pair
-    bs_clean = BeautifulSoup(content, 'html.parser')
-    for sc in bs_clean.find_all('script', src=lambda s: s and ('animate-icons' in s or 'main.js' in s)):
-        sc.decompose()
-    content = str(bs_clean)
-    content = re.sub(
-        r'\s*</body>',
-        r'\n    <script src="../../js/animate-icons.js"></script>\n    <script src="../../js/main.js"></script>\n  </body>',
-        content
-    )
-
-    if content != orig_content:
-        target_file.write_text(content, encoding='utf-8')
-        return True
-    return False
 
 def normalize_terminology(text):
     """Normalize clinical and assistive technology terminology according to content/README.md."""
     if not text:
         return text
-    # 1. 電子助視器 -> 電子擴視機
     text = text.replace('電子助視器', '電子擴視機')
-    # 2. 智慧頭顯 / 頭顯 -> 頭戴式顯示器
     text = text.replace('智慧頭顯', '頭戴式顯示器')
     text = text.replace('頭顯', '頭戴式顯示器')
-    # 3. 低視力 -> 低視能
     text = text.replace('低視力', '低視能')
-    # 4. 黃斑旁預覽視窗 -> 中央凹旁預視視窗
     text = text.replace('黃斑旁預覽視窗', '中央凹旁預視視窗')
     return text
 
@@ -1705,11 +633,9 @@ def extract_article_schema(soup):
 
 def clean_inner_body(soup_body):
     """Clean up inline styles from body elements to make them adapt to light/dark themes."""
-    # Convert tables
     for table in soup_body.find_all('table'):
         table['class'] = ['article-table']
         table.attrs.pop('style', None)
-        # Wrap table in table-wrapper if not already wrapped
         if not table.parent or 'table-wrapper' not in table.parent.get('class', []):
             wrapper = soup_body.new_tag('div', **{'class': 'table-wrapper'})
             table.wrap(wrapper)
@@ -1721,17 +647,14 @@ def clean_inner_body(soup_body):
     for tr in soup_body.find_all('tr'):
         tr.attrs.pop('style', None)
         
-    # Convert headings
     for h in soup_body.find_all(['h1', 'h2', 'h3', 'h4']):
         h.attrs.pop('style', None)
         
-    # Convert paragraphs and lists
     for p in soup_body.find_all('p'):
         p.attrs.pop('style', None)
     for ul in soup_body.find_all(['ul', 'ol', 'li']):
         ul.attrs.pop('style', None)
         
-    # Convert callouts
     for div in soup_body.find_all('div'):
         style = div.get('style', '').lower()
         if 'fff5f5' in style or 'e53e3e' in style: # warning
@@ -1750,7 +673,6 @@ def clean_inner_body(soup_body):
             div['class'] = ['code-terminal-block']
             div.attrs.pop('style', None)
             
-    # Clean up spans with hardcoded color
     for span in soup_body.find_all('span'):
         style = span.get('style', '').lower()
         if 'background' in style:
@@ -1848,6 +770,7 @@ for i in range(20, 23):
 ARTICLE_TAG_MAP["VisualRehab_013"] = ["視覺復健", "動作復健"]
 ARTICLE_TAG_MAP["VisualRehab_025"] = ["視覺復健", "AI應用"]
 ARTICLE_TAG_MAP["VisualRehab_028"] = ["視覺復健", "動作復健"]
+ARTICLE_TAG_MAP["VisualRehab_030"] = ["視覺復健", "動作復健"]
 
 def collect_article_metadata():
     folders = [
@@ -1859,16 +782,9 @@ def collect_article_metadata():
 
     for folder, cat_name, cat_badge, cat_slug in folders:
         folder_path = CONTENT_DIR / folder
-        # Auto-resolve or remove any cloud sync conflict files
-        for cf in list(folder_path.glob('*conflicted*')):
-            clean_cf_name = re.sub(r'\s*[\(\[]conflicted.*?[\)\]]', '', cf.name)
-            target = folder_path / clean_cf_name
-            if not target.exists():
-                print(f"Auto-resolving conflicted file: {cf.name} -> {clean_cf_name}")
-                cf.rename(target)
-            else:
-                print(f"Removing redundant conflicted file: {cf.name}")
-                cf.unlink()
+        conflicted = list(folder_path.glob('*conflicted*'))
+        if conflicted:
+            raise RuntimeError(f'Cloud sync conflict files require manual resolution: {conflicted}')
 
         files = sorted([f for f in folder_path.glob('*.html') if '[conflicted' not in f.name])
         for f in files:
@@ -1876,7 +792,6 @@ def collect_article_metadata():
             soup = BeautifulSoup(content, 'html.parser')
             source_schema = extract_article_schema(soup)
             
-            # Identify mapping
             if folder == 'DigitalLearning':
                 if f.name in DL_MAPPING:
                     new_filename, short_topic, cluster, order, sub_cluster = DL_MAPPING[f.name]
@@ -1908,7 +823,10 @@ def collect_article_metadata():
                     if folder == 'CognitRehab':
                         sub_cluster = '認知與溝通' if order <= 6 else '心理、轉銜與社會參與'
                     elif folder == 'VisualRehab':
-                        if order >= 23:
+                        if order >= 30:
+                            cluster = '周邊前庭低功能與凝視穩定訓練'
+                            sub_cluster = '2022 ANPT 前庭復健臨床實務指引'
+                        elif order >= 23:
                             cluster = '低視能復健指引與實踐專題'
                             sub_cluster = 'Whittaker 臨床指引與實踐'
                         else:
@@ -1956,7 +874,6 @@ def collect_article_metadata():
             art_key = f"{folder}_{order:03d}"
             editorial_copy = HUMANIZED_ARTICLE_COPY.get(art_key)
 
-            # 1. Title
             h1 = soup.find('h1')
             title = h1.get_text().strip() if h1 else ''
             if not title and soup.title:
@@ -1965,7 +882,7 @@ def collect_article_metadata():
             if editorial_copy:
                 title = normalize_terminology(editorial_copy['title'])
                 
-            # 2. Precise Tags & Publish Date (Interleaved, monotonic, latest is VT_020)
+            # Publish dates interleave the series; VT_020 stays the latest.
             header = soup.find('header')
             spans = [s.get_text().strip() for s in header.find_all('span')] if header else []
             
@@ -1981,7 +898,6 @@ def collect_article_metadata():
             if len(date_modified) == 10:
                 date_modified += 'T08:00:00+08:00'
                 
-            # 3. Read time
             read_time = '約 5 分鐘閱讀'
             for s in spans:
                 m = re.search(r'([0-9]+)\s*分鐘', s)
@@ -1989,7 +905,6 @@ def collect_article_metadata():
                     read_time = f'約 {m.group(1)} 分鐘閱讀'
                     break
                     
-            # 4. Image
             fig = soup.find('figure')
             img = fig.find('img') if fig else soup.find('img')
             caption = fig.find('figcaption').get_text().strip() if fig and fig.find('figcaption') else ''
@@ -2005,7 +920,7 @@ def collect_article_metadata():
                 img_src = img['src'] if img and img.has_attr('src') else ''
                 if 'files.catbox.moe' in img_src:
                     img_src = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80'
-            if folder in ADDITIONAL_CONTENT_FOLDERS and not img_src.startswith('https://images.unsplash.com/'):
+            if folder in ADDITIONAL_CONTENT_FOLDERS and not (img_src.startswith('https://images.unsplash.com/') or img_src.startswith('https://plus.unsplash.com/')):
                 if folder == 'DigitLearn':
                     img_src = DL_IMAGES[(order - 1) % len(DL_IMAGES)]
                 elif folder == 'VisualRehab':
@@ -2013,7 +928,6 @@ def collect_article_metadata():
                 else:
                     img_src = OT_IMAGES[(order - 1) % len(OT_IMAGES) + 1]
 
-            # 5. Executive Summary
             summary = ''
             lead_box = soup.find('div', class_='article-lead-box')
             if lead_box and lead_box.find('p'):
@@ -2040,7 +954,6 @@ def collect_article_metadata():
             if editorial_copy:
                 summary = normalize_terminology(editorial_copy['summary'])
                 
-            # 6. References
             ref_sec = soup.find(['section', 'footer'], class_=lambda c: c and 'reference' in c) or soup.find('footer') or soup.find('section', {'aria-label': lambda x: x and '參考' in x})
             citations = []
             if ref_sec:
@@ -2055,7 +968,6 @@ def collect_article_metadata():
                         cit_url = ''
                         cit_text = cit_text.removeprefix('本資料夾收錄之 ')
                     
-                    # Apply broken DOI fixes
                     for old_doi, (new_doi, new_text) in BROKEN_DOI_FIXES.items():
                         if old_doi in cit_url or old_doi in cit_text:
                             cit_url = new_doi
@@ -2072,7 +984,6 @@ def collect_article_metadata():
                     if citation not in citations:
                         citations.append(citation)
                     
-            # 7. Raw body content
             if folder == 'DigitalLearning':
                 news_article = soup.find('div', class_='news-article')
                 if news_article:
@@ -2163,21 +1074,8 @@ def build_article_html(art, all_articles):
     canonical_url = f"{SITE_BASE_URL}/content/{folder}/{quote(new_filename)}"
     web_page_path = f"/content/{folder}/{new_filename}"
     
-    # Filter articles in same cluster for cluster navigation
-    cluster_articles = [a for a in all_articles if a['folder'] == folder and a['cluster'] == cluster_name]
-    cluster_articles.sort(key=lambda x: x['order'])
+    cluster_articles = get_cluster_articles(art, all_articles)
     
-    # Current index in cluster
-    curr_idx = -1
-    for idx, ca in enumerate(cluster_articles):
-        if ca['new_filename'] == new_filename:
-            curr_idx = idx
-            break
-            
-    prev_article = cluster_articles[curr_idx - 1] if curr_idx > 0 else None
-    next_article = cluster_articles[curr_idx + 1] if curr_idx < len(cluster_articles) - 1 else None
-    
-    # Schema.org JSON-LD
     schema_type = "TechArticle" if folder in ("DigitalLearning", "DigitLearn") else "MedicalScholarlyArticle"
     citations_json = [c['text'] for c in art['citations'] if c['text']]
     
@@ -2252,7 +1150,6 @@ def build_article_html(art, all_articles):
         ]
     }
     
-    # Render Cluster items
     cluster_items_html = []
     for ca in cluster_articles:
         is_active = (ca['new_filename'] == new_filename)
@@ -2270,40 +1167,8 @@ def build_article_html(art, all_articles):
         
     cluster_list_rendered = '\n'.join(cluster_items_html)
     
-    # Prev Next Navigation
-    prev_html = ""
-    if prev_article:
-        prev_html = f"""
-        <a href="./{prev_article['new_filename']}" class="prev-next-card">
-          <span class="prev-next-label">
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-            上一篇（第 {prev_article['order']:03d} 講）
-          </span>
-          <span class="prev-next-title">{prev_article['title']}</span>
-        </a>"""
-    else:
-        prev_html = """<div class="prev-next-card" style="opacity: 0.5; cursor: default;">
-          <span class="prev-next-label">已是專題首篇</span>
-          <span class="prev-next-title">沒有上一篇了</span>
-        </div>"""
-        
-    next_html = ""
-    if next_article:
-        next_html = f"""
-        <a href="./{next_article['new_filename']}" class="prev-next-card" style="text-align: right; align-items: flex-end;">
-          <span class="prev-next-label">
-            下一篇（第 {next_article['order']:03d} 講）
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-          </span>
-          <span class="prev-next-title">{next_article['title']}</span>
-        </a>"""
-    else:
-        next_html = """<div class="prev-next-card" style="opacity: 0.5; cursor: default; text-align: right; align-items: flex-end;">
-          <span class="prev-next-label">已是專題最新篇</span>
-          <span class="prev-next-title">敬請期待後續更新</span>
-        </div>"""
+    prev_next_html = render_prev_next_navigation(art, all_articles)
 
-    # References HTML
     refs_html = ""
     if art['citations']:
         ref_items = []
@@ -2321,10 +1186,8 @@ def build_article_html(art, all_articles):
         </section>
         """
 
-    # Clean body
     cleaned_body = clean_inner_body(BeautifulSoup(art['raw_body'], 'html.parser'))
     
-    # Featured image
     figure_html = ""
     if art['img_src']:
         figure_html = f"""
@@ -2334,13 +1197,13 @@ def build_article_html(art, all_articles):
         </figure>
         """
 
-    # Published date formatted
     date_str = art['date_published'][:10]
     date_html = f'<time datetime="{art["date_published"]}">{date_str}</time>' if folder in ADDITIONAL_CONTENT_FOLDERS else date_str
     
-    # Evidence badge
     if folder == 'OccupationalTherapy':
         evidence_note = '2026 AHA/ASA 臨床指引實證'
+    elif folder == 'VisualRehab' and art['order'] >= 30:
+        evidence_note = '2022 ANPT 前庭復健臨床實務指引'
     elif folder == 'VisualTherapy' or (folder == 'VisualRehab' and art['order'] <= 19):
         evidence_note = '2023 AAO PPP 臨床指引實證'
     elif folder in ('DigitalLearning', 'DigitLearn'):
@@ -2352,7 +1215,6 @@ def build_article_html(art, all_articles):
     else:
         evidence_note = '2026 AHA/ASA 臨床指引實證'
 
-    # Tag badges HTML
     tag_badges_html = '\n'.join([
         f'              <a href="/blog?tag={quote(t)}" class="article-badge" title="查看「{t}」相關文章">{t}</a>'
         for t in art['tags']
@@ -2523,10 +1385,7 @@ def build_article_html(art, all_articles):
           </nav>
 
           <!-- Prev & Next Article Navigation -->
-          <div class="prev-next-nav">
-            {prev_html}
-            {next_html}
-          </div>
+          {prev_next_html}
 
           <!-- TrainerHub CTA & Back to Blog Navigation -->
           <div class="article-trainerhub-cta">
@@ -2586,7 +1445,17 @@ def build_article_html(art, all_articles):
 </html>"""
     return full_html
 
-def generate_sitemap(all_articles):
+def article_public_url(art):
+    """Return the URL Cloudflare Workers static assets serve with 200.
+
+    Workers answer `/x.html` with a redirect to `/x`, and search engines skip
+    redirecting URLs in sitemaps and feeds, so these list the final URL.
+    """
+    stem = art['new_filename'].removesuffix('.html')
+    return f"{SITE_BASE_URL}/content/{art['folder']}/{quote(stem)}"
+
+
+def generate_sitemap(all_articles, output_dir=None):
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -2598,24 +1467,21 @@ def generate_sitemap(all_articles):
     ]
     
     for art in all_articles:
-        folder = art['folder']
-        filename = art['new_filename']
-        encoded_url = f"{SITE_BASE_URL}/content/{folder}/{quote(filename)}"
+        encoded_url = article_public_url(art)
         lastmod = art['date_modified'][:10]
         lines.append(f'  <url><loc>{encoded_url}</loc><lastmod>{lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>')
         
     lines.append('</urlset>\n')
     sitemap_content = '\n'.join(lines)
-    SITEMAP_FILE.write_text(sitemap_content, encoding='utf-8')
-    print(f'Sitemap written to {SITEMAP_FILE} ({len(all_articles) + 5} URLs)')
+    target = Path(output_dir) / 'sitemap.xml' if output_dir else SITEMAP_FILE
+    target.write_text(sitemap_content, encoding='utf-8')
+    print(f'Sitemap written to {target} ({len(all_articles) + 5} URLs)')
 
-def generate_rss(all_articles):
+def generate_rss(all_articles, output_dir=None):
     sorted_articles = sorted(all_articles, key=lambda art: art['date_published'], reverse=True)
     rss_items = []
     for art in sorted_articles:
-        folder = art['folder']
-        filename = art['new_filename']
-        encoded_url = f"{SITE_BASE_URL}/content/{folder}/{quote(filename)}"
+        encoded_url = article_public_url(art)
         try:
             dt = datetime.fromisoformat(art['date_published'])
             pub_date_str = dt.strftime('%a, %d %b %Y %H:%M:%S +0800')
@@ -2646,11 +1512,11 @@ def generate_rss(all_articles):
   </channel>
 </rss>
 """
-    rss_file = BASE_DIR / 'rss.xml'
+    rss_file = Path(output_dir or BASE_DIR) / 'rss.xml'
     rss_file.write_text(rss_content, encoding='utf-8')
     print(f'RSS feed written to {rss_file} ({len(sorted_articles)} items)')
 
-def generate_articles_data(all_articles):
+def generate_articles_data(all_articles, output_dir=None):
     catalog = []
     for art in all_articles:
         catalog.append({
@@ -2674,54 +1540,51 @@ def generate_articles_data(all_articles):
     js_code = f"""// Generated static articles catalog (No Blogger dependencies)
 window.__STATIC_ARTICLES__ = {json.dumps(catalog, ensure_ascii=False, indent=2)};
 """
-    ARTICLES_DATA_FILE.write_text(js_code, encoding='utf-8')
-    print(f'Articles data written to {ARTICLES_DATA_FILE} ({len(catalog)} articles)')
+    target = Path(output_dir) / 'js' / 'articles-data.js' if output_dir else ARTICLES_DATA_FILE
+    target.write_text(js_code, encoding='utf-8')
+    print(f'Articles data written to {target} ({len(catalog)} articles)')
+    return catalog
 
-def generate_blog_static_links(all_articles):
-    """Put real article links in blog.html; main.js enhances this list with filtering."""
-    sorted_articles = sorted(all_articles, key=lambda art: art['date_published'], reverse=True)
-    cards = []
-    for index, art in enumerate(sorted_articles):
-        featured = index == 0
-        tags = ''.join(
-            f'<span class="card-tag-pill{ " blue" if tag_index % 2 else "" }">{escape(tag)}</span>'
-            for tag_index, tag in enumerate(art['tags'])
-        )
-        image = ''
-        if art['img_src']:
-            badge = '                  <span class="featured-badge">最新專題</span>\n' if featured else ''
-            image = f'''                <div class="article-visual">
-                  <img src="{escape(art['img_src'])}" alt="{escape(art['title'])}" loading="lazy" />
-{badge}                </div>
-'''
-        cards.append(f'''              <article class="article-card{' article-card--featured' if featured else ''}">
-                <a class="card-link" href="/content/{escape(art['folder'])}/{escape(art['new_filename'])}">
-{image}                  <div class="article-content">
-                    <div class="card-tags-row">{tags}</div>
-                    <h2 class="article-title">{escape(art['title'])}</h2>
-                    <div class="article-meta"><time datetime="{escape(art['date_published'])}">{escape(art['date_published'][:10])}</time></div>
-                    <p class="article-excerpt">{escape(art['summary'][:160])}</p>
-                    <div class="article-footer"><span class="source-kicker">{escape(art['cat_name'])}</span><span class="read-more-link">閱讀全文</span></div>
-                  </div>
-                </a>
-              </article>''')
+def validate_article_navigation(soup, art, all_articles):
+    navigation = soup.select('.prev-next-nav')
+    expected = BeautifulSoup(render_prev_next_navigation(art, all_articles), 'html.parser').nav
+    if len(navigation) != 1 or navigation[0] != expected:
+        raise RuntimeError(f"Inconsistent series navigation: {art['folder']}/{art['new_filename']}")
 
-    html = BLOG_HTML_FILE.read_text(encoding='utf-8')
-    start = '<!-- STATIC_ARTICLE_LIST_START -->'
-    end = '<!-- STATIC_ARTICLE_LIST_END -->'
-    replacement = f'''{start}
-              <div class="articles-grid">
-{chr(10).join(cards)}
-              </div>
-              {end}'''
-    html, replacements = re.subn(f'{re.escape(start)}.*?{re.escape(end)}', replacement, html, flags=re.DOTALL)
-    if replacements != 1:
-        raise RuntimeError('blog.html static article markers are missing or duplicated')
-    BLOG_HTML_FILE.write_text(html, encoding='utf-8')
-    print(f'Blog fallback written to {BLOG_HTML_FILE} ({len(cards)} direct article links)')
+
+def validate_internal_link(source_file, href, page_soups):
+    source_url = f"{SITE_BASE_URL}/{source_file.relative_to(BASE_DIR).as_posix()}"
+    url = urllib.parse.urlsplit(urllib.parse.urljoin(source_url, href))
+    if url.scheme not in ('http', 'https') or url.netloc != urllib.parse.urlsplit(SITE_BASE_URL).netloc:
+        return None
+
+    target = BASE_DIR / unquote(url.path).lstrip('/')
+    if target.is_dir():
+        target /= 'index.html'
+    elif not target.suffix:
+        target = target.with_suffix('.html')
+    if not target.is_file():
+        raise RuntimeError(f'Broken internal link in {source_file.relative_to(BASE_DIR)}: {href}')
+
+    if url.fragment and target.suffix == '.html':
+        if target not in page_soups:
+            page_soups[target] = BeautifulSoup(target.read_text(encoding='utf-8'), 'html.parser')
+        target_soup = page_soups[target]
+        fragment = unquote(url.fragment)
+        if not (target_soup.find(id=fragment) or target_soup.find('a', attrs={'name': fragment})):
+            raise RuntimeError(f'Broken internal fragment in {source_file.relative_to(BASE_DIR)}: {href}')
+    return target
+
 
 def validate_generated_site(all_articles):
     """Fail the build when generated navigation, metadata, or approved tags drift."""
+    not_found = BASE_DIR / '404.html'
+    if not not_found.is_file():
+        raise RuntimeError('Cloudflare Workers needs 404.html to avoid serving the home page for missing URLs')
+    not_found_soup = BeautifulSoup(not_found.read_text(encoding='utf-8'), 'html.parser')
+    robots = not_found_soup.find('meta', attrs={'name': 'robots'})
+    if not robots or 'noindex' not in {value.strip().lower() for value in robots.get('content', '').split(',')}:
+        raise RuntimeError('The 404 page must be excluded from search indexing')
     approved_tags = {'中風復健', '視覺復健', '動作復健', '認知復健', '數位學習', 'AI應用'}
     additional_articles = [art for art in all_articles if art['folder'] in ADDITIONAL_CONTENT_FOLDERS]
     if len(additional_articles) < 30:
@@ -2736,6 +1599,7 @@ def validate_generated_site(all_articles):
 
         article_file = CONTENT_DIR / art['folder'] / art['new_filename']
         soup = BeautifulSoup(article_file.read_text(encoding='utf-8'), 'html.parser')
+        validate_article_navigation(soup, art, all_articles)
         stylesheet = soup.find('link', rel=lambda value: value and 'stylesheet' in value)
         schema = extract_article_schema(soup)
         if not stylesheet or stylesheet.get('href') != '../../css/style.css':
@@ -2769,12 +1633,11 @@ def validate_generated_site(all_articles):
         if soup.find('a', href=lambda href: href and '../OriginalSources/' in href):
             raise RuntimeError(f'Dead OriginalSources link remains: {article_file}')
 
-    # 1. Zero tolerance for cloud sync conflict files in content/
+    # Cloud-sync conflict copies must never reach the build.
     conflicted_files = list(CONTENT_DIR.rglob('*conflicted*'))
     if conflicted_files:
         raise RuntimeError(f"Cloud sync conflict files detected in content/: {[f.name for f in conflicted_files]}")
 
-    # 2. Strict file existence and filename validity check
     for art in additional_articles:
         fname = art['new_filename']
         if ' ' in fname or '[' in fname or ']' in fname:
@@ -2783,90 +1646,115 @@ def validate_generated_site(all_articles):
         if not article_file.is_file():
             raise RuntimeError(f"Article file does not exist on disk: {article_file}")
 
-    # 3. blog.html internal link integrity check (all links must resolve to files on disk)
-    blog_soup = BeautifulSoup(BLOG_HTML_FILE.read_text(encoding='utf-8'), 'html.parser')
-    for a in blog_soup.find_all('a', href=True):
-        href = a['href']
-        if href.startswith('/content/'):
-            path_part = urllib.parse.unquote(href.split('?')[0].split('#')[0])
-            target_path = BASE_DIR / path_part.lstrip('/')
-            if not target_path.is_file():
-                raise RuntimeError(f"Broken internal link in blog.html: {href} (target {target_path} not found)")
+    # Covers relative paths, clean routes and fragment targets.
+    page_soups = {}
+    internal_link_count = 0
+    for page in sorted(BASE_DIR.glob('*.html')) + sorted(CONTENT_DIR.rglob('*.html')):
+        if page not in page_soups:
+            page_soups[page] = BeautifulSoup(page.read_text(encoding='utf-8'), 'html.parser')
+        for link in page_soups[page].select('a[href], link[href], script[src], img[src]'):
+            href = link.get('href') if link.has_attr('href') else link['src']
+            if validate_internal_link(page, href, page_soups) is not None:
+                internal_link_count += 1
 
-    # 4. articles-data.js link integrity check
     data_content = ARTICLES_DATA_FILE.read_text(encoding='utf-8')
     json_match = re.search(r"window\.__STATIC_ARTICLES__\s*=\s*(\[.*?\]);", data_content, re.DOTALL)
     if not json_match:
         raise RuntimeError("Failed to parse window.__STATIC_ARTICLES__ in articles-data.js")
     articles_data = json.loads(json_match.group(1))
+    expected_links = {f"/content/{art['folder']}/{art['new_filename']}" for art in all_articles}
+    catalog_links = [item.get('link', '') for item in articles_data]
+    if len(catalog_links) != len(expected_links) or set(catalog_links) != expected_links:
+        raise RuntimeError('Article catalog has missing, duplicate or unexpected links')
     for item in articles_data:
-        link = item.get('link', '')
-        if link.startswith('/content/'):
-            path_part = urllib.parse.unquote(link.split('?')[0].split('#')[0])
-            target_path = BASE_DIR / path_part.lstrip('/')
-            if not target_path.is_file():
-                raise RuntimeError(f"Broken link in articles-data.js: {link} (target {target_path} not found)")
+        validate_internal_link(ARTICLES_DATA_FILE, item['link'], page_soups)
+    blog_links = [link['href'] for link in page_soups[BLOG_HTML_FILE].select('.card-link[href]')]
+    first_page_links = [
+        item['link']
+        for item in sorted(articles_data, key=lambda item: item['dateString'], reverse=True)[:15]
+    ]
+    if blog_links != first_page_links:
+        raise RuntimeError('Blog must render the latest 15 articles in catalog order')
 
-    # 5. Every article page internal link integrity check
+    # Sitemap URLs must resolve to real files and include every article.
+    sitemap_links = [node.text for node in ET.parse(SITEMAP_FILE).iterfind('.//{*}loc')]
+    for link in sitemap_links:
+        if validate_internal_link(SITEMAP_FILE, link, page_soups) is None:
+            raise RuntimeError(f'Unexpected external URL in sitemap.xml: {link}')
+    sitemap_paths = {unquote(urllib.parse.urlsplit(link).path) for link in sitemap_links}
+    if any(path.endswith('.html') for path in sitemap_paths):
+        raise RuntimeError('Sitemap lists .html URLs that Cloudflare Workers redirect')
+    if not {link.removesuffix('.html') for link in expected_links}.issubset(sitemap_paths):
+        raise RuntimeError('Sitemap is missing article URLs')
+    # No two articles may share an Unsplash photo.
+    photo_ids = {}
     for art in additional_articles:
-        article_file = CONTENT_DIR / art['folder'] / art['new_filename']
-        soup = BeautifulSoup(article_file.read_text(encoding='utf-8'), 'html.parser')
-        for a in soup.find_all('a', href=True):
-            href = a['href']
-            if href.startswith('/content/'):
-                path_part = urllib.parse.unquote(href.split('?')[0].split('#')[0])
-                target_path = BASE_DIR / path_part.lstrip('/')
-                if not target_path.is_file():
-                    raise RuntimeError(f"Broken link in {article_file.name}: {href} (target {target_path} not found)")
-            elif href.startswith('./'):
-                path_part = urllib.parse.unquote(href[2:].split('?')[0].split('#')[0])
-                target_path = article_file.parent / path_part
-                if not target_path.is_file():
-                    raise RuntimeError(f"Broken relative link in {article_file.name}: {href} (target {target_path} not found)")
+        img_url = art.get('img_src', '')
+        m = re.search(r'photo-([a-zA-Z0-9_-]+)', img_url)
+        pid = m.group(1) if m else img_url
+        if pid in photo_ids:
+            raise RuntimeError(
+                f"Duplicate article image detected! Photo ID '{pid}' is used in both "
+                f"'{photo_ids[pid]}' and '{art['folder']}/{art['new_filename']}'. "
+                f"All articles must have unique, verified images."
+            )
+        photo_ids[pid] = f"{art['folder']}/{art['new_filename']}"
 
-    print(f'Validation passed: {len(additional_articles)} articles have CSS, JSON-LD, navbar, back-link, verified internal links, and zero broken links/conflict files.')
+    print(f'Validation passed: {len(additional_articles)} articles have consistent series navigation, CSS, JSON-LD, navbar, back-link, unique images and zero conflict files. Checked {internal_link_count} internal HTML links, {len(catalog_links)} catalog links and {len(sitemap_links)} sitemap URLs, including fragment targets.')
+
+def prepare_astro_assets(all_articles):
+    """Stage only public assets; published article source files are immutable."""
+    generated = BASE_DIR / '.generated'
+    public = generated / 'public'
+    if generated.resolve() != BASE_DIR.resolve() / '.generated' or public.is_symlink():
+        raise RuntimeError('Generated asset directories must not redirect outside the project')
+    if public.exists():
+        if public.resolve() != BASE_DIR.resolve() / '.generated' / 'public':
+            raise RuntimeError('Refusing to clean assets outside the generated directory')
+        shutil.rmtree(public)
+    public.mkdir(parents=True)
+
+    for directory in ('assets', 'css', 'icons', 'js'):
+        shutil.copytree(BASE_DIR / directory, public / directory,
+                        ignore=shutil.ignore_patterns('articles-data.js', '__pycache__', '*.pyc'))
+    for filename in ('favicon.ico', 'robots.txt', 'llms.txt', '_headers', '_redirects'):
+        shutil.copy2(BASE_DIR / filename, public / filename)
+
+    for art in all_articles:
+        if art['old_filename'] != art['new_filename']:
+            raise RuntimeError(f"Article filename requires manual correction: {art['old_filename']}")
+        relative = Path('content') / art['folder'] / art['new_filename']
+        target = public / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(BASE_DIR / relative, target)
+
+    catalog = generate_articles_data(all_articles, public)
+    (generated / 'articles.json').write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding='utf-8')
+    generate_sitemap(all_articles, public)
+    generate_rss(all_articles, public)
+    print(f'Astro assets prepared: {len(all_articles)} articles copied without modification.')
+
 
 def main():
-    print('1. Updating CSS tokens and article classes in style.css...')
-    update_css()
-    
-    print('2. Collecting metadata and content for all articles...')
+    parser = argparse.ArgumentParser(description='Prepare immutable article assets for Astro, or validate its output.')
+    parser.add_argument('--validate', type=Path, metavar='SITE_DIR', help='Validate the completed Astro build')
+    args = parser.parse_args()
     all_articles = collect_article_metadata()
-    print(f'Collected {len(all_articles)} articles across 4 categories.')
-    
-    print('3. Updating static HTML pages stylesheet, EEAT, and reference styles...')
-    for art in all_articles:
-        folder = art['folder']
-        old_file = CONTENT_DIR / folder / art['old_filename']
-        target_file = CONTENT_DIR / folder / art['new_filename']
-        if old_file != target_file and old_file.exists() and not target_file.exists():
-            old_file.rename(target_file)
-        update_article_head_and_styles(target_file, art, all_articles)
-        
-    print('4. Removing old unrenamed files...')
-    for art in all_articles:
-        folder = art['folder']
-        old_file = CONTENT_DIR / folder / art['old_filename']
-        target_file = CONTENT_DIR / folder / art['new_filename']
-        if old_file != target_file and old_file.exists():
-            old_file.unlink()
-            
-    print('5. Generating articles-data.js for instant static blog rendering...')
-    generate_articles_data(all_articles)
-    
-    print('6. Generating sitemap.xml...')
-    generate_sitemap(all_articles)
-
-    print('6.5. Generating rss.xml...')
-    generate_rss(all_articles)
-
-    print('7. Writing static article links into blog.html...')
-    generate_blog_static_links(all_articles)
-
-    print('8. Validating generated metadata and navigation...')
-    validate_generated_site(all_articles)
-    
-    print('Build completed successfully!')
+    if args.validate:
+        global BASE_DIR, CONTENT_DIR, ARTICLES_DATA_FILE, BLOG_HTML_FILE, SITEMAP_FILE
+        source_root = BASE_DIR
+        BASE_DIR = args.validate.resolve()
+        CONTENT_DIR = BASE_DIR / 'content'
+        ARTICLES_DATA_FILE = BASE_DIR / 'js' / 'articles-data.js'
+        BLOG_HTML_FILE = BASE_DIR / 'blog.html'
+        SITEMAP_FILE = BASE_DIR / 'sitemap.xml'
+        for art in all_articles:
+            relative = Path('content') / art['folder'] / art['new_filename']
+            if (source_root / relative).read_bytes() != (BASE_DIR / relative).read_bytes():
+                raise RuntimeError(f'Published article was modified during the build: {relative}')
+        validate_generated_site(all_articles)
+    else:
+        prepare_astro_assets(all_articles)
 
 if __name__ == '__main__':
     main()

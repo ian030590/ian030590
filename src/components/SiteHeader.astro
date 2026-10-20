@@ -1,0 +1,36 @@
+---
+interface Props { path: string }
+const { path } = Astro.props;
+const links = [
+  { href: '/', label: '首頁' },
+  { href: '/projects', label: '開源專案' },
+  { href: '/blog', label: '專業文章' },
+  { href: '/contact', label: '聯絡我' },
+  { href: '/sponsor', label: '贊助我' },
+];
+---
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/">
+      <img src="/icons/logo.png" alt="蔡泓恩 職能治療師 Logo" class="brand-logo" width="36" height="36" />
+      <span>蔡泓恩 | 職能治療師</span>
+    </a>
+    <nav class="nav-links" aria-label="主要導覽">
+      {links.map(({ href, label }) => (
+        <a class:list={['nav-link', { active: path === href }]} href={href} aria-current={path === href ? 'page' : undefined}>{label}</a>
+      ))}
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="切換深色模式" title="切換深色模式">
+      <span class="material-symbols-outlined icon-dark" aria-hidden="true">dark_mode</span>
+      <span class="material-symbols-outlined icon-light" aria-hidden="true" style="display: none;">light_mode</span>
+    </button>
+    <button class="menu-button" type="button" aria-label="開啟選單" aria-expanded="false" aria-controls="mobile-panel">
+      <span class="animate-icon animate-icon--menu" data-animate-icon="menu" aria-hidden="true"></span>
+    </button>
+  </div>
+  <nav id="mobile-panel" class="mobile-panel" aria-label="行動版導覽">
+    {links.map(({ href, label }) => (
+      <a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a>
+    ))}
+  </nav>
+</header>

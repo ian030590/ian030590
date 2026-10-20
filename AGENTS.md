@@ -1,8 +1,22 @@
 # Agent Instructions & Content Generation Rules
 
+## 文件分工與專案架構
+
+- 原根目錄與 `content/` 下 `GEMINI.md` 的維護規範已整併至本文件，兩個舊檔已刪除。本文件為所有代理人的共用規則來源，避免重複維護。
+- 根目錄 `README.md` 是 GitHub Profile，只呈現個人介紹、公開作品與技術方向。根據 GitHub 實際公開的 repository 與原始文件維護敘述，明確標註封存作品；不得放入專案維護規則、安裝步驟或部署設定。
+- 網站開發、建置及 Cloudflare Workers 部署操作統一記錄於 [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)。文章規範詳見 [content/README.md](content/README.md)。
+- 網站使用 Astro 靜態建置。主要頁面為 `src/pages/*.astro`，共用元件與版型位於 `src/components/`、`src/layouts/`；既有文章 HTML 保留在 `content/`，不得為框架遷移改寫舊文章。
+- `python build_static_articles.py` 只讀取文章，將原檔與公開資產準備到 `.generated/public/`，並產生 `.generated/articles.json`、文章 JavaScript 目錄、RSS 與 Sitemap；`npm run build` 由 Astro 輸出至 `dist/` 並檢查產物。不得手動維護 `dist/` 或 `.generated/` 內的生成檔。
+- 修改網站後執行 `npm test`、`npm run check`、`npm run build` 與 `npm run audit:seo`。GitHub Actions 先封裝驗證通過的 `dist/`，僅在 `main` 部署到 Cloudflare Workers 的 `ian`（設定見 `wrangler.jsonc`）；PR 不部署正式站。
+
+## 暫存檔案清理
+
+- 任務完成前一律刪除產生的暫存檔案，包括下載候選圖、檢查報告、測試備份、截圖、瀏覽器測試設定檔及 Python 快取；不得留在工作區。
+- 清理前確認路徑位於工作區或該次建立的暫存目錄，且不包含版本控制中的正式檔案；完成後確認沒有殘留。
+
 ## 📌 MANDATORY INSTRUCTION FOR CONTENT CREATION & EDITING
 
-**Whenever you are tasked with creating, modifying, editing, translating, or reviewing ANY article under the `content/` directory, you MUST first read [content/README.md](file:///P:/3_WebSite/ian030590/content/README.md) using the `view_file` tool and strictly follow all of its guidelines.**
+**Whenever you are tasked with creating, modifying, editing, translating, or reviewing ANY article under the `content/` directory, you MUST first read [content/README.md](content/README.md) using the `view_file` tool and strictly follow all of its guidelines.**
 
 ### Core Requirements:
 1. **Tags**:
@@ -12,22 +26,24 @@
    - Always register the tags in `ARTICLE_TAG_MAP` in `build_static_articles.py`.
 2. **File Naming**:
    - Must follow: `{3位數序號}_{核心簡稱}_{完整主標題或關鍵字描述}.html`.
-   - No colons, slashes, quotation marks, or spaces in filenames.
-3. **Hero Images & Visual Formatting**:
+   - No half-width or full-width colons, slashes, quotation marks, question marks, special filesystem characters, or spaces in filenames.
+3. **Hero Images & Visual Formatting（配圖親眼查驗與全站唯一性鐵律）**:
+   - **實體下載與親眼查驗原則（Mandatory Visual Verification via `view_file`）**：嚴禁僅憑 Unsplash 搜尋關鍵字或 Photo ID 盲猜配圖！凡新增或修改文章配圖，**必須先以腳本下載至本機（如 `scratch/`），並「必須」使用 `view_file` 親自檢視畫面**，確認畫面元素與文章臨床/科技大意 100% 嚴密對應，杜絕任何荒謬誤導（如中風配音樂廳、放大鏡配採血試管、視幻覺配遊戲手把）。
+   - **全站圖片零重複（Zero Duplicate Across Entire Site）**：全站所有文章的圖片（Unsplash Photo ID）必須 100% 各自獨立唯一，**嚴禁任何兩篇文章使用相同圖片**。建置腳本 `build_static_articles.py` 已內建全站唯一性自動阻斷斷言。
    - NEVER use `files.catbox.moe` (blocked by hospital/academic networks).
    - Use high-quality, verified Unsplash CDN URLs with explicit landscape dimensions & crop parameters (`&fit=crop&w=1200&h=800&q=80` or `&w=1200&h=675`).
    - Always use standard classes `<figure class="article-featured-figure">`, `<img ... class="article-featured-img" />`, and `<figcaption class="article-figcaption">`. Never write bare, unclassed, or hardcoded-width `<img>` tags that burst container boundaries.
    - Featured cards on `blog.html` must have image heights decoupled via CSS so that images are properly cropped and never stretch the card vertically.
 4. **Citations & DOIs**:
-   - Every scientific reference must have a working, verified, clickable official DOI (`<a href="https://doi.org/..." target="_blank" rel="noopener noreferrer">`).
+   - Every scientific reference must have a working, verified, clickable official DOI (`<a href="https://doi.org/..." target="_blank" rel="noopener noreferrer">`), checked against Crossref/PubMed and the official publication.
    - Zero tolerance for fake DOIs, outdated draft suffixes (e.g. pub4 before publication), or double-protocol typos (`https://doi.org/https://`).
 5. **Metadata & Base URL**:
    - Site URL is strictly `https://ian030590.trainerhub.cc`.
-   - Include complete Open Graph, Twitter Cards, and Schema.org JSON-LD E-E-A-T metadata.
+   - Include complete Canonical, Open Graph, Twitter Cards, and Schema.org JSON-LD E-E-A-T metadata (`MedicalScholarlyArticle` / `TechArticle`, author 蔡泓恩 職能治療師).
 6. **Build Process**:
-   - Run `python build_static_articles.py` to regenerate static article pages, `js/articles-data.js`, and `sitemap.xml`.
+   - Run `python build_static_articles.py` to prepare immutable article copies, `js/articles-data.js`, RSS and Sitemap under `.generated/public/`, then `npm run build` and `npm run audit:seo` to validate the deployment output. Never rewrite source articles during the build.
 7. **Terminology & Glossary**:
-   - Strictly follow the terminology mapping table in [content/README.md](file:///P:/3_WebSite/ian030590/content/README.md):
+   - Strictly follow the terminology mapping table in [content/README.md](content/README.md):
      - `電子助視器` (❌) -> `電子擴視機` (⭕)
      - `智慧頭顯` (❌) -> `頭戴式顯示器` (⭕)
      - `低視力` (❌) -> `低視能` (⭕)
@@ -37,7 +53,7 @@
 8. **Link Integrity & Conflict Prevention（連結完整性與檔名防衝突檢驗）**:
    - Every internal link in `blog.html`, `js/articles-data.js`, `sitemap.xml`, and within each article (breadcrumbs, prev/next navigation, cluster links) MUST point to an existing, valid static file on disk (0 tolerance for 404 broken links).
    - Filenames must NEVER contain cloud-sync conflict suffixes (e.g., `[conflicted]`, `[conflicted 2]`) or spaces.
-   - The build script `build_static_articles.py` automatically validates all generated links and cleans/fails on broken links or conflict files.
+   - The build script `build_static_articles.py` automatically validates generated links and fails on broken links or conflict files. Never auto-delete or rename conflicting article sources.
 9. **Publish Date & Chronological Sorting（實際撰寫日期發布）**:
    - All newly created, added, or revised articles MUST use the real, actual date of authorship as their publish date (`datePublished`, `article:published_time`, `dateModified`, `article:modified_time`, formatted as `YYYY-MM-DDT08:00:00+08:00`).
    - NEVER reuse or copy obsolete placeholder dates from batch templates (e.g., `2026-09-12`). The blog and home feed dynamically sort articles descending by publish date to identify and feature the latest article as "最新專題" (Index 0). Accurately dating new articles is mandatory.
@@ -49,7 +65,7 @@
 
 ## 文章寫作原則：人性化科普與忠實呈現研究
 
-- **文件位置**：專案開發與維護規範以本文件、GEMINI.md 與 content/README.md 為準；根目錄 README.md 亦同步揭示「不覆蓋舊文章」之核心維護原則。
+- **文件位置**：代理人規則統一維護於本文件，文章技術與寫作規範以 `content/README.md` 為準；開發與部署操作放在 `docs/DEVELOPMENT.md`，根目錄 `README.md` 僅用於 GitHub Profile。
 - **嚴禁改動舊文章**：任何新專題或文獻整理皆為增量擴充，一律不得修改或覆蓋既有舊文章。所有新文章必須使用新序號獨立發布，保持既有舊文章 100% 完整不變。
 - **讀者與語氣**：醫療文章以科普衛教為主，用自然、尊重且容易理解的繁體中文，從讀者的生活困難或疑問切入；專業名詞首次出現時簡要解釋。數位學習文章採易懂的科技解說，不硬套醫療敘事。
 - **獨立標題與結構**：每篇依實際主題撰寫主標題、段落標題與摘要，不使用共用句型或固定的「臨床問題／指引／研究／四個重點」模板。段落數、結尾、表格與圖解由內容需要決定；共用 HTML 樣式不代表共用文章敘事。
@@ -59,7 +75,7 @@
 - **實證忠實與避免誇大原則（Evidence-Based & No Exaggeration）**：文章必須忠於科學實證，不得使用「保證恢復」、「全面有效」、「突破性治癒」等超出文獻證據的誇大療效承諾；保留「可能」、「可考慮」、「證據有限」等原意。取消對程度描述方法（如嚴重度、重度、顯著、大幅等名詞與形容詞）的機械性詞彙限制，回歸實證客觀陳述。除非指引或文獻證據確切列為 Harm 級危害之明確醫療禁忌，否則建議優先使用「建議避免」、「不建議」或「建議優先考慮」等客觀審慎臨床用語。相關性不寫成因果、無顯著差異不寫成等效、測驗進步不直接寫成生活功能恢復。
 - **可追溯與在地化**：引用應緊鄰支持的主張，頁碼、章節與文獻編號須對應正確來源；不把其他國家的照護制度直接當成台灣規範。假設情境須明確標示，不冒充真實個案或研究結果。
 - **真實發布日期**：文章 metadata（HTML meta 標籤、JSON-LD 與內文 `<time>`）必須按實際撰寫完成之當日日期發布，嚴禁沿用舊模板日期導致「最新專題」無法正常輪替更新。
-- **維護與驗證**：遵循 [完整文章規範](content/README.md)。若文章已登錄於 `article_editorial_copy.py` 的 `HUMANIZED_ARTICLE_COPY`，須修改對應編輯稿，避免只改 HTML 而被建置覆蓋。文章更新後執行 `python build_static_articles.py`，確認內文、標題、摘要、OG／Twitter、JSON-LD 與導覽一致。
+- **維護與驗證**：遵循 [完整文章規範](content/README.md)。`article_editorial_copy.py` 的 `HUMANIZED_ARTICLE_COPY` 保留為寫作核對資料；若新增文章另有對應編輯稿，須確認與新 HTML 一致，不能用編輯稿覆寫舊文章。執行 `python build_static_articles.py`、`npm run build` 與 `npm run audit:seo`，確認文章原始位元組、標題、摘要、OG／Twitter、JSON-LD 與導覽一致。
 
 ## 學術與科普寫作邏輯框架（杜絕突兀感、鬆散感與語感薄弱）
 

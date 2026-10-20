@@ -1,20 +1,26 @@
 User-agent: *
 Allow: /
+Disallow: /scratch/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /scratch/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /scratch/
 
 User-agent: Claude-SearchBot
 Allow: /
+Disallow: /scratch/
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /scratch/
 
 User-agent: Claude-User
 Allow: /
+Disallow: /scratch/
 
 User-agent: GPTBot
 Disallow: /

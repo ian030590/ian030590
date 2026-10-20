@@ -1,0 +1,29 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const metadata = {
+  title: '找不到頁面 | 蔡泓恩 | 職能治療師',
+  description: '這個網址不存在或已經移動。請返回蔡泓恩職能治療師的首頁，或從文章目錄尋找需要的內容。',
+  path: '/404',
+  noindex: true,
+  schema: {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: '找不到頁面',
+    url: 'https://ian030590.trainerhub.cc/404',
+  },
+};
+---
+<SiteLayout {...metadata}>
+  <main class="page-main">
+    <section class="section container">
+      <p class="section-kicker">404</p>
+      <h1 class="page-title">找不到這個頁面</h1>
+      <p class="page-intro">這個網址不存在或已經移動。您可以返回首頁，或從文章目錄繼續瀏覽。</p>
+      <div class="hero-actions">
+        <a class="button-primary" href="/">返回首頁</a>
+        <a class="button-secondary" href="/blog">瀏覽專業文章</a>
+      </div>
+    </section>
+  </main>
+</SiteLayout>
