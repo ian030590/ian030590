@@ -34,16 +34,8 @@ const thesisProject = {
   category: '碩士論文研究',
   status: '論文計畫書 · 115 年 9 月',
   title: '以模擬單眼視覺損傷探討雙眼視功能受限對遠近距離深度知覺任務表現與眼動特徵之影響',
-  englishTitle: 'Investigating the Effects of Restricted Binocular Vision on Depth Perception Task Performance and Eye Movement Characteristics at Near and Far Distances Using Simulated Monocular Impairment',
   institution: '國立臺灣大學醫學院職能治療學系碩士班',
   advisor: '指導教授：蔡麗婷 副教授',
-  summary: '針對疾病、外傷或職災導致之單眼視覺損傷，導入穿戴式眼動儀同步量測雙眼視覺、單眼模糊與單眼遮蔽條件下的眼動特徵與任務表現，探討雙眼視受限時的空間深度判斷與視覺探索適應策略。',
-  highlights: [
-    '穿戴式眼動儀同步記錄平均注視時間、瞳孔反應與眨眼頻率等客觀指標',
-    '近距離深度知覺任務：聲音回饋電路測驗、電路組裝測驗與水杯傾倒測驗',
-    '遠距離深度知覺任務：樓梯下行測驗與空間距離配對測驗',
-    '為單眼視覺損傷與職災勞工之功能性視覺評估與復健策略提供實證基礎',
-  ],
 };
 
 const publications = [
@@ -251,12 +243,6 @@ const metadata = {
                 <span>·</span>
                 <span>{thesisProject.advisor}</span>
               </div>
-              <p class="academic-thesis-desc">{thesisProject.summary}</p>
-              <ul class="academic-thesis-points">
-                {thesisProject.highlights.map((point) => (
-                  <li>{point}</li>
-                ))}
-              </ul>
             </article>
 
             <div>

@@ -2747,7 +2747,7 @@ a.article-badge:hover {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 36px 32px;
+  padding: 28px 32px;
 }
 .academic-thesis-header {
   display: flex;
@@ -2787,27 +2787,10 @@ a.article-badge:hover {
   font-size: 14px;
   font-weight: 600;
   color: var(--accent);
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 .academic-thesis-meta span:nth-child(2) {
   color: var(--line);
-}
-.academic-thesis-desc {
-  font-size: 15px;
-  color: var(--color-text-secondary);
-  line-height: 1.65;
-  margin: 0 0 16px;
-  max-width: 76ch;
-}
-.academic-thesis-points {
-  margin: 0;
-  padding: 0 0 0 20px;
-  color: var(--color-text-secondary);
-  line-height: 1.7;
-  font-size: 14.5px;
-}
-.academic-thesis-points li {
-  margin-bottom: 4px;
 }
 .academic-subheading {
   font: 600 18px/1.4 "Noto Sans TC", sans-serif;
