@@ -3,7 +3,7 @@
   "name": "ian",
   "compatibility_date": "2026-10-19",
   // Cloudflare serves dist/ directly; the Worker script only handles /api/*
-  // (the contact form, emailed through Resend).
+  // (the contact form and the public Blogger article catalog).
   "main": "./worker/index.js",
   "assets": {
     "directory": "./dist",

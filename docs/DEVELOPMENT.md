@@ -16,7 +16,7 @@ npm run dev
 
 `npm run dev`、`npm run check` 與 `npm run build` 會先執行 `python build_static_articles.py`，將文章原檔及公開資產準備到忽略版本控制的 `.generated/public/`，同時產生文章目錄、RSS 與 Sitemap。Astro 從這裡取得公開資產，並輸出完整網站到 `dist/`。文獻原文、維護文件與測試程式不會發布。
 
-文章仍以 `content/` 的既有 HTML 為正式來源，原樣複製，不重新排版或改寫發布日期；新增文章後請重新執行 `npm run prepare:content`，讓開發伺服器更新文章列表。`article_editorial_copy.py` 保留編輯稿供寫作核對，部署流程不會用它覆寫既有文章。
+文章仍以 `content/` 的既有 HTML 為同步來源，原樣複製，不重新排版或改寫發布日期。文章列表載入後會透過 `/api/articles` 取得 Blogger 公開文章與原生標籤，全文連往 Blogger；API 暫時無法使用時保留本站靜態文章目錄。新增文章後請重新執行 `npm run prepare:content`，更新這份備援目錄、RSS 與 Sitemap。`article_editorial_copy.py` 保留編輯稿供寫作核對，部署流程不會用它覆寫既有文章。
 
 ```sh
 npm test
@@ -59,6 +59,54 @@ npm run preview
 4. 缺少 API Key 或地址設定時表單回傳 503，並請訪客改寄 Email。
 
 本機測試：`npm run dev` 不會執行 Worker。先執行 `npm run build`，在忽略版本控制的 `.dev.vars` 寫入 `RESEND_API_KEY=...`，再執行 `npx wrangler dev`。`npm test` 會以模擬的 Resend 回應檢查 Worker。
+
+## Blogger 文章同步與列表
+
+[`blogger.config.json`](../blogger.config.json) 設定 Blog ID `8849463716377519690`、repository 與同步速度。API key 只能讀取公開文章，寫入需要擁有此部落格權限的 Google 帳號授權 OAuth scope `https://www.googleapis.com/auth/blogger`。
+
+### 一次性授權與憑證儲存
+
+1. 在 Google Cloud 專案啟用 Blogger API v3，建立 OAuth client 並設定同意畫面。如果是 Web application client，加入 redirect URI `http://127.0.0.1:8765/`。若應用程式為 External / Testing，加入自己的帳號為測試使用者；Google 對這類測試應用程式的 refresh token 通常僅保留 7 天，長期排程應完成適當的正式發布設定。
+2. 執行 `npm run blogger:auth`，輸入 client ID、client secret，並在開啟的 Google 頁面登入授權。腳本會使用 state 與 PKCE 核對回應，將 refresh token 寫入 `.blogger/credentials.json`，不印出 token。
+3. 在已登入 GitHub CLI 的終端執行 `python -B scripts/blogger_auth.py --github-secrets`，上傳 `BLOGGER_CLIENT_ID`、`BLOGGER_CLIENT_SECRET`、`BLOGGER_REFRESH_TOKEN` 至 repository 的加密 Actions Secrets。也可以在 [GitHub Secrets 設定](https://github.com/ian030590/ian030590/settings/secrets/actions) 手動設定。Secrets 不會寫入 Git 檔案。
+4. 在本機 `.blogger/credentials.json` 加入 `api_key` 欄位，再執行 `python -B scripts/blogger_auth.py --worker-secret`，將它設定為 Cloudflare Worker 的 `BLOGGER_API_KEY` secret。Blogger API key 不需要上傳 GitHub。此 key 必須允許伺服器端請求；使用 HTTP referrer 限制的 key 不適用 Worker，可限制為僅能呼叫 Blogger API。
+
+`.blogger/`、`.dev.vars` 與 `.env*` 均已被 Git 忽略，建置也不會發布它們。憑證不得放進 `blogger.config.json`、workflow YAML 或公開 JavaScript。更換憑證時重新執行對應上傳指令；本機檔案應留在自己的電腦。
+
+### 每次 push 與分批接續
+
+[`Sync articles to Blogger`](../.github/workflows/blogger-sync.yml) 是伺服器端的 push hook。任何電腦推送至 `main` 都會觸發；PR 與其他分支不會修改 Blogger。它另於 UTC 00:37／06:37／12:37／18:37（台灣時間 08:37／14:37／20:37／02:37）接續待處理文章。GitHub 排程可能延遲。
+
+- 每次最多 5 次寫入，每次寫入前等待至少 120 秒，不平行發文；一般一批約需 10 分鐘。沒有變更時不寫入，也不等待。
+- 初次 41 篇匯入需要 9 批，排程會逐批完成。後續只處理文字、標籤、日期或檔案內容有變更的文章。
+- 每篇遠端文章的 HTML 包含 repository、來源 ID 與雜湊標記。重跑會重新讀取遠端標記，跳過已完成的文章；即使上次建立成功後連線中斷，也能避免重複建立。發現重複來源標記時停止，交由人工查核。
+- 同步以最新 `main` 為準，工作流程依序執行，不會取消正在寫入的一批。中途失敗的進度由遠端標記保留。
+- 遇到 HTTP 403 或 429 立即停止，將至少 24 小時冷卻狀態寫入 Actions cache，後續執行先檢查冷卻期。`Retry-After` 秒數若更長則採用它。cache 可能被 GitHub 淘汰，因此每批第一次寫入仍會等待 120 秒。其他失敗也停止，寫入不自動重試。
+- 這些設定是降低頻率的措施，Google 沒有承諾任何固定速度能避免垃圾內容判定或帳號限制。持續 403 時，先在 Google Cloud／Blogger 查明權限或限制原因。
+
+可在 Actions 手動執行工作流程：`apply=false`（預設）只列出新增／更新／刪除數量，`apply=true` 才會寫入一批。本機可執行：
+
+```sh
+python -B scripts/blogger_sync.py --export-only
+npm run blogger:plan
+npm run blogger:sync
+```
+
+第一個指令完全不連網；後兩個指令使用本機被忽略的憑證，或同名 `BLOGGER_CLIENT_ID`／`BLOGGER_CLIENT_SECRET`／`BLOGGER_REFRESH_TOKEN` 環境變數。不要在 Actions 執行的同時從本機寫入，以免兩個執行者同時建立文章。
+
+### 內容所有權、刪除與回復
+
+同步只讀取原始 HTML，不會改寫 `content/`。Blogger 文章保留全文、配圖、引用和原發布日期；文章內部的相對連結轉為本站的完整網址，原有 `/content/...html`、RSS 與 Sitemap 維持可用。Blogger 內文附有範圍限定的排版 CSS，不套用整站樣式到 Blogger 主題。
+
+網站分類直接採用 Blogger 回傳的 `labels`，不限制為本機六個標籤；同步新增的文章會先沿用原有標籤。後續更新會保留在 Blogger 額外新增的標籤。本機來源內容未變更時，也不會覆蓋在 Blogger 手動修改的標題、文字或標籤；來源下次修改時，以本機全文為準。
+
+本機刪除來源後，同步會將具有本 repository 標記的對應遠端文章移到垃圾桶。手動建立或其他來源的 Blogger 文章不會被刪除。已改成草稿的遠端文章無法使用 Blogger 的垃圾桶 API，同步會停止並要求人工處理該篇，避免永久刪除。若本機文章清單完全為空，預設中止；確定要移除全部同步文章時才於本機執行 `python -B scripts/blogger_sync.py --apply --allow-empty`。
+
+復原時先停用同步 workflow，再從 Blogger 垃圾桶還原文章或還原來源檔案。重新啟用前執行 dry run，確認不會再次移除。若要回復網站為靜態列表，可移除 `js/main.js` 中 `/api/articles` 的載入區段；原有靜態列表仍保留。停用本地 OAuth 授權可至 Google 帳號撤銷應用程式權限。
+
+Worker 會一次讀完所有 Blogger 分頁，公開列表快取 5 分鐘；成功回傳空清單時顯示「目前還沒有公開文章」，不將已刪除的遠端文章混回結果。瀏覽器只從遠端 HTML 擷取純文字和 HTTP(S) 圖片網址，卡片內容皆跳脫後顯示。API key 留在 Worker，OAuth 憑證只供同步程式使用。本機完整測試需先 build，再執行 `npx wrangler dev`，並在 `.dev.vars` 設定 `BLOGGER_API_KEY`；`astro dev`／`astro preview` 沒有 Worker API，會顯示靜態備援列表。
+
+官方文件：[Blogger 授權與讀寫](https://developers.google.com/blogger/docs/3.0/using)、[文章標籤與 HTML 欄位](https://developers.google.com/blogger/docs/3.0/reference/posts)、[刪除與垃圾桶](https://developers.google.com/blogger/docs/3.0/reference/posts/delete)、[OAuth refresh token](https://developers.google.com/identity/protocols/oauth2/web-server)。
 
 ## SEO 與 Google 索引檢查
 

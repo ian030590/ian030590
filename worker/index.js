@@ -3,6 +3,8 @@
 // wrangler.jsonc). Contact messages are emailed through Resend; the API key
 // stays on the server as the RESEND_API_KEY secret so visitors cannot use it.
 
+import { handleBlogger } from './blogger.js';
+
 const RESEND_ENDPOINT = 'https://api.resend.com/emails';
 const MAX_BODY_BYTES = 16 * 1024;
 const LIMITS = { name: 100, role: 100, email: 254, subject: 200, body: 3500 };
@@ -116,9 +118,10 @@ async function handleContact(request, env) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const { pathname } = new URL(request.url);
     if (pathname === '/api/contact') return handleContact(request, env);
+    if (pathname === '/api/articles') return handleBlogger(request, env, ctx);
     if (pathname.startsWith('/api/')) return json(404, { error: 'Not found' });
     return env.ASSETS.fetch(request);
   },

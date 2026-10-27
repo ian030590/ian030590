@@ -209,14 +209,15 @@
   const clearSearchBtn = document.getElementById("clear-search-btn");
 
   if (articleContent) {
+    const articlesStatus = document.getElementById("articles-status");
     const articlesPerPage = 15;
     let allPosts = [];
-    let currentTag = new URLSearchParams(window.location.search).get("tag") || "ALL";
+    let currentTag = new URLSearchParams(window.location.search).get("tag") || "";
     let searchQuery = "";
 
     const updateURL = () => {
       const url = new URL(window.location.href);
-      if (currentTag && currentTag !== "ALL") {
+      if (currentTag) {
         url.searchParams.set("tag", currentTag);
       } else {
         url.searchParams.delete("tag");
@@ -225,7 +226,7 @@
     };
 
     const resetFilters = () => {
-      currentTag = "ALL";
+      currentTag = "";
       searchQuery = "";
       if (blogSearchInput) blogSearchInput.value = "";
       if (clearSearchBtn) clearSearchBtn.hidden = true;
@@ -234,15 +235,15 @@
     };
 
     const describeFilter = () => {
-      if (currentTag !== "ALL" && searchQuery) return `標籤「${currentTag}」與關鍵字「${searchQuery}」`;
-      if (currentTag !== "ALL") return `標籤「${currentTag}」`;
+      if (currentTag && searchQuery) return `標籤「${currentTag}」與關鍵字「${searchQuery}」`;
+      if (currentTag) return `標籤「${currentTag}」`;
       return `關鍵字「${searchQuery}」`;
     };
 
     const renderArticles = (page = 1) => {
       const q = searchQuery.toLowerCase();
       const filtered = allPosts.filter((post) => {
-        if (currentTag !== "ALL" && !post.tags.includes(currentTag)) return false;
+        if (currentTag && !post.tags.includes(currentTag)) return false;
         if (!q) return true;
         return (
           post.title.toLowerCase().includes(q) ||
@@ -251,7 +252,7 @@
         );
       });
 
-      const isFiltered = currentTag !== "ALL" || searchQuery.length > 0;
+      const isFiltered = Boolean(currentTag) || searchQuery.length > 0;
       if (filterStatusBar) {
         filterStatusBar.hidden = !isFiltered;
         if (isFiltered) {
@@ -269,6 +270,10 @@
       }
 
       if (!filtered.length) {
+        if (!allPosts.length && !currentTag && !searchQuery) {
+          articleContent.innerHTML = '<p class="empty-state">目前還沒有公開文章。</p>';
+          return;
+        }
         articleContent.innerHTML = `
           <div class="empty-state">
             <p>沒有符合${escapeHtml(describeFilter())}的文章。搜尋範圍是標題、摘要與標籤。</p>
@@ -280,7 +285,7 @@
       }
 
       const showFeatured =
-        currentTag === "ALL" && !searchQuery && page === 1 && filtered.length > 1;
+        !currentTag && !searchQuery && page === 1 && filtered.length > 1;
       const totalPages = Math.max(1, Math.ceil(filtered.length / articlesPerPage));
       const currentPage = Math.max(1, Math.min(page, totalPages));
       const startIndex = (currentPage - 1) * articlesPerPage;
@@ -367,12 +372,12 @@
       `;
 
       tagsFilterList.innerHTML =
-        tagButton("ALL", "全部文章", allPosts.length) +
+        tagButton("", "全部文章", allPosts.length) +
         sortedTags.map((tag) => tagButton(tag, tag, tagCounts[tag])).join("");
 
       tagsFilterList.querySelectorAll(".tag-filter-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          currentTag = btn.getAttribute("data-tag") || "ALL";
+          currentTag = btn.getAttribute("data-tag") || "";
           updateURL();
           renderArticles();
           if (window.innerWidth <= 960) {
@@ -413,23 +418,13 @@
           imageUrl: item.imageUrl,
           tags: item.tags || [],
           dateString: item.dateString || "",
-          readTime: item.readTime || "約 5 分鐘閱讀",
+          readTime: item.readTime || "",
           link: item.link,
           category: item.category || "",
         }))
         .sort((a, b) => b.dateString.localeCompare(a.dateString));
 
-      // Without the catalog the server-rendered list stays; only filtering is lost.
-      if (!allPosts.length) {
-        if (tagsFilterList) {
-          tagsFilterList.innerHTML =
-            '<p class="widget-description">文章目錄沒有載入，暫時無法篩選。請重新整理頁面。</p>';
-        }
-        if (blogSearchInput) blogSearchInput.disabled = true;
-        return;
-      }
-
-      const tagCounts = {};
+      const tagCounts = Object.create(null);
       allPosts.forEach((post) => {
         post.tags.forEach((t) => {
           tagCounts[t] = (tagCounts[t] || 0) + 1;
@@ -441,6 +436,50 @@
     };
 
     initArticles(window.__STATIC_ARTICLES__ || []);
+
+    const safeURL = (value, base) => {
+      if (!value) return "";
+      try {
+        const url = new URL(value, base);
+        return ["https:", "http:"].includes(url.protocol) ? url.href : "";
+      } catch {
+        return "";
+      }
+    };
+
+    fetch("/api/articles")
+      .then((response) => {
+        if (!response.ok) throw new Error("Blogger catalog unavailable");
+        return response.json();
+      })
+      .then(({ items }) => {
+        if (!Array.isArray(items)) throw new Error("Invalid Blogger catalog");
+        const articles = items.map((post) => {
+          const link = safeURL(post.url);
+          if (!link) throw new Error("Invalid Blogger article URL");
+          // Parse inertly and render only escaped text and HTTP URLs, never remote HTML.
+          const doc = new DOMParser().parseFromString(post.content || "", "text/html");
+          doc.querySelectorAll("script, style").forEach((node) => node.remove());
+          const summary = doc.querySelector(".article-lead-box p, p")?.textContent || "";
+          const lead = summary.replace(/\s+/g, " ").trim();
+          return {
+            title: String(post.title || ""),
+            lead: lead.slice(0, 160) + (lead.length > 160 ? "…" : ""),
+            imageUrl: safeURL(post.images?.[0]?.url || doc.querySelector("img")?.getAttribute("src") || "", link),
+            tags: [...new Set((post.labels || []).filter((label) => typeof label === "string"))],
+            dateString: String(post.published || "").slice(0, 10),
+            readTime: "",
+            link,
+            category: "",
+          };
+        });
+        initArticles(articles);
+        if (articlesStatus) articlesStatus.textContent = "";
+      })
+      .catch(() => {
+        if (articlesStatus) articlesStatus.textContent = "最新文章暫時無法取得，目前顯示本站保存的文章。";
+      })
+      .finally(() => articleContent.setAttribute("aria-busy", "false"));
   }
 
   const contactForm = document.getElementById("contact-form");
