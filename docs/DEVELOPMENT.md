@@ -16,7 +16,7 @@ npm run dev
 
 `npm run dev`、`npm run check` 與 `npm run build` 會先執行 `python build_static_articles.py`，將文章原檔及公開資產準備到忽略版本控制的 `.generated/public/`，同時產生文章目錄、RSS 與 Sitemap。Astro 從這裡取得公開資產，並輸出完整網站到 `dist/`。文獻原文、維護文件與測試程式不會發布。
 
-文章仍以 `content/` 的既有 HTML 為同步來源，原樣複製，不重新排版或改寫發布日期。文章列表載入後會透過 `/api/articles` 取得 Blogger 公開文章與原生標籤，全文在本站 `/article?id=...` 閱讀；API 暫時無法使用時保留本站靜態文章目錄。新增文章後請重新執行 `npm run prepare:content`，更新這份備援目錄、RSS 與 Sitemap。`article_editorial_copy.py` 保留編輯稿供寫作核對，部署流程不會用它覆寫既有文章。
+文章仍以 `content/` 的既有 HTML 為 Git → Blogger 同步來源，不改寫原檔或發布日期。正式站的文章列表、全文、標籤與 RSS 由 Worker 從 Blogger 讀取後在伺服器產生 HTML，首次回應即包含全文與 SEO metadata。已匯入文章沿用個人站 `/content/...` 簡潔網址；Blogger 手動新增的文章使用 `/article?id=...`。初次限速匯入尚未完成的舊網址暫時提供原文；匯入後自動改用 Blogger，列表不混入本機文章。Blogger 無法使用時回傳 503，不以舊內文代替遠端更新。`article_editorial_copy.py` 保留編輯稿供寫作核對，部署流程不會用它覆寫既有文章。
 
 ```sh
 npm test
@@ -34,8 +34,8 @@ npm run preview
 
 網站以 [Workers 靜態資產](https://developers.cloudflare.com/workers/static-assets/) 提供，設定集中在 [`wrangler.jsonc`](../wrangler.jsonc)：
 
-- Worker 名稱為 `ian`，靜態頁面全部來自 `dist/`，不需要 Astro server adapter。`run_worker_first: ["/api/*"]` 讓只有 `/api/*` 執行 [`worker/index.js`](../worker/index.js)，其餘請求直接由靜態資產回應。
-- `html_handling: auto-trailing-slash` 讓 `/projects` 提供 `projects.html`，`/projects.html` 轉址到 `/projects`，與原本 Pages 的簡潔網址相同（轉址狀態碼為 307）。
+- Worker 名稱為 `ian`，頁面範本與公開資產來自 `dist/`，不需要 Astro server adapter。`run_worker_first` 指定 API、文章列表／閱讀頁、`/content/*`、Sitemap 與 RSS 執行 [`worker/index.js`](../worker/index.js)，其餘請求直接由靜態資產回應。Blogger 內容與 metadata 由 [`worker/articles.js`](../worker/articles.js) 渲染，`article-routes.json` 僅保存來源 ID 與既有網址的對應，不保存第二份正文。
+- `html_handling: auto-trailing-slash` 讓 `/projects` 提供 `projects.html`，`/projects.html` 以 307 轉址到 `/projects`。文章路徑由 Worker 將 `.html` 別名以 301 導向簡潔網址；已匯入文章的 `/article?id=...` 入口也以 301 導向既有文章網址。
 - `not_found_handling: 404-page` 讓不存在的網址回傳 `404.html` 與 HTTP 404。
 - `workers_dev` 與 `preview_urls` 關閉，只有自訂網域 `ian030590.trainerhub.cc` 與 `ian.trainerhub.cc` 提供網站，避免重複內容被收錄。網域以 `custom_domain` 綁定，部署時一併確認。
 
@@ -102,11 +102,17 @@ npm run blogger:sync
 
 本機刪除來源後，同步會將具有本 repository 標記的對應遠端文章移到垃圾桶。手動建立或其他來源的 Blogger 文章不會被刪除。已改成草稿的遠端文章無法使用 Blogger 的垃圾桶 API，同步會停止並要求人工處理該篇，避免永久刪除。若本機文章清單完全為空，預設中止；確定要移除全部同步文章時才於本機執行 `python -B scripts/blogger_sync.py --apply --allow-empty`。
 
-復原時先停用同步 workflow，再從 Blogger 垃圾桶還原文章或還原來源檔案。重新啟用前執行 dry run，確認不會再次移除。若要回復網站為靜態列表，可移除 `js/main.js` 中 `/api/articles` 的載入區段；原有靜態列表仍保留。停用本地 OAuth 授權可至 Google 帳號撤銷應用程式權限。
+復原時先停用同步 workflow，再從 Blogger 垃圾桶還原文章或還原來源檔案。重新啟用前執行 dry run，確認不會再次移除。若要回復網站為靜態架構，應回復遷移前的頁面、Worker 與 Wrangler 路由設定後重新建置部署；原始文章位元組不受此遷移影響。停用本地 OAuth 授權可至 Google 帳號撤銷應用程式權限。
 
-Worker 會一次讀完所有 Blogger 分頁，公開列表快取 5 分鐘；成功回傳空清單時顯示「目前還沒有公開文章」，不將已刪除的遠端文章混回結果。瀏覽器只從遠端 HTML 擷取純文字和 HTTP(S) 圖片網址，卡片內容皆跳脫後顯示。API key 留在 Worker，OAuth 憑證只供同步程式使用。本機完整測試需先 build，再執行 `npx wrangler dev`，並在 `.dev.vars` 設定 `BLOGGER_API_KEY`；`astro dev`／`astro preview` 沒有 Worker API，會顯示靜態備援列表。
+Worker 會一次讀完所有 Blogger 分頁，公開資料快取 5 分鐘；列表、全文與 feeds 共用這份資料，HTML 快取 60 秒。成功回傳空清單時顯示沒有公開文章，不將本機文章混回列表；已從 Git 撤下的來源在等待遠端移至垃圾桶期間也不顯示。瀏覽器使用頁面內的 Blogger metadata 進行標籤篩選、搜尋與分頁，再透過 `/api/articles` 更新。API key 留在 Worker，OAuth 憑證只供同步程式使用。本機完整測試需先 build，再執行 `npx wrangler dev`，並在 `.dev.vars` 設定 `BLOGGER_API_KEY`；`astro dev`／`astro preview` 僅提供靜態範本，不能驗證 Worker 渲染。開發時應先停止 Wrangler，再重建 `dist/`。
 
-全文閱讀頁同樣使用 Blogger API，不依賴 Blogger 自訂網域能否開啟；目前 `blog.trainerhub.cc` 首頁回傳 404，需另於 Blogger 後台檢查自訂網域設定。全文透過 DOMPurify 清理，移除腳本、事件處理、任意樣式、表單及嵌入頁面，並套用本站文章樣式。閱讀頁的通用入口設為 `noindex`；原有靜態文章仍保留原本的 canonical、結構化資料、RSS 與 Sitemap。
+全文使用 Blogger API，不依賴 Blogger 自訂網域的 HTTPS 是否正常。Worker 透過 sanitize-html 清理腳本、事件處理、任意樣式、表單及嵌入頁面，再套用本站文章樣式；引用連結與表格保留。有效文章的 canonical、Open Graph、結構化資料、Sitemap 與 RSS 均使用 `https://ian030590.trainerhub.cc`。未指定文章的 `/article` 與錯誤閱讀頁保留 `noindex`，不存在的文章回傳 404，API 失敗回傳 503。Sitemap 包含尚待初次匯入的既有網址和 Blogger 新增文章，且同一篇只列主要網址。
+
+### Blogger 作為 CMS 的索引設定
+
+主要搜尋結果使用個人站；Blogger 本身保持公開，讓 API 可以讀取。於 Blogger「設定 → 檢索器與索引 → 啟用自訂漫遊器標頭標記」，對首頁、封存和搜尋頁面、文章和網頁都設定 `noindex`，取消 `all`。不要在 robots.txt 封鎖整站，否則 Google 無法讀取 noindex。這是 Blogger 後台設定，API 同步程式不會變更它。
+
+2026-10-27 已確認 Blogger 首頁與抽查文章的 HTTP 回應帶有 `X-Robots-Tag: noindex`。這代表標記已套用，並不代表 Google 已重新檢索或移除舊索引。修改此設定後應再檢查公開回應；個人站文章則應允許索引，並以 Search Console 確認 Google 選定的 canonical。
 
 官方文件：[Blogger 授權與讀寫](https://developers.google.com/blogger/docs/3.0/using)、[文章標籤與 HTML 欄位](https://developers.google.com/blogger/docs/3.0/reference/posts)、[刪除與垃圾桶](https://developers.google.com/blogger/docs/3.0/reference/posts/delete)、[OAuth refresh token](https://developers.google.com/identity/protocols/oauth2/web-server)。
 

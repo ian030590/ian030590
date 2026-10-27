@@ -27,18 +27,12 @@ const metadata = {
         <header class="article-detail-header">
           <div id="reader-tags" class="article-tag-badges"></div>
           <h1 id="reader-title" class="article-title">正在載入文章</h1>
-          <p class="article-meta-row"><time id="reader-date"></time></p>
+          <p class="article-meta-row"><span class="article-meta-item">蔡泓恩 職能治療師</span><time id="reader-date"></time></p>
         </header>
         <p id="reader-status" role="status">正在取得文章全文。</p>
         <div id="reader-body" class="article-body-content"></div>
-        <noscript><p>請開啟 JavaScript 閱讀文章，或<a href="/blog">回到文章列表</a>查看本站保存的文章。</p></noscript>
         <div class="article-bottom-actions"><a class="article-back-link" href="/blog">返回文章列表</a></div>
       </article>
     </div>
   </main>
 </SiteLayout>
-
-<script>
-  import { loadBloggerArticle } from '../scripts/blogger-reader';
-  loadBloggerArticle();
-</script>

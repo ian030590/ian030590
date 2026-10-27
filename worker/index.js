@@ -1,9 +1,9 @@
 // Cloudflare Worker for the site. Static files in dist/ are served by the
-// assets binding; only /api/* reaches this script (see run_worker_first in
-// wrangler.jsonc). Contact messages are emailed through Resend; the API key
+// assets binding; article routes also use Blogger (see wrangler.jsonc).
+// Contact messages are emailed through Resend; the API key
 // stays on the server as the RESEND_API_KEY secret so visitors cannot use it.
 
-import { handleBlogger } from './blogger.js';
+import { articleAPI, articlePage } from './articles.js';
 
 const RESEND_ENDPOINT = 'https://api.resend.com/emails';
 const MAX_BODY_BYTES = 16 * 1024;
@@ -121,8 +121,10 @@ export default {
   async fetch(request, env, ctx) {
     const { pathname } = new URL(request.url);
     if (pathname === '/api/contact') return handleContact(request, env);
-    if (pathname === '/api/articles') return handleBlogger(request, env, ctx);
+    if (pathname === '/api/articles') return articleAPI(request, env, ctx);
     if (pathname.startsWith('/api/')) return json(404, { error: 'Not found' });
+    if (['/blog', '/blog.html', '/article', '/article.html', '/sitemap.xml', '/rss.xml'].includes(pathname)
+      || pathname.startsWith('/content/')) return articlePage(request, env, ctx);
     return env.ASSETS.fetch(request);
   },
 };

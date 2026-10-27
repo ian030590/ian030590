@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import worker from '../worker/index.js';
 
 const endpoint = 'https://ian030590.trainerhub.cc/api/articles';
-const environment = { BLOGGER_API_KEY: 'test-private-key' };
+const environment = { BLOGGER_API_KEY: 'test-private-key', ASSETS: { fetch: async () => Response.json({}) } };
 let calls = [];
 globalThis.fetch = async (input, init) => {
   const url = new URL(input);
@@ -22,7 +22,7 @@ let response = await worker.fetch(new Request(endpoint + '?labels=ignored'), env
 assert.equal(response.status, 200);
 assert.equal(calls.length, 2);
 assert.deepEqual((await response.json()).items.map((p) => p.id), ['1', '2']);
-assert.match(response.headers.get('Cache-Control'), /max-age=300/);
+assert.equal(response.headers.get('Cache-Control'), 'no-store', 'Only the shared Google response is cached');
 
 response = await worker.fetch(new Request(endpoint), {});
 assert.equal(response.status, 503);
@@ -56,19 +56,21 @@ assert.equal((await worker.fetch(new Request(endpoint), environment)).status, 20
 delete globalThis.caches;
 
 const main = readFileSync(new URL('../js/main.js', import.meta.url), 'utf8');
-async function loadArticles(items, { offline = false, tag = '' } = {}) {
+async function loadArticles(items, { offline = false, tag = '', snapshot = [] } = {}) {
   const content = { innerHTML: '', setAttribute(key, value) { this[key] = value; },
     querySelectorAll: () => [], querySelector: () => ({ addEventListener() {} }) };
   const status = { textContent: '' };
   const tags = { innerHTML: '', querySelectorAll: () => [] };
   const context = vm.createContext({
     window: { __STATIC_ARTICLES__: [{ title: '本機文章', tags: ['本機標籤'], link: '/content/local.html' }],
-      location: { search: tag ? '?tag=' + encodeURIComponent(tag) : '' } },
+      location: { search: tag ? '?tag=' + encodeURIComponent(tag) : '',
+        href: 'https://ian030590.trainerhub.cc/blog', origin: 'https://ian030590.trainerhub.cc' } },
     URL, URLSearchParams,
     DOMParser: class { parseFromString() { return { querySelectorAll: () => [], querySelector: () => null }; } },
     localStorage: { getItem: () => null },
     document: { documentElement: { setAttribute() {} }, querySelectorAll: () => [], querySelector: () => null,
-      getElementById: (id) => ({ 'article-content': content, 'articles-status': status, 'tags-filter-list': tags })[id] || null },
+      getElementById: (id) => ({ 'article-content': content, 'articles-status': status, 'tags-filter-list': tags,
+        'blogger-catalog': { textContent: JSON.stringify(snapshot) } })[id] || null },
     fetch: async () => { if (offline) throw new Error('Offline'); return { ok: true, json: async () => ({ items }) }; },
   });
   vm.runInContext(main, context);
@@ -77,22 +79,26 @@ async function loadArticles(items, { offline = false, tag = '' } = {}) {
 }
 
 let page = await loadArticles([{ id: '1', title: '<img onerror=alert(1)>', url: 'https://blog.example/one',
-  published: '2026-10-27T08:00:00+08:00', labels: ['__proto__', 'ALL', '原生標籤'], images: [{ url: 'javascript:alert(1)' }] }]);
+  link: '/article?id=1', tags: ['__proto__', 'ALL', '原生標籤'], imageUrl: 'javascript:alert(1)' }]);
 assert.match(page.content.innerHTML, /\/article\?id=1/);
 assert.match(page.content.innerHTML, /&lt;img onerror=alert\(1\)&gt;/);
 assert.doesNotMatch(page.content.innerHTML, /javascript:/);
 assert.doesNotMatch(page.content.innerHTML, /本機文章/);
 assert.match(page.tags.innerHTML, /data-tag="__proto__"/);
 assert.equal(page.content['aria-busy'], 'false');
-page = await loadArticles([{ id: '1', title: '原生 ALL 標籤', url: 'https://blog.example/one', labels: ['ALL'] }], { tag: 'ALL' });
+page = await loadArticles([{ id: '1', title: '原生 ALL 標籤', link: '/article?id=1', tags: ['ALL'] }], { tag: 'ALL' });
 assert.match(page.content.innerHTML, /原生 ALL 標籤/);
 page = await loadArticles([]);
 assert.match(page.content.innerHTML, /目前還沒有公開文章/);
 assert.doesNotMatch(page.content.innerHTML, /本機文章/);
-page = await loadArticles(null, { offline: true });
-assert.match(page.content.innerHTML, /本機文章/);
-assert.match(page.status.textContent, /本站保存/);
-page = await loadArticles([{ url: 'javascript:alert(1)', title: '危險網址' }]);
-assert.match(page.content.innerHTML, /本機文章/);
+page = await loadArticles(null, { offline: true, snapshot: [{ title: 'Blogger 伺服器文章', link: '/article?id=2' }] });
+assert.match(page.content.innerHTML, /Blogger 伺服器文章/);
+assert.match(page.status.textContent, /本次頁面取得的 Blogger/);
+assert.doesNotMatch(page.content.innerHTML, /本機文章/);
+page = await loadArticles(null, { offline: true, snapshot: null });
+assert.match(page.status.textContent, /文章暫時無法取得/);
+assert.doesNotMatch(page.content.innerHTML, /本機文章/);
+page = await loadArticles([{ link: 'javascript:alert(1)', title: '危險網址' }]);
+assert.doesNotMatch(page.content.innerHTML, /本機文章|危險網址/);
 assert.doesNotMatch(page.content.innerHTML, /javascript:/);
 console.log('Blogger checks passed: pagination, cache, failure handling, native labels, empty/offline states and safe card rendering.');

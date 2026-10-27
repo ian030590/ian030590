@@ -1,3 +1,4 @@
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -193,6 +194,8 @@ class AstroAssetsTests(unittest.TestCase):
             self.assertFalse((public / 'content' / 'References').exists())
             self.assertFalse(stale.exists())
             self.assertIn('window.__STATIC_ARTICLES__', (public / 'js' / 'articles-data.js').read_text(encoding='utf-8'))
+            self.assertEqual(json.loads((public / 'article-routes.json').read_text(encoding='utf-8')),
+                             {'VisualRehab_001': '/content/VisualRehab/001_article'})
             for filename in ('sitemap.xml', 'rss.xml', '_headers', '_redirects'):
                 self.assertTrue((public / filename).is_file())
 

@@ -1669,12 +1669,8 @@ def validate_generated_site(all_articles):
     for item in articles_data:
         validate_internal_link(ARTICLES_DATA_FILE, item['link'], page_soups)
     blog_links = [link['href'] for link in page_soups[BLOG_HTML_FILE].select('.card-link[href]')]
-    first_page_links = [
-        item['link']
-        for item in sorted(articles_data, key=lambda item: item['dateString'], reverse=True)[:15]
-    ]
-    if blog_links != first_page_links:
-        raise RuntimeError('Blog must render the latest 15 articles in catalog order')
+    if blog_links or not page_soups[BLOG_HTML_FILE].select_one('#blogger-catalog'):
+        raise RuntimeError('Blog template must let the Worker render the Blogger catalog')
 
     # Sitemap URLs must resolve to real files and include every article.
     sitemap_links = [node.text for node in ET.parse(SITEMAP_FILE).iterfind('.//{*}loc')]
@@ -1729,6 +1725,9 @@ def prepare_astro_assets(all_articles):
         shutil.copy2(BASE_DIR / relative, target)
 
     catalog = generate_articles_data(all_articles, public)
+    (public / 'article-routes.json').write_text(json.dumps({
+        item['id']: item['link'].removesuffix('.html') for item in catalog
+    }, ensure_ascii=False), encoding='utf-8')
     (generated / 'articles.json').write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding='utf-8')
     generate_sitemap(all_articles, public)
     generate_rss(all_articles, public)

@@ -1,6 +1,5 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import ArticleList from '../components/ArticleList.astro';
 const metadata = {
   "title": "專業文章與專題 | 蔡泓恩 | 職能治療師",
   "description": "蔡泓恩職能治療師整理的中風、視覺、動作與認知復健研究與臨床指引，以及數位學習與 AI 應用筆記，每篇附上原始文獻連結。",
@@ -63,8 +62,7 @@ const metadata = {
         ]
       }
     ]
-  },
-  "articles": true
+  }
 };
 ---
 <SiteLayout {...metadata}>
@@ -93,8 +91,9 @@ const metadata = {
 
             <p id="articles-status" role="status">正在取得最新文章。</p>
             <div id="article-content" role="region" aria-label="文章列表" tabindex="-1" aria-busy="true">
-              <ArticleList />
+              <p class="empty-state">正在取得文章。</p>
             </div>
+            <script is:inline id="blogger-catalog" type="application/json">[]</script>
           </div>
 
           <aside class="blog-sidebar" aria-label="文章搜尋與篩選">

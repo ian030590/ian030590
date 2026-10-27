@@ -1651,6 +1651,12 @@ html:not(.js) .js-only {
   padding-bottom: 24px;
 }
 
+.article-detail-header > .article-title {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+}
+
 .article-tag-badges {
   display: flex;
   gap: 10px;

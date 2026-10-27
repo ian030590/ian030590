@@ -22,7 +22,7 @@ export async function handleBlogger(request, env, ctx) {
       url.search = new URLSearchParams({
         maxResults: '100', fetchBodies: 'true', fetchImages: 'true',
         view: 'READER', orderBy: 'published',
-        fields: 'nextPageToken,items(id,title,content,url,labels,published,images)',
+        fields: 'nextPageToken,items(id,title,content,url,labels,published,updated,images)',
       }).toString();
       if (pageToken) url.searchParams.set('pageToken', pageToken);
       const response = await fetch(url, {

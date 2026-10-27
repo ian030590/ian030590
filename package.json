@@ -15,7 +15,7 @@
     "prebuild": "npm run prepare:content",
     "build": "astro build && python build_static_articles.py --validate dist",
     "preview": "astro preview",
-    "test": "python -B -m unittest discover -s scripts -p \"test_*.py\" && node scripts/test-projects.mjs && node scripts/test-seo-check.mjs && node scripts/test-contact-worker.mjs && node scripts/test-blogger.mjs",
+    "test": "python -B -m unittest discover -s scripts -p \"test_*.py\" && node scripts/test-projects.mjs && node scripts/test-seo-check.mjs && node scripts/test-contact-worker.mjs && node scripts/test-blogger.mjs && node scripts/test-article-rendering.mjs",
     "blogger:auth": "python -B scripts/blogger_auth.py",
     "blogger:plan": "python -B scripts/blogger_sync.py",
     "blogger:sync": "python -B scripts/blogger_sync.py --apply",
@@ -29,6 +29,7 @@
     "wrangler": "4.151.0"
   },
   "dependencies": {
-    "dompurify": "^3.4.17"
+    "htmlparser2": "12.0.0",
+    "sanitize-html": "2.18.1"
   }
 }

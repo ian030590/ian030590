@@ -435,17 +435,34 @@
       renderArticles();
     };
 
-    initArticles(window.__STATIC_ARTICLES__ || []);
-
-    const safeURL = (value, base) => {
-      if (!value) return "";
-      try {
-        const url = new URL(value, base);
-        return ["https:", "http:"].includes(url.protocol) ? url.href : "";
-      } catch {
-        return "";
-      }
+    let hasCatalog = false;
+    const useCatalog = (items) => {
+      if (!Array.isArray(items)) throw new Error("Invalid Blogger catalog");
+      const articles = items.map((post) => {
+        const link = new URL(post.link, window.location.href);
+        if (link.origin !== window.location.origin || !["/article", "/content/"].some((path) =>
+          path === "/article" ? link.pathname === path : link.pathname.startsWith(path))) {
+          throw new Error("Invalid article route");
+        }
+        let imageUrl = "";
+        try {
+          const image = new URL(post.imageUrl);
+          if (["https:", "http:"].includes(image.protocol)) imageUrl = image.href;
+        } catch { /* A card can omit its image. */ }
+        return {
+          title: String(post.title || ""), lead: String(post.lead || ""), imageUrl,
+          tags: (post.tags || []).filter((tag) => typeof tag === "string"),
+          dateString: String(post.dateString || ""), link: link.pathname + link.search,
+        };
+      });
+      initArticles(articles);
+      hasCatalog = true;
     };
+
+    try {
+      const initial = JSON.parse(document.getElementById("blogger-catalog")?.textContent || "null");
+      if (initial) useCatalog(initial);
+    } catch { /* The API can recover a missing server catalog. */ }
 
     fetch("/api/articles")
       .then((response) => {
@@ -453,32 +470,13 @@
         return response.json();
       })
       .then(({ items }) => {
-        if (!Array.isArray(items)) throw new Error("Invalid Blogger catalog");
-        const articles = items.map((post) => {
-          const bloggerURL = safeURL(post.url);
-          if (!bloggerURL || !/^\d+$/.test(String(post.id))) throw new Error("Invalid Blogger article");
-          const link = `/article?id=${encodeURIComponent(post.id)}`;
-          // Parse inertly and render only escaped text and HTTP URLs, never remote HTML.
-          const doc = new DOMParser().parseFromString(post.content || "", "text/html");
-          doc.querySelectorAll("script, style").forEach((node) => node.remove());
-          const summary = doc.querySelector(".article-lead-box p, p")?.textContent || "";
-          const lead = summary.replace(/\s+/g, " ").trim();
-          return {
-            title: String(post.title || ""),
-            lead: lead.slice(0, 160) + (lead.length > 160 ? "…" : ""),
-            imageUrl: safeURL(post.images?.[0]?.url || doc.querySelector("img")?.getAttribute("src") || "", bloggerURL),
-            tags: [...new Set((post.labels || []).filter((label) => typeof label === "string"))],
-            dateString: String(post.published || "").slice(0, 10),
-            readTime: "",
-            link,
-            category: "",
-          };
-        });
-        initArticles(articles);
+        useCatalog(items);
         if (articlesStatus) articlesStatus.textContent = "";
       })
       .catch(() => {
-        if (articlesStatus) articlesStatus.textContent = "最新文章暫時無法取得，目前顯示本站保存的文章。";
+        if (articlesStatus) articlesStatus.textContent = hasCatalog
+          ? "目前顯示本次頁面取得的 Blogger 文章；最新資料暫時無法更新。"
+          : "文章暫時無法取得，請稍後重新整理。";
       })
       .finally(() => articleContent.setAttribute("aria-busy", "false"));
   }

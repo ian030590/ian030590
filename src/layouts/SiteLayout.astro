@@ -8,12 +8,11 @@ interface Props {
   path: string;
   socialTitle?: string;
   schema: Record<string, unknown>;
-  articles?: boolean;
   projects?: boolean;
   noindex?: boolean;
 }
 
-const { title, description, path, socialTitle = title, schema, articles, projects, noindex } = Astro.props;
+const { title, description, path, socialTitle = title, schema, projects, noindex } = Astro.props;
 const canonical = new URL(path, Astro.site);
 const image = new URL('/assets/ian-tsai.jpg', Astro.site);
 ---
@@ -61,7 +60,6 @@ const image = new URL('/assets/ian-tsai.jpg', Astro.site);
     <SiteHeader path={path} />
     <slot />
     <SiteFooter />
-    {articles && <script is:inline src="/js/articles-data.js"></script>}
     <script is:inline src="/js/animate-icons.js"></script>
     {projects && <script is:inline src="/js/projects-data.js"></script>}
     <script is:inline src="/js/main.js"></script>
