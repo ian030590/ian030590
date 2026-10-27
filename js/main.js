@@ -455,8 +455,9 @@
       .then(({ items }) => {
         if (!Array.isArray(items)) throw new Error("Invalid Blogger catalog");
         const articles = items.map((post) => {
-          const link = safeURL(post.url);
-          if (!link) throw new Error("Invalid Blogger article URL");
+          const bloggerURL = safeURL(post.url);
+          if (!bloggerURL || !/^\d+$/.test(String(post.id))) throw new Error("Invalid Blogger article");
+          const link = `/article?id=${encodeURIComponent(post.id)}`;
           // Parse inertly and render only escaped text and HTTP URLs, never remote HTML.
           const doc = new DOMParser().parseFromString(post.content || "", "text/html");
           doc.querySelectorAll("script, style").forEach((node) => node.remove());
@@ -465,7 +466,7 @@
           return {
             title: String(post.title || ""),
             lead: lead.slice(0, 160) + (lead.length > 160 ? "…" : ""),
-            imageUrl: safeURL(post.images?.[0]?.url || doc.querySelector("img")?.getAttribute("src") || "", link),
+            imageUrl: safeURL(post.images?.[0]?.url || doc.querySelector("img")?.getAttribute("src") || "", bloggerURL),
             tags: [...new Set((post.labels || []).filter((label) => typeof label === "string"))],
             dateString: String(post.published || "").slice(0, 10),
             readTime: "",

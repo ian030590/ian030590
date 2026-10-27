@@ -76,15 +76,15 @@ async function loadArticles(items, { offline = false, tag = '' } = {}) {
   return { content, status, tags };
 }
 
-let page = await loadArticles([{ title: '<img onerror=alert(1)>', url: 'https://blog.example/one',
+let page = await loadArticles([{ id: '1', title: '<img onerror=alert(1)>', url: 'https://blog.example/one',
   published: '2026-10-27T08:00:00+08:00', labels: ['__proto__', 'ALL', '原生標籤'], images: [{ url: 'javascript:alert(1)' }] }]);
-assert.match(page.content.innerHTML, /https:\/\/blog.example\/one/);
+assert.match(page.content.innerHTML, /\/article\?id=1/);
 assert.match(page.content.innerHTML, /&lt;img onerror=alert\(1\)&gt;/);
 assert.doesNotMatch(page.content.innerHTML, /javascript:/);
 assert.doesNotMatch(page.content.innerHTML, /本機文章/);
 assert.match(page.tags.innerHTML, /data-tag="__proto__"/);
 assert.equal(page.content['aria-busy'], 'false');
-page = await loadArticles([{ title: '原生 ALL 標籤', url: 'https://blog.example/one', labels: ['ALL'] }], { tag: 'ALL' });
+page = await loadArticles([{ id: '1', title: '原生 ALL 標籤', url: 'https://blog.example/one', labels: ['ALL'] }], { tag: 'ALL' });
 assert.match(page.content.innerHTML, /原生 ALL 標籤/);
 page = await loadArticles([]);
 assert.match(page.content.innerHTML, /目前還沒有公開文章/);

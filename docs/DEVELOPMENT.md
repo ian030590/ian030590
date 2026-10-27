@@ -16,7 +16,7 @@ npm run dev
 
 `npm run dev`、`npm run check` 與 `npm run build` 會先執行 `python build_static_articles.py`，將文章原檔及公開資產準備到忽略版本控制的 `.generated/public/`，同時產生文章目錄、RSS 與 Sitemap。Astro 從這裡取得公開資產，並輸出完整網站到 `dist/`。文獻原文、維護文件與測試程式不會發布。
 
-文章仍以 `content/` 的既有 HTML 為同步來源，原樣複製，不重新排版或改寫發布日期。文章列表載入後會透過 `/api/articles` 取得 Blogger 公開文章與原生標籤，全文連往 Blogger；API 暫時無法使用時保留本站靜態文章目錄。新增文章後請重新執行 `npm run prepare:content`，更新這份備援目錄、RSS 與 Sitemap。`article_editorial_copy.py` 保留編輯稿供寫作核對，部署流程不會用它覆寫既有文章。
+文章仍以 `content/` 的既有 HTML 為同步來源，原樣複製，不重新排版或改寫發布日期。文章列表載入後會透過 `/api/articles` 取得 Blogger 公開文章與原生標籤，全文在本站 `/article?id=...` 閱讀；API 暫時無法使用時保留本站靜態文章目錄。新增文章後請重新執行 `npm run prepare:content`，更新這份備援目錄、RSS 與 Sitemap。`article_editorial_copy.py` 保留編輯稿供寫作核對，部署流程不會用它覆寫既有文章。
 
 ```sh
 npm test
@@ -105,6 +105,8 @@ npm run blogger:sync
 復原時先停用同步 workflow，再從 Blogger 垃圾桶還原文章或還原來源檔案。重新啟用前執行 dry run，確認不會再次移除。若要回復網站為靜態列表，可移除 `js/main.js` 中 `/api/articles` 的載入區段；原有靜態列表仍保留。停用本地 OAuth 授權可至 Google 帳號撤銷應用程式權限。
 
 Worker 會一次讀完所有 Blogger 分頁，公開列表快取 5 分鐘；成功回傳空清單時顯示「目前還沒有公開文章」，不將已刪除的遠端文章混回結果。瀏覽器只從遠端 HTML 擷取純文字和 HTTP(S) 圖片網址，卡片內容皆跳脫後顯示。API key 留在 Worker，OAuth 憑證只供同步程式使用。本機完整測試需先 build，再執行 `npx wrangler dev`，並在 `.dev.vars` 設定 `BLOGGER_API_KEY`；`astro dev`／`astro preview` 沒有 Worker API，會顯示靜態備援列表。
+
+全文閱讀頁同樣使用 Blogger API，不依賴 Blogger 自訂網域能否開啟；目前 `blog.trainerhub.cc` 首頁回傳 404，需另於 Blogger 後台檢查自訂網域設定。全文透過 DOMPurify 清理，移除腳本、事件處理、任意樣式、表單及嵌入頁面，並套用本站文章樣式。閱讀頁的通用入口設為 `noindex`；原有靜態文章仍保留原本的 canonical、結構化資料、RSS 與 Sitemap。
 
 官方文件：[Blogger 授權與讀寫](https://developers.google.com/blogger/docs/3.0/using)、[文章標籤與 HTML 欄位](https://developers.google.com/blogger/docs/3.0/reference/posts)、[刪除與垃圾桶](https://developers.google.com/blogger/docs/3.0/reference/posts/delete)、[OAuth refresh token](https://developers.google.com/identity/protocols/oauth2/web-server)。
 

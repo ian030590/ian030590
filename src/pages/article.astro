@@ -1,0 +1,44 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const metadata = {
+  title: '文章閱讀 | 蔡泓恩 | 職能治療師',
+  description: '閱讀蔡泓恩職能治療師發布的復健與數位學習文章，涵蓋中風、視覺、動作、認知復健與 AI 應用，並可依文章標籤回到列表尋找相關主題。',
+  path: '/article',
+  noindex: true,
+  schema: {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: '文章閱讀',
+    url: 'https://ian030590.trainerhub.cc/article',
+    inLanguage: 'zh-TW',
+  },
+};
+---
+<SiteLayout {...metadata}>
+  <main class="page-main article-page-layout">
+    <div class="container">
+      <nav class="breadcrumb-trail" aria-label="文章路徑導覽">
+        <a href="/">首頁</a>
+        <span class="breadcrumb-separator" aria-hidden="true">/</span>
+        <a href="/blog">專業文章</a>
+      </nav>
+      <article id="blogger-reader" class="article-container" aria-busy="true">
+        <header class="article-detail-header">
+          <div id="reader-tags" class="article-tag-badges"></div>
+          <h1 id="reader-title" class="article-title">正在載入文章</h1>
+          <p class="article-meta-row"><time id="reader-date"></time></p>
+        </header>
+        <p id="reader-status" role="status">正在取得文章全文。</p>
+        <div id="reader-body" class="article-body-content"></div>
+        <noscript><p>請開啟 JavaScript 閱讀文章，或<a href="/blog">回到文章列表</a>查看本站保存的文章。</p></noscript>
+        <div class="article-bottom-actions"><a class="article-back-link" href="/blog">返回文章列表</a></div>
+      </article>
+    </div>
+  </main>
+</SiteLayout>
+
+<script>
+  import { loadBloggerArticle } from '../scripts/blogger-reader';
+  loadBloggerArticle();
+</script>
