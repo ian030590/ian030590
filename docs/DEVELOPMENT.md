@@ -66,12 +66,24 @@ npm run preview
 
 ### 一次性授權與憑證儲存
 
-1. 在 Google Cloud 專案啟用 Blogger API v3，建立 OAuth client 並設定同意畫面。如果是 Web application client，加入 redirect URI `http://127.0.0.1:8765/`。若應用程式為 External / Testing，加入自己的帳號為測試使用者；Google 對這類測試應用程式的 refresh token 通常僅保留 7 天，長期排程應完成適當的正式發布設定。
+1. 在 Google Cloud 專案啟用 Blogger API v3，建立 OAuth client 並設定同意畫面。如果是 Web application client，加入 redirect URI `http://127.0.0.1:8765/`。一般 Google 帳號使用 External 類型；這與工具是否僅供個人自用是不同設定。若應用程式為 External / Testing，加入自己的帳號為測試使用者；Blogger scope 的測試授權與 refresh token 有 7 天期限。長期排程應先完成品牌設定，再於 Audience 將 Publishing status 改為 In production，最後重新授權取得新憑證。這可移除測試模式的 7 天期限，但憑證仍可能被撤銷或失效。
 2. 執行 `npm run blogger:auth`，輸入 client ID、client secret，並在開啟的 Google 頁面登入授權。腳本會使用 state 與 PKCE 核對回應，將 refresh token 寫入 `.blogger/credentials.json`，不印出 token。
 3. 在已登入 GitHub CLI 的終端執行 `python -B scripts/blogger_auth.py --github-secrets`，上傳 `BLOGGER_CLIENT_ID`、`BLOGGER_CLIENT_SECRET`、`BLOGGER_REFRESH_TOKEN` 至 repository 的加密 Actions Secrets。也可以在 [GitHub Secrets 設定](https://github.com/ian030590/ian030590/settings/secrets/actions) 手動設定。Secrets 不會寫入 Git 檔案。
 4. 在本機 `.blogger/credentials.json` 加入 `api_key` 欄位，再執行 `python -B scripts/blogger_auth.py --worker-secret`，將它設定為 Cloudflare Worker 的 `BLOGGER_API_KEY` secret。Blogger API key 不需要上傳 GitHub。此 key 必須允許伺服器端請求；使用 HTTP referrer 限制的 key 不適用 Worker，可限制為僅能呼叫 Blogger API。
 
 `.blogger/`、`.dev.vars` 與 `.env*` 均已被 Git 忽略，建置也不會發布它們。憑證不得放進 `blogger.config.json`、workflow YAML 或公開 JavaScript。更換憑證時重新執行對應上傳指令；本機檔案應留在自己的電腦。
+
+若 Audience 顯示「如要發布應用程式，請在品牌頁面完成設定」，先在 Branding 填寫應用名稱、支援信箱、開發人員聯絡信箱及下列網址，儲存後回到 Audience。應用名稱應與網站及文章管理工具的實際用途一致，例如「蔡泓恩網站文章管理工具」。
+
+| Branding 欄位 | 本站網址 |
+| --- | --- |
+| Application home page | `https://ian030590.trainerhub.cc/` |
+| Application privacy policy link | `https://ian030590.trainerhub.cc/privacy` |
+| Application terms of service link | `https://ian030590.trainerhub.cc/terms` |
+
+網址必須先部署並可公開讀取，不能填寫尚未上線的頁面。個人自用工具可適用 OAuth 免驗證審查例外，但不代表可以略過 Console 要求的品牌設定；發布狀態、品牌驗證與資料存取 scope 審查是不同項目。需要驗證網域時，應由專案擁有者或編輯者在 Search Console 驗證所用網域，並在 Authorized domains 設定可使用的網域。不要為了消除測試期限而增加不需要的 scope。
+
+官方說明：[品牌設定與政策網址](https://support.google.com/cloud/answer/15549049?hl=en)、[Audience 與測試期限](https://support.google.com/cloud/answer/15549945?hl=en)、[個人自用免驗證審查](https://support.google.com/cloud/answer/13464323?hl=en)。
 
 ### 每次 push 與分批接續
 

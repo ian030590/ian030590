@@ -1464,6 +1464,8 @@ def generate_sitemap(all_articles, output_dir=None):
         f'  <url><loc>{SITE_BASE_URL}/blog</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>',
         f'  <url><loc>{SITE_BASE_URL}/contact</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>',
         f'  <url><loc>{SITE_BASE_URL}/sponsor</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>',
+        f'  <url><loc>{SITE_BASE_URL}/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>',
+        f'  <url><loc>{SITE_BASE_URL}/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>',
     ]
     
     for art in all_articles:
@@ -1475,7 +1477,7 @@ def generate_sitemap(all_articles, output_dir=None):
     sitemap_content = '\n'.join(lines)
     target = Path(output_dir) / 'sitemap.xml' if output_dir else SITEMAP_FILE
     target.write_text(sitemap_content, encoding='utf-8')
-    print(f'Sitemap written to {target} ({len(all_articles) + 5} URLs)')
+    print(f'Sitemap written to {target} ({len(all_articles) + 7} URLs)')
 
 def generate_rss(all_articles, output_dir=None):
     sorted_articles = sorted(all_articles, key=lambda art: art['date_published'], reverse=True)

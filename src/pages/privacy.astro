@@ -1,0 +1,73 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const metadata = {
+  title: '隱私權政策 | 蔡泓恩 | 職能治療師',
+  description: '說明蔡泓恩個人網站與文章管理工具如何處理聯絡資料、Google Blogger 授權、瀏覽資訊，以及撤銷授權與刪除資料的方式。',
+  path: '/privacy',
+  schema: {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        name: '隱私權政策',
+        url: 'https://ian030590.trainerhub.cc/privacy',
+        dateModified: '2026-10-28',
+        about: { '@id': 'https://ian030590.trainerhub.cc/#person' },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://ian030590.trainerhub.cc/' },
+          { '@type': 'ListItem', position: 2, name: '隱私權政策', item: 'https://ian030590.trainerhub.cc/privacy' },
+        ],
+      },
+    ],
+  },
+};
+---
+<SiteLayout {...metadata}>
+  <main class="page-main">
+    <article class="container policy-content" aria-labelledby="privacy-title">
+      <h1 id="privacy-title" class="page-title">隱私權政策</h1>
+      <p class="page-intro">更新日期：<time datetime="2026-10-28">2026 年 10 月 28 日</time></p>
+
+      <div class="article-body-content">
+        <h2>適用範圍與聯絡方式</h2>
+        <p>本政策適用於蔡泓恩經營的個人網站（ian030590.trainerhub.cc）及本站文章管理工具。文章管理工具供網站管理者將文章同步至自己的 Google Blogger 部落格；一般訪客閱讀本站不需要授權 Google 帳號。本站的使用說明另見<a href="/terms">使用說明與條款</a>。</p>
+        <p>如對資料處理有疑問，或希望查詢、更正、刪除你提供的聯絡資料，請寄信至 <a href="mailto:rainbowh9490@gmail.com">rainbowh9490@gmail.com</a>，說明相關來信或訊息，以便核對並處理。</p>
+
+        <h2>你主動提供的聯絡資料</h2>
+        <p>聯絡表單會處理你填寫的姓名或單位、專業背景、電子郵件、主旨及訊息，用於回覆詢問與後續合作聯繫。表單經 Cloudflare Workers 處理，再透過 Resend 寄送至管理者的 Gmail 信箱。網站程式沒有另建表單資料庫，但寄信服務與收件信箱會依各自的服務設定保存郵件及寄送紀錄。</p>
+        <p>請勿在表單或來信中提供可辨識病人身分的病歷、證件或其他敏感資料。提出刪除要求時，我會核對並處理管理者可控制的郵件；第三方服務的安全紀錄與備份仍依該服務的保存與刪除機制處理。</p>
+
+        <h2>Google Blogger 授權與資料用途</h2>
+        <p>文章管理工具向網站管理者請求 Blogger 權限（<code>https://www.googleapis.com/auth/blogger</code>），用於讀取指定部落格的文章清單、標題、內文、標籤、發布狀態、日期與文章識別碼，比對同步進度，並新增、更新或將已撤下來源的對應文章移至垃圾桶。這項授權由管理者在 Google 的登入與同意頁面完成，工具不取得 Google 帳號密碼。</p>
+        <p>Google API 資料僅用於文章管理、同步及網站內容呈現。網站讀取公開文章並暫存於 Cloudflare 快取，供訪客閱讀、搜尋與瀏覽分類；同步時讀取的未公開文章資料不會因此直接公開。工具不將取得的非公開 Google 資料用於廣告、販售或訓練 AI 模型。</p>
+        <p>授權憑證保存在管理者電腦及 GitHub Actions 的加密 Secrets，供排程同步使用；憑證不放入公開原始碼、文章或瀏覽器程式。Google API 資料的使用遵循 <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a>，包括適用的 Limited Use 要求。</p>
+
+        <h2>撤銷授權與移除內容</h2>
+        <p>管理者可隨時至 <a href="https://myaccount.google.com/connections" target="_blank" rel="noopener noreferrer">Google 帳號的第三方連線設定</a>撤銷工具權限，並刪除本機及 GitHub Actions 中保存的憑證，以停止後續同步。撤銷授權不會自動移除已發布的文章；文章及 GitHub 來源檔案須由管理者分別處理，快取則會隨到期或清除而更新。</p>
+
+        <h2>瀏覽資訊與第三方服務</h2>
+        <p>Cloudflare 提供網站傳輸與安全防護，會處理連線所需資訊，例如 IP 位址、請求網址與時間；聯絡表單也使用 IP 位址限制短時間內的送出次數。瀏覽器會在本機儲存你的明暗主題選擇，可透過清除本站網站資料移除。</p>
+        <p>頁面使用 Google Fonts 字型，文章可能載入 Unsplash 圖片，專案頁也會向 GitHub 讀取公開資訊。載入這些資源時，瀏覽器會與對應服務連線，第三方可能接收 IP 位址、瀏覽器資訊等請求資料。點選外部網站或 Buy Me a Coffee 贊助連結後，資料由該服務依其政策處理；本站不接收信用卡資料。</p>
+        <p>第三方服務可能在台灣以外處理資料，其紀錄保存期限依各服務設定與政策而定。相關說明可參閱 <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare</a>、<a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Resend</a>、<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a>、<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub</a>與 <a href="https://unsplash.com/privacy" target="_blank" rel="noopener noreferrer">Unsplash</a>的隱私政策。</p>
+
+        <h2>政策更新</h2>
+        <p>若本站的資料用途或服務流程改變，會更新本頁並標示更新日期。你可透過本頁的聯絡信箱詢問目前的資料處理方式。</p>
+      </div>
+    </article>
+  </main>
+</SiteLayout>
+
+<style>
+  .policy-content {
+    max-width: 860px;
+    overflow-wrap: anywhere;
+  }
+  .policy-content a {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+</style>

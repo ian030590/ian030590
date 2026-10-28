@@ -170,7 +170,7 @@ export function cards(posts) {
 }
 
 export function sitemap(posts, routes) {
-  const urls = new Map(['/', '/blog', '/projects', '/contact', '/sponsor', ...Object.values(routes)]
+  const urls = new Map(['/', '/blog', '/projects', '/contact', '/sponsor', '/privacy', '/terms', ...Object.values(routes)]
     .map((path) => [new URL(path, SITE).href, '']));
   for (const post of posts) urls.set(new URL(post.link, SITE).href, post.updated || post.published || '');
   return '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'

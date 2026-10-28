@@ -1,0 +1,63 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const metadata = {
+  title: '使用說明與條款 | 蔡泓恩 | 職能治療師',
+  description: '蔡泓恩個人網站與文章管理工具的使用範圍、Blogger 同步功能、內容引用方式與聯絡管道。',
+  path: '/terms',
+  schema: {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        name: '使用說明與條款',
+        url: 'https://ian030590.trainerhub.cc/terms',
+        dateModified: '2026-10-28',
+        about: { '@id': 'https://ian030590.trainerhub.cc/#person' },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://ian030590.trainerhub.cc/' },
+          { '@type': 'ListItem', position: 2, name: '使用說明與條款', item: 'https://ian030590.trainerhub.cc/terms' },
+        ],
+      },
+    ],
+  },
+};
+---
+<SiteLayout {...metadata}>
+  <main class="page-main">
+    <article class="container policy-content" aria-labelledby="terms-title">
+      <h1 id="terms-title" class="page-title">使用說明與條款</h1>
+      <p class="page-intro">更新日期：<time datetime="2026-10-28">2026 年 10 月 28 日</time></p>
+      <div class="article-body-content">
+        <h2>網站與文章管理工具</h2>
+        <p>本網站由蔡泓恩維護，提供個人介紹、開源專案及復健與數位學習文章。本站文章管理工具供網站管理者使用 Blogger API，將本站來源文章同步至自己的 Blogger 部落格，並在個人網站呈現公開文章。閱讀本站不需要註冊帳號或授權 Google 權限，工具目前也沒有開放一般訪客登入使用。</p>
+        <p>網站與文章管理工具如何處理資料、保存授權及接受刪除要求，請參閱<a href="/privacy">隱私權政策</a>。如需聯絡管理者，請使用<a href="/contact">聯絡頁</a>或寄信至 <a href="mailto:rainbowh9490@gmail.com">rainbowh9490@gmail.com</a>。</p>
+
+        <h2>文章與健康資訊的使用</h2>
+        <p>復健與健康文章提供一般衛教及研究整理，不能取代個別評估、診斷或治療。研究結果有其族群、介入條件與限制；是否適合自己的情況，應與熟悉病史的醫療專業人員討論。聯絡表單不是緊急醫療或線上診療管道，也請勿透過表單提供可辨識病人身分的資料。</p>
+
+        <h2>文章同步的授權與操作</h2>
+        <p>管理者必須使用對指定 Blogger 部落格具備相應權限的 Google 帳號授權。工具會比對文章內容與同步標記，新增或更新對應文章；來源撤下時，對應的受管文章會移至垃圾桶。來源再次修改後，後續同步可能覆蓋先前在 Blogger 手動修改的內容，因此管理者應保留需要的版本並先檢查同步預覽。</p>
+        <p>同步受 Google API、網路狀態及服務限制影響，文章更新可能分批完成。管理者可從 Google 帳號撤銷工具授權來停止後續同步；撤銷不會自動刪除已發布文章。本站不保證第三方服務持續可用或同步在固定時間內完成。</p>
+
+        <h2>引用、專案與外部連結</h2>
+        <p>引用文章時請標示作者與來源，並依原始文獻核對研究條件。文章引用的論文、圖片及第三方素材，其權利屬於各權利人；本站公開呈現不代表取得這些素材的再利用授權。開源專案的使用與修改方式，依各專案 repository 內的授權文件辦理。</p>
+        <p>外部網站、專案與贊助平台由各服務經營者維護，使用前請閱讀該服務的說明與條款。若發現本站內容錯誤、權利疑義或連結失效，可透過上述聯絡管道提供網址與問題描述。網站功能或使用方式變更時，會同步更新本頁日期與說明。</p>
+      </div>
+    </article>
+  </main>
+</SiteLayout>
+
+<style>
+  .policy-content {
+    max-width: 860px;
+    overflow-wrap: anywhere;
+  }
+  .policy-content a {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+</style>
