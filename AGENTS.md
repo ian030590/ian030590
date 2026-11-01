@@ -1,5 +1,11 @@
 # Agent Instructions & Content Generation Rules
 
+## 推送前測試規則
+
+- 每次 `git push` 必須透過 `.githooks/pre-push` 執行完整回歸測試、Astro 檢查、建置與 SEO 檢查；任何失敗都必須阻止推送。
+- 新增或修改自動化測試時，必須確認它會由 `npm test` 或 hook 的其他入口執行；未被既有探索規則納入時，同一筆變更必須更新入口，不得只新增測試檔。
+- 每個 checkout 執行 `git config --local core.hooksPath .githooks` 啟用 hook。不得使用 `--no-verify`、停用 hook 或略過失敗測試來推送。本機測試不得發布文章、部署正式站或寫入正式資料。
+
 ## 文件分工與專案架構
 
 - 原根目錄與 `content/` 下 `GEMINI.md` 的維護規範已整併至本文件，兩個舊檔已刪除。本文件為所有代理人的共用規則來源，避免重複維護。
