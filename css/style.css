@@ -287,6 +287,22 @@ html:not(.js) .js-only {
   display: inline-block;
   vertical-align: middle;
 }
+.brand-text {
+  display: grid;
+  gap: 3px;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+.brand-text strong {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.brand-text > span {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
 /* logo.png has an opaque white tile: multiply hides it on light surfaces, invert + screen on dark ones. */
 .brand-logo {
   mix-blend-mode: multiply;
@@ -686,6 +702,7 @@ html:not(.js) .js-only {
   }
   .nav {
     height: 68px;
+    gap: 10px;
   }
   .brand {
     font-size: 19px;
