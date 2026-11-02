@@ -187,12 +187,11 @@ const metadata = {
           <div class="hero-intro">
             <p class="home-eyebrow">蔡泓恩 <span aria-hidden="true">/</span> 職能治療師</p>
             <h1 id="intro-title">
-              把臨床觀察<br />
-              轉化為<span>復健工具。</span>
+              視覺復健研究<br />
+              與<span>數位工具開發</span>
             </h1>
             <p class="hero-copy">
-              從視覺評估、臨床研究，到開源工具開發，<br class="hero-copy-break" />
-              讓研究回到日常，讓練習更容易開始。
+              研究雙眼視覺、深度知覺與眼球動作，並開發復健練習與研究自動化工具。
             </p>
             <div class="hero-actions">
               <a class="button-primary" href="/blog">閱讀專業文章</a>
@@ -204,23 +203,22 @@ const metadata = {
             <div class="portrait">
               <img src="/assets/ian-tsai.jpg" alt="蔡泓恩，職能治療師" width="1271" height="1747" fetchpriority="high" />
             </div>
-            <figcaption><strong>Hung-En (Ian) Tsai</strong><span>臨床・研究・數位實作</span></figcaption>
+            <figcaption>Hung-En (Ian) Tsai</figcaption>
           </figure>
         </div>
         <nav class="container home-index" aria-label="首頁章節">
-          <a href="#focus-title"><span>01</span>專業領域</a>
-          <a href="#trainerhub-title"><span>02</span>數位實作</a>
-          <a href="#academic-title"><span>03</span>學術成果</a>
-          <a href="#experience-title"><span>04</span>學經歷</a>
+          <a href="#focus-title">專業領域</a>
+          <a href="#trainerhub-title">TrainerHub</a>
+          <a href="#academic-title">學術成果</a>
+          <a href="#experience-title">學經歷</a>
         </nav>
       </section>
 
       <section class="section section-muted" aria-labelledby="focus-title">
         <div class="container split">
           <div class="split-intro">
-            <p class="home-eyebrow">01 / 專業領域</p>
-            <h2 id="focus-title">從看見問題，<br />到支持日常生活</h2>
-            <p>在臨床與研究中反覆出現的問題，我會寫成練習工具或自動化流程。這三項是我持續投入的方向。</p>
+            <h2 id="focus-title">專業領域</h2>
+            <p>以視覺評估與日常活動需求為基礎，將臨床問題整理成研究與工具。</p>
           </div>
           <dl class="focus-list">
             <div>
@@ -242,14 +240,11 @@ const metadata = {
       <section class="section home-product" aria-labelledby="trainerhub-title">
         <div class="container platform-highlight">
           <div class="platform-highlight-copy">
-            <p class="home-eyebrow">02 / 數位實作</p>
-            <h2 id="trainerhub-title">把練習，<br />帶回日常。</h2>
-            <p class="platform-name">TrainerHub 居家復健訓練網</p>
-            <p>整合動作、視覺、認知與口腔練習，以及衛教資訊。以瀏覽器開啟，也可安裝為 PWA，讓居家練習多一個入口。</p>
+            <h2 id="trainerhub-title">TrainerHub<br />居家復健訓練網</h2>
+            <p>整合動作、視覺、認知與口腔練習，以及衛教資訊。可用瀏覽器開啟，或安裝為 PWA。</p>
             <ul class="platform-capabilities">
-              <li>練習參數設定</li>
-              <li>成績 CSV 匯出</li>
-              <li>經審核的開發者遊戲庫</li>
+              <li>設定練習參數，將成績匯出為 CSV。</li>
+              <li>提供經審核的開發者遊戲庫。</li>
             </ul>
             <div class="hero-actions">
               <a class="button-primary" href="https://trainerhub.cc" target="_blank" rel="noopener noreferrer">開啟 TrainerHub<span class="animate-icon" data-animate-icon="external-link" aria-hidden="true"></span></a>
@@ -263,7 +258,7 @@ const metadata = {
       <section class="section" aria-labelledby="academic-title">
         <div class="container">
           <header class="home-section-heading">
-            <div><p class="home-eyebrow">03 / 學術成果</p><h2 id="academic-title" class="section-title">讓臨床提問，<br />成為研究的起點</h2></div>
+            <h2 id="academic-title" class="section-title">學術成果</h2>
             <p class="academic-section-lead">
             以臨床實務與復能需求為出發點，聚焦於雙眼視覺、深度知覺評估、低視能輔具處方與神經視覺損傷復健的實證研究。
             </p>
@@ -278,7 +273,6 @@ const metadata = {
               <h3 class="academic-thesis-title">{thesisProject.title}</h3>
               <div class="academic-thesis-meta">
                 <span>{thesisProject.institution}</span>
-                <span>·</span>
                 <span>{thesisProject.advisor}</span>
               </div>
             </article>
@@ -289,15 +283,15 @@ const metadata = {
                 {publications.map((item) => (
                   <details class="academic-card">
                     <summary>
-                      <div class="academic-card-header">
+                      <span class="academic-card-header">
                         <span class:list={['academic-badge', item.badgeClass]}>{item.type}</span>
                         <time class="academic-date" datetime={item.date.replace('/', '-')}>{item.date}</time>
-                      </div>
-                      <h4 class="academic-card-title">{item.title}</h4>
-                      <div class="academic-conference">{item.conference}</div>
-                      <span class="academic-expand"><span class="academic-expand-label">摘要與作者</span><span class="academic-expand-mark" aria-hidden="true">+</span></span>
+                      </span>
+                      <span class="academic-card-title" role="heading" aria-level="4">{item.title}</span>
+                      <span class="academic-expand">摘要與作者<span class="academic-expand-mark" aria-hidden="true">+</span></span>
                     </summary>
                     <div class="academic-card-body">
+                      <p class="academic-conference">{item.conference}</p>
                       <div class="academic-authors">
                         <span class="academic-author-label">作者：</span>
                         <span>{item.authors}</span>
@@ -314,7 +308,6 @@ const metadata = {
 
       <section class="section section-muted" aria-labelledby="experience-title">
         <div class="container">
-          <p class="home-eyebrow">04 / 學經歷</p>
           <h2 id="experience-title" class="section-title">學經歷</h2>
           <div class="timeline-columns">
             <div>
@@ -348,7 +341,7 @@ const metadata = {
       </section>
       <section class="section home-contact" aria-labelledby="home-contact-title">
         <div class="container">
-          <div><p class="home-eyebrow">研究交流 / 工具開發</p><h2 id="home-contact-title">有想一起解決的問題？</h2><p>歡迎聊聊視覺復健、臨床研究，或數位工具的應用。</p></div>
+          <div><h2 id="home-contact-title">研究交流與合作</h2><p>歡迎來信討論視覺復健、臨床研究或數位工具開發。</p></div>
           <a class="button-primary" href="/contact">聯絡我</a>
         </div>
       </section>

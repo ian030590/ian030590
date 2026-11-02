@@ -1,9 +1,9 @@
 ---
 const modules = [
-  { name: '視覺練習', description: '看見與探索', selected: true },
-  { name: '動作練習', description: '身體與活動' },
-  { name: '認知練習', description: '思考與注意' },
-  { name: '口腔練習', description: '口腔與動作' },
+  { name: '視覺練習', selected: true },
+  { name: '動作練習' },
+  { name: '認知練習' },
+  { name: '口腔練習' },
 ];
 ---
 <figure class="trainerhub-preview">
@@ -15,125 +15,143 @@ const modules = [
         <span class="ss-window__url">trainerhub.cc</span>
       </div>
       <div class="ss-window__body">
-        <aside class="preview-sidebar">
-          <strong>TrainerHub</strong>
-          <span class="preview-nav-current">居家練習</span>
-          <span>衛教資訊</span>
-          <span>開發者遊戲庫</span>
-          <div class="preview-sidebar-note">以日常生活為起點</div>
-        </aside>
         <div class="preview-main">
-          <div class="preview-heading"><span>居家復健訓練網</span><span>練習模組</span></div>
-          <p class="preview-title">找到適合的練習方向</p>
+          <p class="preview-title">選擇練習類別</p>
           <div class="preview-modules">
             {modules.map((module) => (
               <div class:list={['preview-module', { 'is-selected': module.selected }]}>
                 <strong>{module.name}</strong>
-                <span>{module.description}</span>
               </div>
             ))}
           </div>
-          <div class="preview-workflow"><span>設定練習參數</span><span>進行練習</span><span>匯出成績</span></div>
+          <div class="preview-workflow"><span>設定參數</span><span>進行練習</span><span>匯出成績</span></div>
         </div>
       </div>
     </div>
   </div>
-  <figcaption><span>TrainerHub 功能示意</span><span>實際練習請前往平台</span></figcaption>
+  <figcaption>TrainerHub 功能示意，實際練習請前往平台。</figcaption>
 </figure>
 
 <style>
-  .trainerhub-preview { margin: 0; min-width: 0; }
+  .trainerhub-preview {
+    min-width: 0;
+    margin: 0;
+  }
+
   .trainerhub-stage {
     --preview-gutter: 24px;
-    position: relative;
-    height: 374px;
+    padding: var(--preview-gutter) 0 var(--preview-gutter) var(--preview-gutter);
     overflow: hidden;
-    isolation: isolate;
-    container-type: inline-size;
   }
+
   .trainerhub-window {
-    position: absolute;
-    top: var(--preview-gutter);
-    left: var(--preview-gutter);
-    width: max(650px, calc(100% + 24px));
-    height: 388px;
-    display: flex;
-    flex-direction: column;
+    width: calc(100% + 48px);
     overflow: hidden;
-    background: var(--surface);
     border-radius: 12px;
+    background: var(--surface);
     box-shadow: 0 0 0 1px var(--line), var(--shadow);
   }
+
   .ss-window__bar {
     display: flex;
-    flex-shrink: 0;
     align-items: center;
     gap: 6px;
     height: 38px;
     padding: 0 14.5px;
-    background: var(--surface-soft);
     border-bottom: 1px solid var(--line);
+    background: var(--surface-soft);
   }
-  .ss-window__lights { display: flex; flex-shrink: 0; gap: 6px; }
-  .ss-window__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--color-border-strong); }
+
+  .ss-window__lights {
+    display: flex;
+    flex-shrink: 0;
+    gap: 6px;
+  }
+
+  .ss-window__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-border-strong);
+  }
+
   .ss-window__url {
     flex: 1;
     min-width: 0;
     margin-left: 8px;
-    padding: 4px 10px;
+    padding: 2px 10px;
     border-radius: 6px;
     background: var(--surface);
-    color: var(--color-text-muted);
-    font-size: 11px;
-    line-height: 1.4;
+    color: var(--muted);
+    font-size: var(--font-size-small);
+    line-height: 1.5;
   }
-  .ss-window__body { position: relative; display: flex; flex: 1; min-height: 0; }
-  .preview-sidebar {
-    width: 142px;
-    flex-shrink: 0;
+
+  .preview-main {
+    padding: 28px 76px 28px 28px;
+  }
+
+  .preview-title {
+    margin: 0 0 24px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .preview-modules {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .preview-module {
+    padding: 20px 12px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .preview-module strong {
+    font-weight: 600;
+  }
+
+  .preview-module.is-selected {
+    border-color: transparent;
+    background: var(--accent-soft);
+    color: var(--color-badge-text);
+  }
+
+  .preview-workflow {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 22px 14px;
-    background: var(--surface-soft);
-    border-right: 1px solid var(--line);
-    font-size: 12px;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: var(--font-size-small);
+    line-height: 1.7;
     color: var(--muted);
   }
-  .preview-sidebar strong { font-size: 16px; color: var(--ink); margin-bottom: 20px; }
-  .preview-sidebar > span { padding: 8px 10px; border-radius: 5px; }
-  .preview-sidebar .preview-nav-current { background: var(--surface); color: var(--accent); font-weight: 600; }
-  .preview-sidebar-note { margin-top: auto; padding-inline: 10px; font-size: 11px; }
-  .preview-main { width: 424px; width: calc(100cqi - var(--preview-gutter) - 142px); flex-shrink: 0; padding: 24px; }
-  .preview-heading { display: flex; justify-content: space-between; gap: 12px; color: var(--color-text-muted); font-size: 11px; }
-  .preview-title { margin: 12px 0 18px; font-size: 21px; font-weight: 700; line-height: 1.4; letter-spacing: -0.035em; }
-  .preview-modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .preview-module { display: grid; gap: 5px; padding: 14px 12px; border: 1px solid var(--line); border-radius: 7px; }
-  .preview-module strong { font-size: 14px; line-height: 1.4; }
-  .preview-module > span:last-child { font-size: 11px; color: var(--color-text-muted); line-height: 1.4; }
-  .preview-module.is-selected { background: var(--accent-soft); border-color: transparent; color: var(--color-badge-text); }
-  .preview-module.is-selected > span:last-child { color: var(--color-badge-text); }
-  .preview-workflow { display: flex; gap: 0; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 11px; color: var(--color-text-muted); }
-  .preview-workflow span + span::before { content: '/'; padding-inline: 12px; color: var(--color-border-strong); }
-  figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; margin: 14px 0 0 24px; color: var(--color-text-muted); font-size: 12px; }
-  @media (max-width: 1100px) and (min-width: 761px) {
-    .preview-sidebar { display: none; }
-    .preview-main { width: calc(100cqi - var(--preview-gutter)); }
+
+  .preview-workflow span {
+    white-space: nowrap;
   }
+
+  figcaption {
+    margin: 0 0 0 24px;
+    color: var(--muted);
+    font-size: var(--font-size-small);
+    line-height: 1.85;
+  }
+
   @media (max-width: 760px) {
-    .trainerhub-stage { height: 354px; }
-    .trainerhub-window { width: 600px; height: 388px; }
-    .preview-sidebar { display: none; }
-    .preview-main { width: calc(100cqi - var(--preview-gutter)); padding: 20px 16px; }
-    .preview-title { font-size: 19px; margin-block: 10px 16px; }
-    .preview-module { padding: 12px; gap: 4px; }
-    .preview-workflow { margin-top: 18px; padding-top: 14px; }
-    .preview-workflow span + span::before { padding-inline: 8px; }
-  }
-  @media (max-width: 370px) {
-    .preview-main { padding-inline: 12px; }
-    .preview-module { padding: 12px 10px; }
-    .preview-heading > span:last-child { display: none; }
-    .preview-workflow { font-size: 10px; }
+    .preview-main {
+      padding: 20px 64px 20px 16px;
+    }
+
+    .preview-module {
+      padding: 16px 10px;
+    }
   }
 </style>

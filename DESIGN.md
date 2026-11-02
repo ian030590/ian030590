@@ -157,6 +157,7 @@ All combinations strictly satisfy or exceed **WCAG 2.1 Level AA** (minimum 4.5:1
 
 ## Typography and components
 
+- Chinese text is at least 16px, including captions, dates, tags, navigation, and product previews. Body copy uses 18px or larger with a line height of at least 1.7; responsive layouts reflow instead of shrinking text.
 - Use Inter with Noto Sans TC fallback for body copy, and Lexend for compact display hierarchy.
 - Buttons are at least 44px tall, in medical blue or a blue outline.
 - Cards use white surfaces, a 1px clinical-blue border, and a restrained shadow.
