@@ -759,6 +759,7 @@ for i in [3, 5, 8, 9, 17]:
 for i in range(16, 29):
     if f"DigitLearn_{i:03d}" in ARTICLE_TAG_MAP:
         ARTICLE_TAG_MAP[f"DigitLearn_{i:03d}"] = ["數位學習", "AI應用"]
+ARTICLE_TAG_MAP["DigitLearn_029"] = ["數位學習"]
 
 ARTICLE_TAG_MAP.update({f"MotorRehab_{i:03d}": ["中風復健", "動作復健"] for i in range(1, 17)})
 ARTICLE_TAG_MAP["MotorRehab_016"] = ["動作復健", "認知復健"]
@@ -816,8 +817,10 @@ def collect_article_metadata():
                         cluster, sub_cluster = '臨床人員的資工學習路徑', '資訊科學基礎'
                     elif order <= 15:
                         cluster, sub_cluster = 'Excel 與 Python 資料自動化', '資料處理與辦公自動化'
-                    else:
+                    elif order <= 28:
                         cluster, sub_cluster = 'AI 產品開發與治理', 'AI 系統實務'
+                    else:
+                        cluster, sub_cluster = '數位健康介入與病人參與', '數位健康證據地圖'
                 else:
                     cluster = ADDITIONAL_CONTENT_FOLDERS[folder][1]
                     if folder == 'CognitRehab':
