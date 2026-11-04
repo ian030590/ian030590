@@ -772,6 +772,7 @@ ARTICLE_TAG_MAP["VisualRehab_013"] = ["視覺復健", "動作復健"]
 ARTICLE_TAG_MAP["VisualRehab_025"] = ["視覺復健", "AI應用"]
 ARTICLE_TAG_MAP["VisualRehab_028"] = ["視覺復健", "動作復健"]
 ARTICLE_TAG_MAP["VisualRehab_030"] = ["視覺復健", "動作復健"]
+ARTICLE_TAG_MAP["VisualRehab_031"] = ["視覺復健"]
 
 def collect_article_metadata():
     folders = [
@@ -826,7 +827,10 @@ def collect_article_metadata():
                     if folder == 'CognitRehab':
                         sub_cluster = '認知與溝通' if order <= 6 else '心理、轉銜與社會參與'
                     elif folder == 'VisualRehab':
-                        if order >= 30:
+                        if order >= 31:
+                            cluster = '雙眼視覺科學基礎'
+                            sub_cluster = 'Blake 與 Wilson 雙眼視覺回顧'
+                        elif order >= 30:
                             cluster = '周邊前庭低功能與凝視穩定訓練'
                             sub_cluster = '2022 ANPT 前庭復健臨床實務指引'
                         elif order >= 23:
