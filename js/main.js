@@ -119,9 +119,10 @@
       projectsGrid.innerHTML = targetList
         .map((repo) => {
           const topics = Array.isArray(repo.topics) ? repo.topics : [];
-          const labels = [repo.archived ? "已封存" : null, repo.language, ...topics]
-            .filter(Boolean)
-            .slice(0, 4);
+          const labels = [
+            repo.archived ? "已封存" : null,
+            ...topics.filter(Boolean).slice(0, 4),
+          ].filter(Boolean);
           // GitHub renders a 1200×630 preview per repository, or the uploaded social preview.
           const previewUrl = `https://opengraph.githubassets.com/1/${githubUser}/${repo.name}`;
           const updatedDate = new Date(repo.updated_at).toLocaleDateString("zh-TW", {

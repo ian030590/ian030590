@@ -9,7 +9,7 @@ I build digital practice tools and workflow utilities informed by occupational t
 ## 我在做什麼
 
 - **數位復能與視覺練習**：開發居家動作、視覺、認知與口腔練習工具，探索眼動追蹤設備與互動式活動的整合。
-- **臨床與研究工作流**：把門診叫號追蹤、PubMed 文獻搜尋與 Zotero 論文整理等重複工作做成工具。
+- **臨床與研究工作流**：把門診叫號追蹤等重複工作做成工具，支援研究收案。
 - **文件與日常自動化**：以 Python 處理 PDF 合併、分割、密碼移除，以及影像與 PDF 格式轉換。
 
 ## 數位復能與眼動工具
@@ -23,7 +23,6 @@ I build digital practice tools and workflow utilities informed by occupational t
 
 | 公開專案 | 內容 |
 | --- | --- |
-| [**ResearchAssistant**](https://github.com/ian030590/ResearchAssistant) | 以 n8n 串接 PubMed、Zotero 與語言模型，提供文獻定期搜尋與論文結構化整理工作流。 |
 | [**NTUHNotifier**](https://github.com/ian030590/NTUHNotifier) | 門診叫號通知工具，在目標號碼接近或到號時提醒，供研究收案等工作使用。 |
 | [**NTUHNotifier2**](https://github.com/ian030590/NTUHNotifier2) | 以 Electron 與 React 開發的臺大醫院門診叫號桌面通知器。 |
 
