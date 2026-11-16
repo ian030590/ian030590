@@ -1,0 +1,27 @@
+{
+  "corpus": "evals/corpus.md",
+  "names": ["保護清單", "長文scope"],
+  "expectation_classes": ["改寫保真"],
+  "sources": [
+    {
+      "file": "references/zh-rules.md",
+      "regex": "(?m)^### (.+)$",
+      "capture": 1
+    },
+    {
+      "file": "references/zh-phrase-rules.md",
+      "regex": "(?m)^## (四字評語)",
+      "capture": 1
+    },
+    {
+      "file": "references/hidden-author.md",
+      "regex": "作者隱身／[^\\s、（()|`*。，]+"
+    },
+    {
+      "file": "SKILL.md",
+      "regex": "[①②③④⑤⑥⑦⑧⑨⑩]([^（(\\s]+)",
+      "capture": 1,
+      "prefix": "保護清單／"
+    }
+  ]
+}

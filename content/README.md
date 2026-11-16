@@ -53,9 +53,9 @@
 - 執行 `python build_static_articles.py` 準備 `.generated/public/` 的文章副本、RSS、Sitemap 與文章目錄，再執行 `npm run build`、`npm run audit:seo` 檢查 Astro 的 `dist/` 產物。建置會原樣複製舊文章並比對位元組，不再自動改寫文章、導覽、日期或 CSS。
 - 結構檢查通過不代表研究原意或所有外部連結都已驗證。來源無法取得或網站拒絕自動存取時，應如實記錄核對範圍，不宣稱全部驗證成功。
 
-### 嚴禁覆蓋既有舊文章準則（Zero Overwrite & Non-Destructive Addition）
+### 嚴禁改寫使用者沒有指名的文章（No Unrequested Overwrite & Non-Destructive Addition）
 
-- **零改動原則（Zero Overwrite）**：嚴禁修改、改寫、重構或覆蓋磁碟與 Git 上既有的舊文章。
+- **指名才改寫**：嚴禁修改、改寫、重構或覆蓋使用者沒有指名的既有文章。使用者明確指名要改寫的文章，可在原檔修改，並更新 `dateModified` 與 `article:modified_time`；其他文章維持 Git 零 Diff。
 - **全數接續新序號**：凡是根據新需求、新文獻（如教科書新章節）或新專題撰寫文章，一律必須使用目錄中未曾使用之全新序號撰寫獨立的新檔案（接續於當前最大序號之後，如 `029_...`），嚴禁插入舊文章序號區間。
 - **獨立主題叢集隔離**：新增專題時，若有系列導覽需求，應在 `build_static_articles.py` 中劃分獨立的主題叢集（Cluster），確保既有舊文章之上一篇／下一篇導覽鏈與內文 100% 保持乾淨零變更（Git 零 Diff），避免雲端同步衝突檔（`[conflicted]`）。
 
