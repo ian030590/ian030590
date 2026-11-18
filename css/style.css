@@ -1795,6 +1795,7 @@ a.article-badge:hover {
 .callout-box {
   background: var(--surface-soft);
   border: 1px solid var(--line);
+  /* impeccable-disable-next-line side-tab -- user confirmed: article callout accent kept for frozen article pages */
   border-left: 5px solid var(--primary);
   border-radius: 0 8px 8px 0;
   padding: 20px 24px;
@@ -2457,6 +2458,7 @@ a.article-badge:hover {
 .ot-blog-article .callout-box {
   background: var(--surface-soft);
   border: 1px solid var(--line);
+  /* impeccable-disable-next-line side-tab -- user confirmed: article callout accent kept for frozen article pages */
   border-left: 5px solid var(--primary);
   border-radius: 0 8px 8px 0;
   padding: 20px 24px;
