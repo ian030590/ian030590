@@ -47,7 +47,8 @@
     document.querySelectorAll(".theme-toggle").forEach((btn) => {
       const darkIcon = btn.querySelector(".icon-dark");
       const lightIcon = btn.querySelector(".icon-light");
-      if (darkIcon && lightIcon) {
+      // Frozen article headers use inline icon visibility.
+      if (darkIcon && lightIcon?.hasAttribute("style")) {
         darkIcon.style.display = theme === "dark" ? "none" : "inline-block";
         lightIcon.style.display = theme === "dark" ? "inline-block" : "none";
       }
@@ -80,7 +81,7 @@
 
   const menu = document.querySelector(".menu-button");
   const mobilePanel = document.querySelector(".mobile-panel");
-  if (menu && mobilePanel) {
+  if (menu && mobilePanel && !mobilePanel.hasAttribute("popover")) {
     const setMenu = (open) => {
       mobilePanel.classList.toggle("open", open);
       menu.classList.toggle("is-open", open);
@@ -230,7 +231,6 @@
       currentTag = "";
       searchQuery = "";
       if (blogSearchInput) blogSearchInput.value = "";
-      if (clearSearchBtn) clearSearchBtn.hidden = true;
       updateURL();
       renderArticles();
     };
@@ -301,7 +301,7 @@
             .join("");
           const imageMarkup = post.imageUrl
             ? `<div class="article-visual">
-                <img src="${escapeHtml(post.imageUrl)}" alt="" loading="lazy" onerror="this.parentElement.classList.add('no-image'); this.remove();" />
+                <img src="${escapeHtml(post.imageUrl)}" alt="" loading="lazy" onerror="this.remove();" />
                 ${badge}
               </div>`
             : `<div class="article-visual no-image">${badge}</div>`;
@@ -394,7 +394,6 @@
     if (blogSearchInput) {
       blogSearchInput.addEventListener("input", (e) => {
         searchQuery = (e.target.value || "").trim();
-        if (clearSearchBtn) clearSearchBtn.hidden = !searchQuery;
         renderArticles();
       });
     }
@@ -406,7 +405,6 @@
           blogSearchInput.focus();
         }
         searchQuery = "";
-        clearSearchBtn.hidden = true;
         renderArticles();
       });
     }

@@ -2,6 +2,8 @@
 /* Shared clinical palette and typography. */
 
 :root {
+  color-scheme: light;
+  accent-color: var(--accent);
   --font-size-small: 16px;
   --font-size-body: 18px;
 
@@ -83,6 +85,7 @@
 
 /* Manual dark theme. */
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --color-bg-canvas: var(--slate-990);
   --color-bg-surface: var(--slate-900);
   --color-bg-surface-elevated: var(--slate-850);
@@ -132,6 +135,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    color-scheme: dark;
       --color-bg-canvas: var(--slate-990);
     --color-bg-surface: var(--slate-900);
     --color-bg-surface-elevated: var(--slate-850);
@@ -231,6 +235,7 @@ html:not(.js) .js-only {
   margin-inline: auto;
 }
 .site-header {
+  --nav-height: 78px;
   position: sticky;
   top: 0;
   z-index: 20;
@@ -239,7 +244,7 @@ html:not(.js) .js-only {
   border-bottom: 1px solid var(--line);
 }
 .nav {
-  height: 78px;
+  height: var(--nav-height, 78px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -398,8 +403,57 @@ html:not(.js) .js-only {
 .theme-toggle .material-symbols-outlined {
   font-size: 20px;
 }
+.theme-toggle .icon-light,
+:root[data-theme="dark"] .theme-toggle svg.icon-dark {
+  display: none;
+}
+:root[data-theme="dark"] .theme-toggle svg.icon-light {
+  display: inline-block;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle svg.icon-dark {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .theme-toggle svg.icon-light {
+    display: inline-block;
+  }
+}
 .mobile-panel {
   display: none;
+}
+.mobile-panel[popover] {
+  position: fixed;
+  inset-block: calc(var(--nav-height) + 1px) auto;
+  inset-inline: 0;
+  margin: 0;
+  width: auto;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  padding: 10px 14px 16px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 160ms ease, transform 160ms ease, display 160ms, overlay 160ms;
+  transition-behavior: allow-discrete;
+}
+.mobile-panel:popover-open {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+@starting-style {
+  .mobile-panel:popover-open {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+@media (min-width: 981px) {
+  .mobile-panel[popover] {
+    transition: none;
+  }
+  .mobile-panel:popover-open {
+    display: none;
+  }
 }
 .section-kicker {
   color: var(--accent);
@@ -588,8 +642,11 @@ html:not(.js) .js-only {
   .container {
     width: min(100% - 28px, 1200px);
   }
+  .site-header {
+    --nav-height: 68px;
+  }
   .nav {
-    height: 68px;
+    height: var(--nav-height, 68px);
     gap: 10px;
   }
   .brand {
@@ -712,13 +769,13 @@ html:not(.js) .js-only {
     transform 0.25s ease,
     opacity 0.2s ease;
 }
-.menu-button.is-open .animate-icon__menu-line--top {
+:is(.menu-button.is-open, .site-header:has(.mobile-panel:popover-open) .menu-button) .animate-icon__menu-line--top {
   transform: translate(-2.35px, 0.35px) rotate(-45deg);
 }
-.menu-button.is-open .animate-icon__menu-line--middle {
+:is(.menu-button.is-open, .site-header:has(.mobile-panel:popover-open) .menu-button) .animate-icon__menu-line--middle {
   opacity: 0;
 }
-.menu-button.is-open .animate-icon__menu-line--bottom {
+:is(.menu-button.is-open, .site-header:has(.mobile-panel:popover-open) .menu-button) .animate-icon__menu-line--bottom {
   transform: translate(-2.35px, -0.35px) rotate(45deg);
 }
 @keyframes icon-send {
@@ -1062,7 +1119,7 @@ html:not(.js) .js-only {
   display: block;
 }
 
-.article-visual.no-image {
+.article-visual:is(.no-image, :not(:has(img))) {
   background: var(--color-bg-placeholder);
 }
 
@@ -1312,6 +1369,10 @@ html:not(.js) .js-only {
   justify-content: center;
   cursor: pointer;
   border-radius: 8px;
+}
+
+.search-input-wrap:has(input:placeholder-shown) .clear-search-btn {
+  display: none;
 }
 
 .clear-search-btn:hover {

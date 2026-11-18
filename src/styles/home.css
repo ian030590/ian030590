@@ -255,6 +255,23 @@
 
 .academic-card {
   border-bottom: 1px solid var(--line);
+  interpolate-size: allow-keywords;
+}
+
+.academic-card::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size 200ms ease, content-visibility 200ms allow-discrete;
+}
+
+.academic-card[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .academic-card::details-content {
+    transition: none;
+  }
 }
 
 .academic-card summary {
