@@ -62,13 +62,36 @@ for (const value of [valid.name, valid.role, valid.email, valid.body]) {
   assert.ok(email.text.includes(value), `Email text must include ${value}`);
 }
 
-result = await send(post({ ...valid, name: '林\r\nBcc: x@evil.example', subject: '主旨\n第二行' }));
+result = await send(post({ ...valid, role: undefined, subject: ' \r\n ' }));
 assert.equal(result.status, 200);
-assert.ok(!/[\r\n]/.test(resendCalls[0].body.subject), 'Subject must stay on one line');
+assert.equal(resendCalls[0].body.subject, `[網站聯絡] 一般聯絡 - ${valid.name}`);
+assert.ok(resendCalls[0].body.text.split('\n').includes('專業背景：未填寫'));
+assert.ok(resendCalls[0].body.text.split('\n').includes('主旨：未填寫'));
 
-result = await send(post({ ...valid, body: '   ' }));
-assert.equal(result.status, 400);
-assert.equal(resendCalls.length, 0);
+result = await send(post({
+  ...valid,
+  name: '林\r\nBcc: x@evil.example',
+  role: '研究\r\nX-Test: 背景',
+  subject: '主旨\nX-Test: 主旨',
+}));
+assert.equal(result.status, 200);
+assert.equal(resendCalls[0].body.subject, '[網站聯絡] 主旨 X-Test: 主旨 - 林 Bcc: x@evil.example');
+assert.ok(resendCalls[0].body.text.split('\n').includes('專業背景：研究 X-Test: 背景'));
+assert.ok(resendCalls[0].body.text.split('\n').includes('主旨：主旨 X-Test: 主旨'));
+
+for (const field of ['name', 'email', 'body']) {
+  result = await send(post({ ...valid, [field]: '   ' }));
+  assert.equal(result.status, 400, `${field} is required`);
+  assert.deepEqual(result.data, { error: '請填寫姓名、電子郵件與訊息內容。' });
+  assert.equal(resendCalls.length, 0);
+}
+
+for (const [field, limit] of [['role', 100], ['subject', 200]]) {
+  result = await send(post({ ...valid, [field]: 'x'.repeat(limit + 1) }));
+  assert.equal(result.status, 400, `${field} must still respect its length limit`);
+  assert.deepEqual(result.data, { error: `欄位內容過長（上限 ${limit} 字）。` });
+  assert.equal(resendCalls.length, 0);
+}
 
 for (const address of ['not-an-email', 'a@b.co,c@d.co', 'Name <a@b.co>']) {
   result = await send(post({ ...valid, email: address }));

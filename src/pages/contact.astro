@@ -75,6 +75,63 @@ const metadata = {
         </section>
 
         <div class="contact-workspace">
+          <section class="contact-inquiry contact-panel" aria-labelledby="message-title">
+            <div class="contact-section-intro">
+              <h2 id="message-title">先簡單說說你的需求</h2>
+              <p>送出後訊息會直接寄到我的信箱，我會回覆到你留下的電子郵件。</p>
+            </div>
+            <form id="contact-form" class="contact-form" aria-describedby="contact-form-note">
+              <div class="field">
+                <label for="sender-name">姓名／單位</label>
+                <input id="sender-name" name="name" autocomplete="name" placeholder="你的姓名或單位" maxlength="100" required />
+              </div>
+              <div class="field">
+                <label for="sender-role">專業背景（選填）</label>
+                <select id="sender-role" name="role">
+                  <option value="" selected>不指定</option>
+                  <option>職能／物理／語言治療師</option>
+                  <option>臨床醫師／護理／醫事人員</option>
+                  <option>學術研究人員／大專院校教師</option>
+                  <option>軟體工程師／技術開發者</option>
+                  <option>數位健康產業</option>
+                  <option>其他</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="sender-email">電子郵件</label>
+                <input id="sender-email" name="email" type="email" autocomplete="email" placeholder="name@example.com" maxlength="254" required />
+              </div>
+              <div class="field">
+                <label for="message-subject">主旨（選填）</label>
+                <select id="message-subject" name="subject">
+                  <option value="" selected>不指定</option>
+                  <option>數位復能系統建置（TrainerHub、評估工具）</option>
+                  <option>臨床研究自動化（PubMed、Zotero、n8n）</option>
+                  <option>開源專案技術交流</option>
+                  <option>演講或工作坊邀請</option>
+                  <option>其他合作</option>
+                </select>
+              </div>
+              <div class="field field-message">
+                <label for="message-body">訊息內容</label>
+                <p id="message-body-hint" class="contact-form-hint">請勿填寫可辨識個案身分的資料。</p>
+                <textarea id="message-body" name="body" aria-describedby="message-body-hint" placeholder="想討論的需求、目前的做法，以及希望的合作方式" maxlength="3500" required></textarea>
+              </div>
+              <div class="contact-form-trap" aria-hidden="true">
+                <label for="sender-website">請勿填寫此欄</label>
+                <input id="sender-website" name="website" tabindex="-1" autocomplete="off" />
+              </div>
+              <div class="contact-form-footer">
+                <p id="contact-form-note">訊息透過寄信服務送至我的信箱，郵件與寄送紀錄可能保留。詳見<a href="/privacy">隱私權政策</a>。</p>
+                <button class="button-primary has-animated-icon" type="submit">
+                  送出訊息
+                  <span class="animate-icon animate-icon--send" data-animate-icon="send" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p id="contact-form-status" class="contact-form-status" role="status" aria-live="polite"></p>
+            </form>
+          </section>
+
           <div class="contact-sidebar">
             <section class="contact-panel" aria-labelledby="contact-routes-title">
               <h2 id="contact-routes-title" class="contact-panel-title">聯絡管道</h2>
@@ -101,62 +158,6 @@ const metadata = {
               <p>討論涉及的個案、機構資料或未公開的研究構想，我不會對外分享。來信前請先去除可辨識個案身分的資料。</p>
             </aside>
           </div>
-
-          <section class="contact-inquiry contact-panel" aria-labelledby="message-title">
-            <div class="contact-section-intro">
-              <h2 id="message-title">先簡單說說你的需求</h2>
-              <p>送出後訊息會直接寄到我的信箱，我會回覆到你留下的電子郵件。</p>
-            </div>
-            <form id="contact-form" class="contact-form" aria-describedby="contact-form-note">
-              <div class="field">
-                <label for="sender-name">姓名／單位</label>
-                <input id="sender-name" name="name" autocomplete="name" placeholder="你的姓名或單位" maxlength="100" required />
-              </div>
-              <div class="field">
-                <label for="sender-role">專業背景</label>
-                <select id="sender-role" name="role" required>
-                  <option value="" selected disabled>請選擇</option>
-                  <option>職能／物理／語言治療師</option>
-                  <option>臨床醫師／護理／醫事人員</option>
-                  <option>學術研究人員／大專院校教師</option>
-                  <option>軟體工程師／技術開發者</option>
-                  <option>數位健康產業</option>
-                  <option>其他</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="sender-email">電子郵件</label>
-                <input id="sender-email" name="email" type="email" autocomplete="email" placeholder="name@example.com" maxlength="254" required />
-              </div>
-              <div class="field">
-                <label for="message-subject">主旨</label>
-                <select id="message-subject" name="subject" required>
-                  <option value="" selected disabled>請選擇</option>
-                  <option>數位復能系統建置（TrainerHub、評估工具）</option>
-                  <option>臨床研究自動化（PubMed、Zotero、n8n）</option>
-                  <option>開源專案技術交流</option>
-                  <option>演講或工作坊邀請</option>
-                  <option>其他合作</option>
-                </select>
-              </div>
-              <div class="field field-message">
-                <label for="message-body">訊息內容</label>
-                <textarea id="message-body" name="body" placeholder="想討論的需求、目前的做法，以及希望的合作方式" maxlength="3500" required></textarea>
-              </div>
-              <div class="contact-form-trap" aria-hidden="true">
-                <label for="sender-website">請勿填寫此欄</label>
-                <input id="sender-website" name="website" tabindex="-1" autocomplete="off" />
-              </div>
-              <div class="contact-form-footer">
-                <p id="contact-form-note">訊息透過寄信服務送至我的信箱，郵件與寄送紀錄可能保留。詳見<a href="/privacy">隱私權政策</a>。請勿填寫可辨識個案身分的資料。</p>
-                <button class="button-primary has-animated-icon" type="submit">
-                  送出訊息
-                  <span class="animate-icon animate-icon--send" data-animate-icon="send" aria-hidden="true"></span>
-                </button>
-              </div>
-              <p id="contact-form-status" class="contact-form-status" role="status" aria-live="polite"></p>
-            </form>
-          </section>
         </div>
       </div>
     </main>

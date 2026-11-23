@@ -104,6 +104,44 @@
     const projectsStatus = document.getElementById("projects-status");
     const snapshot = window.GITHUB_PROJECTS || { repositories: [] };
     const excludedRepos = [githubUser.toLowerCase(), "myportfolio"];
+    const projectGroups = [
+      ["視覺與復健練習", ["rehabtrainerhub", "ocutrain", "ocudrive", "flyingmoo"]],
+      ["臨床與研究流程", ["ezemr", "ezstorage", "ntuhnotifier", "ntuhnotifier2"]],
+      ["文件與日常工具", ["formatconverter", "pdfcombiner", "pdfseparater", "pdfdecrypter", "ezreceipt", "zhbible"]],
+      ["開發工具與其他", ["claudebraincodexhands"]],
+    ];
+
+    const renderProject = (repo) => {
+      const description = repo.description ?? "";
+      const separator = description.indexOf(" / ");
+      const first = description.slice(0, separator);
+      const summary = separator >= 0 && description.slice(separator + 3).trim() && /\p{Script=Han}/u.test(first)
+        ? first.trim()
+        : description;
+      const updatedDate = new Date(repo.updated_at).toLocaleDateString("zh-TW", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+
+      return `
+        <li>
+          <a class="project-row" href="${escapeHtml(repo.html_url)}" target="_blank" rel="noopener noreferrer">
+            <h3>${escapeHtml(repo.name)}</h3>
+            ${summary ? `<p>${escapeHtml(summary)}</p>` : ""}
+            <div class="project-meta">
+              <time datetime="${escapeHtml(repo.updated_at)}">更新於 ${escapeHtml(updatedDate)}</time>
+              ${repo.stargazers_count > 0 ? `<span>${escapeHtml(repo.stargazers_count)} 顆星</span>` : ""}
+              ${repo.archived ? "<span>已封存</span>" : ""}
+              <span class="project-source">
+                <span>在 GitHub 查看</span>
+                <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+              </span>
+            </div>
+          </a>
+        </li>
+      `;
+    };
 
     const renderProjects = (repositories) => {
       if (!Array.isArray(repositories)) throw new Error("Invalid project list");
@@ -117,56 +155,41 @@
         return;
       }
 
-      projectsGrid.innerHTML = targetList
-        .map((repo) => {
-          const topics = Array.isArray(repo.topics) ? repo.topics : [];
-          const labels = [
-            repo.archived ? "已封存" : null,
-            ...topics.filter(Boolean).slice(0, 4),
-          ].filter(Boolean);
-          // GitHub renders a 1200×630 preview per repository, or the uploaded social preview.
-          const previewUrl = `https://opengraph.githubassets.com/1/${githubUser}/${repo.name}`;
-          const updatedDate = new Date(repo.updated_at).toLocaleDateString("zh-TW", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          });
-          const stars =
-            repo.stargazers_count > 0
-              ? `<span class="project-stars" title="${repo.stargazers_count} 個 GitHub 星號">
-                  <span class="material-symbols-outlined" aria-hidden="true">star</span>
-                  ${repo.stargazers_count}
-                </span>`
-              : "";
+      const active = new Map();
+      const archived = [];
+      for (const repo of targetList) {
+        if (repo.archived) archived.push(repo);
+        else active.set(repo.name.toLowerCase(), repo);
+      }
 
-          return `
-            <article class="project-card">
-              <a class="card-link" href="${escapeHtml(repo.html_url)}" target="_blank" rel="noopener">
-                <div class="project-visual">
-                  <img
-                    src="${escapeHtml(previewUrl)}"
-                    alt=""
-                    loading="lazy"
-                    onerror="this.remove();"
-                  />
-                </div>
-                <div class="project-content">
-                  <div class="tags">${labels.map((label) => `<span class="tag">${escapeHtml(label)}</span>`).join("")}</div>
-                  <h2>${escapeHtml(repo.name)}</h2>
-                  ${repo.description ? `<p>${escapeHtml(repo.description)}</p>` : ""}
-                  <div class="project-footer">
-                    <span class="project-updated">更新於 ${escapeHtml(updatedDate)}</span>
-                    <span class="project-footer-right">
-                      ${stars}
-                      <span class="text-link">在 GitHub 查看</span>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            </article>
-          `;
-        })
-        .join("");
+      const groups = projectGroups.map(([title, names]) => {
+        const repos = [];
+        for (const name of names) {
+          const repo = active.get(name);
+          if (repo) repos.push(repo);
+          active.delete(name);
+        }
+        return { title, repos };
+      });
+      const otherRepos = [...active.values()].sort(
+        (a, b) => new Date(b.updated_at) - new Date(a.updated_at),
+      );
+      groups.at(-1).repos.push(...otherRepos);
+      archived.sort((a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base" }));
+      groups.push({ title: "已封存作品", repos: archived });
+
+      projectsGrid.innerHTML = groups.map(({ title, repos }, index) => {
+        if (!repos.length) return "";
+        const headingId = escapeHtml(`project-group-${index + 1}`);
+        return `
+          <section class="project-group" aria-labelledby="${headingId}">
+            <h2 id="${headingId}">${escapeHtml(title)}</h2>
+            <ul class="project-entries" role="list">
+              ${repos.map(renderProject).join("")}
+            </ul>
+          </section>
+        `;
+      }).join("");
     };
 
     if (snapshot.repositories.length) {

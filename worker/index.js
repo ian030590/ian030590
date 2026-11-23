@@ -34,7 +34,9 @@ export function validateContact(input) {
     let value = text(input[key]);
     // Only the message keeps line breaks; the rest end up in one-line headers.
     if (key !== 'body') value = value.replace(/\s+/g, ' ');
-    if (!value) return { error: '請填寫所有欄位。' };
+    if (!value && (key === 'name' || key === 'email' || key === 'body')) {
+      return { error: '請填寫姓名、電子郵件與訊息內容。' };
+    }
     if (value.length > limit) return { error: `欄位內容過長（上限 ${limit} 字）。` };
     fields[key] = value;
   }
@@ -48,12 +50,12 @@ export function emailPayload(fields, env) {
     to: env.CONTACT_TO_EMAIL,
     // Replying in the mail app answers the visitor directly.
     reply_to: fields.email,
-    subject: `[網站聯絡] ${fields.subject} - ${fields.name}`,
+    subject: `[網站聯絡] ${fields.subject || '一般聯絡'} - ${fields.name}`,
     text: [
       `姓名／組織：${fields.name}`,
-      `專業背景：${fields.role}`,
+      `專業背景：${fields.role || '未填寫'}`,
       `Email：${fields.email}`,
-      `主旨：${fields.subject}`,
+      `主旨：${fields.subject || '未填寫'}`,
       '',
       fields.body,
     ].join('\n'),
