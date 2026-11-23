@@ -4,7 +4,7 @@
 
 ## 本機開發與建置 ／ Astro
 
-需要 Node.js 22.12 以上（CI 使用 Node.js 24）及 Python 3.12 以上。
+需要 Node.js 22.12 以上（CI 使用 Node.js 26）及 Python 3.12 以上。
 
 ```sh
 npm ci
