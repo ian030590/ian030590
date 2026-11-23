@@ -1835,7 +1835,6 @@ a.article-badge:hover {
 .article-references a {
   color: var(--color-text-accent);
   text-decoration: underline;
-  word-break: break-all;
 }
 
 /* Topic Cluster / Series Navigation */
@@ -1987,8 +1986,10 @@ a.article-badge:hover {
 
 /* References Link Style: No underline */
 .article-references a,
-.ot-blog-article .article-references a {
+.article-page-layout .ot-blog-article .article-references a {
   text-decoration: none;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 .article-references a:hover,
@@ -2446,6 +2447,71 @@ a.article-badge:hover {
 .article-lead-box ul,
 .ot-blog-article .article-lead-box ul {
   font-weight: 500;
+}
+
+@media (max-width: 700px) {
+  .article-page-layout {
+    padding-top: 20px;
+  }
+
+  .article-page-layout > .container > .breadcrumb-trail {
+    margin-bottom: 12px;
+  }
+
+  .article-page-layout .container .breadcrumb-trail {
+    row-gap: 18px;
+  }
+
+  .article-page-layout :is(.breadcrumb-trail a, a.article-badge) {
+    position: relative;
+  }
+
+  /* The breadcrumb and tag row gaps keep the expanded hit areas apart. */
+  .article-page-layout :is(.breadcrumb-trail a, a.article-badge)::after {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    inline-size: max(100%, 44px);
+    block-size: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+
+  #blogger-reader,
+  .article-page-layout .ot-blog-article .article-container {
+    padding-top: 16px;
+  }
+
+  .article-page-layout .article-container .article-detail-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .article-page-layout .article-container :is(.article-tag-badges, .article-detail-header > .article-title) {
+    margin-bottom: 8px;
+  }
+
+  .article-page-layout .article-container .article-meta-row {
+    gap: 4px 12px;
+    margin: 0;
+  }
+
+  .article-page-layout .article-container .article-featured-figure {
+    margin-bottom: 16px;
+  }
+
+  .article-page-layout .article-container .article-featured-figure > img {
+    display: block;
+    aspect-ratio: 2 / 1;
+  }
+
+  .article-page-layout .article-container .article-figcaption {
+    margin-top: 6px;
+  }
+
+  .article-page-layout .ot-blog-article .article-body-content,
+  .article-page-layout .article-container .article-lead-box p {
+    font-size: max(18px, 1.125rem);
+  }
 }
 
 .callout-box,
