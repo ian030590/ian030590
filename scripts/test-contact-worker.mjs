@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import worker from '../worker/index.js';
 
-const site = 'https://ian030590.trainerhub.cc';
+const site = 'https://ian.trainerhub.cc';
 const apiKey = 're_test_secret_key';
 const valid = {
   name: '林治療師',

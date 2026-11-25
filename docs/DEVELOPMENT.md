@@ -26,7 +26,7 @@ npm run audit:seo
 npm run preview
 ```
 
-建置結束會比對每篇文章原始位元組，並檢查文章導覽、HTML 連結、CSS／JavaScript／圖片路徑、核准標籤、圖片唯一性與 Sitemap。SEO 檢查以 `dist/` 為範圍。原有 `/projects`、`/blog`、`/contact`、`/sponsor` 及 `/content/...html` 路徑保持可用；Cloudflare Workers 會將 `.html` 請求導向對應的簡潔網址。
+公開的文章副本會將舊站網址換成正式網址。建置結束會逐位元組比對，確認副本只有這項差異，並檢查文章導覽、HTML 連結、CSS／JavaScript／圖片路徑、核准標籤、圖片唯一性與 Sitemap。SEO 檢查以 `dist/` 為範圍。原有 `/projects`、`/blog`、`/contact`、`/sponsor` 及 `/content/...html` 路徑保持可用；Cloudflare Workers 會將 `.html` 請求導向對應的簡潔網址。
 
 ## GitHub Actions 與 Cloudflare Workers 部署
 
@@ -34,16 +34,16 @@ npm run preview
 
 網站以 [Workers 靜態資產](https://developers.cloudflare.com/workers/static-assets/) 提供，設定集中在 [`wrangler.jsonc`](../wrangler.jsonc)：
 
-- Worker 名稱為 `ian`，頁面範本與公開資產來自 `dist/`，不需要 Astro server adapter。`run_worker_first` 指定 API、文章列表／閱讀頁、`/content/*`、Sitemap 與 RSS 執行 [`worker/index.js`](../worker/index.js)，其餘請求直接由靜態資產回應。Blogger 內容與 metadata 由 [`worker/articles.js`](../worker/articles.js) 渲染，`article-routes.json` 僅保存來源 ID 與既有網址的對應，不保存第二份正文。
+- Worker 名稱為 `ian`，頁面範本與公開資產來自 `dist/`，不需要 Astro server adapter。`run_worker_first` 讓頁面、API、Sitemap 與 RSS 請求先經過 [`worker/index.js`](../worker/index.js)。CSS、JavaScript、圖示、圖片等排除路徑直接由靜態資產回應。Blogger 內容與 metadata 由 [`worker/articles.js`](../worker/articles.js) 渲染，`article-routes.json` 僅保存來源 ID 與既有網址的對應，不保存第二份正文。
 - `html_handling: auto-trailing-slash` 讓 `/projects` 提供 `projects.html`，`/projects.html` 以 307 轉址到 `/projects`。文章路徑由 Worker 將 `.html` 別名以 301 導向簡潔網址；已匯入文章的 `/article?id=...` 入口也以 301 導向既有文章網址。
 - `not_found_handling: 404-page` 讓不存在的網址回傳 `404.html` 與 HTTP 404。
-- `workers_dev` 與 `preview_urls` 關閉，只有自訂網域 `ian030590.trainerhub.cc` 與 `ian.trainerhub.cc` 提供網站，避免重複內容被收錄。網域以 `custom_domain` 綁定，部署時一併確認。
+- 兩個網域都以 `custom_domain` 綁定，`workers_dev` 與 `preview_urls` 關閉。Worker 將舊網域 `ian030590.trainerhub.cc` 的頁面請求以 301 導向 `https://ian.trainerhub.cc`，保留路徑與查詢參數。
 
 `_headers` 與 `_redirects` 隨 `dist/` 部署，由 Workers 讀取為設定，不會成為公開檔案。
 
 1. 在 [GitHub Actions Secrets](https://github.com/ian030590/ian030590/settings/secrets/actions) 設定 `CLOUDFLARE_API_TOKEN` 與 `CLOUDFLARE_ACCOUNT_ID`。API Token 使用 Cloudflare 的 **Edit Cloudflare Workers** 範本建立，Account Resources 選本帳戶，Zone Resources 選 `trainerhub.cc`，讓部署可以更新 Worker 與自訂網域。
 2. 推送至 `main`，或在 Actions 選擇 **Astro Build & Cloudflare Workers → Run workflow → main**。檢查 `build` 與 `deploy` 都成功後，再確認正式站。
-3. Astro canonical、RSS 與 Sitemap 皆使用 `https://ian030590.trainerhub.cc`。新增自訂網域時，該主機名稱不能已有其他 DNS 記錄；先在 Cloudflare DNS 刪除舊記錄，再加入 `wrangler.jsonc` 的 `routes` 並部署。
+3. Astro canonical、RSS 與 Sitemap 皆使用 `https://ian.trainerhub.cc`。新增自訂網域時，該主機名稱不能已有其他 DNS 記錄；先在 Cloudflare DNS 刪除舊記錄，再加入 `wrangler.jsonc` 的 `routes` 並部署。
 
 不要在 Cloudflare 的 Workers Builds 連結這個 Git repository，讓 GitHub Actions 維持唯一部署來源，避免兩套流程同時上線。
 
@@ -77,9 +77,9 @@ npm run preview
 
 | Branding 欄位 | 本站網址 |
 | --- | --- |
-| Application home page | `https://ian030590.trainerhub.cc/` |
-| Application privacy policy link | `https://ian030590.trainerhub.cc/privacy` |
-| Application terms of service link | `https://ian030590.trainerhub.cc/terms` |
+| Application home page | `https://ian.trainerhub.cc/` |
+| Application privacy policy link | `https://ian.trainerhub.cc/privacy` |
+| Application terms of service link | `https://ian.trainerhub.cc/terms` |
 
 網址必須先部署並可公開讀取，不能填寫尚未上線的頁面。個人自用工具可適用 OAuth 免驗證審查例外，但不代表可以略過 Console 要求的品牌設定；發布狀態、品牌驗證與資料存取 scope 審查是不同項目。需要驗證網域時，應由專案擁有者或編輯者在 Search Console 驗證所用網域，並在 Authorized domains 設定可使用的網域。不要為了消除測試期限而增加不需要的 scope。
 
@@ -118,7 +118,7 @@ npm run blogger:sync
 
 Worker 會一次讀完所有 Blogger 分頁，公開資料快取 5 分鐘；列表、全文與 feeds 共用這份資料，HTML 快取 60 秒。成功回傳空清單時顯示沒有公開文章，不將本機文章混回列表；已從 Git 撤下的來源在等待遠端移至垃圾桶期間也不顯示。瀏覽器使用頁面內的 Blogger metadata 進行標籤篩選、搜尋與分頁，再透過 `/api/articles` 更新。API key 留在 Worker，OAuth 憑證只供同步程式使用。本機完整測試需先 build，再執行 `npx wrangler dev`，並在 `.dev.vars` 設定 `BLOGGER_API_KEY`；`astro dev`／`astro preview` 僅提供靜態範本，不能驗證 Worker 渲染。開發時應先停止 Wrangler，再重建 `dist/`。
 
-全文使用 Blogger API，不依賴 Blogger 自訂網域的 HTTPS 是否正常。Worker 透過 sanitize-html 清理腳本、事件處理、任意樣式、表單及嵌入頁面，再套用本站文章樣式；引用連結與表格保留。有效文章的 canonical、Open Graph、結構化資料、Sitemap 與 RSS 均使用 `https://ian030590.trainerhub.cc`。未指定文章的 `/article` 與錯誤閱讀頁保留 `noindex`，不存在的文章回傳 404，API 失敗回傳 503。Sitemap 包含尚待初次匯入的既有網址和 Blogger 新增文章，且同一篇只列主要網址。
+全文使用 Blogger API，不依賴 Blogger 自訂網域的 HTTPS 是否正常。Worker 透過 sanitize-html 清理腳本、事件處理、任意樣式、表單及嵌入頁面，再套用本站文章樣式；引用連結與表格保留。有效文章的 canonical、Open Graph、結構化資料、Sitemap 與 RSS 均使用 `https://ian.trainerhub.cc`。未指定文章的 `/article` 與錯誤閱讀頁保留 `noindex`，不存在的文章回傳 404，API 失敗回傳 503。Sitemap 包含尚待初次匯入的既有網址和 Blogger 新增文章，且同一篇只列主要網址。
 
 ### Blogger 作為 CMS 的索引設定
 
@@ -134,8 +134,8 @@ Worker 會一次讀完所有 Blogger 分頁，公開資料快取 5 分鐘；列�
 
 部署成功後，在已驗證的 Google Search Console 資源中：
 
-1. 提交或重新提交 `https://ian030590.trainerhub.cc/sitemap.xml`，查看 Sitemap 報表的擷取狀態與處理時間。網址檢查中的「暫時性處理錯誤」須搭配這份報表判讀，不能直接當作 XML 格式錯誤。
-2. 檢查 `https://ian030590.trainerhub.cc/`，區分「索引中的資料」與「測試實際網址」。先確認最新實際測試可擷取、允許索引、canonical 指向正式首頁，再按「要求建立索引」。
+1. 提交或重新提交 `https://ian.trainerhub.cc/sitemap.xml`，查看 Sitemap 報表的擷取狀態與處理時間。網址檢查中的「暫時性處理錯誤」須搭配這份報表判讀，不能直接當作 XML 格式錯誤。
+2. 檢查 `https://ian.trainerhub.cc/`，區分「索引中的資料」與「測試實際網址」。先確認最新實際測試可擷取、允許索引、canonical 指向正式首頁，再按「要求建立索引」。
 3. 「已檢索－目前尚未建立索引」表示 Google 抓過頁面但尚未納入索引，並不等同 robots.txt 阻擋。保留畫面上的最後檢索時間，後續檢查 Google 是否已重新抓取本次部署。
 4. 使用「成效」報表觀察「蔡泓恩」的曝光與點擊。`site:` 查詢與單次一般搜尋只能作為線索，不能取代網址檢查的索引狀態。
 

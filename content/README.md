@@ -50,7 +50,7 @@
 
 - `article_editorial_copy.py` 的 `HUMANIZED_ARTICLE_COPY` 保留作為寫作核對資料；正式發布來源為 `content/` 的 HTML。新增文章如有對應編輯稿，須確認新 HTML 的標題、摘要與正文一致，不能以編輯稿覆寫既有舊文章。
 - 新文章以新序號建立獨立 HTML；不要為了新增文章而複製固定的敘事模板。
-- 執行 `python build_static_articles.py` 準備 `.generated/public/` 的文章副本、RSS、Sitemap 與文章目錄，再執行 `npm run build`、`npm run audit:seo` 檢查 Astro 的 `dist/` 產物。建置會原樣複製舊文章並比對位元組，不再自動改寫文章、導覽、日期或 CSS。
+- 執行 `python build_static_articles.py` 準備 `.generated/public/` 的文章副本、RSS、Sitemap 與文章目錄，再執行 `npm run build`、`npm run audit:seo` 檢查 Astro 的 `dist/` 產物。建置只在公開副本中更新舊站網址，並逐位元組比對其餘內容。
 - 結構檢查通過不代表研究原意或所有外部連結都已驗證。來源無法取得或網站拒絕自動存取時，應如實記錄核對範圍，不宣稱全部驗證成功。
 
 ### 嚴禁改寫使用者沒有指名的文章（No Unrequested Overwrite & Non-Destructive Addition）
@@ -299,8 +299,8 @@ ARTICLE_TAG_MAP = {
 文章 HTML `<head>` 必須配置完整的 SEO 與 E-E-A-T 結構化中繼資料：
 
 ### 1. 基礎標籤與規範網址
-- **全站 Base URL**：`https://ian030590.trainerhub.cc`（禁止出現 `ian030590.github.io`）。
-- **Canonical**：`<link rel="canonical" href="https://ian030590.trainerhub.cc/content/{目錄}/{檔名}" />`
+- **全站 Base URL**：`https://ian.trainerhub.cc`（禁止出現 `ian030590.github.io`）。
+- **Canonical**：`<link rel="canonical" href="https://ian.trainerhub.cc/content/{目錄}/{檔名}" />`
 - **Keywords**：`<meta name="keywords" content="{由核准標籤組成的逗號分隔清單}" />`
 
 ### 2. 社群中繼標籤 (Open Graph & Twitter Card)
@@ -310,10 +310,10 @@ ARTICLE_TAG_MAP = {
 <meta property="og:site_name" content="蔡泓恩 | 職能治療師" />
 <meta property="og:title" content="{文章標題} ｜ 蔡泓恩 職能治療師" />
 <meta property="og:description" content="{純文字摘要}" />
-<meta property="og:url" content="https://ian030590.trainerhub.cc/content/{目錄}/{檔名}" />
+<meta property="og:url" content="https://ian.trainerhub.cc/content/{目錄}/{檔名}" />
 <meta property="og:image" content="{Unsplash 首圖 URL}" />
 <meta property="article:published_time" content="{ISO8601 時間字串}" />
-<meta property="article:author" content="https://ian030590.trainerhub.cc/" />
+<meta property="article:author" content="https://ian.trainerhub.cc/" />
 <meta property="article:section" content="{主分類名稱}" />
 
 <meta name="twitter:card" content="summary_large_image" />

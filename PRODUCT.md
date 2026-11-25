@@ -48,7 +48,7 @@ web
 ## Brand Commitments
 
 - 對外身分為「職能治療師」，姓名寫作蔡泓恩、Hung-En (Ian) Tsai。
-- 網址固定為 `https://ian030590.trainerhub.cc`。
+- 網址固定為 `https://ian.trainerhub.cc`。
 - 語氣自然、尊重、容易理解，不使用口號或行銷式宣稱。
 - 使用真實人物照片與真實研究、工具內容。
 

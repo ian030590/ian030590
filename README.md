@@ -4,7 +4,7 @@
 
 I build digital practice tools and workflow utilities informed by occupational therapy, clinical research, and everyday work.
 
-[個人網站](https://ian030590.trainerhub.cc) · [居家訓練網](https://trainerhub.cc) · [Email](mailto:rainbowh9490@gmail.com)
+[個人網站](https://ian.trainerhub.cc) · [居家訓練網](https://trainerhub.cc) · [Email](mailto:rainbowh9490@gmail.com)
 
 ## 我在做什麼
 

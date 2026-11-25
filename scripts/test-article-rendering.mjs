@@ -6,6 +6,8 @@ import { unstable_readConfig as readWranglerConfig } from 'wrangler';
 import { articleBody, articleSchema, catalog, cards, sitemap, rss, articlePage, SITE } from '../worker/articles.js';
 import worker from '../worker/index.js';
 
+const legacyHost = 'ian030590.trainerhub.cc';
+assert.equal(SITE, 'https://ian.trainerhub.cc');
 const route = '/content/VisualRehab/001_視覺復健';
 const routes = { VisualRehab_001: route };
 const marker = JSON.stringify({ repository: 'ian030590/ian030590', source: 'VisualRehab_001' });
@@ -33,6 +35,10 @@ assert.throws(() => catalog([post, post], routes), /Duplicate/);
 assert.throws(() => catalog([{ id: 'bad' }], routes), /Invalid/);
 assert.deepEqual(catalog([post], {}), [], 'Withdrawn Git sources stay hidden while the trash operation is queued');
 const body = articleBody(posts[0], posts);
+for (const host of [legacyHost, new URL(SITE).host]) {
+  const link = articleBody({ content: `<a href="http://${host}${route}.html#references">引用</a>` }, posts);
+  assert.ok(link.includes(`href="${new URL(route, SITE).href}#blogger-references"`));
+}
 assert.doesNotMatch(body, /<script|<style|<iframe|<form|<input|onerror|javascript:|display:none|舊日期|class="article-container"/);
 assert.match(body, /id="blogger-references"/);
 assert.match(body, /href="#blogger-references"/);
@@ -66,7 +72,7 @@ for (const tag of posts.flatMap((post) => post.tags)) {
   assert.ok(sitemap(posts, routes).includes('<loc>' + SITE + '/blog?tag=' + encodeURIComponent(tag) + '</loc>'));
 }
 for (const path of ['/projects', '/api/contact?next=one%2Ftwo', '//path.example/to?x=1&x=2']) {
-  const response = await worker.fetch(new Request('http://ian.trainerhub.cc' + path), {});
+  const response = await worker.fetch(new Request(`https://${legacyHost}${path}`), {});
   assert.equal(response.status, 301);
   assert.equal(response.headers.get('location'), SITE + path);
 }
@@ -139,6 +145,7 @@ try {
   const xml = await render('/sitemap.xml');
   assert.equal(xml.split('<loc>' + SITE + tagPath + '</loc>').length, 2);
   const reader = await render(route);
+  assert.ok(reader.includes(`<link rel="canonical" href="${new URL(route, SITE).href}">`));
   assert.deepEqual(renderedGraph(reader), schema['@graph']);
   const crumb = (html) => html.match(/<nav class="breadcrumb-trail"[^>]*>([\s\S]*?)<\/nav>/)[1];
   const separator = '<span class="breadcrumb-separator" aria-hidden="true">/</span>';

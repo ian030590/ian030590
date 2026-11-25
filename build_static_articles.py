@@ -21,7 +21,7 @@ SITEMAP_FILE = BASE_DIR / 'sitemap.xml'
 ARTICLES_DATA_FILE = BASE_DIR / 'js' / 'articles-data.js'
 BLOG_HTML_FILE = BASE_DIR / 'blog.html'
 
-SITE_BASE_URL = 'https://ian030590.trainerhub.cc'
+SITE_BASE_URL = 'https://ian.trainerhub.cc'
 
 ADDITIONAL_CONTENT_FOLDERS = {
     'CognitRehab': ('認知復健', '中風認知、溝通與社會參與', 'cognitive'),
@@ -1707,6 +1707,10 @@ def validate_generated_site(all_articles):
 
     print(f'Validation passed: {len(additional_articles)} articles have consistent series navigation, CSS, JSON-LD, navbar, back-link, unique images and zero conflict files. Checked {internal_link_count} internal HTML links, {len(catalog_links)} catalog links and {len(sitemap_links)} sitemap URLs, including fragment targets.')
 
+def public_article_bytes(source):
+    return source.read_bytes().replace(b'https://ian030590.trainerhub.cc/', (SITE_BASE_URL + '/').encode())
+
+
 def prepare_astro_assets(all_articles):
     """Stage only public assets; published article source files are immutable."""
     generated = BASE_DIR / '.generated'
@@ -1731,7 +1735,7 @@ def prepare_astro_assets(all_articles):
         relative = Path('content') / art['folder'] / art['new_filename']
         target = public / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(BASE_DIR / relative, target)
+        target.write_bytes(public_article_bytes(BASE_DIR / relative))
 
     catalog = generate_articles_data(all_articles, public)
     (public / 'article-routes.json').write_text(json.dumps({
@@ -1740,7 +1744,7 @@ def prepare_astro_assets(all_articles):
     (generated / 'articles.json').write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding='utf-8')
     generate_sitemap(all_articles, public)
     generate_rss(all_articles, public)
-    print(f'Astro assets prepared: {len(all_articles)} articles copied without modification.')
+    print(f'Astro assets prepared: {len(all_articles)} article copies use {SITE_BASE_URL}.')
 
 
 def main():
@@ -1758,7 +1762,7 @@ def main():
         SITEMAP_FILE = BASE_DIR / 'sitemap.xml'
         for art in all_articles:
             relative = Path('content') / art['folder'] / art['new_filename']
-            if (source_root / relative).read_bytes() != (BASE_DIR / relative).read_bytes():
+            if public_article_bytes(source_root / relative) != (BASE_DIR / relative).read_bytes():
                 raise RuntimeError(f'Published article was modified during the build: {relative}')
         validate_generated_site(all_articles)
     else:

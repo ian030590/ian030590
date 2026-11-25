@@ -44,10 +44,10 @@
    - Every scientific reference must have a working, verified, clickable official DOI (`<a href="https://doi.org/..." target="_blank" rel="noopener noreferrer">`), checked against Crossref/PubMed and the official publication.
    - Zero tolerance for fake DOIs, outdated draft suffixes (e.g. pub4 before publication), or double-protocol typos (`https://doi.org/https://`).
 5. **Metadata & Base URL**:
-   - Site URL is strictly `https://ian030590.trainerhub.cc`.
+   - Site URL is strictly `https://ian.trainerhub.cc`.
    - Include complete Canonical, Open Graph, Twitter Cards, and Schema.org JSON-LD E-E-A-T metadata (`MedicalScholarlyArticle` / `TechArticle`, author 蔡泓恩 職能治療師).
 6. **Build Process**:
-   - Run `python build_static_articles.py` to prepare immutable article copies, `js/articles-data.js`, RSS and Sitemap under `.generated/public/`, then `npm run build` and `npm run audit:seo` to validate the deployment output. Never rewrite source articles during the build.
+   - Run `python build_static_articles.py` to prepare article copies, `js/articles-data.js`, RSS and Sitemap under `.generated/public/`, then `npm run build` and `npm run audit:seo` to validate the deployment output. Only the public copies normalize legacy site URLs. Never rewrite source articles during the build.
 7. **Terminology & Glossary**:
    - Strictly follow the terminology mapping table in [content/README.md](content/README.md):
      - `電子助視器` (❌) -> `電子擴視機` (⭕)

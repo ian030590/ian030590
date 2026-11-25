@@ -8,7 +8,7 @@
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    // Page requests on the old host need the redirect, including static HTML.
+    // Redirect old-host pages, including static HTML, to https://ian.trainerhub.cc.
     "run_worker_first": ["/*", "!/css/*", "!/js/*", "!/icons/*", "!/assets/*", "!/_astro/*", "!/favicon.ico"],
     // Same as Pages: /x.html redirects to /x, and /x serves x.html.
     "html_handling": "auto-trailing-slash",

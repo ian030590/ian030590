@@ -3,7 +3,8 @@ import sanitizeHtml from 'sanitize-html';
 import config from '../blogger.config.json' with { type: 'json' };
 import { handleBlogger } from './blogger.js';
 
-export const SITE = 'https://ian030590.trainerhub.cc';
+export const SITE = 'https://ian.trainerhub.cc';
+export const LEGACY_HOST = 'ian030590.trainerhub.cc';
 const taiwanDate = new Intl.DateTimeFormat('en-CA', {
   timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit',
 });
@@ -95,7 +96,7 @@ export function articleBody(post, posts) {
           else {
             try {
               const url = new URL(attrs.href, post.url || SITE);
-              if ([new URL(SITE).host, 'ian.trainerhub.cc'].includes(url.host)) {
+              if ([new URL(SITE).host, LEGACY_HOST].includes(url.host)) {
                 url.hostname = new URL(SITE).hostname;
                 url.protocol = 'https:';
                 const linked = posts.find((item) => pathKey(new URL(item.link, SITE).pathname) === pathKey(url.pathname)

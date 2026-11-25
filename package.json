@@ -19,7 +19,7 @@
     "blogger:auth": "python -B scripts/blogger_auth.py",
     "blogger:plan": "python -B scripts/blogger_sync.py",
     "blogger:sync": "python -B scripts/blogger_sync.py --apply",
-    "audit:seo": "node scripts/seo-check.mjs --dir dist --site https://ian030590.trainerhub.cc --fail-on error",
+    "audit:seo": "node scripts/seo-check.mjs --dir dist --site https://ian.trainerhub.cc --fail-on error",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {

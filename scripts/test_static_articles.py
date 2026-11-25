@@ -126,7 +126,7 @@ class InternalLinkTests(unittest.TestCase):
                      '../../content/VisualRehab/' + self.target.name,
                      '/content/VisualRehab/' + quote(self.target.name),
                      build.SITE_BASE_URL + '/content/VisualRehab/' + quote(self.target.name),
-                     '//ian030590.trainerhub.cc/content/VisualRehab/' + quote(self.target.name)):
+                     '//ian.trainerhub.cc/content/VisualRehab/' + quote(self.target.name)):
             with self.subTest(href=href):
                 self.assertEqual(build.validate_internal_link(self.source, href, {}), self.target)
 
@@ -163,7 +163,7 @@ class PublicUrlTests(unittest.TestCase):
 
 
 class AstroAssetsTests(unittest.TestCase):
-    def test_staging_preserves_article_bytes_and_excludes_private_sources(self):
+    def test_staging_changes_only_legacy_urls_and_excludes_private_sources(self):
         with tempfile.TemporaryDirectory(prefix='astro-assets-tests-') as temporary:
             root = Path(temporary)
             for directory in ('assets', 'css', 'icons', 'js'):
@@ -177,7 +177,8 @@ class AstroAssetsTests(unittest.TestCase):
             (references / 'private.pdf').write_bytes(b'private reference')
             source = root / 'content' / 'VisualRehab' / '001_article.html'
             source.parent.mkdir()
-            original = '<!doctype html>\r\n<p>保留原始文章 &amp; 日期</p>\r\n'.encode('utf-8')
+            template = '<!doctype html>\r\n<link rel="canonical" href="{origin}/article">\r\n<p>保留原始文章 &amp; 日期</p>\r\n'
+            original = template.format(origin='https://ian030590.trainerhub.cc').encode('utf-8')
             source.write_bytes(original)
             current = dict(article(1), old_filename=source.name, new_filename=source.name,
                            summary='摘要', img_src='', tags=['視覺復健'], read_time='約 1 分鐘閱讀',
@@ -190,7 +191,8 @@ class AstroAssetsTests(unittest.TestCase):
                 stale.write_text('must disappear on the next build', encoding='utf-8')
                 build.prepare_astro_assets([current])
             self.assertEqual(source.read_bytes(), original)
-            self.assertEqual((public / source.relative_to(root)).read_bytes(), original)
+            self.assertEqual((public / source.relative_to(root)).read_bytes(),
+                             template.format(origin='https://ian.trainerhub.cc').encode('utf-8'))
             self.assertFalse((public / 'content' / 'References').exists())
             self.assertFalse(stale.exists())
             self.assertIn('window.__STATIC_ARTICLES__', (public / 'js' / 'articles-data.js').read_text(encoding='utf-8'))

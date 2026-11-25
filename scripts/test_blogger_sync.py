@@ -135,7 +135,7 @@ class BloggerSyncTests(unittest.TestCase):
                 item = sync.export_article(art)
             self.assertEqual(path.read_bytes(), raw)
             self.assertEqual(item['body']['published'], art['date_published'])
-            self.assertIn('https://ian030590.trainerhub.cc/assets/image.jpg', item['body']['content'])
+            self.assertIn('https://ian.trainerhub.cc/assets/image.jpg', item['body']['content'])
             self.assertIn('article-references', item['body']['content'])
             self.assertNotIn('material-symbols-outlined', item['body']['content'])
             self.assertEqual(sync.managed_posts([remote(item)])['VisualRehab_001'][1], item['marker'])

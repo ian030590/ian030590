@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 import worker from '../worker/index.js';
 
-const endpoint = 'https://ian030590.trainerhub.cc/api/articles';
+const endpoint = 'https://ian.trainerhub.cc/api/articles';
 const environment = { BLOGGER_API_KEY: 'test-private-key', ASSETS: { fetch: async () => Response.json({}) } };
 let calls = [];
 globalThis.fetch = async (input, init) => {
@@ -64,7 +64,7 @@ async function loadArticles(items, { offline = false, tag = '', snapshot = [] } 
   const context = vm.createContext({
     window: { __STATIC_ARTICLES__: [{ title: '本機文章', tags: ['本機標籤'], link: '/content/local.html' }],
       location: { search: tag ? '?tag=' + encodeURIComponent(tag) : '',
-        href: 'https://ian030590.trainerhub.cc/blog', origin: 'https://ian030590.trainerhub.cc' } },
+        href: 'https://ian.trainerhub.cc/blog', origin: 'https://ian.trainerhub.cc' } },
     URL, URLSearchParams,
     DOMParser: class { parseFromString() { return { querySelectorAll: () => [], querySelector: () => null }; } },
     localStorage: { getItem: () => null },
