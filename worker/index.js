@@ -3,7 +3,7 @@
 // Contact messages are emailed through Resend; the API key
 // stays on the server as the RESEND_API_KEY secret so visitors cannot use it.
 
-import { articleAPI, articlePage } from './articles.js';
+import { articleAPI, articlePage, SITE } from './articles.js';
 
 const RESEND_ENDPOINT = 'https://api.resend.com/emails';
 const MAX_BODY_BYTES = 16 * 1024;
@@ -121,7 +121,8 @@ async function handleContact(request, env) {
 
 export default {
   async fetch(request, env, ctx) {
-    const { pathname } = new URL(request.url);
+    const { hostname, pathname, search } = new URL(request.url);
+    if (hostname === 'ian.trainerhub.cc') return Response.redirect(SITE + pathname + search, 301);
     if (pathname === '/api/contact') return handleContact(request, env);
     if (pathname === '/api/articles') return articleAPI(request, env, ctx);
     if (pathname.startsWith('/api/')) return json(404, { error: 'Not found' });

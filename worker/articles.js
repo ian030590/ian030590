@@ -139,22 +139,39 @@ export async function articleAPI(request, env, ctx) {
   }
 }
 
+const tagPath = (tag) => '/blog?tag=' + encodeURIComponent(tag);
+
+function breadcrumbs(tag, title) {
+  const trail = [['首頁', SITE + '/'], ['專業文章', SITE + '/blog']];
+  if (tag) trail.push([tag, SITE + tagPath(tag)]);
+  if (title !== undefined) trail.push([title]);
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map(([name, item], index) => ({
+      '@type': 'ListItem', position: index + 1, name, ...(item && { item }),
+    })),
+  };
+}
+
 export function articleSchema(post) {
   const url = new URL(post.link, SITE).href;
   const type = post.tags.some((tag) => /復健/.test(tag)) ? 'MedicalScholarlyArticle'
     : post.tags.some((tag) => ['數位學習', 'AI應用'].includes(tag)) ? 'TechArticle' : 'Article';
-  return {
-    '@context': 'https://schema.org', '@type': type === 'Article' ? 'Article' : ['Article', type],
+  const article = {
+    '@type': type === 'Article' ? 'Article' : ['Article', type],
     headline: post.title, description: post.lead, url, mainEntityOfPage: url,
     inLanguage: 'zh-TW', datePublished: post.published, dateModified: post.updated || post.published,
     keywords: post.tags,
     ...(post.imageUrl ? { image: post.imageUrl } : {}),
-    author: { '@type': 'Person', '@id': SITE + '/#person', name: '蔡泓恩', jobTitle: '職能治療師', url: SITE + '/' },
+    author: { '@id': SITE + '/#person', name: '蔡泓恩', jobTitle: '職能治療師' },
+    publisher: { '@id': SITE + '/#person' },
+    isPartOf: { '@id': SITE + '/#website' },
   };
+  return { '@context': 'https://schema.org', '@graph': [article, breadcrumbs(post.tags[0], post.title)] };
 }
 
 export function cards(posts) {
-  return '<div class="articles-grid">' + posts.slice(0, 15).map((post, index) => `
+  return '<div class="articles-grid">' + posts.map((post, index) => `
     <article class="article-card ${index === 0 && posts.length > 1 ? 'article-card--featured' : ''}">
       <a class="card-link" href="${escape(post.link)}">
         <div class="article-visual ${post.imageUrl ? '' : 'no-image'}">${post.imageUrl ? `<img src="${escape(post.imageUrl)}" alt="" loading="lazy">` : ''}${index === 0 ? '<span class="featured-badge">最新專題</span>' : ''}</div>
@@ -172,7 +189,12 @@ export function cards(posts) {
 export function sitemap(posts, routes) {
   const urls = new Map(['/', '/blog', '/projects', '/contact', '/sponsor', '/privacy', '/terms', ...Object.values(routes)]
     .map((path) => [new URL(path, SITE).href, '']));
-  for (const post of posts) urls.set(new URL(post.link, SITE).href, post.updated || post.published || '');
+  for (const post of posts) {
+    urls.set(new URL(post.link, SITE).href, post.updated || post.published || '');
+    for (const tag of post.tags) {
+      if (tag) urls.set(SITE + tagPath(tag), '');
+    }
+  }
   return '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
     + [...urls].map(([url, date]) => `<url><loc>${escape(url)}</loc>${date ? `<lastmod>${escape(date)}</lastmod>` : ''}</url>`).join('') + '</urlset>';
 }
@@ -188,6 +210,14 @@ export function rss(posts) {
 
 function content(rewriter, selector, value, html = false) {
   return rewriter.on(selector, { element: (element) => element.setInnerContent(value, { html }) });
+}
+
+function pageMetadata(rewrite, canonical, values) {
+  rewrite.on('link[rel="canonical"]', { element: (element) => element.setAttribute('href', canonical) });
+  rewrite.on('meta', { element(element) {
+    const name = element.getAttribute('property') || element.getAttribute('name');
+    if (Object.hasOwn(values, name)) element.setAttribute('content', escape(values[name]));
+  } });
 }
 
 function responseHeaders(response, source) {
@@ -211,19 +241,26 @@ async function reader(request, env, post, posts, status = 200) {
   rewrite.on('#blogger-reader', { element: (element) => element.setAttribute('aria-busy', 'false') });
   if (post) {
     const canonical = new URL(post.link, SITE).href;
+    const separator = '<span class="breadcrumb-separator" aria-hidden="true">/</span>';
+    const firstTag = post.tags[0];
+    const tagCrumb = firstTag ? `${separator}<a href="${escape(tagPath(firstTag))}">${escape(firstTag)}</a>` : '';
+    rewrite.on('.breadcrumb-trail', { element: (element) => element.append(
+      `${tagCrumb}${separator}<span aria-current="page">${escape(title)}</span>`, { html: true }) });
+    rewrite.on('#reader-body', { element: (element) => element.after(`
+      <section class="article-support" aria-labelledby="article-support-title">
+        <h2 id="article-support-title">這篇文章對你有幫助嗎？</h2>
+        <a href="https://trainerhub.cc" target="_blank" rel="noopener">TrainerHub 居家練習工具</a>
+        <a href="/rss.xml">用 RSS 訂閱新文章</a>
+        <a href="https://buymeacoffee.com/ian030590?utm_source=article&amp;utm_medium=inline" target="_blank" rel="noopener">在 Buy Me a Coffee 贊助</a>
+      </section>`, { html: true }) });
     rewrite.on('meta[name="robots"]', { element: (element) => element.remove() });
-    rewrite.on('link[rel="canonical"]', { element: (element) => element.setAttribute('href', canonical) });
-    rewrite.on('meta', { element(element) {
-      const name = element.getAttribute('property') || element.getAttribute('name');
-      const values = { description, 'og:title': title, 'twitter:title': title,
-        'og:description': description, 'twitter:description': description, 'og:url': canonical, 'og:type': 'article',
-        'og:image': post.imageUrl || SITE + '/assets/ian-tsai.jpg', 'twitter:image': post.imageUrl || SITE + '/assets/ian-tsai.jpg' };
-      if (Object.hasOwn(values, name)) element.setAttribute('content', values[name]);
-    } });
+    pageMetadata(rewrite, canonical, { description, 'og:title': title, 'twitter:title': title,
+      'og:description': description, 'twitter:description': description, 'og:url': canonical, 'og:type': 'article',
+      'og:image': post.imageUrl || SITE + '/assets/ian-tsai.jpg', 'twitter:image': post.imageUrl || SITE + '/assets/ian-tsai.jpg' });
     rewrite = content(rewrite, 'script[type="application/ld+json"]', json(articleSchema(post)), true);
     rewrite.on('head', { element: (element) => element.append(
       `<meta property="article:published_time" content="${escape(post.published)}"><meta property="article:modified_time" content="${escape(post.updated || post.published)}">`, { html: true }) });
-    rewrite = content(rewrite, '#reader-tags', post.tags.map((tag) => `<a class="article-badge" href="/blog?tag=${encodeURIComponent(tag)}">${escape(tag)}</a>`).join(''), true);
+    rewrite = content(rewrite, '#reader-tags', post.tags.map((tag) => `<a class="article-badge" href="${escape(tagPath(tag))}">${escape(tag)}</a>`).join(''), true);
     rewrite = content(rewrite, '#reader-date', post.dateString);
     rewrite.on('#reader-date', { element: (element) => element.setAttribute('datetime', post.published || '') });
   }
@@ -248,11 +285,28 @@ export async function articlePage(request, env, ctx) {
     const template = await env.ASSETS.fetch(new Request(new URL('/blog', request.url)));
     const posts = data?.posts || [];
     const selected = url.searchParams.get('tag');
-    const filtered = selected ? posts.filter((post) => post.tags.includes(selected)) : posts;
+    const filtered = selected ? posts.filter((post) => post.tags.includes(selected)) : posts.slice(0, 15);
     let rewrite = content(new HTMLRewriter(), '#article-content', filtered.length ? cards(filtered)
       : `<p class="empty-state">${data ? '目前沒有符合條件的公開文章。' : '文章暫時無法取得，請稍後重新整理。'}</p>`, true);
     rewrite = content(rewrite, '#articles-status', '');
     rewrite = content(rewrite, '#blogger-catalog', json(data ? posts.map(({ content, ...post }) => post) : null), true);
+    if (selected && filtered.length) {
+      const canonical = SITE + tagPath(selected);
+      const title = selected + ' 文章 | 蔡泓恩 職能治療師';
+      const description = `蔡泓恩職能治療師整理的${selected}相關文章，每篇附原始文獻連結。`;
+      pageMetadata(rewrite, canonical, { description, 'og:url': canonical, 'og:title': title, 'twitter:title': title,
+        'og:description': description, 'twitter:description': description });
+      rewrite = content(rewrite, 'title', title);
+      rewrite = content(rewrite, '.blog-header .page-title', selected);
+      rewrite = content(rewrite, '.blog-header .page-intro', description);
+      const collection = { '@type': 'CollectionPage', '@id': canonical + '#collection', url: canonical,
+        name: selected, description, inLanguage: 'zh-TW', author: { '@id': SITE + '/#person' }, isPartOf: { '@id': SITE + '/#website' } };
+      rewrite = content(rewrite, 'script[type="application/ld+json"]', json({
+        '@context': 'https://schema.org', '@graph': [collection, breadcrumbs(selected)],
+      }), true);
+    } else if (selected !== null && data) {
+      rewrite.on('head', { element: (element) => element.append('<meta name="robots" content="noindex,follow">', { html: true }) });
+    }
     rewrite.on('#article-content', { element: (element) => element.setAttribute('aria-busy', 'false') });
     return responseHeaders(rewrite.transform(new Response(template.body, { status: data ? 200 : 503, headers: template.headers })), data ? 'blogger' : 'unavailable');
   }

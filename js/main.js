@@ -237,25 +237,31 @@
     const articlesStatus = document.getElementById("articles-status");
     const articlesPerPage = 15;
     let allPosts = [];
-    let currentTag = new URLSearchParams(window.location.search).get("tag") || "";
-    let searchQuery = "";
+    const currentTag = new URLSearchParams(window.location.search).get("tag") || "";
+    const { blogSearch = "", ...historyState } = window.history?.state || {};
+    let searchQuery = blogSearch;
+    if (blogSearch && blogSearchInput) {
+      blogSearchInput.value = blogSearch;
+      window.history.replaceState(historyState, "");
+    }
 
-    const updateURL = () => {
+    const selectTag = (tag) => {
       const url = new URL(window.location.href);
-      if (currentTag) {
-        url.searchParams.set("tag", currentTag);
+      if (tag) {
+        url.searchParams.set("tag", tag);
       } else {
         url.searchParams.delete("tag");
       }
-      window.history.replaceState({}, "", url.toString());
+      // Reload the tag's heading and metadata while carrying the current search across the navigation.
+      window.history.replaceState({ ...historyState, blogSearch: searchQuery }, "", url);
+      window.location.reload();
     };
 
     const resetFilters = () => {
-      currentTag = "";
       searchQuery = "";
       if (blogSearchInput) blogSearchInput.value = "";
-      updateURL();
-      renderArticles();
+      if (currentTag) selectTag("");
+      else renderArticles();
     };
 
     const describeFilter = () => {
@@ -401,13 +407,13 @@
 
       tagsFilterList.querySelectorAll(".tag-filter-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          currentTag = btn.getAttribute("data-tag") || "";
-          updateURL();
-          renderArticles();
+          const tag = btn.getAttribute("data-tag") || "";
           if (window.innerWidth <= 960) {
             const top = articleContent.getBoundingClientRect().top + window.scrollY - 90;
             window.scrollTo({ top, behavior: "smooth" });
           }
+          if (tag !== currentTag) selectTag(tag);
+          else renderArticles();
         });
       });
     };

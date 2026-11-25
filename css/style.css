@@ -551,6 +551,19 @@ html:not(.js) .js-only {
   width: 26px;
   height: 26px;
 }
+.footer-nav {
+  display: flex;
+  gap: clamp(24px, 4vw, 48px);
+}
+.footer-nav .footer-links {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.footer-nav h2 {
+  margin: 0;
+  color: var(--color-text-footer);
+  font-size: var(--font-size-small);
+}
 /* The footer stays dark in both themes, so it uses a light slate rather than --color-text-muted. */
 .footer-links {
   display: flex;
@@ -657,7 +670,8 @@ html:not(.js) .js-only {
   .page-main {
     padding: 58px 0 70px;
   }
-  .footer-grid {
+  .footer-grid,
+  .footer-nav {
     align-items: flex-start;
     flex-direction: column;
   }
@@ -1506,6 +1520,7 @@ html:not(.js) .js-only {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  overflow-wrap: anywhere;
   gap: 8px;
   margin-bottom: 28px;
   font-size: var(--font-size-small);
@@ -1977,6 +1992,29 @@ a.article-badge:hover {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.article-support {
+  display: grid;
+  justify-items: start;
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.article-support h2 {
+  margin: 0 0 8px;
+  font-size: 1.375rem;
+}
+.article-support a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--font-size-body);
+  color: var(--color-link-default);
+  text-decoration: underline;
+}
+.article-support a:hover {
+  color: var(--color-link-hover);
 }
 
 .article-bottom-actions {

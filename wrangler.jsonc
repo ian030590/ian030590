@@ -8,7 +8,8 @@
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*", "/blog", "/blog.html", "/article", "/article.html", "/content/*", "/sitemap.xml", "/rss.xml"],
+    // Page requests on the old host need the redirect, including static HTML.
+    "run_worker_first": ["/*", "!/css/*", "!/js/*", "!/icons/*", "!/assets/*", "!/_astro/*", "!/favicon.ico"],
     // Same as Pages: /x.html redirects to /x, and /x serves x.html.
     "html_handling": "auto-trailing-slash",
     // Serve 404.html with a 404 status instead of the home page.
