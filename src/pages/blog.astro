@@ -1,4 +1,5 @@
 ---
+import { icon } from "../lib/icons.js";
 import SiteLayout from '../layouts/SiteLayout.astro';
 const metadata = {
   "title": "專業文章與專題 | 蔡泓恩 | 職能治療師",
@@ -84,7 +85,7 @@ const metadata = {
                 <span id="active-filter-count" class="filter-status-count"></span>
               </p>
               <button id="clear-filter-btn" class="clear-filter-btn" type="button">
-                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                <Fragment set:html={icon("close")} />
                 清除篩選
               </button>
             </div>
@@ -99,7 +100,7 @@ const metadata = {
           <aside class="blog-sidebar" aria-label="文章搜尋與篩選">
             <div class="sidebar-widget search-widget" hidden>
               <label for="blog-search" class="widget-title">
-                <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                <Fragment set:html={icon("search")} />
                 搜尋文章
               </label>
               <div class="search-input-wrap">
@@ -110,14 +111,14 @@ const metadata = {
                   autocomplete="off"
                 />
                 <button id="clear-search-btn" class="clear-search-btn" type="button" aria-label="清除搜尋">
-                  <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                  <Fragment set:html={icon("close")} />
                 </button>
               </div>
             </div>
 
             <div class="sidebar-widget tags-widget">
               <h2 class="widget-title">
-                <span class="material-symbols-outlined" aria-hidden="true">label</span>
+                <Fragment set:html={icon("label")} />
                 依標籤篩選
               </h2>
               <div id="tags-filter-list" class="tags-filter-list"></div>
@@ -135,7 +136,7 @@ const metadata = {
                 class="button-primary widget-button"
               >
                 開啟 TrainerHub
-                <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+                <Fragment set:html={icon("open_in_new")} />
               </a>
             </div>
           </aside>

@@ -1,4 +1,5 @@
 ---
+import { fontLinks } from "../lib/fonts.js";
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
@@ -42,6 +43,7 @@ const image = new URL('/assets/ian-tsai.jpg', Astro.site);
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <Fragment set:html={fontLinks} />
     <link rel="stylesheet" href="/css/style.css" />
     <script is:inline>
       (function () {

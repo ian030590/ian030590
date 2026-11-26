@@ -1,4 +1,5 @@
 ---
+import { icon } from "../lib/icons.js";
 import SiteLayout from '../layouts/SiteLayout.astro';
 const metadata = {
   "title": "聯絡我 | 蔡泓恩 | 職能治療師",
@@ -136,10 +137,10 @@ const metadata = {
             <section class="contact-panel" aria-labelledby="contact-routes-title">
               <h2 id="contact-routes-title" class="contact-panel-title">聯絡管道</h2>
               <ul class="contact-channel-list">
-                <li><a class="contact-channel" href="mailto:rainbowh9490@gmail.com"><span class="contact-channel-icon"><span class="material-symbols-outlined" aria-hidden="true">mail</span></span><span><small>合作與研究交流</small><strong>rainbowh9490@gmail.com</strong><em>請說明你的背景、想討論的主題與方便聯繫的時間。</em></span><span class="contact-channel-action">寄信</span></a></li>
-                <li><a class="contact-channel" href="https://github.com/ian030590" target="_blank" rel="noopener"><span class="contact-channel-icon"><span class="material-symbols-outlined" aria-hidden="true">code</span></span><span><small>開源專案</small><strong>github.com/ian030590</strong></span><span class="contact-channel-action">前往 GitHub</span></a></li>
-                <li><a class="contact-channel" href="https://trainerhub.cc" target="_blank" rel="noopener"><span class="contact-channel-icon"><span class="material-symbols-outlined" aria-hidden="true">exercise</span></span><span><small>居家復健訓練網</small><strong>trainerhub.cc</strong></span><span class="contact-channel-action">開啟網站</span></a></li>
-                <li><div class="contact-channel"><span class="contact-channel-icon"><span class="material-symbols-outlined" aria-hidden="true">location_on</span></span><span><small>所在地</small><strong>台北市 · 國立臺灣大學</strong></span></div></li>
+                <li><a class="contact-channel" href="mailto:rainbowh9490@gmail.com"><span class="contact-channel-icon"><Fragment set:html={icon("mail")} /></span><span><small>合作與研究交流</small><strong>rainbowh9490@gmail.com</strong><em>請說明你的背景、想討論的主題與方便聯繫的時間。</em></span><span class="contact-channel-action">寄信</span></a></li>
+                <li><a class="contact-channel" href="https://github.com/ian030590" target="_blank" rel="noopener"><span class="contact-channel-icon"><Fragment set:html={icon("code")} /></span><span><small>開源專案</small><strong>github.com/ian030590</strong></span><span class="contact-channel-action">前往 GitHub</span></a></li>
+                <li><a class="contact-channel" href="https://trainerhub.cc" target="_blank" rel="noopener"><span class="contact-channel-icon"><Fragment set:html={icon("exercise")} /></span><span><small>居家復健訓練網</small><strong>trainerhub.cc</strong></span><span class="contact-channel-action">開啟網站</span></a></li>
+                <li><div class="contact-channel"><span class="contact-channel-icon"><Fragment set:html={icon("location_on")} /></span><span><small>所在地</small><strong>台北市 · 國立臺灣大學</strong></span></div></li>
               </ul>
             </section>
 

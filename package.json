@@ -15,7 +15,7 @@
     "prebuild": "npm run prepare:content",
     "build": "astro build && python build_static_articles.py --validate dist",
     "preview": "astro preview",
-    "test": "python -B -m unittest discover -s scripts -p \"test_*.py\" && node scripts/test-projects.mjs && node scripts/test-seo-check.mjs && node scripts/test-contact-worker.mjs && node scripts/test-blogger.mjs && node scripts/test-article-rendering.mjs",
+    "test": "python -B -m unittest discover -s scripts -p \"test_*.py\" && node scripts/test-projects.mjs && node scripts/test-seo-check.mjs && node scripts/test-contact-worker.mjs && node scripts/test-blogger.mjs && node scripts/test-article-rendering.mjs && npm run build && node scripts/test-built-icons.mjs",
     "blogger:auth": "python -B scripts/blogger_auth.py",
     "blogger:plan": "python -B scripts/blogger_sync.py",
     "blogger:sync": "python -B scripts/blogger_sync.py --apply",

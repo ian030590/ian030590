@@ -146,7 +146,7 @@
               ${repo.archived ? "<span>已封存</span>" : ""}
               <span class="project-source">
                 <span>在 GitHub 查看</span>
-                <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+                ${projectsGrid.dataset?.sourceIcon || ""}
               </span>
             </div>
           </a>

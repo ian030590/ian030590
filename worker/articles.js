@@ -1,3 +1,5 @@
+import { icon } from '../src/lib/icons.js';
+import { fontLinks } from '../src/lib/fonts.js';
 import { Parser } from 'htmlparser2';
 import sanitizeHtml from 'sanitize-html';
 import config from '../blogger.config.json' with { type: 'json' };
@@ -29,7 +31,7 @@ function inspectContent(content) {
   const stack = [];
   const parser = new Parser({
     onopentag(name, attrs) {
-      const skip = ['style', 'script', 'header'].includes(name);
+      const skip = ['style', 'script', 'header'].includes(name) || attrs.class?.split(/\s+/).includes('material-symbols-outlined');
       stack.push(skip);
       if (skip) skipped++;
       if (attrs['data-ian-blogger-sync']) {
@@ -68,13 +70,37 @@ export function catalog(posts, routes) {
   }).filter(Boolean).sort((a, b) => String(b.published || '').localeCompare(String(a.published || '')));
 }
 
+function replaceIcons(html) {
+  let start, name, depth = 0, offset = 0, result = '';
+  const parser = new Parser({
+    onopentag(tag, attrs) {
+      if (depth) depth++;
+      else if (tag === 'span' && attrs.class?.split(/\s+/).includes('material-symbols-outlined')) {
+        start = parser.startIndex;
+        name = '';
+        depth = 1;
+      }
+    },
+    ontext(text) { if (depth) name += text; },
+    onclosetag() {
+      if (depth && --depth === 0) {
+        result += html.slice(offset, start) + icon(name.trim());
+        offset = parser.endIndex + 1;
+      }
+    },
+  });
+  parser.end(html);
+  return result + html.slice(offset);
+}
+
 export function articleBody(post, posts) {
   const prefix = 'blogger-';
   let hasFeaturedImage = false;
-  return sanitizeHtml(post.content || '', {
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'details', 'summary']),
+  return sanitizeHtml(replaceIcons(post.content || ''), {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'details', 'summary', 'svg', 'path']),
     allowedAttributes: {
       '*': ['class', 'id', 'role', 'aria-label', 'aria-hidden'],
+      svg: ['viewBox', 'width', 'height', 'fill', 'focusable'], path: ['d'],
       a: ['href', 'target', 'rel'],
       img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'fetchpriority'],
       th: ['colspan', 'rowspan', 'scope'], td: ['colspan', 'rowspan'],
@@ -85,6 +111,13 @@ export function articleBody(post, posts) {
     allowProtocolRelative: false,
     transformTags: {
       '*': (tagName, attributes) => {
+        if (tagName === 'svg' || tagName === 'path') {
+          const allowed = tagName === 'path' ? ['d'] : ['class', 'viewbox', 'width', 'height', 'fill', 'aria-hidden', 'focusable'];
+          const attrs = Object.fromEntries(Object.entries(attributes).filter(([key]) => allowed.includes(key))
+            .map(([key, value]) => [key === 'viewbox' ? 'viewBox' : key, value]));
+          if (attrs.fill !== 'currentColor') delete attrs.fill;
+          return { tagName, attribs: attrs };
+        }
         const attrs = { ...attributes };
         if (attrs.id) attrs.id = prefix + attrs.id;
         if (attrs.class) attrs.class = attrs.class.split(/\s+/).filter((c) => c !== 'article-container').join(' ');
@@ -136,12 +169,26 @@ async function load(request, env, ctx) {
   return { posts: catalog((await response.json()).items, routes), routes };
 }
 
+async function staticCatalog(request, env) {
+  try {
+    const asset = await env.ASSETS.fetch(new Request(new URL('/js/articles-data.js', request.url)));
+    if (!asset.ok) return null;
+    const match = (await asset.text()).match(/window\.__STATIC_ARTICLES__\s*=\s*(\[[\s\S]*\])\s*;?\s*$/);
+    if (!match) return null;
+    return JSON.parse(match[1]).map((post) => ({
+      ...post, link: pathKey(post.link), published: post.dateString,
+    })).sort((a, b) => b.dateString.localeCompare(a.dateString));
+  } catch { return null; }
+}
+
 export async function articleAPI(request, env, ctx) {
   if (request.method !== 'GET') return new Response(null, { status: 405, headers: { Allow: 'GET' } });
   try {
     const { posts } = await load(request, env, ctx);
     return Response.json({ items: posts }, { headers: { 'Cache-Control': 'no-store' } });
   } catch {
+    const posts = await staticCatalog(request, env);
+    if (posts) return responseHeaders(Response.json({ items: posts }), 'static');
     return Response.json({ error: '文章暫時無法取得，請稍後再試。' }, {
       status: env.BLOGGER_API_KEY ? 502 : 503, headers: { 'Cache-Control': 'no-store' },
     });
@@ -276,6 +323,17 @@ async function reader(request, env, post, posts, status = 200) {
   return responseHeaders(rewrite.transform(new Response(template.body, { status, headers: template.headers })), post ? 'blogger' : 'unavailable');
 }
 
+async function staticArticle(asset, path, source) {
+  const canonical = new URL(path, SITE).href;
+  const rewrite = new HTMLRewriter()
+    .on('style', { element: (element) => element.remove() })
+    .on('head', { element: (element) => element.append(fontLinks, { html: true }) })
+    .on('link[rel="canonical"]', { element: (element) => element.setAttribute('href', canonical) })
+    .on('meta[property="og:url"]', { element: (element) => element.setAttribute('content', canonical) });
+  const html = new Response(replaceIcons(await asset.text()), { headers: asset.headers });
+  return responseHeaders(rewrite.transform(html), source);
+}
+
 export async function articlePage(request, env, ctx) {
   const url = new URL(request.url);
   if (!['GET', 'HEAD'].includes(request.method)) return new Response(null, { status: 405, headers: { Allow: 'GET, HEAD' } });
@@ -283,9 +341,32 @@ export async function articlePage(request, env, ctx) {
   if (['/blog.html', '/article.html'].includes(url.pathname) || (path.startsWith('/content/') && url.pathname.endsWith('.html'))) {
     return Response.redirect(new URL(path + url.search, SITE), 301);
   }
-  let data;
+  let data, source = 'blogger';
   try { data = await load(request, env, ctx); } catch {
-    if (path === '/article' || path.startsWith('/content/')) return reader(request, env, null, [], 503);
+    source = 'static';
+    if (path === '/blog' || path === '/article') {
+      const posts = await staticCatalog(request, env);
+      if (posts) data = { posts };
+      if (path === '/article') {
+        if (!url.searchParams.get('id') && posts) return Response.redirect(new URL('/blog', SITE), 302);
+        const post = posts?.find((item) => item.id === url.searchParams.get('id'));
+        if (post) return Response.redirect(new URL(post.link, SITE), 302);
+        return reader(request, env, null, [], 503);
+      }
+    }
+    if (path.startsWith('/content/') || ['/sitemap.xml', '/rss.xml'].includes(path)) {
+      const asset = await env.ASSETS.fetch(new Request(request.url)).catch(() => null);
+      if (asset?.ok) {
+        if (path.startsWith('/content/')) return staticArticle(asset, path, source);
+        const headers = new Headers(asset.headers);
+        headers.set('Content-Type', path === '/rss.xml' ? 'application/rss+xml; charset=utf-8' : 'application/xml; charset=utf-8');
+        return responseHeaders(new Response(asset.body, { headers }), source);
+      }
+    }
+    if (path.startsWith('/content/')) {
+      const posts = await staticCatalog(request, env);
+      return reader(request, env, null, [], posts ? 404 : 503);
+    }
     if (['/sitemap.xml', '/rss.xml'].includes(url.pathname)) return new Response('Blogger unavailable', {
       status: 503, headers: { 'Cache-Control': 'no-store', 'Retry-After': '300' },
     });
@@ -317,7 +398,7 @@ export async function articlePage(request, env, ctx) {
       rewrite.on('head', { element: (element) => element.append('<meta name="robots" content="noindex,follow">', { html: true }) });
     }
     rewrite.on('#article-content', { element: (element) => element.setAttribute('aria-busy', 'false') });
-    return responseHeaders(rewrite.transform(new Response(template.body, { status: data ? 200 : 503, headers: template.headers })), data ? 'blogger' : 'unavailable');
+    return responseHeaders(rewrite.transform(new Response(template.body, { status: data ? 200 : 503, headers: template.headers })), data ? source : 'unavailable');
   }
   if (url.pathname === '/sitemap.xml' || url.pathname === '/rss.xml') {
     return new Response(url.pathname === '/sitemap.xml' ? sitemap(data.posts, data.routes) : rss(data.posts), {
@@ -335,11 +416,7 @@ export async function articlePage(request, env, ctx) {
   if (path.startsWith('/content/')) {
     const asset = await env.ASSETS.fetch(request);
     if (!asset.ok) return asset;
-    const canonical = new URL(path, SITE).href;
-    const rewrite = new HTMLRewriter()
-      .on('link[rel="canonical"]', { element: (element) => element.setAttribute('href', canonical) })
-      .on('meta[property="og:url"]', { element: (element) => element.setAttribute('content', canonical) });
-    return responseHeaders(rewrite.transform(asset), 'legacy-pending-import');
+    return staticArticle(asset, path, 'legacy-pending-import');
   }
   return reader(request, env, null, [], 404);
 }

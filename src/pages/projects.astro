@@ -1,4 +1,5 @@
 ---
+import { icon } from "../lib/icons.js";
 import SiteLayout from '../layouts/SiteLayout.astro';
 const metadata = {
   "title": "開源專案 | 蔡泓恩 | 職能治療師",
@@ -82,13 +83,13 @@ const metadata = {
           </div>
           <a class="button-primary" href="https://trainerhub.cc" target="_blank" rel="noopener">
             開啟 TrainerHub
-            <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+            <Fragment set:html={icon("open_in_new")} />
           </a>
         </section>
 
         <p id="projects-status" class="projects-status" role="status" aria-live="polite"></p>
         <noscript><p class="projects-status">請開啟 JavaScript 瀏覽專案卡片，或<a href="https://github.com/ian030590?tab=repositories" target="_blank" rel="noopener noreferrer">前往 GitHub 查看所有公開專案</a>。</p></noscript>
-        <div id="projects-grid" class="projects-grid">
+        <div id="projects-grid" data-source-icon={icon("open_in_new")} class="projects-grid">
           <p class="empty-state js-only">正在載入公開專案…</p>
         </div>
       </div>

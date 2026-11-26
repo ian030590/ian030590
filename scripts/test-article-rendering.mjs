@@ -35,6 +35,9 @@ assert.throws(() => catalog([post, post], routes), /Duplicate/);
 assert.throws(() => catalog([{ id: 'bad' }], routes), /Invalid/);
 assert.deepEqual(catalog([post], {}), [], 'Withdrawn Git sources stay hidden while the trash operation is queued');
 const body = articleBody(posts[0], posts);
+const iconBody = articleBody({ content: '<span class="material-symbols-outlined">person</span><span class="material-symbols-outlined">unknown_icon</span>' }, []);
+assert.match(iconBody, /<svg class="icon" viewBox="0 -960 960 960"[^>]*><path d="/);
+assert.doesNotMatch(iconBody, /material-symbols|unknown_icon|>person</);
 const imagePost = { content: `<img class="article-featured-img-small" fetchpriority="high">
   <img class="wide article-featured-img" loading="eager" fetchpriority="high">
   <img class="article-featured-img" loading="eager" fetchpriority="high">` };
@@ -188,3 +191,64 @@ try {
   await runtime.dispose();
 }
 console.log('Article rendering checks passed: redirects, Blogger routes, sanitized content, tag hubs, schema and feeds.');
+
+
+let catalogAvailable = true;
+const offline = new Miniflare(convertV4MiniflareOptions({
+  modules: true, script: output[0].code, cf: false, compatibilityDate: '2026-10-19', compatibilityFlags: ['nodejs_compat'],
+  serviceBindings: { ASSETS(request) {
+    const path = decodeURI(new URL(request.url).pathname);
+    if (catalogAvailable && path === '/js/articles-data.js') {
+      const items = extraPosts.map((post, i) => ({ ...post, dateString: '2026-10-27',
+        link: route + i + '.html', tags: [i ? 'other' : 'test'] }));
+      return new Response('window.__STATIC_ARTICLES__ = ' + JSON.stringify(items) + ';');
+    }
+    if (path === route) return new Response(`<html><head><style>body{color:black}</style>
+      <link rel="stylesheet" href="/css/style.css"><script type="application/ld+json">{"@type":"Article"}</script></head>
+      <body><style>.callout-box{background:white}</style><span class="material-symbols-outlined">person</span>
+      <span class="material-symbols-outlined">unknown_icon</span><script src="/js/main.js"></script></body></html>`);
+    if (path === '/blog' || path === '/article') return template(path.slice(1));
+    if (path.endsWith('.xml')) return new Response('<static/>');
+    return new Response(null, { status: 404 });
+  } },
+}));
+try {
+  async function fallback(path) {
+    const response = await offline.dispatchFetch(SITE + path);
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('X-Article-Source'), 'static');
+    return response;
+  }
+  const html = await (await fallback(route)).text();
+  assert.match(html, /<svg class="icon"/);
+  assert.doesNotMatch(html, /<style\b/i);
+  assert.ok(html.includes('<link rel="stylesheet" href="/css/style.css">'));
+  assert.ok(html.includes('<script type="application/ld+json">{"@type":"Article"}</script>'));
+  assert.ok(html.includes('<script src="/js/main.js"></script>'));
+  assert.match(html, /Noto\+Sans\+TC/);
+  assert.doesNotMatch(html, /material-symbols-outlined|unknown_icon/);
+  for (const [path, count] of [['/blog', 15], ['/blog?tag=test', 1]]) {
+    assert.equal(((await (await fallback(path)).text()).match(/class="card-link"/g) || []).length, count);
+  }
+  assert.equal((await (await fallback('/api/articles')).json()).items.length, 16);
+  for (const [path, type] of [['/sitemap.xml', 'application/xml'], ['/rss.xml', 'application/rss+xml']]) {
+    const response = await fallback(path);
+    assert.equal(response.headers.get('Content-Type').split(';')[0], type);
+    assert.equal(await response.text(), '<static/>');
+  }
+  for (const [path, destination] of [['/article', '/blog'], ['/article?id=1000', route + '0']]) {
+    const response = await offline.dispatchFetch(SITE + path, { redirect: 'manual' });
+    assert.equal(response.status, 302);
+    assert.equal(response.headers.get('Location'), new URL(destination, SITE).href);
+  }
+  const missing = await offline.dispatchFetch(SITE + '/content/missing');
+  assert.equal(missing.status, 404);
+  assert.match(await missing.text(), /找不到這篇文章/);
+  assert.equal((await offline.dispatchFetch(SITE + '/article?id=999')).status, 503);
+  catalogAvailable = false;
+  const unavailable = await offline.dispatchFetch(SITE + '/content/missing');
+  assert.equal(unavailable.status, 503);
+  assert.equal(unavailable.headers.get('X-Article-Source'), 'unavailable');
+} finally {
+  await offline.dispose();
+}
