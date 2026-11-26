@@ -58,7 +58,7 @@ const metadata = {
 };
 ---
 <SiteLayout {...metadata}>
-    <main class="page-main contact-page">
+    <main id="main-content" tabindex="-1" class="page-main contact-page">
       <div class="container">
         <section class="contact-hero" aria-labelledby="contact-title">
           <div class="contact-hero-copy">
@@ -68,7 +68,7 @@ const metadata = {
             </p>
           </div>
           <aside class="contact-availability" aria-label="最直接的聯絡方式">
-            <span class="contact-availability-label">最直接的方式</span>
+            <span class="contact-availability-label">電子郵件</span>
             <a href="mailto:rainbowh9490@gmail.com">rainbowh9490@gmail.com</a>
             <p>適合合作邀請、研究交流與專案討論。</p>
           </aside>
@@ -80,7 +80,7 @@ const metadata = {
               <h2 id="message-title">先簡單說說你的需求</h2>
               <p>送出後訊息會直接寄到我的信箱，我會回覆到你留下的電子郵件。</p>
             </div>
-            <form id="contact-form" class="contact-form" aria-describedby="contact-form-note">
+            <form method="post" action="/api/contact" id="contact-form" class="contact-form" aria-describedby="contact-form-note">
               <div class="field">
                 <label for="sender-name">姓名／單位</label>
                 <input id="sender-name" name="name" autocomplete="name" placeholder="你的姓名或單位" maxlength="100" required />

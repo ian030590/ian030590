@@ -29,7 +29,7 @@ const modules = [
       </div>
     </div>
   </div>
-  <figcaption>TrainerHub 功能示意，實際練習請前往平台。</figcaption>
+  <figcaption>TrainerHub 功能示意。選擇{modules.map((module) => module.name).join("、")}其中一類後，設定參數、進行練習，再匯出成績。實際練習請前往平台。</figcaption>
 </figure>
 
 <style>
@@ -47,7 +47,7 @@ const modules = [
   .trainerhub-window {
     width: calc(100% + 48px);
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: var(--radius);
     background: var(--surface);
     box-shadow: 0 0 0 1px var(--line), var(--shadow);
   }
@@ -80,7 +80,7 @@ const modules = [
     min-width: 0;
     margin-left: 8px;
     padding: 2px 10px;
-    border-radius: 6px;
+    border-radius: 8px;
     background: var(--surface);
     color: var(--muted);
     font-size: var(--font-size-small);
@@ -107,7 +107,7 @@ const modules = [
   .preview-module {
     padding: 20px 12px;
     border: 1px solid var(--line);
-    border-radius: 7px;
+    border-radius: 8px;
     font-size: 18px;
     line-height: 1.5;
   }

@@ -70,12 +70,13 @@ export function catalog(posts, routes) {
 
 export function articleBody(post, posts) {
   const prefix = 'blogger-';
+  let hasFeaturedImage = false;
   return sanitizeHtml(post.content || '', {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'details', 'summary']),
     allowedAttributes: {
       '*': ['class', 'id', 'role', 'aria-label', 'aria-hidden'],
       a: ['href', 'target', 'rel'],
-      img: ['src', 'alt', 'title', 'width', 'height', 'loading'],
+      img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'fetchpriority'],
       th: ['colspan', 'rowspan', 'scope'], td: ['colspan', 'rowspan'],
       col: ['span'], time: ['datetime'],
     },
@@ -89,7 +90,14 @@ export function articleBody(post, posts) {
         if (attrs.class) attrs.class = attrs.class.split(/\s+/).filter((c) => c !== 'article-container').join(' ');
         if (tagName === 'img') {
           attrs.src = httpURL(attrs.src, post.url || SITE);
-          attrs.loading = 'lazy';
+          if (!hasFeaturedImage && attrs.class?.split(' ').includes('article-featured-img')) {
+            hasFeaturedImage = true;
+            attrs.loading = 'eager';
+            attrs.fetchpriority = 'high';
+          } else {
+            attrs.loading = 'lazy';
+            delete attrs.fetchpriority;
+          }
         }
         if (tagName === 'a' && attrs.href) {
           if (attrs.href.startsWith('#')) attrs.href = '#' + prefix + attrs.href.slice(1);
@@ -175,7 +183,7 @@ export function cards(posts) {
   return '<div class="articles-grid">' + posts.map((post, index) => `
     <article class="article-card ${index === 0 && posts.length > 1 ? 'article-card--featured' : ''}">
       <a class="card-link" href="${escape(post.link)}">
-        <div class="article-visual ${post.imageUrl ? '' : 'no-image'}">${post.imageUrl ? `<img src="${escape(post.imageUrl)}" alt="" loading="lazy">` : ''}${index === 0 ? '<span class="featured-badge">最新專題</span>' : ''}</div>
+        <div class="article-visual ${post.imageUrl ? '' : 'no-image'}">${post.imageUrl ? `<img src="${escape(post.imageUrl)}" alt="" ${index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'}>` : ''}${index === 0 ? '<span class="featured-badge">最新專題</span>' : ''}</div>
         <div class="article-content">
           <div class="card-tags-row">${post.tags.map((tag) => `<span class="card-tag-pill">${escape(tag)}</span>`).join('')}</div>
           <h2 class="article-title">${escape(post.title)}</h2>

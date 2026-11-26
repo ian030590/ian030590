@@ -227,6 +227,24 @@ button {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
+main[tabindex="-1"] {
+  scroll-margin-top: 90px;
+}
+.skip-link {
+  position: fixed;
+  inset: 8px auto auto 8px;
+  z-index: 21;
+  transform: translateY(calc(-100% - 16px));
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+}
+.skip-link:focus-visible {
+  transform: none;
+  outline: 3px solid var(--color-focus-ring);
+}
 html:not(.js) .js-only {
   display: none;
 }
@@ -708,7 +726,7 @@ html:not(.js) .js-only {
   }
 }
 
-/* Contact and sponsor: clinical, quiet, and intentionally low-density. */
+/* Animated icons */
 .animate-icon {
   width: 1.2em;
   height: 1.2em;
@@ -1657,6 +1675,10 @@ a.article-badge:hover {
   text-align: center;
   max-width: 100%;
   overflow: hidden;
+}
+
+.article-featured-figure img {
+  aspect-ratio: 3 / 2;
 }
 
 .article-featured-img,
@@ -2665,7 +2687,6 @@ a.article-badge:hover {
   line-height: 1.4;
   min-height: 46px;
   text-decoration: none !important;
-  box-shadow: 0 2px 6px rgba(0, 56, 100, 0.2);
   transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
@@ -2682,7 +2703,7 @@ a.article-badge:hover {
 .trainerhub-cta-btn:focus-visible,
 .ot-blog-article a.button-primary:focus-visible,
 .ot-blog-article a.trainerhub-cta-btn:focus-visible {
-  outline: 3px solid var(--blue-400, #529deb) !important;
+  outline: 3px solid var(--color-focus-ring) !important;
   outline-offset: 3px !important;
 }
 
@@ -2699,14 +2720,12 @@ a.article-badge:hover {
   background: var(--primary);
   color: #ffffff !important;
   border: 1.5px solid var(--blue-300, #8ebff6);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 :root[data-theme="dark"] :is(.button-primary, .trainerhub-cta-btn):hover {
   background: var(--primary-strong);
   color: #ffffff !important;
   border-color: #ffffff;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
 }
 
 @media (prefers-color-scheme: dark) {

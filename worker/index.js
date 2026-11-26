@@ -67,41 +67,53 @@ async function handleContact(request, env) {
     return new Response(null, { status: 405, headers: { Allow: 'POST' } });
   }
 
+  const contentType = request.headers.get('Content-Type') || '';
+  const mediaType = contentType.split(';')[0].trim().toLowerCase();
+  const native = ['application/x-www-form-urlencoded', 'multipart/form-data'].includes(mediaType);
+  const respond = (status, data) => native
+    ? new Response(null, { status: 303, headers: {
+      Location: '/contact?' + (data.ok ? 'sent=1' : 'error=' + status),
+      'Cache-Control': 'no-store',
+    } })
+    : json(status, data);
+
   // Browsers always send Origin on a cross-site POST; only accept our own pages.
   const origin = request.headers.get('Origin');
   if (origin && origin !== new URL(request.url).origin) {
-    return json(403, { error: '不接受來自其他網站的請求。' });
+    return respond(403, { error: '不接受來自其他網站的請求。' });
   }
-  if (!(request.headers.get('Content-Type') || '').includes('application/json')) {
-    return json(415, { error: '表單內容格式錯誤。' });
+  if (!native && mediaType !== 'application/json') {
+    return respond(415, { error: '表單內容格式錯誤。' });
   }
 
   if (env.CONTACT_RATE_LIMITER) {
     const key = request.headers.get('CF-Connecting-IP') || 'unknown';
     const { success } = await env.CONTACT_RATE_LIMITER.limit({ key });
-    if (!success) return json(429, { error: '送出次數過多，請稍候一分鐘再試。' });
+    if (!success) return respond(429, { error: '送出次數過多，請稍候一分鐘再試。' });
   }
 
-  const raw = await request.text();
-  if (new TextEncoder().encode(raw).length > MAX_BODY_BYTES) {
-    return json(413, { error: '訊息內容過長。' });
+  const raw = await request.arrayBuffer();
+  if (raw.byteLength > MAX_BODY_BYTES) {
+    return respond(413, { error: '訊息內容過長。' });
   }
   let input;
   try {
-    input = JSON.parse(raw);
+    input = native
+      ? Object.fromEntries(await new Response(raw, { headers: { 'Content-Type': contentType } }).formData())
+      : JSON.parse(new TextDecoder().decode(raw));
   } catch {
-    return json(400, { error: '表單內容格式錯誤。' });
+    return respond(400, { error: '表單內容格式錯誤。' });
   }
 
   // Bots fill the hidden "website" field; pretend success so they move on.
-  if (text(input?.website)) return json(200, { ok: true });
+  if (text(input?.website)) return respond(200, { ok: true });
 
   const { fields, error } = validateContact(input);
-  if (error) return json(400, { error });
+  if (error) return respond(400, { error });
 
   if (!env.RESEND_API_KEY || !env.CONTACT_FROM_EMAIL || !env.CONTACT_TO_EMAIL) {
     console.error('RESEND_API_KEY, CONTACT_FROM_EMAIL and CONTACT_TO_EMAIL must all be set');
-    return json(503, { error: UNAVAILABLE });
+    return respond(503, { error: UNAVAILABLE });
   }
 
   const response = await fetch(RESEND_ENDPOINT, {
@@ -111,12 +123,16 @@ async function handleContact(request, env) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(emailPayload(fields, env)),
+  }).catch((error) => {
+    if (!native) throw error;
+    return null;
   });
+  if (!response) return respond(502, { error: UNAVAILABLE });
   if (!response.ok) {
     console.error(`Resend request failed: ${response.status} ${await response.text()}`);
-    return json(502, { error: UNAVAILABLE });
+    return respond(502, { error: UNAVAILABLE });
   }
-  return json(200, { ok: true });
+  return respond(200, { ok: true });
 }
 
 export default {

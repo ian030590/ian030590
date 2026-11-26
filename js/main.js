@@ -1,6 +1,17 @@
 (() => {
   "use strict";
 
+  const main = document.querySelector("main");
+  if (main && !document.querySelector(".skip-link")) {
+    if (!main.id) main.id = "main-content";
+    main.tabIndex = -1;
+    const skip = document.createElement("a");
+    skip.className = "skip-link";
+    skip.href = "#" + main.id;
+    skip.textContent = "跳至主要內容";
+    document.body.prepend(skip);
+  }
+
   const githubUser = "ian030590";
 
   const escapeHtml = (value) =>
@@ -236,7 +247,7 @@
   if (articleContent) {
     const articlesStatus = document.getElementById("articles-status");
     const articlesPerPage = 15;
-    let allPosts = [];
+    let allPosts = null;
     const currentTag = new URLSearchParams(window.location.search).get("tag") || "";
     const { blogSearch = "", ...historyState } = window.history?.state || {};
     let searchQuery = blogSearch;
@@ -253,7 +264,7 @@
         url.searchParams.delete("tag");
       }
       // Reload the tag's heading and metadata while carrying the current search across the navigation.
-      window.history.replaceState({ ...historyState, blogSearch: searchQuery }, "", url);
+      window.history.pushState({ ...historyState, blogSearch: searchQuery }, "", url);
       window.location.reload();
     };
 
@@ -271,6 +282,7 @@
     };
 
     const renderArticles = (page = 1) => {
+      if (!allPosts) return;
       const q = searchQuery.toLowerCase();
       const filtered = allPosts.filter((post) => {
         if (currentTag && !post.tags.includes(currentTag)) return false;
@@ -330,7 +342,7 @@
             .join("");
           const imageMarkup = post.imageUrl
             ? `<div class="article-visual">
-                <img src="${escapeHtml(post.imageUrl)}" alt="" loading="lazy" onerror="this.remove();" />
+                <img src="${escapeHtml(post.imageUrl)}" alt="" ${index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'} onerror="this.remove();" />
                 ${badge}
               </div>`
             : `<div class="article-visual no-image">${badge}</div>`;
@@ -408,10 +420,6 @@
       tagsFilterList.querySelectorAll(".tag-filter-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           const tag = btn.getAttribute("data-tag") || "";
-          if (window.innerWidth <= 960) {
-            const top = articleContent.getBoundingClientRect().top + window.scrollY - 90;
-            window.scrollTo({ top, behavior: "smooth" });
-          }
           if (tag !== currentTag) selectTag(tag);
           else renderArticles();
         });
@@ -438,6 +446,8 @@
       });
     }
 
+    if (blogSearchInput && clearSearchBtn) blogSearchInput.closest(".search-widget").hidden = false;
+
     const initArticles = (articles) => {
       allPosts = articles
         .map((item) => ({
@@ -463,7 +473,6 @@
       renderArticles();
     };
 
-    let hasCatalog = false;
     const useCatalog = (items) => {
       if (!Array.isArray(items)) throw new Error("Invalid Blogger catalog");
       const articles = items.map((post) => {
@@ -484,7 +493,6 @@
         };
       });
       initArticles(articles);
-      hasCatalog = true;
     };
 
     try {
@@ -492,21 +500,30 @@
       if (initial) useCatalog(initial);
     } catch { /* The API can recover a missing server catalog. */ }
 
-    fetch("/api/articles")
-      .then((response) => {
+    const loadCatalog = async () => {
+      articleContent.setAttribute("aria-busy", "true");
+      try {
+        const response = await fetch("/api/articles");
         if (!response.ok) throw new Error("Blogger catalog unavailable");
-        return response.json();
-      })
-      .then(({ items }) => {
-        useCatalog(items);
+        useCatalog((await response.json()).items);
         if (articlesStatus) articlesStatus.textContent = "";
-      })
-      .catch(() => {
-        if (articlesStatus) articlesStatus.textContent = hasCatalog
+      } catch {
+        if (articlesStatus) articlesStatus.textContent = allPosts
           ? "目前顯示本次頁面取得的 Blogger 文章；最新資料暫時無法更新。"
-          : "文章暫時無法取得，請稍後重新整理。";
-      })
-      .finally(() => articleContent.setAttribute("aria-busy", "false"));
+          : "文章目錄暫時無法載入。";
+        if (!allPosts) {
+          articleContent.innerHTML = '<button class="button-secondary" type="button">重新載入文章目錄</button>';
+          const retry = articleContent.querySelector("button");
+          retry.addEventListener("click", () => {
+            retry.disabled = true;
+            loadCatalog();
+          });
+        }
+      } finally {
+        articleContent.setAttribute("aria-busy", "false");
+      }
+    };
+    loadCatalog();
   }
 
   const contactForm = document.getElementById("contact-form");
@@ -519,7 +536,25 @@
       formStatus.textContent = message;
     };
 
-    // The Worker at /api/contact emails the message through Resend.
+    const url = new URL(window.location.href);
+    if (url.searchParams.has("error") || url.searchParams.get("sent") === "1") {
+      const reasons = new Map([
+        ["403", "表單必須從本站送出。"],
+        ["400", "表單內容有誤，請確認必填欄位、字數與信箱格式。"],
+        ["413", "訊息內容過長。"],
+        ["429", "送出次數過多，請稍候一分鐘再試。"],
+      ]);
+      if (url.searchParams.has("error")) {
+        const reason = reasons.get(url.searchParams.get("error")) || "寄信服務暫時無法使用。";
+        showStatus("error", `${reason} 你也可以直接寄信到 rainbowh9490@gmail.com。`);
+      } else {
+        showStatus("success", "已收到你的訊息，我會以電子郵件回覆。");
+      }
+      url.searchParams.delete("sent");
+      url.searchParams.delete("error");
+      window.history.replaceState(window.history.state, "", url);
+    }
+
     contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       const payload = Object.fromEntries(new FormData(contactForm));

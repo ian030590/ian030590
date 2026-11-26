@@ -35,6 +35,18 @@ assert.throws(() => catalog([post, post], routes), /Duplicate/);
 assert.throws(() => catalog([{ id: 'bad' }], routes), /Invalid/);
 assert.deepEqual(catalog([post], {}), [], 'Withdrawn Git sources stay hidden while the trash operation is queued');
 const body = articleBody(posts[0], posts);
+const imagePost = { content: `<img class="article-featured-img-small" fetchpriority="high">
+  <img class="wide article-featured-img" loading="eager" fetchpriority="high">
+  <img class="article-featured-img" loading="eager" fetchpriority="high">` };
+for (let render = 0; render < 2; render++) {
+  const [ordinary, hero, second] = articleBody(imagePost, posts).match(/<img\b[^>]*>/g);
+  assert.match(hero, /loading="eager"/);
+  assert.match(hero, /fetchpriority="high"/);
+  for (const image of [ordinary, second]) {
+    assert.match(image, /loading="lazy"/);
+    assert.doesNotMatch(image, /fetchpriority/);
+  }
+}
 for (const host of [legacyHost, new URL(SITE).host]) {
   const link = articleBody({ content: `<a href="http://${host}${route}.html#references">引用</a>` }, posts);
   assert.ok(link.includes(`href="${new URL(route, SITE).href}#blogger-references"`));
@@ -62,6 +74,8 @@ assert.deepEqual(trail.itemListElement, [
 ]);
 assert.equal(articleSchema({ ...posts[0], tags: [] })['@graph'][1].itemListElement[2].name, post.title);
 assert.match(cards(posts), /復健 &amp; &lt;標題&gt;/);
+assert.deepEqual(cards([posts[0], posts[0]]).match(/loading="[^"]+"(?: fetchpriority="high")?/g),
+  ['loading="eager" fetchpriority="high"', 'loading="lazy"']);
 for (const xml of [sitemap(posts, routes), rss(posts)]) {
   assert.doesNotMatch(xml, /blog\.example|\/article\?id=123|001_視覺復健\.html/);
   assert.ok(xml.includes(new URL(route, SITE).href));

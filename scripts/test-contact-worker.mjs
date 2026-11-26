@@ -62,6 +62,19 @@ for (const value of [valid.name, valid.role, valid.email, valid.body]) {
   assert.ok(email.text.includes(value), `Email text must include ${value}`);
 }
 
+for (const email of [valid.email, 'invalid']) {
+  const fields = { ...valid, email };
+  const multipart = new FormData();
+  for (const [key, value] of Object.entries(fields)) multipart.set(key, value);
+  for (const body of [new URLSearchParams(fields), multipart]) {
+    resendCalls = [];
+    const response = await worker.fetch(new Request(site + '/api/contact', { method: 'POST', body }), env());
+    assert.equal(response.status, 303);
+    assert.equal(response.headers.get('Location'), email === valid.email ? '/contact?sent=1' : '/contact?error=400');
+    assert.equal(resendCalls.length, Number(email === valid.email));
+  }
+}
+
 result = await send(post({ ...valid, role: undefined, subject: ' \r\n ' }));
 assert.equal(result.status, 200);
 assert.equal(resendCalls[0].body.subject, `[網站聯絡] 一般聯絡 - ${valid.name}`);
