@@ -1991,7 +1991,7 @@ a.article-badge:hover {
   transition: all 0.2s ease;
 }
 
-.prev-next-card:hover {
+a.prev-next-card:hover {
   border-color: var(--primary);
   box-shadow: var(--shadow);
 }
@@ -2182,10 +2182,15 @@ a.article-badge:hover {
 }
 
 .prev-next-nav .prev-next-card.is-disabled {
-  opacity: 0.6;
+  border: 1px dashed var(--color-border-strong);
+  color: var(--muted);
   cursor: default;
   transform: none;
   box-shadow: none;
+}
+
+.prev-next-card.is-disabled .prev-next-label {
+  color: inherit;
 }
 
 @media (max-width: 600px) {
